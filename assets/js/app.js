@@ -49,23 +49,16 @@
         <nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
           <div class="ptg-nav-item" data-dropdown>
             <a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a>
-            <div class="ptg-nav-dropdown">
-              <a href="${base}/about/">인사말·비전</a>
-              <a href="${base}/newsroom/">펜타곤 소식</a>
-              <a href="${base}/location/">오시는 길</a>
-            </div>
+            <div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div>
           </div>
           <div class="ptg-nav-item" data-dropdown>
             <a class="ptg-nav-link" href="${base}/services/">업무분야</a>
-            <div class="ptg-nav-dropdown">
-              <a href="${base}/services/legal/">법률</a>
-              <a href="${base}/services/tax/">세무</a>
-              <a href="${base}/services/ip/">IP</a>
-              <a href="${base}/services/recovery/">추심</a>
-              <a href="${base}/services/registry/">등기</a>
-            </div>
+            <div class="ptg-nav-dropdown"><a href="${base}/services/legal/">법률</a><a href="${base}/services/tax/">세무</a><a href="${base}/services/ip/">IP</a><a href="${base}/services/recovery/">추심</a><a href="${base}/services/registry/">등기</a></div>
           </div>
-          <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a></div>
+          <div class="ptg-nav-item" data-dropdown>
+            <a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a>
+            <div class="ptg-nav-dropdown"><a href="${base}/professionals/chaeyonghyun/">채용현</a><a href="${base}/professionals/kanggeon/">강건</a><a href="${base}/professionals/kimjisoo/">김지수</a><a href="${base}/professionals/jeonseunghwan/">전승환</a></div>
+          </div>
           <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무사례</a></div>
           <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스탑서비스</a></div>
           <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
@@ -91,10 +84,11 @@
   document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{
     const href=a.getAttribute('href')||'';
     const local=href.replace(base,'');
-    if(local!=='/' && path.startsWith(local)) a.classList.add('is-active');
+    if(local!=='/'&&path.startsWith(local)) a.classList.add('is-active');
   });
   if(path.startsWith('/services/')) document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')) document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
+  if(path.startsWith('/professionals/')) document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
 
   const btn=document.querySelector('.ptg-site-header__menu');
   const nav=document.querySelector('#ptgSiteNav');
