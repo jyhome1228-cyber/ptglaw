@@ -1,1 +1,118 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>상담 문의 | 펜타곤 법률세무회계</title><meta name="description" content="현재 상황, 중요 기한, 보유 자료를 남겨주시면 상담 가능 범위와 필요한 자료를 안내드립니다."><link rel="canonical" href="https://ptglaw.co.kr/contact/"><link rel="stylesheet" href="../assets/css/style.css"></head><body><div data-site-header></div><main><section class="page-hero"><div class="wrap"><p class="eyebrow">CONTACT PTG LAW</p><h1>필요한 내용을<br>바로 문의해주세요.</h1><p>현재 상황과 중요한 기한, 보유 자료를 간단히 남겨주세요. 담당자가 내용을 확인한 뒤 상담 가능 범위와 준비 자료를 안내드립니다.</p></div></section><section class="section"><div class="wrap cards-3"><article class="info-card"><span>01</span><h3>현재 상황</h3><p>어떤 문제가 발생했는지 간단히 적어주세요.</p></article><article class="info-card"><span>02</span><h3>중요 기한</h3><p>신고일, 제출일, 재판일 등 기한이 있다면 함께 알려주세요.</p></article><article class="info-card"><span>03</span><h3>보유 자료</h3><p>계약서, 고지서, 안내문 등 가지고 있는 자료를 알려주세요.</p></article></div></section><section class="section section-soft"><div class="wrap content-grid"><div class="side-label">CONSULTATION</div><div class="content"><h2>상담 요청</h2><p>정식 이전 과정에서 현재 아임웹 상담폼의 분야 선택, 진행 단계, 파일 첨부 기능을 새 접수 시스템으로 연결할 예정입니다.</p><ul class="list-clean"><li><strong>대표 문의</strong> 02-6447-5597</li><li><strong>전화 상담</strong> 02-6447-5599</li><li><strong>이메일</strong> yhchae@ptglaw.co.kr</li><li><strong>사무실</strong> 서울 서초구 반포대로30길 32, 3층 (서초동, 트러스트힐)</li></ul><p class="notice">문의 내용만으로 구체적인 법률·세무 판단이 확정되는 것은 아니며, 정확한 검토는 담당자 상담과 관련 자료 확인 후 진행됩니다.</p></div></div></section></main><div data-site-footer></div><script src="../assets/js/app.js"></script></body></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>상담 문의 | 펜타곤 법률세무회계</title>
+  <meta name="description" content="현재 상황, 중요 기한, 보유 자료를 남겨주시면 펜타곤이 상담 가능 범위와 필요한 자료를 안내드립니다.">
+  <link rel="canonical" href="https://ptglaw.co.kr/contact/">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div data-site-header></div>
+<main>
+<section class="ptg-contact" id="ptgContact">
+  <div class="ptg-contact__inner">
+    <header class="ptg-contact__head">
+      <p class="ptg-contact__eyebrow">CONTACT PTG LAW</p>
+      <div class="ptg-contact__head-grid">
+        <h1>필요한 내용을<br>바로 문의해주세요.</h1>
+        <p>빠른 확인이 필요한 경우 현재 상황을 간단히 작성해 주세요. 담당자가 내용을 확인한 뒤 상담 가능 범위와 필요한 자료를 안내드립니다.</p>
+      </div>
+    </header>
+
+    <div class="ptg-contact__guide">
+      <div><span>01</span><strong>현재 상황</strong><p>어떤 문제가 발생했는지 간단히 적어주세요.</p></div>
+      <div><span>02</span><strong>중요 기한</strong><p>신고일, 제출일, 재판일 등 기한이 있다면 함께 남겨주세요.</p></div>
+      <div><span>03</span><strong>보유 자료</strong><p>계약서, 고지서, 안내문 등 가지고 있는 자료를 알려주세요.</p></div>
+    </div>
+
+    <div class="ptg-contact__layout">
+      <section class="ptg-contact-form-wrap" aria-labelledby="ptgContactFormTitle">
+        <div class="ptg-contact-form__title">
+          <div><span>INQUIRY FORM</span><h2 id="ptgContactFormTitle">상담 요청</h2></div>
+          <button type="button" id="ptgOpenAssistant">내용 정리가 어렵다면<br>문의 어시스턴트 →</button>
+        </div>
+
+        <form class="ptg-contact-form" id="ptgContactForm" novalidate>
+          <div class="ptg-field-grid">
+            <label class="ptg-field"><span>이름 <b>*</b></span><input id="contactName" name="name" type="text" autocomplete="name" required placeholder="이름을 입력해주세요"></label>
+            <label class="ptg-field"><span>연락처 <b>*</b></span><input id="contactPhone" name="phone" type="tel" autocomplete="tel" required placeholder="010-0000-0000"></label>
+            <label class="ptg-field"><span>이메일</span><input id="contactEmail" name="email" type="email" autocomplete="email" placeholder="name@email.com"></label>
+            <label class="ptg-field"><span>회사명 / 브랜드명</span><input id="contactCompany" name="company" type="text" autocomplete="organization" placeholder="해당하는 경우 입력해주세요"></label>
+            <label class="ptg-field"><span>문의 분야 <b>*</b></span><select id="contactCategory" required><option value="">선택해주세요</option><option>법률·소송</option><option>조세·세무</option><option>법인설립·등기</option><option>IP 지식재산권</option><option>채권 추심</option><option>상속·증여</option><option>부동산·재개발·재건축</option><option>기타</option></select></label>
+            <label class="ptg-field"><span>중요 기한</span><input id="contactDeadline" type="text" placeholder="예: 2026.09.30 제출 마감"></label>
+          </div>
+
+          <label class="ptg-field ptg-field--wide"><span>문의 내용 <b>*</b></span><textarea id="contactMessage" required placeholder="현재 상황, 상대방과의 관계, 이미 진행한 절차, 중요 기한 등을 자유롭게 작성해주세요."></textarea></label>
+
+          <label class="ptg-file-field"><span>파일 첨부</span><input id="contactFiles" type="file" multiple><small>계약서, 고지서, 안내문 등. GitHub 이전 단계에서는 선택한 파일명이 문의 내용에 포함되며 실제 첨부 전송은 접수 시스템 연결 후 활성화됩니다.</small><div id="contactFileNames">선택된 파일 없음</div></label>
+
+          <label class="ptg-consent"><input id="contactConsent" type="checkbox" required><span>상담 접수를 위해 이름, 연락처, 문의 내용을 제공하는 데 동의합니다. <a href="../privacy/" target="_blank">개인정보처리방침</a></span></label>
+
+          <div class="ptg-contact-form__actions">
+            <button type="submit" class="ptg-submit">이메일로 문의 보내기 →</button>
+            <a href="tel:0264475599" class="ptg-call">전화 문의 02-6447-5599</a>
+          </div>
+          <p class="ptg-form-status" id="contactStatus" aria-live="polite"></p>
+          <p class="ptg-form-note">문의 내용만으로 구체적인 법률·세무 판단이 확정되는 것은 아니며, 정확한 검토는 담당자 상담과 관련 자료 확인 후 진행됩니다.</p>
+        </form>
+      </section>
+
+      <aside class="ptg-contact-info">
+        <div class="ptg-contact-info__block"><span>REPRESENTATIVE</span><a class="ptg-contact-info__phone" href="tel:0264475597">02-6447-5597</a></div>
+        <div class="ptg-contact-info__block"><span>CONSULTATION</span><a href="tel:0264475599">02-6447-5599</a></div>
+        <div class="ptg-contact-info__block"><span>E-MAIL</span><a href="mailto:yhchae@ptglaw.co.kr">yhchae@ptglaw.co.kr</a></div>
+        <div class="ptg-contact-info__block"><span>OFFICE</span><p>서울 서초구 반포대로30길 32, 3층<br>(서초동, 트러스트힐)</p></div>
+        <p class="ptg-contact-info__caption">기한이 임박한 사건은 문의 내용에 정확한 날짜를 함께 남겨주세요.</p>
+      </aside>
+    </div>
+
+    <section class="ptg-assistant" id="ptgAssistant" hidden>
+      <div class="ptg-assistant__head"><div><p class="ptg-contact__eyebrow">CONSULTATION ASSISTANT</p><h2>상황을 선택하면<br>문의 내용을 자동으로 정리합니다.</h2></div><button type="button" id="ptgCloseAssistant">닫기 ×</button></div>
+
+      <div class="ptg-assistant__step"><span>01</span><div><h3>지금 가장 걱정되는 부분</h3><div class="ptg-choice" id="concernChoices"><button type="button" data-value="무엇부터 준비해야 할지 모르겠습니다">무엇부터 준비해야 할지 모르겠습니다</button><button type="button" data-value="예상 비용과 절차를 먼저 알고 싶습니다">예상 비용과 절차를 먼저 알고 싶습니다</button><button type="button" data-value="세금 문제가 생길까 걱정됩니다">세금 문제가 생길까 걱정됩니다</button><button type="button" data-value="상대방과 문제가 생겼거나 생길 것 같습니다">상대방과 문제가 생겼거나 생길 것 같습니다</button><button type="button" data-value="계약서, 등기, 신고 서류가 어렵습니다">계약서, 등기, 신고 서류가 어렵습니다</button><button type="button" data-value="기한이 있거나 급하게 처리해야 합니다">기한이 있거나 급하게 처리해야 합니다</button></div></div></div>
+
+      <div class="ptg-assistant__step"><span>02</span><div><h3>문의 분야</h3><div class="ptg-tabs" id="categoryChoices"><button type="button" data-key="law">법률·소송</button><button type="button" data-key="tax">조세·세무</button><button type="button" data-key="corp">법인설립·등기</button><button type="button" data-key="ip">IP 지식재산권</button><button type="button" data-key="recovery">채권 추심</button><button type="button" data-key="inheritance">상속·증여</button><button type="button" data-key="realestate">부동산·재개발·재건축</button></div><div class="ptg-issues" id="issueChoices"><p>분야를 선택하면 세부항목이 표시됩니다.</p></div></div></div>
+
+      <div class="ptg-assistant__step"><span>03</span><div><h3>현재 진행 단계</h3><div class="ptg-tabs" id="stageChoices"><button type="button" data-value="아직 아무것도 시작하지 않았습니다">시작 전</button><button type="button" data-value="자료를 준비 중입니다">자료 준비 중</button><button type="button" data-value="이미 신고·등기·계약을 진행했습니다">이미 진행 중</button><button type="button" data-value="문제가 발생해 대응이 필요합니다">문제 발생</button><button type="button" data-value="기한이 임박했습니다">기한 임박</button><button type="button" data-value="기존 전문가 상담을 받았지만 다시 검토하고 싶습니다">재검토 필요</button></div></div></div>
+
+      <div class="ptg-assistant__result"><div><span>RESULT</span><h3>정리된 상담 요청 내용</h3></div><textarea id="assistantResult" readonly></textarea><div class="ptg-assistant__actions"><button type="button" id="fillContactForm">문의폼에 반영하기</button><button type="button" id="copyAssistantResult">내용 복사</button></div></div>
+    </section>
+  </div>
+</section>
+
+<style>
+.ptg-contact{--o:#f58220;--black:#111;--text:#444;--muted:#777;--line:rgba(17,17,17,.14);--soft:#f7f7f5;--max:1370px;background:#fff;color:var(--black);font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;padding:82px 0 110px}.ptg-contact *{box-sizing:border-box;word-break:keep-all}.ptg-contact a{color:inherit;text-decoration:none}.ptg-contact__inner{width:calc(100% - 64px);max-width:var(--max);margin:0 auto}.ptg-contact__head{padding-bottom:42px;border-bottom:1px solid var(--line)}.ptg-contact__eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;color:var(--o);font-size:12px;font-weight:700}.ptg-contact__eyebrow:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--o)}.ptg-contact__head-grid{display:grid;grid-template-columns:1fr .85fr;gap:70px;align-items:end}.ptg-contact__head h1{margin:0;font-size:clamp(38px,4vw,54px);line-height:1.14;font-weight:700;letter-spacing:-.068em}.ptg-contact__head p{margin:0;color:var(--text);font-size:15px;line-height:1.9;letter-spacing:-.03em}.ptg-contact__guide{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}.ptg-contact__guide>div{padding:24px 22px;border-right:1px solid var(--line)}.ptg-contact__guide>div:last-child{border-right:0}.ptg-contact__guide span{display:block;margin-bottom:15px;color:var(--o);font-size:12px;font-weight:700}.ptg-contact__guide strong{display:block;margin-bottom:7px;font-size:16px}.ptg-contact__guide p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.ptg-contact__layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:70px;padding-top:70px;align-items:start}.ptg-contact-form__title{display:flex;justify-content:space-between;gap:30px;align-items:end;padding-bottom:22px;border-bottom:1px solid var(--line)}.ptg-contact-form__title span{display:block;margin-bottom:8px;color:var(--o);font-size:11px;font-weight:700}.ptg-contact-form__title h2{margin:0;font-size:30px;line-height:1.3}.ptg-contact-form__title button{appearance:none;border:0;background:transparent;color:var(--o);font-size:12px;line-height:1.5;font-weight:700;text-align:right;cursor:pointer}.ptg-contact-form{padding-top:28px}.ptg-field-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 28px}.ptg-field{display:block}.ptg-field>span,.ptg-file-field>span{display:block;margin-bottom:9px;font-size:13px;font-weight:650}.ptg-field b{color:var(--o)}.ptg-field input,.ptg-field select,.ptg-field textarea{width:100%;border:0;border-bottom:1px solid var(--line);border-radius:0;background:#fff;padding:13px 0;color:#111;font:inherit;font-size:14px;outline:none}.ptg-field input:focus,.ptg-field select:focus,.ptg-field textarea:focus{border-color:var(--o)}.ptg-field--wide{margin-top:30px}.ptg-field textarea{min-height:190px;resize:vertical;line-height:1.75}.ptg-file-field{display:block;margin-top:28px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.ptg-file-field input{display:block;margin:10px 0}.ptg-file-field small{display:block;color:var(--muted);font-size:11px;line-height:1.6}.ptg-file-field div{margin-top:10px;color:#555;font-size:12px}.ptg-consent{display:flex;gap:10px;align-items:flex-start;margin-top:22px;color:#555;font-size:12px;line-height:1.65}.ptg-consent input{margin-top:3px}.ptg-consent a{color:var(--o);text-decoration:underline}.ptg-contact-form__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.ptg-submit,.ptg-call{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:1px solid #111;background:#111;color:#fff!important;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.ptg-call{background:#fff;color:#111!important}.ptg-submit:hover{background:var(--o);border-color:var(--o)}.ptg-call:hover{border-color:var(--o);color:var(--o)!important}.ptg-form-status{min-height:22px;margin:14px 0 0;color:var(--o);font-size:12px;font-weight:700}.ptg-form-note{margin:10px 0 0;color:#888;font-size:11px;line-height:1.7}
+.ptg-contact-info{position:sticky;top:110px;border-top:2px solid #111}.ptg-contact-info__block{padding:20px 0;border-bottom:1px solid var(--line)}.ptg-contact-info__block>span{display:block;margin-bottom:8px;color:var(--o);font-size:10px;font-weight:700;letter-spacing:.08em}.ptg-contact-info__block a,.ptg-contact-info__block p{margin:0;font-size:13px;line-height:1.65}.ptg-contact-info__phone{font-size:24px!important;font-weight:700}.ptg-contact-info__caption{margin:22px 0 0;color:#777;font-size:12px;line-height:1.7}
+.ptg-assistant{margin-top:92px;padding-top:72px;border-top:1px solid var(--line)}.ptg-assistant[hidden]{display:none}.ptg-assistant__head{display:flex;justify-content:space-between;gap:40px;align-items:start;margin-bottom:38px}.ptg-assistant__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.25;letter-spacing:-.055em}.ptg-assistant__head button{border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer}.ptg-assistant__step{display:grid;grid-template-columns:70px minmax(0,1fr);gap:26px;padding:30px 0;border-top:1px solid var(--line)}.ptg-assistant__step>span{color:var(--o);font-size:13px;font-weight:700}.ptg-assistant__step h3{margin:0 0 18px;font-size:20px}.ptg-choice{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}.ptg-choice button,.ptg-tabs button,.ptg-issues button{appearance:none;border:1px solid var(--line);background:#fff;color:#111;font:inherit;font-size:13px;cursor:pointer}.ptg-choice button{min-height:72px;padding:16px;text-align:left;border-top:0}.ptg-choice button.is-active,.ptg-tabs button.is-active,.ptg-issues button.is-active{background:#111;color:#fff;border-color:#111}.ptg-tabs,.ptg-issues{display:flex;flex-wrap:wrap;gap:8px}.ptg-tabs button,.ptg-issues button{min-height:39px;padding:0 14px}.ptg-issues{margin-top:16px}.ptg-issues p{margin:0;color:#888;font-size:13px}.ptg-assistant__result{padding:28px 0;border-top:2px solid var(--o)}.ptg-assistant__result span{color:var(--o);font-size:11px;font-weight:700}.ptg-assistant__result h3{margin:8px 0 18px;font-size:22px}.ptg-assistant__result textarea{width:100%;min-height:240px;padding:18px;border:1px solid var(--line);font:inherit;font-size:13px;line-height:1.75;resize:vertical}.ptg-assistant__actions{display:flex;gap:8px;margin-top:14px}.ptg-assistant__actions button{min-height:44px;padding:0 18px;border:1px solid #111;background:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.ptg-assistant__actions button:first-child{background:var(--o);border-color:var(--o);color:#fff}
+@media(max-width:1050px){.ptg-contact__head-grid,.ptg-contact__layout{grid-template-columns:1fr}.ptg-contact-info{position:relative;top:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:0 30px}.ptg-contact-info__caption{grid-column:1/-1}.ptg-assistant__step{grid-template-columns:50px 1fr}}@media(max-width:720px){.ptg-contact{padding:58px 0 84px}.ptg-contact__inner{width:calc(100% - 40px)}.ptg-contact__head h1{font-size:clamp(32px,9vw,40px)}.ptg-contact__guide{grid-template-columns:1fr}.ptg-contact__guide>div{border-right:0;border-bottom:1px solid var(--line);padding:18px 0}.ptg-field-grid{grid-template-columns:1fr}.ptg-contact-form__title{display:block}.ptg-contact-form__title button{margin-top:15px;text-align:left}.ptg-contact-form__actions{display:grid}.ptg-submit,.ptg-call{width:100%}.ptg-contact-info{grid-template-columns:1fr}.ptg-choice{grid-template-columns:1fr}.ptg-assistant__head{display:block}.ptg-assistant__head button{margin-top:20px}.ptg-assistant__step{grid-template-columns:1fr;gap:8px}.ptg-assistant__actions{display:grid}.ptg-assistant__actions button{width:100%}}
+</style>
+
+<script>
+(function(){
+  var root=document.getElementById('ptgContact');if(!root)return;
+  var form=document.getElementById('ptgContactForm');
+  var name=document.getElementById('contactName'),phone=document.getElementById('contactPhone'),email=document.getElementById('contactEmail'),company=document.getElementById('contactCompany'),category=document.getElementById('contactCategory'),deadline=document.getElementById('contactDeadline'),message=document.getElementById('contactMessage'),files=document.getElementById('contactFiles'),consent=document.getElementById('contactConsent'),status=document.getElementById('contactStatus');
+  files.addEventListener('change',function(){document.getElementById('contactFileNames').textContent=files.files.length?Array.from(files.files).map(function(f){return f.name}).join(', '):'선택된 파일 없음'});
+  var assistant=document.getElementById('ptgAssistant');document.getElementById('ptgOpenAssistant').addEventListener('click',function(){assistant.hidden=false;assistant.scrollIntoView({behavior:'smooth',block:'start'})});document.getElementById('ptgCloseAssistant').addEventListener('click',function(){assistant.hidden=true});
+  var issueData={law:['계약서 검토','계약 분쟁','손해배상','내용증명','민사소송','형사 고소·고발','행정처분 대응','임대차 분쟁','주주·동업자 분쟁'],tax:['세무조사 대응','조세불복','과세처분 대응','법인세','부가가치세','종합소득세','경정청구','가산세','세금 체납'],corp:['법인설립 상담','주주 구성','임원 구성','정관 작성','설립등기','사업자등록','임원 변경등기','주소 이전등기','증자·감자'],ip:['상표 출원','특허 출원','디자인권','IP 계약','침해 대응','영업비밀','기술 유출','해외 출원'],recovery:['미수금','내용증명','지급명령','재산조사','가압류·가처분','강제집행','대여금','손해배상금'],inheritance:['상속재산분할','상속세','상속등기','상속포기','한정승인','유류분','증여','가업승계'],realestate:['매매계약','임대차 분쟁','명도','보증금 반환','재개발','재건축','조합원 지위','분담금','부동산 세금']};
+  var categoryLabel={law:'법률·소송',tax:'조세·세무',corp:'법인설립·등기',ip:'IP 지식재산권',recovery:'채권 추심',inheritance:'상속·증여',realestate:'부동산·재개발·재건축'};
+  var state={concern:'',category:'',issues:[],stage:''};
+  function single(selector,key,attr){root.querySelectorAll(selector).forEach(function(btn){btn.addEventListener('click',function(){root.querySelectorAll(selector).forEach(function(b){b.classList.remove('is-active')});btn.classList.add('is-active');state[key]=btn.getAttribute(attr);if(key==='category'){state.issues=[];renderIssues()}renderResult()})})}
+  single('#concernChoices button','concern','data-value');single('#categoryChoices button','category','data-key');single('#stageChoices button','stage','data-value');
+  function renderIssues(){var box=document.getElementById('issueChoices');box.innerHTML='';(issueData[state.category]||[]).forEach(function(v){var b=document.createElement('button');b.type='button';b.textContent=v;b.addEventListener('click',function(){var i=state.issues.indexOf(v);if(i>-1){state.issues.splice(i,1);b.classList.remove('is-active')}else{state.issues.push(v);b.classList.add('is-active')}renderResult()});box.appendChild(b)});if(!box.children.length)box.innerHTML='<p>분야를 선택하면 세부항목이 표시됩니다.</p>'}
+  function resultText(){var lines=['[펜타곤 상담 문의 내용]','', '1. 문의 분야','- '+(categoryLabel[state.category]||'선택 전'),'','2. 현재 가장 걱정되는 부분','- '+(state.concern||'선택 전'),'','3. 세부 상담 항목'];if(state.issues.length)state.issues.forEach(function(v){lines.push('- '+v)});else lines.push('- 선택 전');lines.push('','4. 현재 진행 단계','- '+(state.stage||'선택 전'),'','5. 추가로 전달하고 싶은 내용','');return lines.join('\n')}
+  function renderResult(){document.getElementById('assistantResult').value=resultText()}
+  document.getElementById('fillContactForm').addEventListener('click',function(){category.value=categoryLabel[state.category]||'';var prefix=resultText();message.value=prefix+'\n'+(message.value||'');assistant.hidden=true;form.scrollIntoView({behavior:'smooth',block:'start'})});
+  document.getElementById('copyAssistantResult').addEventListener('click',function(){var text=document.getElementById('assistantResult').value;navigator.clipboard?navigator.clipboard.writeText(text):null});
+  form.addEventListener('submit',function(e){e.preventDefault();status.textContent='';if(!name.value.trim()||!phone.value.trim()||!category.value||!message.value.trim()||!consent.checked){status.textContent='필수 항목과 개인정보 동의를 확인해주세요.';return}var fileNames=Array.from(files.files).map(function(f){return f.name}).join(', ');var body=['[펜타곤 상담 문의]','', '이름: '+name.value.trim(),'연락처: '+phone.value.trim(),'이메일: '+email.value.trim(),'회사/브랜드: '+company.value.trim(),'문의 분야: '+category.value,'중요 기한: '+deadline.value.trim(),'선택 파일: '+(fileNames||'없음'),'','문의 내용:',message.value.trim(),'','※ 선택한 파일은 메일 앱에서 별도로 첨부해주세요.'].join('\n');var subject='[펜타곤 상담문의] '+name.value.trim()+' / '+category.value;status.textContent='메일 앱을 여는 중입니다. 선택한 파일은 메일 앱에서 직접 첨부해주세요.';window.location.href='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)});
+  renderResult();
+})();
+</script>
+</main>
+<div data-site-footer></div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>
