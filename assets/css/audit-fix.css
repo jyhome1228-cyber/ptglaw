@@ -10,6 +10,29 @@
 .ptg-bottom-cta .ptg-bottom-cta__button *{color:var(--brand-primary)!important}
 .ptg-bottom-cta .ptg-bottom-cta__button:hover{color:var(--brand-primary-hover)!important}
 
+/* Restore the original Pentagon SVG proportions in the global menu/footer. */
+.ptg-site-header__logo{
+  width:138px!important;
+  height:36px!important;
+  flex:0 0 138px!important;
+  overflow:visible!important;
+}
+.ptg-site-header__logo img{
+  width:138px!important;
+  height:36px!important;
+  max-width:none!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  filter:none!important;
+  transform:none!important;
+}
+.ptg-site-footer__logo img{
+  width:138px!important;
+  height:auto!important;
+  filter:none!important;
+  transform:none!important;
+}
+
 /* Remove remaining decorative micro-English labels that do not help navigation. */
 .ptg-case-list-hero__eyebrow,
 .ptg-location-copy>.eyebrow,
@@ -56,4 +79,257 @@
   background:var(--brand-primary)!important;
   border-color:var(--brand-primary)!important;
   color:#fff!important;
+}
+
+/* =======================================================
+   CORPORATE FORMATION CENTER — compact, grouped layout
+======================================================= */
+.ptg-center-modern__page{background:#fff!important}
+.ptg-center-modern__hero{
+  padding:64px 0!important;
+  background:var(--surface-soft)!important;
+  border-bottom:1px solid var(--border-default)!important;
+}
+.ptg-center-modern__hero-grid{
+  grid-template-columns:minmax(0,.95fr) minmax(420px,1.05fr)!important;
+  gap:56px!important;
+  align-items:center!important;
+}
+.ptg-center-modern h1{
+  max-width:650px!important;
+  margin:0 0 20px!important;
+  font-size:clamp(34px,3vw,44px)!important;
+  line-height:1.2!important;
+  letter-spacing:-.05em!important;
+}
+.ptg-center-modern__lead{
+  max-width:620px!important;
+  margin:0!important;
+  font-size:16px!important;
+  line-height:1.72!important;
+}
+.ptg-center-modern__hero-actions{margin-top:28px!important}
+.ptg-center-modern__hero-info{
+  margin-top:34px!important;
+  border-top:1px solid var(--border-default)!important;
+}
+.ptg-center-modern__hero-info>div{padding-top:14px!important}
+.ptg-center-modern__hero-image{
+  height:440px!important;
+  border-radius:16px!important;
+  background:#f1f1ee!important;
+}
+.ptg-center-modern__hero-image img{object-fit:cover!important}
+
+.ptg-center-modern__intro,
+.ptg-center-modern__service,
+.ptg-center-modern__difference,
+.ptg-center-modern__faq{
+  padding:72px 0!important;
+}
+.ptg-center-modern__consult,
+.ptg-center-modern__process,
+.ptg-center-modern__prepare{
+  padding:72px 0!important;
+  background:var(--surface-subtle)!important;
+}
+.ptg-center-modern__section-head{
+  grid-template-columns:minmax(0,.9fr) minmax(360px,.7fr)!important;
+  gap:52px!important;
+  align-items:end!important;
+  padding-bottom:24px!important;
+}
+.ptg-center-modern__section-head h2{
+  margin:0!important;
+  max-width:680px!important;
+  font-size:clamp(28px,2.3vw,34px)!important;
+  line-height:1.3!important;
+}
+.ptg-center-modern__section-head>p,
+.ptg-center-modern__section-head>div+ p{
+  max-width:600px!important;
+  margin:0!important;
+  font-size:16px!important;
+  line-height:1.7!important;
+}
+
+/* Turn long vertical rows into compact card groups. */
+.ptg-center-modern__rows{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  margin-top:32px!important;
+}
+.ptg-center-modern__row{
+  display:block!important;
+  min-height:235px!important;
+  padding:24px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.ptg-center-modern__row>span{
+  display:block!important;
+  margin-bottom:24px!important;
+  color:var(--brand-primary)!important;
+  font-size:13px!important;
+  line-height:18px!important;
+  font-weight:700!important;
+}
+.ptg-center-modern__row h3{
+  margin:0 0 12px!important;
+  font-size:20px!important;
+  line-height:27px!important;
+}
+.ptg-center-modern__row>div{display:block!important}
+.ptg-center-modern__row>div>p{
+  margin:0 0 18px!important;
+  font-size:15px!important;
+  line-height:1.68!important;
+  color:var(--text-secondary)!important;
+}
+.ptg-center-modern__tags{
+  gap:7px!important;
+}
+.ptg-center-modern__tags em{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:30px!important;
+  padding:0 10px!important;
+  border-radius:999px!important;
+  background:var(--surface-subtle)!important;
+  color:var(--text-secondary)!important;
+  font-size:12px!important;
+}
+.ptg-center-modern__tags em:before{display:none!important}
+
+/* Consultation remains editorial 2-column, with less empty space. */
+.ptg-center-modern__consult-grid{
+  grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr)!important;
+  gap:52px!important;
+  align-items:center!important;
+}
+.ptg-center-modern__consult-image{
+  border-radius:16px!important;
+  overflow:hidden!important;
+  aspect-ratio:4/3!important;
+}
+.ptg-center-modern__consult-copy h2{
+  max-width:620px!important;
+  font-size:clamp(28px,2.2vw,34px)!important;
+}
+.ptg-center-modern__consult-copy>p{font-size:16px!important;line-height:1.72!important}
+.ptg-center-modern__consult-copy li{font-size:14px!important;line-height:1.6!important}
+
+/* Process becomes a compact 3x2 decision-flow grid. */
+.ptg-center-modern__process-grid{
+  display:block!important;
+}
+.ptg-center-modern__process-copy{width:100%!important}
+.ptg-center-modern__steps{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:16px!important;
+  margin-top:32px!important;
+}
+.ptg-center-modern__steps li{
+  display:block!important;
+  min-height:180px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+}
+.ptg-center-modern__steps li>span{
+  display:block!important;
+  margin-bottom:24px!important;
+  font-size:13px!important;
+}
+.ptg-center-modern__steps h3{font-size:18px!important;line-height:24px!important}
+.ptg-center-modern__steps p{margin-top:8px!important;font-size:14px!important;line-height:1.65!important}
+.ptg-center-modern__process-image{display:none!important}
+
+/* Comparison / preparation / FAQ remain functional but visually lighter. */
+.ptg-center-modern__comparison{
+  margin-top:32px!important;
+  border-top:1px solid var(--border-strong)!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+}
+.ptg-center-modern__comparison>div>*{
+  padding:17px 18px!important;
+  font-size:14px!important;
+  line-height:1.6!important;
+}
+.ptg-center-modern__comparison-head strong:last-child{
+  background:var(--brand-primary-soft)!important;
+  color:var(--brand-primary)!important;
+}
+.ptg-center-modern__prepare-grid{
+  grid-template-columns:minmax(300px,.7fr) minmax(0,1.3fr)!important;
+  gap:52px!important;
+}
+.ptg-center-modern__checklist{
+  gap:10px!important;
+  border:0!important;
+}
+.ptg-center-modern__checklist label{
+  min-height:68px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:10px!important;
+}
+.ptg-center-modern__faq-list{margin-top:24px!important}
+.ptg-center-modern__faq-item button{
+  padding:20px 0!important;
+}
+.ptg-center-modern__faq-item button span{
+  font-size:16px!important;
+}
+
+.ptg-center-modern__cta{
+  padding:64px 0!important;
+  background:#fff!important;
+}
+.ptg-center-modern__cta-grid{
+  grid-template-columns:minmax(0,1fr) minmax(360px,.65fr)!important;
+  gap:48px!important;
+  align-items:center!important;
+  padding:32px!important;
+  border:1px solid #f0dccb!important;
+  border-radius:16px!important;
+  background:var(--brand-primary-soft)!important;
+}
+.ptg-center-modern__cta-grid h2{margin:0!important;font-size:30px!important}
+.ptg-center-modern__cta-grid p{font-size:15px!important;line-height:1.7!important}
+
+@media(max-width:1100px){
+  .ptg-center-modern__hero-grid,
+  .ptg-center-modern__section-head,
+  .ptg-center-modern__consult-grid,
+  .ptg-center-modern__prepare-grid,
+  .ptg-center-modern__cta-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .ptg-center-modern__rows,
+  .ptg-center-modern__steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ptg-center-modern__hero-image{height:400px!important}
+}
+
+@media(max-width:720px){
+  .ptg-site-header__logo{width:124px!important;height:auto!important;flex-basis:124px!important}
+  .ptg-site-header__logo img{width:124px!important;height:auto!important}
+  .ptg-center-modern__hero{padding:48px 0 56px!important}
+  .ptg-center-modern__hero-image{height:300px!important;border-radius:12px!important}
+  .ptg-center-modern__intro,
+  .ptg-center-modern__consult,
+  .ptg-center-modern__service,
+  .ptg-center-modern__process,
+  .ptg-center-modern__difference,
+  .ptg-center-modern__prepare,
+  .ptg-center-modern__faq{padding:56px 0!important}
+  .ptg-center-modern__rows,
+  .ptg-center-modern__steps{grid-template-columns:1fr!important}
+  .ptg-center-modern__row{min-height:auto!important;padding:20px!important}
+  .ptg-center-modern__steps li{min-height:auto!important}
+  .ptg-center-modern__cta{padding:48px 0!important}
+  .ptg-center-modern__cta-grid{padding:24px!important}
 }
