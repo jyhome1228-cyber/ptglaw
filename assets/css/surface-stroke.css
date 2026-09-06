@@ -1,0 +1,167 @@
+/* =======================================================
+   PENTAGON SURFACE / ALIGNMENT PASS
+   Subtle strokes only where surfaces need separation.
+======================================================= */
+:root{
+  --stroke-soft:rgba(17,17,17,.065);
+  --stroke-hover:rgba(17,17,17,.12);
+  --surface-card:#fff;
+  --surface-card-soft:#fbfbf9;
+  --surface-warm:#fff8f2;
+  --radius-card:14px;
+  --radius-panel:16px;
+}
+
+/* ---------- ONE HORIZONTAL GRID ---------- */
+.ptg-site-header__inner,.ptg-notice-bar__inner,.ptg-bottom-cta__inner,.ptg-site-footer__inner,
+.home-shell,.about-shell,.wrap,.shell,.ptg-container,.penta-business-inner,.svc-shell,
+.penta-law-inner,.penta-tax-inner,.penta-ip-inner,.penta-reg-inner,.ptg-case-list-page__inner,
+#ptg-inherit-onestop .ptg-inner,.ptg-center-modern__container,.ptg-team-page__inner,
+.ptg-profile__inner,.ptg-contact__inner,.ptg-newsroom-clean__inner{
+  width:min(calc(100% - 64px),1280px)!important;
+  max-width:1280px!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+
+/* ---------- HOME ---------- */
+.home-entry-grid>a{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:var(--surface-card)!important;
+}
+.home-entry-grid>a:hover{border-color:var(--stroke-hover)!important;background:var(--surface-card-soft)!important}
+.home-contact{background:#fff!important}
+.home-contact__inner{
+  padding:30px 32px!important;
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-panel)!important;
+  background:var(--surface-card-soft)!important;
+}
+
+/* ---------- ABOUT ---------- */
+.about-standard,.about-promise__item,.about-value{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:var(--surface-card)!important;
+}
+.about-standard:hover,.about-promise__item:hover,.about-value:hover{border-color:var(--stroke-hover)!important;background:var(--surface-card-soft)!important}
+.about-intro__point{border:1px solid rgba(245,130,32,.12)!important;border-radius:var(--radius-card)!important}
+
+/* ---------- BUSINESS / SERVICE ---------- */
+.penta-service-item,.penta-problem-item,.svc-hero-point,.svc-need-card,.svc-service-row,.svc-flow-card,.svc-process-row,.svc-related-row{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:var(--surface-card)!important;
+}
+.penta-service-item:hover,.penta-problem-item:hover,.svc-need-card:hover,.svc-service-row:hover,.svc-related-row:hover{
+  border-color:var(--stroke-hover)!important;
+  background:var(--surface-card-soft)!important;
+}
+.svc-cta-box{border:1px solid rgba(245,130,32,.12)!important;border-radius:var(--radius-panel)!important;background:var(--surface-warm)!important}
+
+/* ---------- PROFESSIONALS ---------- */
+.ptg-person-card__image,.ptg-profile__photo{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+}
+.ptg-team-head__contact,.ptg-contact-line,.ptg-field-desc,.ptg-detail-card{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:var(--surface-card)!important;
+}
+.ptg-contact-line:hover,.ptg-detail-card:hover{border-color:var(--stroke-hover)!important}
+.ptg-field-list button{border:1px solid transparent!important}
+.ptg-field-list button:not(.is-active){background:var(--surface-card-soft)!important}
+.ptg-field-list button:not(.is-active):hover{border-color:var(--stroke-soft)!important;background:#fff!important}
+
+/* ---------- CASE LIST ---------- */
+.ptg-case-list-hero{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-panel)!important;
+  background:var(--surface-card-soft)!important;
+}
+.ptg-case-card{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:#fff!important;
+  overflow:hidden!important;
+}
+.ptg-case-card:hover{border-color:var(--stroke-hover)!important;background:var(--surface-card-soft)!important}
+.ptg-case-card__more{border:1px solid var(--stroke-soft)!important;border-radius:8px!important;background:#fff!important}
+
+/* ---------- INHERITANCE ---------- */
+#ptg-inherit-onestop :is(.ptg-service-card,.ptg-why-panel,.ptg-process-row,.ptg-related-card,.ptg-other-card,.ptg-faq-item){
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:#fff!important;
+}
+#ptg-inherit-onestop .ptg-why-panel.active{border-color:rgba(245,130,32,.14)!important;background:var(--surface-warm)!important}
+#ptg-inherit-onestop .ptg-table-wrap{border:1px solid var(--stroke-soft)!important;border-radius:var(--radius-card)!important;overflow:auto!important}
+
+/* ---------- CORPORATE CENTER ---------- */
+.ptg-center-modern__row,.ptg-center-modern__steps li,.ptg-center-modern__checklist label,.ptg-center-modern__faq-item{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:#fff!important;
+}
+.ptg-center-modern__row:hover,.ptg-center-modern__steps li:hover{border-color:var(--stroke-hover)!important;background:var(--surface-card-soft)!important}
+.ptg-center-modern__comparison{border:1px solid var(--stroke-soft)!important;border-radius:var(--radius-card)!important;overflow:auto!important}
+.ptg-center-modern__cta-grid{border:1px solid rgba(245,130,32,.12)!important;border-radius:var(--radius-panel)!important;background:var(--surface-warm)!important}
+
+/* ---------- NEWS ---------- */
+.ptg-news-card__visual{border:1px solid var(--stroke-soft)!important;border-radius:var(--radius-card)!important;overflow:hidden!important}
+.ptg-newsroom-clean__more{border:1px solid var(--stroke-soft)!important;border-radius:8px!important;background:#fff!important}
+
+/* ---------- CONTACT ---------- */
+.ptg-contact__guide>div,.ptg-contact-info,.ptg-file-field{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:#fff!important;
+}
+.ptg-field input,.ptg-field select,.ptg-field textarea{
+  border:1px solid var(--stroke-soft)!important;
+  background:#fff!important;
+  border-radius:10px!important;
+}
+.ptg-field input:focus,.ptg-field select:focus,.ptg-field textarea:focus{border-color:rgba(245,130,32,.45)!important}
+
+/* ---------- LOCATION ---------- */
+.ptg-location-photo-placeholder,.ptg-location-map-placeholder{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-card)!important;
+  background:var(--surface-card-soft)!important;
+}
+.ptg-location-button{border:1px solid var(--stroke-soft)!important;border-radius:8px!important;background:#fff!important}
+
+/* ---------- CTA CONSISTENCY ---------- */
+:is(.home-contact__inner,.svc-cta-box,.ptg-center-modern__cta-grid){box-shadow:none!important}
+
+/* Future case-detail template support */
+.ptg-case-detail__inner,.case-detail__inner{width:min(calc(100% - 64px),1280px)!important;max-width:1280px!important;margin-inline:auto!important}
+.ptg-case-detail__hero,.case-detail__hero,.ptg-case-detail__panel,.case-detail__panel{
+  border:1px solid var(--stroke-soft)!important;
+  border-radius:var(--radius-panel)!important;
+  background:#fff!important;
+  overflow:hidden!important;
+}
+
+@media(max-width:1024px){
+  .ptg-site-header__inner,.ptg-notice-bar__inner,.ptg-bottom-cta__inner,.ptg-site-footer__inner,
+  .home-shell,.about-shell,.wrap,.shell,.ptg-container,.penta-business-inner,.svc-shell,
+  .penta-law-inner,.penta-tax-inner,.penta-ip-inner,.penta-reg-inner,.ptg-case-list-page__inner,
+  #ptg-inherit-onestop .ptg-inner,.ptg-center-modern__container,.ptg-team-page__inner,
+  .ptg-profile__inner,.ptg-contact__inner,.ptg-newsroom-clean__inner,.ptg-case-detail__inner,.case-detail__inner{
+    width:min(calc(100% - 48px),1280px)!important;
+  }
+}
+@media(max-width:767px){
+  .ptg-site-header__inner,.ptg-notice-bar__inner,.ptg-bottom-cta__inner,.ptg-site-footer__inner,
+  .home-shell,.about-shell,.wrap,.shell,.ptg-container,.penta-business-inner,.svc-shell,
+  .penta-law-inner,.penta-tax-inner,.penta-ip-inner,.penta-reg-inner,.ptg-case-list-page__inner,
+  #ptg-inherit-onestop .ptg-inner,.ptg-center-modern__container,.ptg-team-page__inner,
+  .ptg-profile__inner,.ptg-contact__inner,.ptg-newsroom-clean__inner,.ptg-case-detail__inner,.case-detail__inner{
+    width:min(calc(100% - 32px),1280px)!important;
+  }
+  .home-contact__inner{padding:24px!important}
+}
