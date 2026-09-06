@@ -15,6 +15,7 @@
   ensureCss('ptg-system','system.css');
   ensureCss('ptg-refine','refine.css');
   ensureCss('ptg-quiet','quiet.css');
+  ensureCss('ptg-universal','universal.css');
 
   document.body.classList.add('ptg-global-ui');
 
