@@ -1,0 +1,114 @@
+/* PENTAGON COMPACT TYPOGRAPHY PASS
+   Reduce oversized headings and keep hierarchy calm across all pages. */
+
+:root{
+  --ct-h1:34px;
+  --ct-h1-lh:44px;
+  --ct-h2:26px;
+  --ct-h2-lh:36px;
+  --ct-h3:20px;
+  --ct-h3-lh:28px;
+  --ct-body:16px;
+  --ct-body-lh:24px;
+}
+
+/* Global type ceiling */
+main h1{
+  font-size:var(--ct-h1)!important;
+  line-height:var(--ct-h1-lh)!important;
+  font-weight:700!important;
+  letter-spacing:-.04em!important;
+}
+main h2{
+  font-size:var(--ct-h2)!important;
+  line-height:var(--ct-h2-lh)!important;
+  font-weight:700!important;
+  letter-spacing:-.035em!important;
+}
+main h3{
+  font-size:var(--ct-h3)!important;
+  line-height:var(--ct-h3-lh)!important;
+  font-weight:700!important;
+  letter-spacing:-.028em!important;
+}
+main p,main li{
+  font-size:var(--ct-body)!important;
+  line-height:var(--ct-body-lh)!important;
+}
+
+/* Image heroes may be slightly larger, but never display-scale. */
+.home-hero h1,.about-hero h1,#ptg_v5 .ptg-hero h1,
+.svc-hero h1,#ptg-inherit-onestop .ptg-hero h1,
+.ptg-center-modern__hero h1,.page-hero h1{
+  font-size:clamp(30px,2.6vw,36px)!important;
+  line-height:1.24!important;
+  max-width:720px!important;
+}
+
+/* Section headings: keep them compact. */
+.home-section__head h2,.home-contact h2,.about-section__head h2,.about-intro__title h2,
+.penta-business-title,.penta-case-head h2,.svc-heading h2,
+#ptg-inherit-onestop .ptg-h2,.ptg-center-modern__section-head h2,
+.ptg-center-modern__consult-copy h2,.ptg-center-modern__cta h2,
+.ptg-team-head h1,.ptg-section-title h2,.ptg-case-list-hero h2,.case-head h1,
+.ptg-contact__head h1,.ptg-contact-form__title h2,.ptg-assistant__head h2,
+.ptg-location-copy h2,.content-grid .content h2{
+  font-size:26px!important;
+  line-height:36px!important;
+  letter-spacing:-.035em!important;
+}
+
+/* CTA copy should read as a message, not a hero. */
+.home-contact h2,.svc-cta-box h2,.ptg-center-modern__cta h2,
+.about-cta h2,.ptg-bottom-cta strong,
+.home-contact__inner h2{
+  font-size:22px!important;
+  line-height:30px!important;
+  letter-spacing:-.03em!important;
+}
+
+/* Professional profile */
+.ptg-profile__name-wrap h1{
+  font-size:34px!important;
+  line-height:44px!important;
+}
+.ptg-profile__name-wrap p{font-size:16px!important;line-height:24px!important}
+.ptg-profile__summary{font-size:15px!important;line-height:24px!important}
+.ptg-section-title h2{font-size:20px!important;line-height:28px!important}
+
+/* Cards / lists */
+.case-card__title,.ptg-case-card__title,.penta-service-name,.svc-service-row h3,
+.ptg-center-modern__row h3,.ptg-center-modern__steps h3,
+.about-standard h3,.about-promise__item h3,.about-value h3,
+.home-service-list strong,.home-entry-grid h3,.home-proof-list h3,
+.ptg-person-card__name strong,.ptg-news-card h3{
+  font-size:18px!important;
+  line-height:26px!important;
+  letter-spacing:-.025em!important;
+}
+
+/* Reduce extra visual weight in the specific home blocks the user flagged. */
+.home-proof .home-section__head h2,
+.home-entry .home-section__head h2{
+  font-size:24px!important;
+  line-height:34px!important;
+}
+.home-contact__inner{padding-block:24px!important}
+.home-entry-grid>a{min-height:210px!important}
+.home-entry-grid h3{margin-bottom:8px!important}
+
+/* Compact page title spacing */
+.case-head,.ptg-case-list-hero,.ptg-team-head,.ptg-contact__head{
+  margin-bottom:28px!important;
+}
+
+@media(max-width:767px){
+  :root{--ct-h1:30px;--ct-h1-lh:40px;--ct-h2:24px;--ct-h2-lh:34px;--ct-h3:19px;--ct-h3-lh:27px}
+  .home-hero h1,.about-hero h1,#ptg_v5 .ptg-hero h1,.svc-hero h1,#ptg-inherit-onestop .ptg-hero h1,.ptg-center-modern__hero h1,.page-hero h1{
+    font-size:30px!important;line-height:40px!important
+  }
+  .home-contact h2,.svc-cta-box h2,.ptg-center-modern__cta h2,.about-cta h2,.home-contact__inner h2{
+    font-size:20px!important;line-height:28px!important
+  }
+  .ptg-profile__name-wrap h1{font-size:30px!important;line-height:40px!important}
+}
