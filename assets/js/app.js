@@ -5,13 +5,16 @@
   const footer=document.querySelector('[data-site-footer]');
 
   /* Load the shared visual system after legacy page styles. */
-  if(!document.querySelector('link[data-ptg-system]')){
+  const ensureCss=(key,file)=>{
+    if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/system.css`;
-    link.dataset.ptgSystem='true';
+    link.href=`${base}/assets/css/${file}`;
+    link.setAttribute(`data-${key}`,'true');
     document.head.appendChild(link);
-  }
+  };
+  ensureCss('ptg-system','system.css');
+  ensureCss('ptg-refine','refine.css');
 
   document.body.classList.add('ptg-global-ui');
 
@@ -43,15 +46,11 @@
   document.body.prepend(notice);
 
   const hideNotice=(remember=false)=>{
-    if(remember){
-      try{localStorage.setItem('ptgNoticeHiddenDate',localDateKey())}catch(e){}
-    }
+    if(remember){try{localStorage.setItem('ptgNoticeHiddenDate',localDateKey())}catch(e){}}
     notice.classList.add('is-hidden');
     document.body.classList.add('ptg-notice-hidden');
   };
-  try{
-    if(localStorage.getItem('ptgNoticeHiddenDate')===localDateKey())hideNotice(false);
-  }catch(e){}
+  try{if(localStorage.getItem('ptgNoticeHiddenDate')===localDateKey())hideNotice(false)}catch(e){}
   notice.querySelector('.ptg-notice-bar__today')?.addEventListener('click',()=>hideNotice(true));
   notice.querySelector('.ptg-notice-bar__close')?.addEventListener('click',()=>hideNotice(false));
 
@@ -59,37 +58,11 @@
     header.innerHTML=`
       <header class="ptg-site-header">
         <div class="ptg-site-header__inner">
-          <a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인">
-            <img src="${base}/assets/images/logo.svg" alt="Pentagon">
-          </a>
+          <a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
           <nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
-            <div class="ptg-nav-item" data-dropdown>
-              <a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a>
-              <div class="ptg-nav-dropdown">
-                <a href="${base}/about/">인사말·비전</a>
-                <a href="${base}/newsroom/">펜타곤 소식</a>
-                <a href="${base}/location/">오시는 길</a>
-              </div>
-            </div>
-            <div class="ptg-nav-item" data-dropdown>
-              <a class="ptg-nav-link" href="${base}/services/">업무분야</a>
-              <div class="ptg-nav-dropdown">
-                <a href="${base}/services/legal/">법률</a>
-                <a href="${base}/services/tax/">세무</a>
-                <a href="${base}/services/ip/">IP</a>
-                <a href="${base}/services/recovery/">추심</a>
-                <a href="${base}/services/registry/">등기</a>
-              </div>
-            </div>
-            <div class="ptg-nav-item" data-dropdown>
-              <a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a>
-              <div class="ptg-nav-dropdown">
-                <a href="${base}/professionals/chaeyonghyun/">채용현</a>
-                <a href="${base}/professionals/kanggeon/">강건</a>
-                <a href="${base}/professionals/kimjisoo/">김지수</a>
-                <a href="${base}/professionals/jeonseunghwan/">전승환</a>
-              </div>
-            </div>
+            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div></div>
+            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무분야</a><div class="ptg-nav-dropdown"><a href="${base}/services/legal/">법률</a><a href="${base}/services/tax/">세무</a><a href="${base}/services/ip/">IP</a><a href="${base}/services/recovery/">추심</a><a href="${base}/services/registry/">등기</a></div></div>
+            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown"><a href="${base}/professionals/chaeyonghyun/">채용현</a><a href="${base}/professionals/kanggeon/">강건</a><a href="${base}/professionals/kimjisoo/">김지수</a><a href="${base}/professionals/jeonseunghwan/">전승환</a></div></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무사례</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스탑서비스</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
@@ -102,107 +75,34 @@
 
   if(footer){
     footer.innerHTML=`
-      <footer class="ptg-site-footer">
-        <div class="ptg-site-footer__inner">
-          <div class="ptg-site-footer__top">
-            <div class="ptg-site-footer__brand">
-              <a href="${base}/" class="ptg-site-footer__logo"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
-              <p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p>
-              <a href="${base}/contact/" class="ptg-site-footer__inquiry">상담하러가기 <span>→</span></a>
-            </div>
-            <nav class="ptg-site-footer__menu" aria-label="펜타곤 소개">
-              <p class="ptg-site-footer__menu-title">ABOUT</p>
-              <a href="${base}/about/">펜타곤 소개</a>
-              <a href="${base}/professionals/">구성원 소개</a>
-              <a href="${base}/newsroom/">뉴스룸</a>
-              <a href="${base}/location/">오시는 길</a>
-            </nav>
-            <nav class="ptg-site-footer__menu" aria-label="업무분야">
-              <p class="ptg-site-footer__menu-title">SERVICES</p>
-              <a href="${base}/services/legal/">법률 자문 및 소송</a>
-              <a href="${base}/services/tax/">세무 기장 및 자문</a>
-              <a href="${base}/services/ip/">IP 지식재산권</a>
-              <a href="${base}/services/recovery/">채권 추심</a>
-              <a href="${base}/services/registry/">등기 업무</a>
-            </nav>
-            <nav class="ptg-site-footer__menu" aria-label="바로가기">
-              <p class="ptg-site-footer__menu-title">QUICK LINKS</p>
-              <a href="${base}/cases/">업무사례</a>
-              <a href="${base}/inheritance/">상속원스탑서비스</a>
-              <a href="${base}/center/">법인설립지원센터</a>
-              <a href="${base}/contact/">문의하기</a>
-            </nav>
-            <div class="ptg-site-footer__contact">
-              <p class="ptg-site-footer__menu-title">CONTACT</p>
-              <div class="ptg-site-footer__contact-main"><span>대표 문의</span><a href="tel:0264475597">02-6447-5597</a></div>
-              <dl>
-                <div><dt>FAX</dt><dd>02-6447-5598 / 02-6447-5599</dd></div>
-                <div><dt>MOBILE</dt><dd><a href="tel:01032113132">010-3211-3132</a></dd></div>
-                <div><dt>E-MAIL</dt><dd><a href="mailto:yhchae@ptglaw.co.kr">yhchae@ptglaw.co.kr</a></dd></div>
-              </dl>
-            </div>
-          </div>
-          <div class="ptg-site-footer__office">
-            <div class="ptg-site-footer__address"><span>OFFICE</span><p>서울 서초구 반포대로30길 32, 3층 (서초동, 트러스트힐)</p></div>
-            <div class="ptg-site-footer__legal">
-              <p>광고책임변호사 : 채용현</p>
-              <a href="${base}/privacy/">개인정보처리방침</a>
-              <a href="mailto:yhchae@ptglaw.co.kr">이메일무단수집거부</a>
-            </div>
-          </div>
+      <footer class="ptg-site-footer"><div class="ptg-site-footer__inner">
+        <div class="ptg-site-footer__top">
+          <div class="ptg-site-footer__brand"><a href="${base}/" class="ptg-site-footer__logo"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a><p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p><a href="${base}/contact/" class="ptg-site-footer__inquiry">상담하러가기 <span>→</span></a></div>
+          <nav class="ptg-site-footer__menu" aria-label="펜타곤 소개"><p class="ptg-site-footer__menu-title">ABOUT</p><a href="${base}/about/">펜타곤 소개</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/newsroom/">뉴스룸</a><a href="${base}/location/">오시는 길</a></nav>
+          <nav class="ptg-site-footer__menu" aria-label="업무분야"><p class="ptg-site-footer__menu-title">SERVICES</p><a href="${base}/services/legal/">법률 자문 및 소송</a><a href="${base}/services/tax/">세무 기장 및 자문</a><a href="${base}/services/ip/">IP 지식재산권</a><a href="${base}/services/recovery/">채권 추심</a><a href="${base}/services/registry/">등기 업무</a></nav>
+          <nav class="ptg-site-footer__menu" aria-label="바로가기"><p class="ptg-site-footer__menu-title">QUICK LINKS</p><a href="${base}/cases/">업무사례</a><a href="${base}/inheritance/">상속원스탑서비스</a><a href="${base}/center/">법인설립지원센터</a><a href="${base}/contact/">문의하기</a></nav>
+          <div class="ptg-site-footer__contact"><p class="ptg-site-footer__menu-title">CONTACT</p><div class="ptg-site-footer__contact-main"><span>대표 문의</span><a href="tel:0264475597">02-6447-5597</a></div><dl><div><dt>FAX</dt><dd>02-6447-5598 / 02-6447-5599</dd></div><div><dt>MOBILE</dt><dd><a href="tel:01032113132">010-3211-3132</a></dd></div><div><dt>E-MAIL</dt><dd><a href="mailto:yhchae@ptglaw.co.kr">yhchae@ptglaw.co.kr</a></dd></div></dl></div>
         </div>
-      </footer>`;
+        <div class="ptg-site-footer__office"><div class="ptg-site-footer__address"><span>OFFICE</span><p>서울 서초구 반포대로30길 32, 3층 (서초동, 트러스트힐)</p></div><div class="ptg-site-footer__legal"><p>광고책임변호사 : 채용현</p><a href="${base}/privacy/">개인정보처리방침</a><a href="mailto:yhchae@ptglaw.co.kr">이메일무단수집거부</a></div></div>
+      </div></footer>`;
   }
 
   const bottom=document.createElement('div');
   bottom.className='ptg-bottom-cta';
-  bottom.innerHTML=`
-    <div class="ptg-bottom-cta__inner">
-      <div class="ptg-bottom-cta__lead">
-        <img src="${base}/assets/images/logo.svg" alt="">
-        <div><strong>펜타곤에 문의를 남겨주세요.</strong><p>담당 전문가가 내용을 확인한 뒤 빠르게 상담드립니다.</p></div>
-      </div>
-      <div class="ptg-bottom-cta__actions">
-        <a class="ptg-bottom-cta__phone" href="tel:0264475599"><span>전화 문의</span><strong>02-6447-5599</strong></a>
-        <a class="ptg-bottom-cta__button" href="${base}/contact/">상담 신청하기&nbsp;&nbsp;→</a>
-      </div>
-    </div>`;
+  bottom.innerHTML=`<div class="ptg-bottom-cta__inner"><div class="ptg-bottom-cta__lead"><img src="${base}/assets/images/logo.svg" alt=""><div><strong>펜타곤에 문의를 남겨주세요.</strong><p>담당 전문가가 내용을 확인한 뒤 빠르게 상담드립니다.</p></div></div><div class="ptg-bottom-cta__actions"><a class="ptg-bottom-cta__phone" href="tel:0264475599"><span>전화 문의</span><strong>02-6447-5599</strong></a><a class="ptg-bottom-cta__button" href="${base}/contact/">상담 신청하기&nbsp;&nbsp;→</a></div></div>`;
   document.body.appendChild(bottom);
 
   const path=location.pathname.replace(base,'')||'/';
-  document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{
-    const href=a.getAttribute('href')||'';
-    const local=href.replace(base,'');
-    if(local!=='/'&&path.startsWith(local))a.classList.add('is-active');
-  });
+  document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{const href=a.getAttribute('href')||'';const local=href.replace(base,'');if(local!=='/'&&path.startsWith(local))a.classList.add('is-active')});
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
   if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
 
   const menuBtn=document.querySelector('.ptg-site-header__menu');
   const nav=document.querySelector('#ptgSiteNav');
-  menuBtn?.addEventListener('click',()=>{
-    const open=nav?.classList.toggle('open');
-    menuBtn.setAttribute('aria-expanded',String(Boolean(open)));
-    menuBtn.textContent=open?'CLOSE':'MENU';
-  });
-
+  menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.textContent=open?'CLOSE':'MENU'});
   const mobile=matchMedia('(max-width:980px)');
-  const bindMobileDropdowns=()=>{
-    if(!mobile.matches)return;
-    document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{
-      if(link.dataset.ptgBound)return;
-      link.dataset.ptgBound='true';
-      link.addEventListener('click',e=>{
-        const item=link.parentElement;
-        if(!item.classList.contains('open')){
-          e.preventDefault();
-          document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));
-          item.classList.add('open');
-        }
-      });
-    });
-  };
+  const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
   bindMobileDropdowns();
   mobile.addEventListener?.('change',bindMobileDropdowns);
 })();
