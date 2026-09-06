@@ -4,6 +4,7 @@
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
 
+  /* One base system + one authoritative late layer. */
   const ensureCss=(key,file)=>{
     if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
@@ -12,26 +13,17 @@
     link.setAttribute(`data-${key}`,'true');
     document.head.appendChild(link);
   };
-  const ensureLateCss=(key,file)=>{
-    if(document.querySelector(`link[data-${key}]`)) return;
+  const ensureFinalCss=()=>{
+    if(document.querySelector('link[data-ptg-seed-final]')) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/${file}`;
-    link.setAttribute(`data-${key}`,'true');
+    link.href=`${base}/assets/css/seed-final.css`;
+    link.setAttribute('data-ptg-seed-final','true');
     document.body.appendChild(link);
   };
-  ensureCss('ptg-system','system.css');
-  ensureCss('ptg-refine','refine.css');
-  ensureCss('ptg-quiet','quiet.css');
   ensureCss('ptg-universal','universal.css');
-  ensureLateCss('ptg-audit','audit.css');
-  ensureLateCss('ptg-audit-fix','audit-fix.css');
-  ensureLateCss('ptg-alignment','alignment.css');
-  ensureLateCss('ptg-hierarchy','hierarchy.css');
-  ensureLateCss('ptg-quality','quality.css');
-  ensureLateCss('ptg-minimal','minimal.css');
-  ensureLateCss('ptg-surface-stroke','surface-stroke.css');
-  ensureLateCss('ptg-hierarchy-tone','hierarchy-tone.css');
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ensureFinalCss,{once:true});
+  else ensureFinalCss();
 
   document.body.classList.add('ptg-global-ui');
 
@@ -52,7 +44,6 @@
         <span>법률·세무·지식재산권 쟁점을 하나의 흐름으로 검토합니다.</span>
       </div>
       <div class="ptg-notice-bar__actions">
-        <a class="ptg-notice-bar__consult" href="${base}/contact/">상담 신청 <b>→</b></a>
         <button type="button" class="ptg-notice-bar__today">오늘 하루 보지 않기</button>
         <button type="button" class="ptg-notice-bar__close" aria-label="공지 닫기">×</button>
       </div>
@@ -74,9 +65,29 @@
         <div class="ptg-site-header__inner">
           <a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
           <nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
-            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div></div>
-            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무분야</a><div class="ptg-nav-dropdown ptg-nav-dropdown--services"><a href="${base}/services/legal/"><strong>법률 자문 및 소송</strong><span>계약·분쟁·민형사·행정 대응</span></a><a href="${base}/services/tax/"><strong>세무 기장 및 자문</strong><span>기장·신고·세무조사·조세불복</span></a><a href="${base}/services/ip/"><strong>IP 지식재산권</strong><span>상표·특허·디자인·침해 대응</span></a><a href="${base}/services/recovery/"><strong>채권 추심</strong><span>미수금·지급명령·소송·집행</span></a><a href="${base}/services/registry/"><strong>등기 업무</strong><span>법인·부동산·상속·변경등기</span></a></div></div>
-            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown ptg-nav-dropdown--people"><a href="${base}/professionals/chaeyonghyun/">채용현 대표변호사 | 세무사</a><a href="${base}/professionals/kanggeon/">강건 파트너변호사</a><a href="${base}/professionals/jeonseunghwan/">전승환 파트너변호사</a><a href="${base}/professionals/kimjisoo/">김지수 소속세무사</a></div></div>
+            <div class="ptg-nav-item" data-dropdown>
+              <a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a>
+              <div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div>
+            </div>
+            <div class="ptg-nav-item" data-dropdown>
+              <a class="ptg-nav-link" href="${base}/services/">업무분야</a>
+              <div class="ptg-nav-dropdown ptg-nav-dropdown--services">
+                <a href="${base}/services/legal/"><strong>법률 자문 및 소송</strong><span>계약·분쟁·민형사·행정 대응</span></a>
+                <a href="${base}/services/tax/"><strong>세무 기장 및 자문</strong><span>기장·신고·세무조사·조세불복</span></a>
+                <a href="${base}/services/ip/"><strong>IP 지식재산권</strong><span>상표·특허·디자인·침해 대응</span></a>
+                <a href="${base}/services/recovery/"><strong>채권 추심</strong><span>미수금·지급명령·소송·집행</span></a>
+                <a href="${base}/services/registry/"><strong>등기 업무</strong><span>법인·부동산·상속·변경등기</span></a>
+              </div>
+            </div>
+            <div class="ptg-nav-item" data-dropdown>
+              <a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a>
+              <div class="ptg-nav-dropdown ptg-nav-dropdown--people">
+                <a href="${base}/professionals/chaeyonghyun/">채용현 대표변호사 | 세무사</a>
+                <a href="${base}/professionals/kanggeon/">강건 파트너변호사</a>
+                <a href="${base}/professionals/jeonseunghwan/">전승환 파트너변호사</a>
+                <a href="${base}/professionals/kimjisoo/">김지수 소속세무사</a>
+              </div>
+            </div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무사례</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스탑서비스</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
@@ -91,7 +102,10 @@
     footer.innerHTML=`
       <footer class="ptg-site-footer"><div class="ptg-site-footer__inner">
         <div class="ptg-site-footer__top">
-          <div class="ptg-site-footer__brand"><a href="${base}/" class="ptg-site-footer__logo"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a><p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p><a href="${base}/contact/" class="ptg-site-footer__inquiry">상담하러가기 <span>→</span></a></div>
+          <div class="ptg-site-footer__brand">
+            <a href="${base}/" class="ptg-site-footer__logo"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
+            <p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p>
+          </div>
           <nav class="ptg-site-footer__menu" aria-label="펜타곤 소개"><p class="ptg-site-footer__menu-title">펜타곤</p><a href="${base}/about/">펜타곤 소개</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/newsroom/">뉴스룸</a><a href="${base}/location/">오시는 길</a></nav>
           <nav class="ptg-site-footer__menu" aria-label="업무분야"><p class="ptg-site-footer__menu-title">업무분야</p><a href="${base}/services/legal/">법률 자문 및 소송</a><a href="${base}/services/tax/">세무 기장 및 자문</a><a href="${base}/services/ip/">IP 지식재산권</a><a href="${base}/services/recovery/">채권 추심</a><a href="${base}/services/registry/">등기 업무</a></nav>
           <nav class="ptg-site-footer__menu" aria-label="바로가기"><p class="ptg-site-footer__menu-title">바로가기</p><a href="${base}/cases/">업무사례</a><a href="${base}/inheritance/">상속원스탑서비스</a><a href="${base}/center/">법인설립지원센터</a><a href="${base}/contact/">문의하기</a></nav>
@@ -101,22 +115,40 @@
       </div></footer>`;
   }
 
-  const bottom=document.createElement('div');
-  bottom.className='ptg-bottom-cta';
-  bottom.innerHTML=`<div class="ptg-bottom-cta__inner"><div class="ptg-bottom-cta__lead"><img src="${base}/assets/images/logo.svg" alt=""><div><strong>펜타곤에 문의를 남겨주세요.</strong><p>담당 전문가가 내용을 확인한 뒤 빠르게 상담드립니다.</p></div></div><div class="ptg-bottom-cta__actions"><a class="ptg-bottom-cta__phone" href="tel:0264475599"><span>전화 문의</span><strong>02-6447-5599</strong></a><a class="ptg-bottom-cta__button" href="${base}/contact/">상담 신청하기&nbsp;&nbsp;→</a></div></div>`;
-  document.body.appendChild(bottom);
-
   const path=location.pathname.replace(base,'')||'/';
-  document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{const href=a.getAttribute('href')||'';const local=href.replace(base,'');if(local!=='/'&&path.startsWith(local))a.classList.add('is-active')});
+  document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{
+    const href=a.getAttribute('href')||'';
+    const local=href.replace(base,'');
+    if(local!=='/'&&path.startsWith(local)) a.classList.add('is-active');
+  });
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
   if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
 
   const menuBtn=document.querySelector('.ptg-site-header__menu');
   const nav=document.querySelector('#ptgSiteNav');
-  menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.textContent=open?'닫기':'메뉴'});
+  menuBtn?.addEventListener('click',()=>{
+    const open=nav?.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded',String(Boolean(open)));
+    menuBtn.textContent=open?'닫기':'메뉴';
+  });
+
   const mobile=matchMedia('(max-width:980px)');
-  const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
+  const bindMobileDropdowns=()=>{
+    if(!mobile.matches)return;
+    document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{
+      if(link.dataset.ptgBound)return;
+      link.dataset.ptgBound='true';
+      link.addEventListener('click',e=>{
+        const item=link.parentElement;
+        if(!item.classList.contains('open')){
+          e.preventDefault();
+          document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));
+          item.classList.add('open');
+        }
+      });
+    });
+  };
   bindMobileDropdowns();
   mobile.addEventListener?.('change',bindMobileDropdowns);
 })();
