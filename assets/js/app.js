@@ -29,6 +29,7 @@
   ensureLateCss('ptg-alignment','alignment.css');
   ensureLateCss('ptg-hierarchy','hierarchy.css');
   ensureLateCss('ptg-quality','quality.css');
+  ensureLateCss('ptg-minimal','minimal.css');
 
   document.body.classList.add('ptg-global-ui');
 
