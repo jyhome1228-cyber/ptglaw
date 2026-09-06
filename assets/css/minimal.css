@@ -1,0 +1,170 @@
+/* =======================================================
+   PENTAGON MINIMAL SURFACE PASS
+   Final layer: use spacing, surface and typography before borders.
+======================================================= */
+
+:root{
+  --m-soft:#f7f7f4;
+  --m-soft-2:#fbfbf9;
+  --m-warm:#fff7ef;
+  --m-line:rgba(17,17,17,.07);
+}
+
+/* Keep only structural separators; remove decorative strokes. */
+.ptg-site-header{border-bottom-color:var(--m-line)!important}
+main :is(.home-section,.about-section,.penta-business-section,.svc-section,#ptg-inherit-onestop .ptg-section,.ptg-center-modern__intro,.ptg-center-modern__service,.ptg-center-modern__difference,.ptg-center-modern__faq){border-top:0!important;border-bottom:0!important}
+
+/* =======================================================
+   PROFESSIONAL PROFILE
+======================================================= */
+.ptg-profile__photo{border:0!important;background:var(--m-soft)!important}
+.ptg-profile__headline{border-bottom:0!important;padding-bottom:8px!important}
+.ptg-profile__contact{gap:10px!important;margin:22px 0 36px!important}
+.ptg-contact-line{
+  border:0!important;
+  background:var(--m-soft)!important;
+  min-height:66px!important;
+  padding:12px 16px!important;
+  border-radius:12px!important;
+}
+.ptg-contact-line:hover{background:var(--m-warm)!important}
+.ptg-profile__fields{padding-top:4px!important}
+.ptg-section-title>span{display:none!important}
+.ptg-section-title{margin-bottom:14px!important}
+.ptg-field-list{gap:8px!important}
+.ptg-field-list button{
+  border:0!important;
+  background:var(--m-soft)!important;
+  color:var(--q-text)!important;
+}
+.ptg-field-list button:hover{background:#f0f0ec!important;color:var(--q-text)!important}
+.ptg-field-list button.is-active{background:var(--q-orange)!important;color:#fff!important}
+.ptg-field-desc{
+  border:0!important;
+  background:var(--m-soft-2)!important;
+  padding:20px 22px!important;
+  border-radius:14px!important;
+}
+.ptg-profile__detail,.ptg-profile__detail--three{gap:14px!important}
+.ptg-detail-card{
+  border:0!important;
+  background:var(--m-soft-2)!important;
+  border-radius:14px!important;
+  padding:24px!important;
+}
+.ptg-profile__bottom-nav{border-top:0!important;padding-top:8px!important}
+.ptg-profile__bottom-nav a{border:0!important;background:var(--m-soft)!important}
+.ptg-profile__bottom-nav a:hover{background:var(--m-warm)!important;color:var(--q-orange)!important}
+
+/* Team cards: imagery and spacing, not strokes. */
+.ptg-person-card__image{border:0!important;background:var(--m-soft)!important}
+.ptg-person-card__bottom{border-top:0!important;padding-top:6px!important}
+.ptg-team-head{border-bottom:0!important;padding-bottom:12px!important}
+.ptg-team-head__contact{border-top:0!important;background:var(--m-soft-2)!important;border-radius:14px!important;padding:8px 16px!important}
+.ptg-contact-box{border-bottom:0!important}
+
+/* =======================================================
+   BUSINESS / SERVICE CARDS
+======================================================= */
+.penta-service-item,.svc-service-row,.penta-problem-item,.svc-need-card,.svc-flow-card,.svc-related-row,.svc-process-row,.svc-hero-point{
+  border:0!important;
+  background:var(--m-soft-2)!important;
+  box-shadow:none!important;
+}
+.penta-service-item:hover,.svc-service-row:hover,.penta-problem-item:hover,.svc-need-card:hover,.svc-related-row:hover{
+  background:var(--m-soft)!important;
+  box-shadow:none!important;
+}
+.penta-business-quick a,.svc-btn--secondary{
+  border:0!important;
+  background:var(--m-soft)!important;
+}
+.penta-business-quick a:hover,.svc-btn--secondary:hover{background:var(--m-warm)!important}
+.svc-cta-box{border:0!important;background:var(--m-warm)!important}
+
+/* =======================================================
+   ABOUT / HOME
+======================================================= */
+.about-standard,.about-promise__item,.about-value{
+  border:0!important;
+  background:var(--m-soft-2)!important;
+}
+.about-standard:hover,.about-promise__item:hover,.about-value:hover{background:var(--m-soft)!important}
+.about-intro__point{border:0!important;background:var(--m-warm)!important}
+.home-entry-grid>a{border:0!important;background:var(--m-soft-2)!important}
+.home-entry-grid>a:hover{background:var(--m-soft)!important}
+.home-proof-list,.home-proof-list article{border-color:transparent!important}
+.home-proof-list article{background:rgba(255,255,255,.68)!important}
+
+/* =======================================================
+   CORPORATE CENTER
+======================================================= */
+.ptg-center-modern__row,.ptg-center-modern__steps li,.ptg-center-modern__checklist label{
+  border:0!important;
+  background:#fff!important;
+}
+.ptg-center-modern__row:hover,.ptg-center-modern__steps li:hover{background:var(--m-warm)!important}
+.ptg-center-modern__section-head{border-bottom:0!important;padding-bottom:0!important}
+.ptg-center-modern__consult,.ptg-center-modern__process,.ptg-center-modern__prepare{background:var(--m-soft-2)!important}
+.ptg-center-modern__comparison{border-top:0!important;border-radius:14px!important;overflow:hidden!important;background:var(--m-soft-2)!important}
+.ptg-center-modern__comparison>div{border-bottom:0!important}
+.ptg-center-modern__comparison>div>*{border-right:0!important}
+.ptg-center-modern__faq-item{border-bottom:0!important;margin-bottom:8px!important;background:var(--m-soft-2)!important;border-radius:12px!important;padding:0 16px!important}
+.ptg-center-modern__cta-grid{border-top:0!important;border-bottom:0!important;background:var(--m-warm)!important;border-radius:16px!important;padding:32px!important}
+
+/* =======================================================
+   INHERITANCE
+======================================================= */
+#ptg-inherit-onestop :is(.ptg-service-card,.ptg-why-panel,.ptg-process-row,.ptg-related-card,.ptg-other-card,.ptg-faq-item){
+  border:0!important;
+  background:var(--m-soft-2)!important;
+  box-shadow:none!important;
+}
+#ptg-inherit-onestop .ptg-why-panel.active{background:var(--m-warm)!important}
+#ptg-inherit-onestop .ptg-price-table{border-collapse:separate!important;border-spacing:0 6px!important}
+#ptg-inherit-onestop .ptg-price-table th,#ptg-inherit-onestop .ptg-price-table td{border:0!important;background:var(--m-soft-2)!important}
+#ptg-inherit-onestop .ptg-price-table .highlight{background:var(--m-warm)!important}
+
+/* =======================================================
+   CASES / NEWS
+======================================================= */
+.ptg-case-list-hero{border:0!important;background:var(--m-soft-2)!important}
+.ptg-case-filter{border-bottom:0!important}
+.ptg-case-filter button,.ptg-newsroom-clean__filter button,.ptg-team-filter button{
+  border:0!important;
+  background:var(--m-soft)!important;
+}
+.ptg-case-card{border:0!important;background:var(--m-soft-2)!important}
+.ptg-case-card:hover{box-shadow:none!important;background:var(--m-soft)!important}
+.ptg-case-card__tags span{border:0!important}
+.ptg-case-card__more{border:0!important;background:#fff!important}
+.ptg-news-card{border-bottom:0!important}
+.ptg-newsroom-clean__filter{border-bottom:0!important}
+.ptg-newsroom-clean__foot{border-top:0!important}
+.ptg-newsroom-clean__more{border:0!important;background:var(--m-soft)!important;border-radius:8px!important}
+
+/* =======================================================
+   CONTACT / LOCATION
+======================================================= */
+.ptg-contact__head{border-bottom:0!important}
+.ptg-contact__guide{border-bottom:0!important;gap:10px!important}
+.ptg-contact__guide>div{border-right:0!important;background:var(--m-soft-2)!important;border-radius:12px!important}
+.ptg-contact-form__title{border-bottom:0!important}
+.ptg-field input,.ptg-field select,.ptg-field textarea{border:0!important;background:var(--m-soft-2)!important;border-radius:10px!important;padding:13px 14px!important}
+.ptg-field input:focus,.ptg-field select:focus,.ptg-field textarea:focus{background:#fff!important;box-shadow:0 0 0 2px rgba(245,130,32,.18)!important}
+.ptg-file-field{border-top:0!important;border-bottom:0!important;background:var(--m-soft-2)!important;border-radius:12px!important;padding:18px!important}
+.ptg-contact-info{border:0!important;background:var(--m-soft-2)!important;border-radius:14px!important}
+.ptg-location-info{border-top:0!important}
+.ptg-location-info>div{border-bottom:0!important;padding:10px 0!important}
+.ptg-location-photo-placeholder,.ptg-location-map-placeholder{border:0!important;background:var(--m-soft-2)!important;border-radius:14px!important}
+.ptg-location-button{border:0!important;background:var(--m-soft)!important}
+
+/* Footer: rely on whitespace, keep only one top separation. */
+.ptg-site-footer{border-top:0!important;background:#fff!important}
+.ptg-site-footer__office{border-top-color:var(--m-line)!important}
+
+@media(max-width:767px){
+  .ptg-contact-line{min-height:58px!important}
+  .ptg-detail-card{padding:20px!important}
+  .ptg-center-modern__cta-grid{padding:24px!important}
+}
