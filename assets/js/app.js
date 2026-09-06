@@ -31,6 +31,7 @@
   ensureLateCss('ptg-quality','quality.css');
   ensureLateCss('ptg-minimal','minimal.css');
   ensureLateCss('ptg-surface-stroke','surface-stroke.css');
+  ensureLateCss('ptg-hierarchy-tone','hierarchy-tone.css');
 
   document.body.classList.add('ptg-global-ui');
 
