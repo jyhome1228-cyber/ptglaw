@@ -1,0 +1,128 @@
+/* =======================================================
+   PENTAGON HORIZONTAL ALIGNMENT SYSTEM
+   One site grid for header / body / footer / fixed CTA
+======================================================= */
+:root{
+  --layout-site:1280px;
+  --layout-gutter:32px;
+  --layout-wide:var(--layout-site);
+  --layout-content:var(--layout-site);
+  --ptg-container:var(--layout-site);
+}
+
+/* Every primary page container uses the exact same horizontal grid. */
+.ptg-notice-bar__inner,
+.ptg-site-header__inner,
+.ptg-bottom-cta__inner,
+.ptg-site-footer__inner,
+.home-shell,
+.wrap,
+.shell,
+.ptg-container,
+.ptg-v5 .ptg-container,
+.penta-business-inner,
+.svc-shell,
+.penta-law-inner,
+.penta-tax-inner,
+.penta-ip-inner,
+.penta-reg-inner,
+.ptg-case-list-page__inner,
+#ptg-inherit-onestop .ptg-inner,
+.ptg-center-modern__container,
+.ptg-team-page__inner,
+.ptg-profile__inner,
+.ptg-contact__inner,
+.ptg-quick-inquiry__inner,
+.ptg-consult-helper__inner,
+.ptg-newsroom-clean__inner{
+  width:min(calc(100% - (var(--layout-gutter) * 2)),var(--layout-site))!important;
+  max-width:var(--layout-site)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Prevent old page CSS from creating its own secondary page width. */
+.ptg-profile,
+.ptg-contact,
+.ptg-team-page,
+.ptg-case-list-page,
+.penta-business-page,
+.penta-law-page,
+.penta-tax-page,
+.penta-ip-page,
+.penta-reg-page,
+#ptg-inherit-onestop,
+.ptg-center-modern,
+.ptg-v5,
+.ptg-newsroom-clean{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Page-specific legacy wrappers that previously had their own 1180/1370/1440 widths. */
+.penta-business-page .penta-business-inner,
+.ptg-case-list-page .ptg-case-list-page__inner,
+.ptg-team-page .ptg-team-page__inner,
+.ptg-profile .ptg-profile__inner,
+.ptg-contact .ptg-contact__inner,
+.ptg-newsroom-clean .ptg-newsroom-clean__inner,
+#ptg-inherit-onestop .ptg-inner,
+.ptg-center-modern .ptg-center-modern__container,
+.svc-detail .svc-shell,
+.ptg-v5 .ptg-container{
+  width:min(calc(100% - (var(--layout-gutter) * 2)),var(--layout-site))!important;
+  max-width:var(--layout-site)!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+
+/* Keep copy readable inside the shared wide grid without moving the grid edge. */
+.page-hero .wrap>p:last-child,
+.home-hero__content>p,
+.penta-business-hero p,
+.svc-hero-copy>p,
+.ptg-contact__head-grid>p,
+.ptg-team-head__text>p:last-child,
+#ptg-inherit-onestop .ptg-lead,
+.ptg-center-modern__lead{
+  max-width:720px!important;
+}
+
+/* Section heads should align to the site edge; copy width is handled inside. */
+.home-section__head,
+.penta-business-head,
+.svc-heading,
+.ptg-center-modern__section-head,
+.ptg-contact__head-grid,
+.ptg-team-head{
+  width:100%!important;
+  max-width:none!important;
+}
+
+/* Tables and wide functional components may use the full common grid. */
+#ptg-inherit-onestop .ptg-table-wrap,
+.ptg-center-modern__comparison,
+.ptg-newsroom-clean__grid,
+.ptg-case-grid,
+.ptg-team-grid,
+.penta-problem-list,
+.penta-service-list,
+.svc-service-list,
+.svc-need-grid{
+  width:100%!important;
+  max-width:none!important;
+}
+
+@media(max-width:1024px){
+  :root{--layout-gutter:24px}
+}
+
+@media(max-width:767px){
+  :root{--layout-gutter:16px}
+}
