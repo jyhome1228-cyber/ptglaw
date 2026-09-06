@@ -1,0 +1,317 @@
+/* =======================================================
+   PENTAGON INFORMATION HIERARCHY LAYER
+   Reduce long vertical stacks and group related information
+   into clear cards, grids and compact process systems.
+======================================================= */
+
+:root{
+  --hier-gap:16px;
+  --hier-card-pad:24px;
+  --hier-radius:14px;
+}
+
+/* Shared section heading rhythm: title first, description beside/below without narrow label columns. */
+.home-section__head,
+.penta-business-head,
+.svc-heading,
+.ptg-center-modern__section-head,
+#ptg-inherit-onestop .ptg-section-head,
+.about-section__head{
+  gap:32px!important;
+}
+
+/* =======================================================
+   ABOUT
+======================================================= */
+.about-standard-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+  border-top:0!important;
+}
+.about-standard{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr)!important;
+  gap:12px 16px!important;
+  min-height:190px!important;
+  padding:var(--hier-card-pad)!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:var(--hier-radius)!important;
+  background:#fff!important;
+}
+.about-standard h3{grid-column:2!important}
+.about-standard p{grid-column:2!important}
+
+/* =======================================================
+   BUSINESS AREA MAIN
+======================================================= */
+.penta-service-list{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+  border-top:0!important;
+}
+.penta-service-item{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:290px!important;
+  padding:var(--hier-card-pad)!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:var(--hier-radius)!important;
+  background:#fff!important;
+}
+.penta-service-no{margin-bottom:20px!important}
+.penta-service-name{margin-bottom:12px!important}
+.penta-service-content{display:flex!important;flex:1!important;flex-direction:column!important}
+.penta-service-tags{margin-top:12px!important}
+.penta-service-link{margin-top:auto!important;padding-top:22px!important;align-self:flex-start!important}
+
+.penta-process-list{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:12px!important;
+  border-top:0!important;
+}
+.penta-process-item{
+  display:block!important;
+  min-height:190px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+.penta-process-no{display:block!important;margin-bottom:20px!important}
+.penta-process-item h3{margin-bottom:10px!important}
+
+/* =======================================================
+   SERVICE DETAILS — LEGAL / TAX / IP / RECOVERY / REGISTRY
+======================================================= */
+.svc-hero-points{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  border-top:0!important;
+}
+.svc-hero-point{
+  display:block!important;
+  min-height:132px!important;
+  padding:20px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+.svc-hero-point strong{display:block!important;margin-bottom:8px!important}
+
+.svc-service-list{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+  border-top:0!important;
+}
+.svc-service-row{
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr)!important;
+  gap:10px 14px!important;
+  min-height:220px!important;
+  padding:var(--hier-card-pad)!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:var(--hier-radius)!important;
+  background:#fff!important;
+}
+.svc-service-row>span{grid-row:1!important;grid-column:1!important}
+.svc-service-row>h3{grid-row:1!important;grid-column:2!important}
+.svc-service-copy{grid-column:2!important}
+
+.svc-process{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  border-top:0!important;
+}
+.svc-process-row{
+  display:grid!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  gap:10px 12px!important;
+  min-height:170px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+.svc-process-row>span{grid-column:1!important}
+.svc-process-row h3{grid-column:2!important}
+.svc-process-row p{grid-column:2!important}
+
+.svc-related{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  border-top:0!important;
+}
+.svc-related-row{
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  gap:10px 20px!important;
+  min-height:150px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+.svc-related-row h3{grid-column:1!important}
+.svc-related-row p{grid-column:1 / -1!important}
+.svc-related-row a{grid-column:2!important;grid-row:1!important;align-self:start!important}
+
+/* =======================================================
+   INHERITANCE ONE-STOP
+======================================================= */
+#ptg-inherit-onestop .ptg-process{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+}
+#ptg-inherit-onestop .ptg-process-row{
+  display:grid!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  gap:10px 12px!important;
+  min-height:170px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+#ptg-inherit-onestop .ptg-process-num{grid-column:1!important;grid-row:1!important}
+#ptg-inherit-onestop .ptg-process-title{grid-column:2!important;grid-row:1!important;font-weight:700!important}
+#ptg-inherit-onestop .ptg-process-desc{grid-column:2!important;grid-row:2!important}
+#ptg-inherit-onestop .ptg-process-icon{display:none!important}
+
+#ptg-inherit-onestop .ptg-related-grid,
+#ptg-inherit-onestop .ptg-other-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+}
+#ptg-inherit-onestop .ptg-related-card,
+#ptg-inherit-onestop .ptg-other-card{
+  border:1px solid var(--border-default)!important;
+  border-radius:var(--hier-radius)!important;
+  background:#fff!important;
+  padding:var(--hier-card-pad)!important;
+}
+
+/* =======================================================
+   CORPORATE FORMATION CENTER
+======================================================= */
+.ptg-center-modern__rows{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:var(--hier-gap)!important;
+  margin-top:32px!important;
+}
+.ptg-center-modern__row{
+  display:block!important;
+  min-height:240px!important;
+  padding:var(--hier-card-pad)!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:var(--hier-radius)!important;
+  background:#fff!important;
+}
+.ptg-center-modern__row>span{display:block!important;margin-bottom:22px!important}
+.ptg-center-modern__row h3{margin-bottom:10px!important}
+.ptg-center-modern__row>div>p{margin-top:0!important}
+.ptg-center-modern__tags{margin-top:14px!important;gap:7px!important}
+.ptg-center-modern__tags em{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:30px!important;
+  padding:0 10px!important;
+  border-radius:999px!important;
+  background:var(--surface-subtle)!important;
+  font-size:12px!important;
+}
+.ptg-center-modern__tags em:before{display:none!important}
+
+.ptg-center-modern__steps{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin-top:32px!important;
+}
+.ptg-center-modern__steps li{
+  display:grid!important;
+  grid-template-columns:36px minmax(0,1fr)!important;
+  gap:10px 12px!important;
+  min-height:165px!important;
+  padding:22px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+}
+.ptg-center-modern__steps li>span{grid-column:1!important;grid-row:1!important}
+.ptg-center-modern__steps li>div{grid-column:2!important}
+.ptg-center-modern__steps h3{margin-bottom:8px!important}
+.ptg-center-modern__process-grid{grid-template-columns:1fr!important}
+.ptg-center-modern__process-image{display:none!important}
+
+.ptg-center-modern__checklist{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  border:0!important;
+}
+.ptg-center-modern__checklist label{
+  min-height:68px!important;
+  border:1px solid var(--border-default)!important;
+  border-radius:10px!important;
+}
+
+/* =======================================================
+   PROFESSIONAL PROFILE
+======================================================= */
+.ptg-profile__detail,
+.ptg-profile__detail--three{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:20px 32px!important;
+}
+.ptg-detail-card{min-width:0!important}
+
+/* =======================================================
+   PRIVACY / LONG-FORM READING
+======================================================= */
+.content-grid{display:block!important}
+.content-grid .content{max-width:860px!important;margin-inline:auto!important}
+.content-grid .content h2{margin-bottom:20px!important}
+.content-grid .content h3{margin-top:36px!important;margin-bottom:10px!important}
+
+/* =======================================================
+   RESPONSIVE
+======================================================= */
+@media(max-width:1100px){
+  .penta-service-list,.svc-service-list,.about-standard-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .penta-process-list,.svc-process,#ptg-inherit-onestop .ptg-process,.ptg-center-modern__steps{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ptg-center-modern__rows{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .ptg-center-modern__checklist{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .svc-related{grid-template-columns:1fr 1fr!important}
+}
+
+@media(max-width:767px){
+  .about-standard-list,
+  .penta-service-list,
+  .penta-process-list,
+  .svc-hero-points,
+  .svc-service-list,
+  .svc-process,
+  .svc-related,
+  #ptg-inherit-onestop .ptg-process,
+  #ptg-inherit-onestop .ptg-related-grid,
+  #ptg-inherit-onestop .ptg-other-grid,
+  .ptg-center-modern__rows,
+  .ptg-center-modern__steps,
+  .ptg-center-modern__checklist,
+  .ptg-profile__detail,
+  .ptg-profile__detail--three{
+    grid-template-columns:1fr!important;
+  }
+  .penta-service-item,.svc-service-row,.svc-process-row,#ptg-inherit-onestop .ptg-process-row,.ptg-center-modern__row{min-height:auto!important}
+}
