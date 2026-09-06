@@ -1,0 +1,84 @@
+/* Pentagon quiet pass — remove decorative micro-English and keep content-led hierarchy */
+
+/* Decorative micro labels: remove instead of decorating the page with tiny English. */
+.home-label,
+.home-hero__meta,
+.page-hero .eyebrow,
+.side-label,
+.penta-business-label,
+.penta-business-kicker,
+.ptg-team-head__eyebrow,
+.ptg-profile__eyebrow,
+.ptg-profile__visual-caption,
+.ptg-contact__eyebrow,
+#ptg-inherit-onestop .ptg-eyebrow,
+#ptg-inherit-onestop .ptg-hero-kicker,
+#ptg-inherit-onestop .ptg-service-no,
+.ptg-center-modern__eyebrow,
+.ptg-v5 .ptg-kicker,
+.ptg-v5 .ptg-field-strip,
+.ptg-case-list-page__eyebrow{
+  display:none!important;
+}
+
+/* When a decorative left label disappears, do not leave an empty column behind. */
+.content-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+}
+.content-grid>.content{
+  max-width:1040px!important;
+}
+.home-section__head{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:0!important;
+  max-width:980px!important;
+}
+.home-section__head>div{max-width:900px!important}
+.home-section__head h2{margin-top:0!important}
+
+/* Remove spacing that existed only for hidden micro labels. */
+.page-hero h1,
+.ptg-profile__name-wrap,
+.ptg-center-modern__section-head h2,
+#ptg-inherit-onestop .ptg-h2{
+  margin-top:0!important;
+}
+.ptg-profile__content{padding-top:0!important}
+.ptg-contact__head{padding-top:0!important}
+
+/* Hero should be image + clear Korean message, without photo metadata captions. */
+.home-hero__content{padding-bottom:72px!important}
+.home-hero h1{margin-top:0!important}
+.home-hero__content>p:not(.home-label){margin-top:18px!important}
+
+/* Remove small decorative English numbering/labels from cards while keeping real content. */
+.ptg-person-card__badge{display:none!important}
+.ptg-news-card__visual-copy em{display:none!important}
+
+/* Footer headings stay useful, but use Korean instead of tiny English. */
+.ptg-site-footer__menu-title,
+.ptg-site-footer__address>span,
+.ptg-site-footer__contact dt{
+  letter-spacing:-.02em!important;
+  text-transform:none!important;
+}
+
+/* Slightly stronger hierarchy after micro labels are removed. */
+.page-hero h1{font-size:clamp(34px,2.7vw,42px)!important}
+.page-hero p{font-size:17px!important;max-width:760px!important}
+.content h2{font-size:clamp(27px,2vw,32px)!important;margin-bottom:24px!important}
+.list-clean li{font-size:17px!important}
+
+/* Cleaner service landing once the tiny category labels are gone. */
+.penta-business-hero-grid{align-items:center!important}
+.penta-business-hero h1{margin-top:0!important}
+.penta-business-head{grid-template-columns:minmax(0,1fr) minmax(320px,.8fr)!important}
+
+/* Contact/profile section headings no longer need ornamental micro labels. */
+.ptg-section-title>span{display:none!important}
+.ptg-section-title h2{padding-left:0!important}
+
+@media(max-width:980px){
+  .home-section__head,.content-grid{max-width:none!important}
+}
