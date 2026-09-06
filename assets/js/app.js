@@ -26,6 +26,7 @@
   ensureCss('ptg-universal','universal.css');
   ensureLateCss('ptg-audit','audit.css');
   ensureLateCss('ptg-audit-fix','audit-fix.css');
+  ensureLateCss('ptg-alignment','alignment.css');
 
   document.body.classList.add('ptg-global-ui');
 
