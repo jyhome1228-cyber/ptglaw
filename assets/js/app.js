@@ -12,10 +12,19 @@
     link.setAttribute(`data-${key}`,'true');
     document.head.appendChild(link);
   };
+  const ensureLateCss=(key,file)=>{
+    if(document.querySelector(`link[data-${key}]`)) return;
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=`${base}/assets/css/${file}`;
+    link.setAttribute(`data-${key}`,'true');
+    document.body.appendChild(link);
+  };
   ensureCss('ptg-system','system.css');
   ensureCss('ptg-refine','refine.css');
   ensureCss('ptg-quiet','quiet.css');
   ensureCss('ptg-universal','universal.css');
+  ensureLateCss('ptg-audit','audit.css');
 
   document.body.classList.add('ptg-global-ui');
 
