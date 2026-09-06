@@ -28,6 +28,7 @@
   ensureLateCss('ptg-audit-fix','audit-fix.css');
   ensureLateCss('ptg-alignment','alignment.css');
   ensureLateCss('ptg-hierarchy','hierarchy.css');
+  ensureLateCss('ptg-quality','quality.css');
 
   document.body.classList.add('ptg-global-ui');
 
@@ -72,7 +73,7 @@
           <nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
             <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div></div>
             <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무분야</a><div class="ptg-nav-dropdown ptg-nav-dropdown--services"><a href="${base}/services/legal/"><strong>법률 자문 및 소송</strong><span>계약·분쟁·민형사·행정 대응</span></a><a href="${base}/services/tax/"><strong>세무 기장 및 자문</strong><span>기장·신고·세무조사·조세불복</span></a><a href="${base}/services/ip/"><strong>IP 지식재산권</strong><span>상표·특허·디자인·침해 대응</span></a><a href="${base}/services/recovery/"><strong>채권 추심</strong><span>미수금·지급명령·소송·집행</span></a><a href="${base}/services/registry/"><strong>등기 업무</strong><span>법인·부동산·상속·변경등기</span></a></div></div>
-            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown"><a href="${base}/professionals/chaeyonghyun/">채용현</a><a href="${base}/professionals/kanggeon/">강건</a><a href="${base}/professionals/kimjisoo/">김지수</a><a href="${base}/professionals/jeonseunghwan/">전승환</a></div></div>
+            <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown ptg-nav-dropdown--people"><a href="${base}/professionals/chaeyonghyun/">채용현 대표변호사 | 세무사</a><a href="${base}/professionals/kanggeon/">강건 파트너변호사</a><a href="${base}/professionals/jeonseunghwan/">전승환 파트너변호사</a><a href="${base}/professionals/kimjisoo/">김지수 소속세무사</a></div></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무사례</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스탑서비스</a></div>
             <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
