@@ -1,0 +1,59 @@
+/* Final audit corrections loaded after audit.css */
+
+/* Keep the fixed bottom CTA readable: orange bar, white content, white action button with orange label. */
+.ptg-bottom-cta .ptg-bottom-cta__button,
+.ptg-bottom-cta .ptg-bottom-cta__button:visited{
+  background:#fff!important;
+  border-color:#fff!important;
+  color:var(--brand-primary)!important;
+}
+.ptg-bottom-cta .ptg-bottom-cta__button *{color:var(--brand-primary)!important}
+.ptg-bottom-cta .ptg-bottom-cta__button:hover{color:var(--brand-primary-hover)!important}
+
+/* Remove remaining decorative micro-English labels that do not help navigation. */
+.ptg-case-list-hero__eyebrow,
+.ptg-location-copy>.eyebrow,
+.ptg-contact-form__title>div>span,
+.ptg-assistant__result>div>span,
+.ptg-contact-info__block>span{
+  display:none!important;
+}
+
+/* Explicit contrast guard for every legacy dark component still present in page CSS. */
+.penta-case-dark,
+#ptg_v5 .ptg-promise,
+.hero.section-dark{
+  background:var(--surface-soft)!important;
+  color:var(--text-primary)!important;
+}
+.penta-case-dark :is(h1,h2,h3,p,span),
+#ptg_v5 .ptg-promise :is(h1,h2,h3,p,span),
+.hero.section-dark :is(h1,h2,h3,p,span){
+  color:var(--text-primary)!important;
+}
+.penta-case-dark p,.penta-case-dark span{color:var(--text-secondary)!important}
+
+.ptg-news-card__visual--broadcast{background:var(--surface-subtle)!important}
+.ptg-news-card__visual--broadcast :is(strong,em,time){color:var(--text-primary)!important}
+
+.ptg-person-card__hover{
+  background:rgba(255,255,255,.96)!important;
+  color:var(--text-primary)!important;
+}
+.ptg-person-card__hover :is(p,li){color:var(--text-secondary)!important}
+
+.ptg-center-modern__button--dark{
+  background:#fff!important;
+  border-color:var(--border-strong)!important;
+  color:var(--text-primary)!important;
+}
+
+/* Active/selected controls should use the brand color instead of black. */
+.ptg-case-filter button.is-active,
+.ptg-team-filter button.is-active,
+.ptg-field-list button.is-active,
+.ptg-newsroom-clean__filter button.is-active{
+  background:var(--brand-primary)!important;
+  border-color:var(--brand-primary)!important;
+  color:#fff!important;
+}
