@@ -1,38 +1,40 @@
 /* =======================================================
-   PENTAGON HIERARCHY + TONE PASS
-   Target: compact information hierarchy, cool neutrals, fewer oversized headings.
+   PENTAGON FINAL HIERARCHY / TONE
+   Preferred pattern: compact headings + 3x2 cards + cool neutral surfaces.
    Loaded last.
 ======================================================= */
 :root{
   --ptg-bg:#ffffff;
   --ptg-surface:#ffffff;
-  --ptg-soft:#f8f8f8;
-  --ptg-soft-2:#fbfbfb;
+  --ptg-soft:#f7f8fa;
+  --ptg-soft-2:#fafbfc;
   --ptg-text:#181818;
-  --ptg-sub:#666666;
-  --ptg-muted:#858585;
-  --ptg-stroke:rgba(17,17,17,.07);
-  --ptg-stroke-hover:rgba(17,17,17,.12);
-  --surface-subtle:#f8f8f8!important;
-  --surface-soft:#fbfbfb!important;
+  --ptg-sub:#666a70;
+  --ptg-muted:#8a8f96;
+  --ptg-stroke:#e8ebef;
+  --ptg-stroke-hover:#d9dde2;
+  --surface-subtle:#f7f8fa!important;
+  --surface-soft:#fafbfc!important;
+  --brand-primary-soft:#f7f8fa!important;
   --background:#fff!important;
   --surface:#fff!important;
+  --bottom-cta-height:0px!important;
+  --ptg-bottom-h:0px!important;
 }
 
 html,body,main{background:#fff!important}
-body.ptg-global-ui{color:var(--ptg-text)!important}
+body.ptg-global-ui{color:var(--ptg-text)!important;padding-bottom:0!important}
 
-/* --- TYPE HIERARCHY: intentionally compact --- */
+/* TYPE — keep the exact compact hierarchy the user preferred */
 main h1{font-size:34px!important;line-height:44px!important;font-weight:700!important;letter-spacing:-.04em!important}
 main h2{font-size:26px!important;line-height:36px!important;font-weight:700!important;letter-spacing:-.035em!important}
 main h3{font-size:18px!important;line-height:26px!important;font-weight:700!important;letter-spacing:-.025em!important}
 main p,main li{font-size:15px!important;line-height:23px!important;color:var(--ptg-sub)!important}
-
-/* Keep only true visual heroes slightly larger. */
-.home-hero h1,.about-hero h1{font-size:clamp(32px,2.7vw,38px)!important;line-height:1.2!important}
+.home-hero h1,.about-hero h1{font-size:clamp(32px,2.6vw,36px)!important;line-height:1.2!important}
 .svc-hero h1,#ptg-inherit-onestop .ptg-hero h1,.ptg-center-modern__hero h1,.penta-business-hero h1,.case-head h1,.ptg-team-head h1,.ptg-profile__name-wrap h1{font-size:32px!important;line-height:42px!important}
+.ptg-section-title h2,.ptg-detail-card h2{font-size:20px!important;line-height:28px!important}
 
-/* --- SECTION HEAD: match the preferred Support Tasks hierarchy --- */
+/* SECTION HEAD — title left, description right */
 .home-section__head,.about-section__head,.penta-business-head,.svc-heading,
 #ptg-inherit-onestop .ptg-section-head,.ptg-center-modern__section-head{
   display:grid!important;
@@ -51,26 +53,28 @@ main p,main li{font-size:15px!important;line-height:23px!important;color:var(--p
   margin:0!important;max-width:650px!important;padding-top:2px!important;font-size:15px!important;line-height:23px!important;color:var(--ptg-sub)!important
 }
 
-/* --- COOL BACKGROUNDS: remove yellow/beige cast --- */
-.home-proof,.about-section--soft,.penta-business-hero,.svc-hero,.svc-section--soft,
+/* COOL NEUTRAL SURFACES — remove all yellow/beige cast */
+.home-proof,.about-section--soft,.penta-business-hero,.svc-hero,.svc-section--soft,.svc-section--warm,
 #ptg-inherit-onestop .ptg-why,#ptg-inherit-onestop .ptg-workflow,
 .ptg-center-modern__consult,.ptg-center-modern__process,.ptg-center-modern__prepare,
-.ptg-case-list-hero,.case-head,.ptg-contact__guide>div,.ptg-contact-info{
+.ptg-case-list-hero,.case-head,.ptg-contact__guide>div,.ptg-contact-info,.about-intro__point,
+#ptg-inherit-onestop .ptg-why-panel.active{
   background:var(--ptg-soft)!important;
 }
-.svc-section--warm,.svc-cta-box,.about-intro__point,.ptg-center-modern__cta-grid,
-#ptg-inherit-onestop .ptg-why-panel.active{background:#fff7ef!important}
 
-/* --- CARD SYSTEM: same hierarchy as the preferred 3x2 layout --- */
+/* PRIMARY 3x2 CARD PATTERN */
 .penta-service-list,.svc-service-list,.ptg-center-modern__rows,
-.ptg-center-modern__steps,#ptg-inherit-onestop .ptg-process,.home-entry-grid{
+.ptg-center-modern__steps,#ptg-inherit-onestop .ptg-process,.home-entry-grid,
+.home-proof-list,.about-standard-list{
   display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
   gap:16px!important;
+  border:0!important;
 }
 .penta-service-item,.svc-service-row,.ptg-center-modern__row,.ptg-center-modern__steps li,
-#ptg-inherit-onestop .ptg-process-row,.home-entry-grid>a{
-  min-height:210px!important;
+#ptg-inherit-onestop .ptg-process-row,.home-entry-grid>a,.home-proof-list article,.about-standard{
+  display:block!important;
+  min-height:190px!important;
   padding:24px!important;
   border:1px solid var(--ptg-stroke)!important;
   border-radius:14px!important;
@@ -78,72 +82,64 @@ main p,main li{font-size:15px!important;line-height:23px!important;color:var(--p
   box-shadow:none!important;
 }
 .penta-service-item:hover,.svc-service-row:hover,.ptg-center-modern__row:hover,.ptg-center-modern__steps li:hover,
-#ptg-inherit-onestop .ptg-process-row:hover,.home-entry-grid>a:hover{
+#ptg-inherit-onestop .ptg-process-row:hover,.home-entry-grid>a:hover,.home-proof-list article:hover,.about-standard:hover{
   border-color:var(--ptg-stroke-hover)!important;
-  background:#fcfcfc!important;
+  background:#fcfdfe!important;
   transform:none!important;
 }
 
-/* Prevent cards from feeling oversized. */
+/* Card typography */
 .penta-service-no,.svc-service-row>span,.ptg-center-modern__row>span,.ptg-center-modern__steps li>span,
-#ptg-inherit-onestop .ptg-process-num{font-size:12px!important;line-height:18px!important;color:#f58220!important;font-weight:700!important;margin-bottom:18px!important}
-.penta-service-name,.svc-service-row h3,.ptg-center-modern__row h3,.ptg-center-modern__steps h3,
-#ptg-inherit-onestop .ptg-process-title,.home-entry-grid h3{font-size:18px!important;line-height:26px!important;margin:0 0 10px!important}
-.penta-service-content p,.svc-service-copy p,.ptg-center-modern__row p,.ptg-center-modern__steps p,
-#ptg-inherit-onestop .ptg-process-desc,.home-entry-grid p{font-size:14px!important;line-height:22px!important;color:var(--ptg-sub)!important}
-
-/* --- STANDARD / PROOF: fix the odd stepped 2-column block --- */
-.home-proof-list,.about-standard-list{
-  display:grid!important;
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:16px!important;
-  border:0!important;
+#ptg-inherit-onestop .ptg-process-num,.home-proof-list span,.about-standard>span{
+  display:block!important;margin-bottom:16px!important;font-size:12px!important;line-height:18px!important;color:#f58220!important;font-weight:700!important
 }
-.home-proof-list article,.about-standard{
-  display:block!important;
-  min-height:180px!important;
-  padding:24px!important;
+.penta-service-name,.svc-service-row h3,.ptg-center-modern__row h3,.ptg-center-modern__steps h3,
+#ptg-inherit-onestop .ptg-process-title,.home-entry-grid h3,.home-proof-list h3,.about-standard h3{
+  font-size:18px!important;line-height:26px!important;margin:0 0 8px!important
+}
+.penta-service-content p,.svc-service-copy p,.ptg-center-modern__row p,.ptg-center-modern__steps p,
+#ptg-inherit-onestop .ptg-process-desc,.home-entry-grid p,.home-proof-list p,.about-standard p{
+  font-size:14px!important;line-height:22px!important;color:var(--ptg-sub)!important;margin:0!important
+}
+
+/* Secondary information cards follow the same tone */
+.penta-problem-item,.svc-need-card,.svc-flow-card,.svc-process-row,.svc-related-row,
+.ptg-detail-card,.ptg-contact-line,.ptg-field-desc,.ptg-center-modern__faq-item,
+#ptg-inherit-onestop :is(.ptg-service-card,.ptg-why-panel,.ptg-related-card,.ptg-other-card,.ptg-faq-item),
+.case-card,.ptg-case-card{
   border:1px solid var(--ptg-stroke)!important;
   border-radius:14px!important;
   background:#fff!important;
+  box-shadow:none!important;
 }
-.home-proof-list article:nth-child(n),.about-standard:nth-child(n){border-right:1px solid var(--ptg-stroke)!important;padding-left:24px!important}
-.home-proof-list span,.about-standard>span{display:block!important;margin-bottom:16px!important;font-size:12px!important;line-height:18px!important;color:#f58220!important;font-weight:700!important}
-.home-proof-list h3,.about-standard h3{font-size:18px!important;line-height:26px!important;margin:0 0 8px!important}
-.home-proof-list p,.about-standard p{font-size:14px!important;line-height:22px!important;margin:0!important}
 
-/* --- CTA: medium copy, not display typography --- */
-.home-contact__inner,.svc-cta-box,.ptg-center-modern__cta-grid{
-  padding:24px 28px!important;border:1px solid var(--ptg-stroke)!important;border-radius:14px!important;background:#fff!important
-}
-.home-contact h2,.svc-cta-box h2,.ptg-center-modern__cta-grid h2,
-.penta-cta-box h2{font-size:20px!important;line-height:28px!important;font-weight:700!important;margin:0!important}
-
-/* --- FILTER / TAGS: quiet --- */
+/* Filters / tags */
 .case-filter button,.ptg-case-filter button,.ptg-team-filter button,.ptg-newsroom-clean__filter button,.ptg-field-list button{
   font-size:13px!important;line-height:18px!important;font-weight:500!important
 }
 .case-card__title,.ptg-case-card__title{font-size:18px!important;line-height:27px!important;font-weight:700!important}
 .case-card__summary,.ptg-case-card__summary{font-size:14px!important;line-height:22px!important}
 
-/* --- PROFESSIONAL PROFILE: bring it into the same hierarchy --- */
+/* Professional profile */
 .ptg-profile__name-wrap h1{font-size:32px!important;line-height:42px!important}
 .ptg-profile__name-wrap p{font-size:16px!important;line-height:24px!important}
 .ptg-profile__summary{font-size:15px!important;line-height:23px!important}
-.ptg-section-title h2{font-size:20px!important;line-height:28px!important}
 .ptg-contact-line strong{font-size:14px!important;line-height:20px!important}
-.ptg-detail-card h2{font-size:20px!important;line-height:28px!important}
 
-/* --- Footer should stay visually quiet --- */
+/* Footer */
 .ptg-site-footer__menu-title{font-size:13px!important}
 .ptg-site-footer__menu a,.ptg-site-footer__brand-copy,.ptg-site-footer__contact,.ptg-site-footer__office{font-size:13px!important;line-height:20px!important}
+
+/* Remove all standalone CTA modules until the user redesigns them */
+.ptg-bottom-cta,.home-contact,.about-final,.penta-business-cta,.svc-cta,.svc-cta-box,
+.ptg-center-modern__cta,#ptg-inherit-onestop [class*="cta"],.ptg-site-footer__inquiry,.ptg-notice-bar__consult,
+main section[class*="cta"],main div[class*="cta-box"]{display:none!important}
 
 @media(max-width:1100px){
   .penta-service-list,.svc-service-list,.ptg-center-modern__rows,.ptg-center-modern__steps,
   #ptg-inherit-onestop .ptg-process,.home-entry-grid,.home-proof-list,.about-standard-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
 @media(max-width:767px){
-  :root{--q-gutter:16px}
   main h1{font-size:30px!important;line-height:40px!important}
   main h2{font-size:24px!important;line-height:34px!important}
   main h3{font-size:18px!important;line-height:26px!important}
