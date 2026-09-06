@@ -980,3 +980,63 @@ img {
     gap: 10px;
   }
 }
+
+/* 2026 light editorial refresh: content sections do not use black panels */
+main .section-dark {
+  background: #fff !important;
+  color: #141414 !important;
+  border-top: 1px solid #e5e5e2;
+  border-bottom: 1px solid #e5e5e2;
+}
+main .section-dark .eyebrow,
+main .section-dark .side-label,
+main .section-dark .lead,
+main .section-dark .hero-copy {
+  color: #6f6f6f !important;
+}
+main .section-dark .btn-light {
+  background: #171717 !important;
+  color: #fff !important;
+  border-color: #171717 !important;
+}
+main .section-dark .btn-ghost {
+  color: #171717 !important;
+  border-color: rgba(17,17,17,.22) !important;
+}
+.service-card:hover {
+  background: #fafaf8;
+  color: #141414;
+}
+
+/* About page: remove the former black promise/strip treatment */
+.ptg-v5 .ptg-promise {
+  background: #fff !important;
+  color: #141414 !important;
+  border-top: 1px solid #e5e5e2 !important;
+  border-bottom: 1px solid #e5e5e2 !important;
+}
+.ptg-v5 .ptg-promise h2,
+.ptg-v5 .ptg-promise p,
+.ptg-v5 .ptg-promise-item p {
+  color: #141414 !important;
+}
+.ptg-v5 .ptg-promise .ptg-kicker {
+  color: #f58220 !important;
+}
+.ptg-v5 .ptg-promise-grid,
+.ptg-v5 .ptg-promise-item {
+  border-color: #e5e5e2 !important;
+  background: transparent !important;
+}
+.ptg-v5 .ptg-field-strip {
+  background: #fff !important;
+  color: #777 !important;
+  border-top: 1px solid #e5e5e2 !important;
+  border-bottom: 1px solid #e5e5e2 !important;
+}
+.ptg-v5 .ptg-field-track span {
+  color: #777 !important;
+}
+.ptg-v5 .ptg-field-track i {
+  background: #f58220 !important;
+}
