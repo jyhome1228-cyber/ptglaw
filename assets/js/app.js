@@ -4,7 +4,7 @@
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
 
-  /* One base system + one authoritative late layer. */
+  /* Base system + authoritative final page layer + chrome components. */
   const ensureCss=(key,file)=>{
     if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
@@ -13,13 +13,17 @@
     link.setAttribute(`data-${key}`,'true');
     document.head.appendChild(link);
   };
-  const ensureFinalCss=()=>{
-    if(document.querySelector('link[data-ptg-seed-final]')) return;
+  const ensureBodyCss=(key,file)=>{
+    if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/seed-final.css`;
-    link.setAttribute('data-ptg-seed-final','true');
+    link.href=`${base}/assets/css/${file}`;
+    link.setAttribute(`data-${key}`,'true');
     document.body.appendChild(link);
+  };
+  const ensureFinalCss=()=>{
+    ensureBodyCss('ptg-seed-final','seed-final.css');
+    ensureBodyCss('ptg-chrome','chrome.css');
   };
   ensureCss('ptg-universal','universal.css');
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ensureFinalCss,{once:true});
