@@ -1,0 +1,22 @@
+.ptg-cases-page{padding:56px 0 72px;background:#fff}
+.ptg-cases-page__inner{width:min(calc(100% - 64px),1280px);margin-inline:auto}
+.ptg-cases-head{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:40px;align-items:start;margin-bottom:32px}
+.ptg-cases-head h1{margin:0!important;font-size:32px!important;line-height:42px!important}
+.ptg-cases-head p{max-width:640px;margin:0!important;color:#62676d!important;font-size:15px!important;line-height:23px!important}
+.ptg-cases-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.ptg-cases-filter button{min-height:40px;padding:0 14px;border:0;border-radius:8px;background:#f7f8fa;color:#62676d;font-size:13px;font-weight:600;cursor:pointer}
+.ptg-cases-filter button.is-active{background:#f58220;color:#fff}
+.ptg-cases-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ptg-case-card{display:flex;flex-direction:column;min-height:300px;padding:24px;border:1px solid #e8ebef;border-radius:14px;background:#fff}
+.ptg-case-card.is-hidden{display:none}
+.ptg-case-card__top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}
+.ptg-case-card__meta{display:flex;align-items:center;gap:7px;color:#62676d;font-size:12px;line-height:18px;font-weight:600}
+.ptg-case-card__meta i{width:3px;height:3px;border-radius:50%;background:#f58220}
+.ptg-case-card__result{padding:5px 8px;border-radius:999px;background:#fff6ee;color:#f58220;font-size:11px;line-height:16px;font-weight:700}
+.ptg-case-card__title{display:block;margin:0 0 10px;color:#181818;font-size:18px;line-height:27px;font-weight:700}
+.ptg-case-card__summary{margin:0 0 18px!important;color:#62676d!important;font-size:14px!important;line-height:22px!important}
+.ptg-case-card__tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.ptg-case-card__tags span{padding:4px 8px;border-radius:999px;background:#f7f8fa;color:#62676d;font-size:11px;line-height:18px}
+.ptg-case-card__more{display:inline-flex;margin-top:18px;color:#f58220;font-size:13px;font-weight:700}
+.ptg-case-card:hover{border-color:#d9dde2;background:#fcfdfe}
+@media(max-width:767px){.ptg-cases-page{padding:40px 0 56px}.ptg-cases-page__inner{width:calc(100% - 32px)}.ptg-cases-head{grid-template-columns:1fr;gap:10px}.ptg-cases-head h1{font-size:28px!important;line-height:38px!important}.ptg-cases-grid{grid-template-columns:1fr}.ptg-case-card{min-height:auto}}
