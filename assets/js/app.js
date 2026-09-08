@@ -3,31 +3,20 @@
   const base=isProject?'/ptglaw':'';
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
+  const CSS_VERSION='20260908-2106';
 
-  /* Base system + authoritative final page layer + chrome components. */
+  /* Load the only three global layers in a deterministic order. */
   const ensureCss=(key,file)=>{
     if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/${file}`;
+    link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;
     link.setAttribute(`data-${key}`,'true');
     document.head.appendChild(link);
   };
-  const ensureBodyCss=(key,file)=>{
-    if(document.querySelector(`link[data-${key}]`)) return;
-    const link=document.createElement('link');
-    link.rel='stylesheet';
-    link.href=`${base}/assets/css/${file}`;
-    link.setAttribute(`data-${key}`,'true');
-    document.body.appendChild(link);
-  };
-  const ensureFinalCss=()=>{
-    ensureBodyCss('ptg-seed-final','seed-final.css');
-    ensureBodyCss('ptg-chrome','chrome.css');
-  };
   ensureCss('ptg-universal','universal.css');
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ensureFinalCss,{once:true});
-  else ensureFinalCss();
+  ensureCss('ptg-seed-final','seed-final.css');
+  ensureCss('ptg-chrome','chrome.css');
 
   document.body.classList.add('ptg-global-ui');
 
@@ -126,7 +115,7 @@
     if(local!=='/'&&path.startsWith(local)) a.classList.add('is-active');
   });
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
-  if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
+  if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
   if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
 
   const menuBtn=document.querySelector('.ptg-site-header__menu');
