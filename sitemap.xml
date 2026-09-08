@@ -2,7 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://ptglaw.co.kr/</loc></url>
   <url><loc>https://ptglaw.co.kr/about/</loc></url>
+  <url><loc>https://ptglaw.co.kr/newsroom/</loc></url>
+  <url><loc>https://ptglaw.co.kr/location/</loc></url>
   <url><loc>https://ptglaw.co.kr/professionals/</loc></url>
+  <url><loc>https://ptglaw.co.kr/professionals/chaeyonghyun/</loc></url>
+  <url><loc>https://ptglaw.co.kr/professionals/kanggeon/</loc></url>
+  <url><loc>https://ptglaw.co.kr/professionals/jeonseunghwan/</loc></url>
+  <url><loc>https://ptglaw.co.kr/professionals/kimjisoo/</loc></url>
   <url><loc>https://ptglaw.co.kr/services/</loc></url>
   <url><loc>https://ptglaw.co.kr/services/legal/</loc></url>
   <url><loc>https://ptglaw.co.kr/services/tax/</loc></url>
@@ -10,8 +16,36 @@
   <url><loc>https://ptglaw.co.kr/services/recovery/</loc></url>
   <url><loc>https://ptglaw.co.kr/services/registry/</loc></url>
   <url><loc>https://ptglaw.co.kr/cases/</loc></url>
-  <url><loc>https://ptglaw.co.kr/newsroom/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case1/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case2/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case3/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case4/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case5/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case6/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case7/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case8/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case9/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case10/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case11/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case12/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case13/</loc></url>
+  <url><loc>https://ptglaw.co.kr/cases/case14/</loc></url>
+  <url><loc>https://ptglaw.co.kr/inheritance/</loc></url>
   <url><loc>https://ptglaw.co.kr/center/</loc></url>
   <url><loc>https://ptglaw.co.kr/contact/</loc></url>
   <url><loc>https://ptglaw.co.kr/privacy/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news1/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news2/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news3/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news4/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news5/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news6/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news7/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news8/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news9/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news10/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news11/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news12/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news13/</loc></url>
+  <url><loc>https://ptglaw.co.kr/news14/</loc></url>
 </urlset>
