@@ -1,7 +1,6 @@
 (()=>{
   const root=document.querySelector('.ptg-cases-page');
   if(!root)return;
-
   const DATA=[
     [1,'조세범처벌법위반(체납처분면탈) 고발 사건, 불송치(혐의없음) 처분','양도소득세 체납을 이유로 가족과 함께 조세범처벌법위반 혐의로 고발된 사건에서, 행위 당시 조세채무 성립 여부와 근저당권 설정 시점을 중심으로 방어하여 불송치 처분을 이끌어낸 사례입니다.','형사 · 조세','피고발인','불송치 · 혐의없음',['#조세범처벌법위반','#체납처분면탈','#불송치','#혐의없음'],['criminal','tax']],
     [2,'지주회사가 상장 계열사의 유상증자에 참여하지 않을 경우의 법률·세무자문','지주회사가 코스닥 상장 계열사의 유상증자에 참여하지 않고 신주인수권을 장외거래로 매도하는 방안을 검토한 사안에서, 상법과 세법, 국세청 유권해석을 종합하여 의사결정에 필요한 법률·세무 쟁점을 정리한 사례입니다.','기업자문 · 세무','법률·세무 통합자문','법률·세무 통합자문 완료',['#기업자문','#유상증자','#신주인수권','#지주회사'],['tax','corporate']],
@@ -18,46 +17,17 @@
     [13,'사기 및 자본시장법 위반 혐의 사건에서 무혐의 불송치 결정을 받은 사례','사기 및 자본시장법 위반 혐의로 고소된 의뢰인을 대리하여, 고소 내용이 실제 사실관계와 부합하지 않고 법리적으로도 범죄구성요건을 충족하지 않는다는 점을 변호인 의견서와 객관적 자료로 정리해 수사기관으로부터 무혐의 불송치 결정을 이끌어낸 사례입니다.','형사 · 자본시장','피고소인','무혐의 · 불송치',['#사기','#자본시장법','#형사고소','#변호인의견서'],['criminal']],
     [14,'상속재산분할협의부터 상속세 신고와 상속등기까지 원스톱으로 진행한 사례','모친의 사망으로 배우자와 두 자녀가 공동상속인이 된 사안에서, 상속인들 사이의 상속재산분할협의를 원만하게 조율하고 협의서 작성과 날인 실무, 상속세 신고 및 상속등기까지 하나의 절차로 연계하여 마무리한 사례입니다.','상속 · 세무 · 등기','원스톱 상속업무','상속협의·세무신고·등기 완료',['#상속재산분할','#상속세신고','#상속등기','#공동상속인'],['tax','family']]
   ];
-
-  const THUMB_LABEL={criminal:'형사 대응',tax:'조세·세무',civil:'민사 보전',family:'가사·상속',corporate:'기업 자문',realestate:'부동산·건설',ip:'지식재산'};
   const grid=root.querySelector('[data-cases-grid]');
   const buttons=[...root.querySelectorAll('[data-case-filter]')];
   const esc=s=>String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
-
   const cards=DATA.map(item=>{
     const [n,title,summary,meta1,meta2,result,tags,cats]=item;
     const article=document.createElement('article');
-    const label=THUMB_LABEL[cats[0]]||meta1;
-    const index=String(n).padStart(2,'0');
     article.className='ptg-case-card';
     article.dataset.categories=cats.join(' ');
-    article.innerHTML=`
-      <a class="ptg-case-card__thumb v${n}" href="./case${n}/" aria-label="${esc(title)} 상세보기">
-        <span class="ptg-case-thumb__grid" aria-hidden="true"></span>
-        <span class="ptg-case-thumb__content">
-          <span class="ptg-case-thumb__top">
-            <span class="ptg-case-thumb__index">${index}</span>
-            <span class="ptg-case-thumb__category">${esc(meta1)}</span>
-          </span>
-          <span class="ptg-case-thumb__bottom">
-            <span class="ptg-case-thumb__mark" aria-hidden="true"></span>
-            <strong class="ptg-case-thumb__word">${esc(label)}</strong>
-          </span>
-        </span>
-      </a>
-      <div class="ptg-case-card__body">
-        <div class="ptg-case-card__top">
-          <div class="ptg-case-card__meta"><span>${esc(meta1)}</span><i></i><span>${esc(meta2)}</span></div>
-          <span class="ptg-case-card__result">${esc(result)}</span>
-        </div>
-        <a class="ptg-case-card__title" href="./case${n}/">${esc(title)}</a>
-        <p class="ptg-case-card__summary">${esc(summary)}</p>
-        <div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div>
-        <a class="ptg-case-card__more" href="./case${n}/">사례 자세히 보기 →</a>
-      </div>`;
+    article.innerHTML=`<div class="ptg-case-card__top"><div class="ptg-case-card__meta-wrap"><span class="ptg-case-card__index">${String(n).padStart(2,'0')}</span><div class="ptg-case-card__meta"><span>${esc(meta1)}</span><i></i><span>${esc(meta2)}</span></div></div><span class="ptg-case-card__result">${esc(result)}</span></div><a class="ptg-case-card__title" href="./case${n}/">${esc(title)}</a><p class="ptg-case-card__summary">${esc(summary)}</p><div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div><a class="ptg-case-card__more" href="./case${n}/">사례 자세히 보기 →</a>`;
     return article;
   });
-
   cards.forEach(card=>grid.appendChild(card));
   buttons.forEach(button=>button.addEventListener('click',()=>{
     const filter=button.dataset.caseFilter||'all';
