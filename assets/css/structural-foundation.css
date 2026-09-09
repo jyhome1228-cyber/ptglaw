@@ -1,0 +1,170 @@
+/* ========================================================
+   PENTAGON STRUCTURAL FOUNDATION
+   Compact product-style hierarchy, spacing and component sizing.
+   Brand colors remain owned by the Pentagon project.
+======================================================== */
+
+:root{
+  --header-height:88px;
+  --notice-height:40px;
+  --layout-gutter:32px;
+  --layout-wide:1280px;
+  --layout-content:1040px;
+}
+
+body.ptg-global-ui{
+  font-size:15px!important;
+  line-height:23px!important;
+}
+
+main h1{font-size:32px!important;line-height:40px!important;letter-spacing:-.038em!important}
+main h2{font-size:24px!important;line-height:34px!important;letter-spacing:-.032em!important}
+main h3{font-size:18px!important;line-height:26px!important;letter-spacing:-.024em!important}
+main p,main li{font-size:15px!important;line-height:23px!important}
+
+.home-section,.about-section,.penta-business-section,.svc-section,#ptg-inherit-onestop .ptg-section,
+.ptg-center-modern__intro,.ptg-center-modern__consult,.ptg-center-modern__service,.ptg-center-modern__process,
+.ptg-center-modern__difference,.ptg-center-modern__prepare,.ptg-center-modern__faq,.section{
+  padding-block:56px!important;
+}
+
+.about-section__head,.penta-business-head,.svc-heading,#ptg-inherit-onestop .ptg-section-head,.ptg-center-modern__section-head{
+  gap:32px!important;
+  margin-bottom:28px!important;
+}
+.about-section__head h2,.penta-business-title,.svc-heading h2,#ptg-inherit-onestop .ptg-h2,.ptg-center-modern__section-head h2{
+  font-size:24px!important;
+  line-height:34px!important;
+  max-width:500px!important;
+}
+.about-section__head p,.penta-business-desc,.svc-heading p,#ptg-inherit-onestop .ptg-lead,.ptg-center-modern__section-head>p{
+  font-size:14px!important;
+  line-height:22px!important;
+  max-width:620px!important;
+}
+
+/* Header + notice compactness */
+.ptg-site-header__logo img{width:152px!important;max-height:40px!important}
+.ptg-site-header__nav{gap:24px!important}
+.ptg-nav-link{font-size:15px!important;line-height:22px!important}
+.ptg-notice-bar__copy strong{font-size:12px!important}
+.ptg-notice-bar__copy span{font-size:11px!important}
+.ptg-notice-bar__today{font-size:11px!important;min-height:32px!important}
+.ptg-notice-bar__close{width:32px!important;height:32px!important}
+
+/* General card density */
+.home-service-list a,.home-proof-list article,.home-entry-grid>a,.about-standard,.penta-service-item,
+.svc-need-card,.svc-flow-card,.svc-process-row,.ptg-center-modern__row,.ptg-center-modern__steps li,
+#ptg-inherit-onestop .ptg-process-row,#ptg-inherit-onestop .ptg-service-card{
+  min-height:auto!important;
+}
+
+/* Business-area process: fix broken narrow text columns */
+.penta-process-list{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.penta-process-item{
+  display:grid!important;
+  grid-template-columns:32px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  column-gap:12px!important;
+  row-gap:6px!important;
+  align-content:start!important;
+  min-height:0!important;
+  padding:20px!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:#f7f8fa!important;
+}
+.penta-process-no{grid-column:1!important;grid-row:1/3!important;margin:1px 0 0!important;font-size:12px!important;line-height:18px!important}
+.penta-process-item h3{grid-column:2!important;grid-row:1!important;margin:0!important;font-size:18px!important;line-height:26px!important}
+.penta-process-item p{grid-column:2!important;grid-row:2!important;margin:0!important;width:auto!important;max-width:none!important;font-size:14px!important;line-height:22px!important}
+
+/* Service detail density */
+.svc-hero{padding:48px 0 56px!important}
+.svc-hero h1{font-size:30px!important;line-height:40px!important}
+.svc-hero-copy>p{margin-top:16px!important;font-size:15px!important;line-height:24px!important}
+.svc-actions{margin-top:24px!important}
+.svc-btn{min-height:40px!important;padding-inline:16px!important;border-radius:8px!important;font-size:14px!important}
+.svc-hero-point{padding:16px 0!important;grid-template-columns:112px minmax(0,1fr)!important;gap:16px!important}
+.svc-hero-point strong,.svc-hero-point span{font-size:14px!important;line-height:22px!important}
+.svc-need-grid{gap:16px!important}
+.svc-need-card{padding:20px!important;border:0!important;background:#f7f8fa!important;border-radius:12px!important}
+.svc-need-card b{margin-bottom:16px!important}
+.svc-need-card strong{font-size:18px!important;line-height:26px!important}
+.svc-need-card p{font-size:14px!important;line-height:22px!important}
+.svc-flow-card{padding:20px!important;min-height:0!important;border:0!important;background:#f7f8fa!important;border-radius:12px!important}
+.svc-process{gap:16px!important}
+.svc-process-row{
+  display:grid!important;
+  grid-template-columns:32px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  column-gap:12px!important;
+  row-gap:6px!important;
+  min-height:0!important;
+  padding:20px!important;
+  border:0!important;
+  background:#f7f8fa!important;
+  border-radius:12px!important;
+}
+.svc-process-row>span{grid-column:1!important;grid-row:1/3!important;margin:1px 0 0!important;font-size:12px!important;line-height:18px!important}
+.svc-process-row h3{grid-column:2!important;grid-row:1!important;margin:0!important;font-size:18px!important;line-height:26px!important}
+.svc-process-row p{grid-column:2!important;grid-row:2!important;margin:0!important;max-width:none!important;font-size:14px!important;line-height:22px!important}
+
+/* Inheritance + incorporation: same component scale */
+#ptg-inherit-onestop .ptg-hero,.ptg-center-modern__hero{padding-block:48px 56px!important}
+#ptg-inherit-onestop .ptg-hero h1,.ptg-center-modern__hero h1{font-size:30px!important;line-height:40px!important}
+#ptg-inherit-onestop .ptg-service-card,.ptg-center-modern__row,.ptg-center-modern__steps li{
+  padding:20px!important;
+  border-radius:12px!important;
+}
+#ptg-inherit-onestop .ptg-process,.ptg-center-modern__steps{gap:16px!important}
+
+/* Professionals */
+.ptg-profile__name-wrap h1{font-size:30px!important;line-height:40px!important}
+.ptg-profile__contact{gap:12px!important}
+.ptg-profile__contact>div{padding:16px!important;border-radius:12px!important}
+.ptg-profile__detail,.ptg-profile__detail--three{gap:16px!important}
+.ptg-profile__detail>section{padding:20px!important;border-radius:12px!important}
+
+/* News + article */
+.ptg-newsroom-clean{padding:48px 0 64px!important}
+.ptg-news-card h3{font-size:18px!important;line-height:26px!important}
+.ptg-news-card p{font-size:14px!important;line-height:22px!important}
+.ptg-article h1,.article-hero h1{font-size:32px!important;line-height:42px!important}
+
+/* Case detail reading density */
+.ptg-case-detail-page{padding:48px 0 64px!important}
+.ptg-case-detail-hero{padding:24px!important;margin-bottom:24px!important}
+.ptg-case-detail-hero h2{font-size:30px!important;line-height:40px!important}
+.ptg-case-detail-hero p{font-size:15px!important;line-height:24px!important}
+.ptg-case-detail-content{padding:24px!important}
+.ptg-case-section{margin-bottom:32px!important;padding-bottom:32px!important}
+.ptg-case-section h3{font-size:22px!important;line-height:32px!important}
+.ptg-case-section p{font-size:15px!important;line-height:26px!important}
+
+/* Forms */
+input,select,textarea{font-size:14px!important}
+.ptg-field input,.ptg-field select{min-height:48px!important}
+.ptg-field textarea{min-height:94px!important}
+
+/* Footer compactness */
+.ptg-site-footer__top{padding:48px 0 40px!important;gap:40px!important}
+.ptg-site-footer__brand-copy,.ptg-site-footer__menu a{font-size:13px!important;line-height:21px!important}
+.ptg-site-footer__contact-main a{font-size:22px!important;line-height:30px!important}
+
+@media(max-width:1279px){
+  :root{--layout-gutter:24px}
+  .penta-process-list,.svc-process{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+@media(max-width:767px){
+  :root{--layout-gutter:16px;--header-height:72px;--notice-height:40px}
+  body.ptg-global-ui{font-size:14px!important;line-height:22px!important}
+  main h1{font-size:28px!important;line-height:38px!important}
+  main h2{font-size:22px!important;line-height:32px!important}
+  .home-section,.about-section,.penta-business-section,.svc-section,#ptg-inherit-onestop .ptg-section,
+  .ptg-center-modern__intro,.ptg-center-modern__consult,.ptg-center-modern__service,.ptg-center-modern__process,
+  .ptg-center-modern__difference,.ptg-center-modern__prepare,.ptg-center-modern__faq,.section{padding-block:48px!important}
+  .penta-process-list,.svc-process{grid-template-columns:1fr!important}
+  .penta-process-item,.svc-process-row{padding:18px!important}
+  .ptg-site-header__logo img{width:142px!important;max-height:36px!important}
+}
