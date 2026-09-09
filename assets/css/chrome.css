@@ -60,11 +60,7 @@
 }
 .ptg-notice-bar__close:hover{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.55)!important}
 
-/* ---------- MASTER LOGO ----------
-   Always render the supplied vector master. `content:url()` also busts
-   stale browser/CDN copies of the previous clipped SVG without changing
-   every page template.
---------------------------------------------------------- */
+/* ---------- MASTER LOGO ---------- */
 .ptg-site-header__logo,
 .ptg-site-footer__logo{
   display:inline-flex!important;
@@ -75,7 +71,6 @@
 }
 .ptg-site-header__logo img,
 .ptg-site-footer__logo img{
-  content:url("../images/logo.svg?v=20260909-0950")!important;
   display:block!important;
   width:166px!important;
   height:auto!important;
