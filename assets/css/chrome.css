@@ -60,6 +60,35 @@
 }
 .ptg-notice-bar__close:hover{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.55)!important}
 
+/* ---------- MASTER LOGO ----------
+   Always render the supplied vector master. `content:url()` also busts
+   stale browser/CDN copies of the previous clipped SVG without changing
+   every page template.
+--------------------------------------------------------- */
+.ptg-site-header__logo,
+.ptg-site-footer__logo{
+  display:inline-flex!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+  line-height:0!important;
+  overflow:visible!important;
+}
+.ptg-site-header__logo img,
+.ptg-site-footer__logo img{
+  content:url("../images/logo.svg?v=20260909-0950")!important;
+  display:block!important;
+  width:166px!important;
+  height:auto!important;
+  max-width:none!important;
+  max-height:44px!important;
+  aspect-ratio:566.43 / 144.44!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  filter:none!important;
+  transform:none!important;
+  opacity:1!important;
+}
+
 /* ---------- FOOTER ---------- */
 .ptg-site-footer{
   width:100%!important;
@@ -81,17 +110,6 @@
   padding:56px 0 48px!important;
 }
 .ptg-site-footer__brand{min-width:0!important}
-.ptg-site-footer__logo{
-  display:inline-flex!important;
-  align-items:center!important;
-  line-height:0!important;
-}
-.ptg-site-footer__logo img{
-  width:138px!important;
-  height:36px!important;
-  object-fit:contain!important;
-  filter:none!important;
-}
 .ptg-site-footer__brand-copy{
   max-width:250px!important;
   margin:20px 0 0!important;
@@ -212,6 +230,7 @@
 
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:1180px){
+  .ptg-site-header__logo img,.ptg-site-footer__logo img{width:156px!important;max-height:41px!important}
   .ptg-site-footer__top{
     grid-template-columns:minmax(240px,1.15fr) repeat(2,minmax(160px,.8fr))!important;
     gap:40px 32px!important;
@@ -219,6 +238,7 @@
   .ptg-site-footer__contact{grid-column:2/4!important}
 }
 @media(max-width:767px){
+  .ptg-site-header__logo img,.ptg-site-footer__logo img{width:148px!important;max-height:38px!important}
   .ptg-notice-bar__copy span{display:none!important}
   .ptg-notice-bar__copy strong{font-size:12px!important}
   .ptg-site-footer__top{
@@ -233,6 +253,7 @@
   .ptg-site-footer__address{align-items:flex-start!important}
 }
 @media(max-width:479px){
+  .ptg-site-header__logo img,.ptg-site-footer__logo img{width:140px!important;max-height:36px!important}
   .ptg-notice-bar__today{display:none!important}
   .ptg-site-footer__top{grid-template-columns:1fr!important;gap:30px!important}
   .ptg-site-footer__brand,.ptg-site-footer__contact{grid-column:auto!important}
