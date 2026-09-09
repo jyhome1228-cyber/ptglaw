@@ -3,10 +3,10 @@
   const base=isProject?'/ptglaw':'';
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20260909-0955';
+  const CSS_VERSION='20260909-1023';
   const LOGO_VERSION='20260909-0955';
 
-  /* Load the only three global layers in a deterministic order. */
+  /* Load global layers in a deterministic order. */
   const ensureCss=(key,file)=>{
     if(document.querySelector(`link[data-${key}]`)) return;
     const link=document.createElement('link');
@@ -18,6 +18,7 @@
   ensureCss('ptg-universal','universal.css');
   ensureCss('ptg-seed-final','seed-final.css');
   ensureCss('ptg-chrome','chrome.css');
+  ensureCss('ptg-structural-foundation','structural-foundation.css');
 
   document.body.classList.add('ptg-global-ui');
 
