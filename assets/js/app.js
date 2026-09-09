@@ -3,7 +3,8 @@
   const base=isProject?'/ptglaw':'';
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20260908-2106';
+  const CSS_VERSION='20260909-0955';
+  const LOGO_VERSION='20260909-0955';
 
   /* Load the only three global layers in a deterministic order. */
   const ensureCss=(key,file)=>{
@@ -52,11 +53,13 @@
   notice.querySelector('.ptg-notice-bar__today')?.addEventListener('click',()=>hideNotice(true));
   notice.querySelector('.ptg-notice-bar__close')?.addEventListener('click',()=>hideNotice(false));
 
+  const logoSrc=`${base}/assets/images/logo.svg?v=${LOGO_VERSION}`;
+
   if(header){
     header.innerHTML=`
       <header class="ptg-site-header">
         <div class="ptg-site-header__inner">
-          <a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
+          <a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a>
           <nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
             <div class="ptg-nav-item" data-dropdown>
               <a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a>
@@ -96,7 +99,7 @@
       <footer class="ptg-site-footer"><div class="ptg-site-footer__inner">
         <div class="ptg-site-footer__top">
           <div class="ptg-site-footer__brand">
-            <a href="${base}/" class="ptg-site-footer__logo"><img src="${base}/assets/images/logo.svg" alt="Pentagon"></a>
+            <a href="${base}/" class="ptg-site-footer__logo"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a>
             <p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p>
           </div>
           <nav class="ptg-site-footer__menu" aria-label="펜타곤 소개"><p class="ptg-site-footer__menu-title">펜타곤</p><a href="${base}/about/">펜타곤 소개</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/newsroom/">뉴스룸</a><a href="${base}/location/">오시는 길</a></nav>
