@@ -37,8 +37,8 @@
 }
 .ptg-notice-bar__actions{display:flex!important;align-items:center!important;gap:8px!important}
 .ptg-notice-bar__today{
-  min-height:34px!important;
-  padding:0 6px!important;
+  min-height:30px!important;
+  padding:0 4px!important;
   border:0!important;
   background:transparent!important;
   color:rgba(255,255,255,.8)!important;
@@ -48,17 +48,21 @@
 }
 .ptg-notice-bar__today:hover{color:#fff!important}
 .ptg-notice-bar__close{
-  width:34px!important;
-  height:34px!important;
-  border:1px solid rgba(255,255,255,.34)!important;
-  border-radius:999px!important;
-  background:rgba(255,255,255,.10)!important;
-  color:#fff!important;
-  font-size:16px!important;
+  width:24px!important;
+  height:30px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:rgba(255,255,255,.82)!important;
+  font-size:18px!important;
+  line-height:1!important;
+  font-weight:300!important;
   cursor:pointer!important;
-  transition:background 150ms cubic-bezier(.2,.7,.2,1),border-color 150ms cubic-bezier(.2,.7,.2,1)!important;
+  opacity:.92!important;
+  transition:opacity 150ms cubic-bezier(.2,.7,.2,1),color 150ms cubic-bezier(.2,.7,.2,1)!important;
 }
-.ptg-notice-bar__close:hover{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.55)!important}
+.ptg-notice-bar__close:hover{background:transparent!important;border-color:transparent!important;color:#fff!important;opacity:1!important}
 
 /* ---------- MASTER LOGO ---------- */
 .ptg-site-header__logo,
