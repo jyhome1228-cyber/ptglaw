@@ -22,6 +22,9 @@ main h2{font-size:24px!important;line-height:34px!important;letter-spacing:-.032
 main h3{font-size:18px!important;line-height:26px!important;letter-spacing:-.024em!important}
 main p,main li{font-size:15px!important;line-height:23px!important}
 
+/* Heading rhythm: manual punctuation breaks are always respected. */
+main h1 br,main h2 br{display:block!important}
+
 .home-section,.about-section,.penta-business-section,.svc-section,#ptg-inherit-onestop .ptg-section,
 .ptg-center-modern__intro,.ptg-center-modern__consult,.ptg-center-modern__service,.ptg-center-modern__process,
 .ptg-center-modern__difference,.ptg-center-modern__prepare,.ptg-center-modern__faq,.section{
