@@ -3,7 +3,7 @@
   const base=isProject?'/ptglaw':'';
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20260912-1454';
+  const CSS_VERSION='20260912-1502';
   const LOGO_VERSION='20260909-0955';
   const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
   ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean'][i],file));
