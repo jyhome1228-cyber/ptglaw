@@ -1,77 +1,57 @@
 (()=>{
-  const SELECTORS='main h1, main h2';
-  const PUNCT=/[,，.。!?！？]/;
+  const SELECTORS='main h1, main h2, main h3, main h4';
+  const PERIODS=new Set(['.','。']);
   const isDigit=c=>/\d/.test(c||'');
 
+  const hasMeaningfulTextAfter=(el,node,offset)=>{
+    const range=document.createRange();
+    range.setStart(node,offset);
+    range.setEndAfter(el.lastChild||el);
+    return range.toString().trim().length>=2;
+  };
+
   const markExistingBreaks=el=>{
-    let marked=false;
     [...el.querySelectorAll('br')].forEach(br=>{
-      const range=document.createRange();
-      range.selectNodeContents(el);
-      range.setEndBefore(br);
-      const before=range.toString().trim();
-      const last=before.slice(-1);
-      if(PUNCT.test(last)){
-        br.classList.add('keep-break','ptg-punct-break');
-        marked=true;
-      }
+      br.classList.add('keep-break','ptg-punct-break');
     });
-    return marked;
   };
 
-  const findBreakIndex=text=>{
-    for(let i=0;i<text.length;i+=1){
-      const c=text[i];
-      if(!PUNCT.test(c))continue;
-      const prev=text[i-1]||'';
-      const next=text[i+1]||'';
-      if(c==='.'&&isDigit(prev)&&isDigit(next))continue;
-      const left=text.slice(0,i+1).trim();
-      const right=text.slice(i+1).trim();
-      if(left.length<6||right.length<3)continue;
-      return i;
-    }
-    return -1;
-  };
+  const insertPeriodBreaks=el=>{
+    if(!el||el.dataset.punctBreak==='off'||el.dataset.punctBreakApplied==='true')return;
+    markExistingBreaks(el);
 
-  const insertBreak=(el,index)=>{
     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
-    let offset=0,node;
-    while((node=walker.nextNode())){
-      const value=node.nodeValue||'';
-      const len=value.length;
-      if(index<offset+len){
-        const local=index-offset;
-        const left=value.slice(0,local+1);
-        const right=value.slice(local+1);
-        node.nodeValue=left;
+    const nodes=[];
+    let node;
+    while((node=walker.nextNode()))nodes.push(node);
+
+    nodes.forEach(textNode=>{
+      const text=textNode.nodeValue||'';
+      const points=[];
+      for(let i=0;i<text.length;i+=1){
+        const c=text[i];
+        if(!PERIODS.has(c))continue;
+        if(c==='.'&&isDigit(text[i-1])&&isDigit(text[i+1]))continue;
+        if(!hasMeaningfulTextAfter(el,textNode,i+1))continue;
+        points.push(i+1);
+      }
+      for(let i=points.length-1;i>=0;i-=1){
+        const at=points[i];
+        const right=textNode.splitText(at);
+        right.nodeValue=right.nodeValue.replace(/^\s+/, '');
         const br=document.createElement('br');
         br.className='keep-break ptg-punct-break';
         br.setAttribute('aria-hidden','true');
-        node.parentNode.insertBefore(br,node.nextSibling);
-        if(right){node.parentNode.insertBefore(document.createTextNode(right.replace(/^\s+/,'')),br.nextSibling)}
-        return true;
+        textNode.parentNode.insertBefore(br,right);
       }
-      offset+=len;
-    }
-    return false;
-  };
+    });
 
-  const applyTo=el=>{
-    if(!el||el.dataset.punctBreak==='off')return;
-    if(markExistingBreaks(el)){
-      el.dataset.punctBreakApplied='true';
-      return;
-    }
-    if(el.dataset.punctBreakApplied==='true')return;
-    const text=el.textContent.replace(/\u00a0/g,' ');
-    const index=findBreakIndex(text);
-    if(index>=0&&insertBreak(el,index))el.dataset.punctBreakApplied='true';
+    el.dataset.punctBreakApplied='true';
   };
 
   const apply=scope=>{
-    if(scope?.matches?.(SELECTORS))applyTo(scope);
-    scope?.querySelectorAll?.(SELECTORS).forEach(applyTo);
+    if(scope?.matches?.(SELECTORS))insertPeriodBreaks(scope);
+    scope?.querySelectorAll?.(SELECTORS).forEach(insertPeriodBreaks);
   };
 
   const start=()=>{
