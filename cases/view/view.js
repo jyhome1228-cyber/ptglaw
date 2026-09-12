@@ -1,0 +1,13 @@
+(async()=>{
+  const root=document.querySelector('[data-cms-case]');
+  if(!root)return;
+  const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
+  const id=new URLSearchParams(location.search).get('id');
+  const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
+  let item=null;
+  try{const res=await fetch(`${base}/content/cases.json?v=${Date.now()}`,{cache:'no-store'});const data=res.ok?await res.json():[];item=data.find(x=>String(x.id)===String(id))}catch(e){}
+  if(!item){root.innerHTML=`<div class="ptg-case-detail-hero"><div class="ptg-case-detail-hero__meta"><span>업무사례</span></div><h2>사례를 찾을 수 없습니다.</h2><p>삭제되었거나 아직 게시되지 않은 사례입니다.</p><div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></div>`;return}
+  document.title=`${item.title} | 펜타곤 업무사례`;
+  const tags=(item.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('');
+  root.innerHTML=`<header class="ptg-case-detail-hero"><div class="ptg-case-detail-hero__meta"><span>${esc(item.meta1||'업무사례')}</span><i></i><span>${esc(item.meta2||'')}</span></div><h2>${esc(item.title)}</h2><p>${esc(item.summary||'')}</p><div class="ptg-case-detail-tags">${tags}</div></header><div class="ptg-case-detail-layout"><article class="ptg-case-detail-content"><nav class="ptg-case-toc"><p>목차</p><ol><li><a href="#case-overview">사건 개요</a></li><li><a href="#case-strategy">대응</a></li><li><a href="#case-result">결과</a></li><li><a href="#case-point">시사점</a></li></ol></nav><section class="ptg-case-section" id="case-overview"><h3>사건 개요</h3><p>${esc(item.overview||item.summary||'')}</p></section><section class="ptg-case-section" id="case-strategy"><h3>대응</h3><p>${esc(item.strategy||'')}</p></section><section class="ptg-case-section" id="case-result"><h3>결과</h3><div class="ptg-case-result-box"><span>${esc(item.result||'주요 결과')}</span><p>${esc(item.resultBody||item.result||'')}</p></div></section><section class="ptg-case-section" id="case-point"><h3>시사점</h3><p>${esc(item.point||'')}</p></section><div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></article><aside class="ptg-case-detail-side"><div class="ptg-case-side-info"><p>사건 분야</p><strong>${esc(item.meta1||'업무사례')}</strong></div><div class="ptg-case-side-info"><p>주요 결과</p><strong>${esc(item.result||'-')}</strong></div></aside></div>`;
+})();
