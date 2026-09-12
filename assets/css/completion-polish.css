@@ -209,3 +209,150 @@
   .ptg-center-modern__row,.ptg-center-modern__steps li,#ptg-inherit-onestop .ptg-service-card,
   #ptg-inherit-onestop .ptg-process-row,#ptg-inherit-onestop .ptg-case-card{min-height:0!important;padding:20px!important}
 }
+
+/* ========================================================
+   FINAL NEUTRAL SURFACE / EDITORIAL OVERRIDES
+   This is intentionally the last global layer.
+======================================================== */
+:root{
+  --brand-primary-soft:#f4f5f7;
+  --surface-subtle:#f4f5f7;
+  --surface-soft:#fafbfc;
+}
+.ptg-notice-bar{background:#f4f5f7!important;border-bottom-color:#e2e5e8!important}
+
+/* Preserve deliberate sentence breaks in headings only. */
+main h1 br.ptg-punct-break,
+main h2 br.ptg-punct-break,
+main h3 br.ptg-punct-break,
+main h4 br.ptg-punct-break{display:block!important}
+main :is(h1,h2,h3,h4){word-break:keep-all!important;overflow-wrap:normal!important;text-wrap:pretty}
+
+/* Service pages: neutral section hierarchy only — no orange/peach backgrounds. */
+.svc-detail{--svc-soft:#f3f4f6!important;--svc-warm:#f7f8fa!important}
+.svc-detail .svc-hero{background:#fafbfc!important}
+.svc-detail .svc-section--soft{background:#f3f4f6!important}
+.svc-detail .svc-section--warm{background:#f7f8fa!important}
+.svc-detail .svc-cta-box{background:#f5f6f7!important;border-color:#e1e4e8!important}
+.svc-detail .svc-tags span{background:#eef0f2!important}
+
+/* Need / situation section: fixed two-column editorial list on desktop. */
+.svc-detail .svc-need-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:52px!important;
+  row-gap:0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+.svc-detail .svc-need-card{
+  display:block!important;
+  min-height:164px!important;
+  padding:24px 0 28px!important;
+  border:0!important;
+  border-top:1px solid #d9dde2!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.svc-detail .svc-need-card:nth-last-child(-n+2){border-bottom:1px solid #d9dde2!important}
+.svc-detail .svc-need-card b{margin-bottom:18px!important}
+.svc-detail .svc-need-card strong{max-width:520px!important;margin-bottom:8px!important;font-size:16px!important;line-height:24px!important}
+.svc-detail .svc-need-card p{max-width:560px!important;font-size:13px!important;line-height:21px!important}
+
+/* Main service scope: rows, not isolated cards. */
+.svc-detail .svc-service-list{display:block!important;border:0!important;border-top:1px solid #cfd3d8!important;background:transparent!important}
+.svc-detail .svc-service-row{
+  display:grid!important;
+  grid-template-columns:56px minmax(220px,.72fr) minmax(0,1.28fr)!important;
+  gap:28px!important;
+  min-height:0!important;
+  padding:24px 0!important;
+  border:0!important;
+  border-bottom:1px solid #e1e4e8!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.svc-detail .svc-service-row>span{margin:0!important}
+.svc-detail .svc-service-row h3{margin:0!important;font-size:18px!important;line-height:26px!important}
+.svc-detail .svc-service-copy p{margin:0 0 12px!important;font-size:14px!important;line-height:22px!important}
+
+/* Connected work: one scenario per row. */
+.svc-detail .svc-flow{display:block!important;grid-template-columns:none!important;gap:0!important;border:0!important;border-top:1px solid #cfd3d8!important;background:transparent!important}
+.svc-detail .svc-flow-card{
+  display:grid!important;
+  grid-template-columns:220px minmax(0,1fr)!important;
+  gap:34px!important;
+  min-height:0!important;
+  padding:22px 0!important;
+  border:0!important;
+  border-bottom:1px solid #e1e4e8!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.svc-detail .svc-flow-card h3{margin:0!important;font-size:16px!important;line-height:24px!important}
+.svc-detail .svc-flow-card ul{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:0!important;margin:0!important;padding:0!important;list-style:none!important}
+.svc-detail .svc-flow-card li{display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important;background:transparent!important;font-size:13px!important;line-height:21px!important;white-space:nowrap!important}
+.svc-detail .svc-flow-card li:before{display:none!important;content:none!important}
+.svc-detail .svc-flow-card li:not(:last-child):after{content:'→'!important;display:inline-block!important;margin:0 14px!important;color:var(--brand-primary,#f58220)!important}
+
+/* Process: same editorial row system. */
+.svc-detail .svc-process{display:block!important;border:0!important;border-top:1px solid #cfd3d8!important;background:transparent!important}
+.svc-detail .svc-process-row{
+  display:grid!important;
+  grid-template-columns:56px 220px minmax(0,1fr)!important;
+  gap:28px!important;
+  min-height:0!important;
+  padding:22px 0!important;
+  border:0!important;
+  border-bottom:1px solid #e1e4e8!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.svc-detail .svc-process-row>span{margin:0!important}
+.svc-detail .svc-process-row h3{margin:0!important;font-size:17px!important;line-height:25px!important}
+.svc-detail .svc-process-row p{margin:0!important;font-size:14px!important;line-height:22px!important}
+
+/* Related work: compact rows rather than card blocks. */
+.svc-detail .svc-related{display:block!important;border:0!important;border-top:1px solid #cfd3d8!important;background:transparent!important}
+.svc-detail .svc-related-row{
+  display:grid!important;
+  grid-template-columns:minmax(220px,.45fr) minmax(0,1fr) 112px!important;
+  gap:28px!important;
+  align-items:center!important;
+  padding:20px 0!important;
+  border:0!important;
+  border-bottom:1px solid #e1e4e8!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.svc-detail .svc-related-row h3{grid-column:1!important;grid-row:1!important;margin:0!important;font-size:17px!important;line-height:25px!important}
+.svc-detail .svc-related-row p{grid-column:2!important;grid-row:1!important;margin:0!important;font-size:13px!important;line-height:21px!important}
+.svc-detail .svc-related-row a{grid-column:3!important;grid-row:1!important;justify-self:end!important;font-size:13px!important}
+
+@media(max-width:980px){
+  .svc-detail .svc-service-row{grid-template-columns:48px 190px minmax(0,1fr)!important;gap:20px!important}
+  .svc-detail .svc-flow-card{grid-template-columns:180px minmax(0,1fr)!important;gap:24px!important}
+  .svc-detail .svc-process-row{grid-template-columns:48px 190px minmax(0,1fr)!important;gap:20px!important}
+  .svc-detail .svc-related-row{grid-template-columns:190px minmax(0,1fr) 104px!important;gap:20px!important}
+}
+
+@media(max-width:700px){
+  .svc-detail .svc-need-grid{grid-template-columns:1fr!important}
+  .svc-detail .svc-need-card:nth-last-child(-n+2){border-bottom:0!important}
+  .svc-detail .svc-need-card:last-child{border-bottom:1px solid #d9dde2!important}
+  .svc-detail .svc-service-row{grid-template-columns:36px minmax(0,1fr)!important;gap:10px 12px!important}
+  .svc-detail .svc-service-copy{grid-column:2!important}
+  .svc-detail .svc-flow-card{grid-template-columns:1fr!important;gap:8px!important}
+  .svc-detail .svc-process-row{grid-template-columns:36px minmax(0,1fr)!important;gap:10px 12px!important}
+  .svc-detail .svc-process-row p{grid-column:2!important}
+  .svc-detail .svc-related-row{grid-template-columns:1fr!important;gap:7px!important}
+  .svc-detail .svc-related-row h3,.svc-detail .svc-related-row p,.svc-detail .svc-related-row a{grid-column:1!important;grid-row:auto!important;justify-self:start!important}
+}
