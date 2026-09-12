@@ -1,0 +1,149 @@
+/* Service detail content polish — unified surfaces, clearer hierarchy */
+
+/* Keep the supporting sections neutral and compact. */
+.svc-section--soft,
+.svc-section--warm{
+  background:#f7f8fa!important;
+}
+
+/* Section heading alignment */
+.svc-heading{
+  grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr)!important;
+  gap:40px!important;
+  margin-bottom:32px!important;
+}
+.svc-heading h2{
+  max-width:500px!important;
+  font-size:24px!important;
+  line-height:34px!important;
+}
+.svc-heading p{
+  max-width:640px!important;
+  padding-top:2px!important;
+  font-size:14px!important;
+  line-height:22px!important;
+}
+
+/* 01. NEED GRID — one composed panel instead of six floating cards */
+.svc-need-grid{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:1px!important;
+  padding:1px!important;
+  overflow:hidden!important;
+  border-radius:14px!important;
+  background:#e8ebef!important;
+}
+.svc-need-card{
+  position:relative!important;
+  min-height:156px!important;
+  padding:22px 22px 24px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.svc-need-card b{
+  display:block!important;
+  margin:0 0 18px!important;
+  color:var(--brand-primary,#f58220)!important;
+  font-size:11px!important;
+  line-height:18px!important;
+  font-weight:700!important;
+}
+.svc-need-card strong{
+  display:block!important;
+  margin:0 0 8px!important;
+  color:var(--text-primary,#181818)!important;
+  font-size:16px!important;
+  line-height:24px!important;
+  font-weight:700!important;
+}
+.svc-need-card p{
+  margin:0!important;
+  color:var(--text-secondary,#62676d)!important;
+  font-size:13px!important;
+  line-height:21px!important;
+}
+
+/* 02. CONNECTED WORK — one relationship panel with compact service tags */
+.svc-flow{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:1px!important;
+  padding:1px!important;
+  overflow:hidden!important;
+  border-radius:14px!important;
+  background:#e8ebef!important;
+}
+.svc-flow-card{
+  min-height:138px!important;
+  padding:22px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.svc-flow-card h3{
+  margin:0 0 18px!important;
+  color:var(--text-primary,#181818)!important;
+  font-size:16px!important;
+  line-height:24px!important;
+  font-weight:700!important;
+}
+.svc-flow-card ul{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:6px!important;
+  margin:0!important;
+  padding:0!important;
+  list-style:none!important;
+}
+.svc-flow-card li{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:28px!important;
+  margin:0!important;
+  padding:4px 9px!important;
+  border-radius:999px!important;
+  background:#f7f8fa!important;
+  color:var(--text-secondary,#62676d)!important;
+  font-size:12px!important;
+  line-height:18px!important;
+}
+.svc-flow-card li:before{
+  display:none!important;
+}
+
+/* On hover, keep the system quiet but make interactivity legible. */
+.svc-need-card,
+.svc-flow-card{
+  transition:background 160ms cubic-bezier(.2,.7,.2,1)!important;
+}
+.svc-need-card:hover,
+.svc-flow-card:hover{
+  background:#fcfdfe!important;
+}
+
+@media(max-width:980px){
+  .svc-heading{
+    grid-template-columns:1fr!important;
+    gap:12px!important;
+  }
+  .svc-need-grid,
+  .svc-flow{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:640px){
+  .svc-need-grid,
+  .svc-flow{
+    grid-template-columns:1fr!important;
+  }
+  .svc-need-card,
+  .svc-flow-card{
+    min-height:0!important;
+    padding:20px!important;
+  }
+}
