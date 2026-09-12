@@ -52,8 +52,16 @@ main h1 br,main h2 br{display:block!important}
 .ptg-nav-link{font-size:15px!important;line-height:22px!important}
 .ptg-notice-bar__copy strong{font-size:12px!important}
 .ptg-notice-bar__copy span{font-size:11px!important}
-.ptg-notice-bar__today{font-size:11px!important;min-height:32px!important}
-.ptg-notice-bar__close{width:32px!important;height:32px!important}
+.ptg-notice-bar__today{font-size:11px!important;min-height:28px!important}
+.ptg-notice-bar__close{
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+  padding:0!important;
+  font-size:12px!important;
+  line-height:1!important;
+}
 
 /* General card density */
 .home-service-list a,.home-proof-list article,.home-entry-grid>a,.about-standard,.penta-service-item,
