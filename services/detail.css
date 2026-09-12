@@ -6,8 +6,8 @@
   --svc-muted:#777;
   --svc-line:#e1e3e6;
   --svc-line-strong:#cfd3d8;
-  --svc-soft:#f2f4f6;
-  --svc-warm:#f7f3ed;
+  --svc-soft:#f3f4f6;
+  --svc-warm:#f7f8fa;
   background:#fff;
   color:var(--svc-ink);
 }
@@ -15,7 +15,7 @@
 .svc-shell{width:min(calc(100% - 64px),1440px);margin-inline:auto}
 
 /* HERO */
-.svc-hero{padding:88px 0 84px;background:#fbfbf9;border-bottom:1px solid var(--svc-line)}
+.svc-hero{padding:88px 0 84px;background:#fafbfc;border-bottom:1px solid var(--svc-line)}
 .svc-hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(420px,1.05fr);gap:clamp(56px,7vw,108px);align-items:center}
 .svc-hero h1{margin:0!important;font-size:clamp(36px,3vw,46px)!important;font-weight:600!important;line-height:1.15!important;letter-spacing:-.055em!important}
 .svc-hero-copy>p{max-width:720px;margin:24px 0 0!important;color:#505050!important;font-size:17px!important;line-height:1.75!important}
@@ -71,7 +71,7 @@
 .svc-service-row h3{margin:0!important;font-size:22px!important;font-weight:600!important;line-height:1.4!important;letter-spacing:-.04em!important}
 .svc-service-copy p{margin:0 0 14px!important;color:#5d5d5d!important;font-size:16px!important;line-height:1.72!important}
 .svc-tags{display:flex;flex-wrap:wrap;gap:7px}
-.svc-tags span{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:#f4f4f1;color:#666;font-size:13px;font-weight:520}
+.svc-tags span{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:#f4f5f7;color:#666;font-size:13px;font-weight:520}
 
 /* CONNECTED WORK — one row per issue */
 .svc-detail .svc-flow{
@@ -129,7 +129,7 @@
 
 /* CTA */
 .svc-cta{padding:72px 0 82px;background:#fff}
-.svc-cta-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center;padding:34px 38px;border:1px solid #f0d8c6;border-radius:12px;background:#fff8f2}
+.svc-cta-box{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center;padding:34px 38px;border:1px solid #e1e4e8;border-radius:12px;background:#f5f6f7}
 .svc-cta-box h2{margin:0!important;font-size:clamp(26px,2vw,32px)!important;font-weight:600!important}
 .svc-cta-box p{max-width:720px;margin:12px 0 0!important;color:#696969!important;font-size:15.5px!important;line-height:1.7!important}
 .svc-cta-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
