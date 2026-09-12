@@ -1,0 +1,211 @@
+/* ========================================================
+   PENTAGON COMPLETION POLISH
+   Repeated information groups should feel composed and finished,
+   without turning every item into an isolated card.
+======================================================== */
+
+/* ---------- SHARED COMPOSED PANEL ---------- */
+.home-proof-list,
+.about-standard-list,
+.penta-problem-list,
+.penta-case-grid,
+.penta-process-list,
+.ptg-center-modern__rows,
+.ptg-center-modern__steps,
+.ptg-center-modern__checklist,
+#ptg-inherit-onestop .ptg-service-grid,
+#ptg-inherit-onestop .ptg-process,
+#ptg-inherit-onestop .ptg-case-grid{
+  display:grid!important;
+  gap:1px!important;
+  padding:1px!important;
+  overflow:hidden!important;
+  border:0!important;
+  border-radius:14px!important;
+  background:var(--border-default,#e8ebef)!important;
+}
+
+.home-proof-list,
+.about-standard-list,
+.penta-problem-list,
+.penta-process-list,
+.ptg-center-modern__rows,
+.ptg-center-modern__steps,
+.ptg-center-modern__checklist,
+#ptg-inherit-onestop .ptg-service-grid,
+#ptg-inherit-onestop .ptg-process,
+#ptg-inherit-onestop .ptg-case-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+
+.penta-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+
+/* ---------- HOME STANDARD ---------- */
+.home-proof-list article{
+  min-height:148px!important;
+  padding:22px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.home-proof-list article:nth-child(n){padding-left:22px!important;border:0!important}
+.home-proof-list span{margin-bottom:14px!important;font-size:11px!important}
+.home-proof-list h3{margin:0 0 6px!important;font-size:16px!important;line-height:24px!important}
+.home-proof-list p{font-size:13px!important;line-height:21px!important}
+
+/* ---------- ABOUT STANDARDS ---------- */
+.about-standard{
+  display:block!important;
+  min-height:164px!important;
+  padding:22px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.about-standard>span{display:block!important;margin:0 0 16px!important;font-size:11px!important;line-height:18px!important}
+.about-standard h3{margin:0 0 8px!important;font-size:17px!important;line-height:25px!important}
+.about-standard p{margin:0!important;font-size:13px!important;line-height:21px!important}
+
+/* ---------- BUSINESS / PROBLEM FINDER ---------- */
+.penta-problem-item{
+  min-height:128px!important;
+  padding:20px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.penta-problem-question{margin:0 0 16px!important;font-size:15px!important;line-height:23px!important}
+.penta-problem-answer{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+.penta-problem-answer a{
+  min-height:26px!important;
+  padding:4px 8px!important;
+  border:0!important;
+  border-radius:999px!important;
+  background:#f7f8fa!important;
+  color:var(--brand-primary,#f58220)!important;
+  font-size:11px!important;
+  line-height:18px!important;
+}
+
+/* ---------- BUSINESS CONNECTION CASES ---------- */
+.penta-case-item{
+  min-height:116px!important;
+  padding:20px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+.penta-case-item h3{margin:0 0 14px!important;font-size:16px!important;line-height:24px!important}
+.penta-case-flow{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+.penta-case-flow span{
+  padding:4px 8px!important;
+  border-radius:999px!important;
+  background:#f7f8fa!important;
+  color:var(--text-secondary,#62676d)!important;
+  font-size:11px!important;
+  line-height:18px!important;
+}
+
+/* ---------- BUSINESS PROCESS ---------- */
+.penta-process-item{
+  min-height:150px!important;
+  padding:20px!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+}
+
+/* ---------- CORPORATE CENTER ---------- */
+.ptg-center-modern__row,
+.ptg-center-modern__steps li,
+.ptg-center-modern__checklist label{
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+.ptg-center-modern__row{min-height:176px!important;padding:20px!important}
+.ptg-center-modern__row>span,.ptg-center-modern__steps li>span{margin-bottom:14px!important;font-size:11px!important;line-height:18px!important}
+.ptg-center-modern__row h3,.ptg-center-modern__steps h3{margin:0 0 8px!important;font-size:16px!important;line-height:24px!important}
+.ptg-center-modern__row p,.ptg-center-modern__steps p{font-size:13px!important;line-height:21px!important}
+.ptg-center-modern__tags{display:flex!important;flex-wrap:wrap!important;gap:5px 12px!important;margin-top:12px!important}
+.ptg-center-modern__tags em{
+  position:relative!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--text-tertiary,#8a8f96)!important;
+  font-size:11px!important;
+  line-height:18px!important;
+  font-style:normal!important;
+}
+.ptg-center-modern__tags em+em:before{content:'·';margin-right:10px;color:var(--brand-primary,#f58220)}
+.ptg-center-modern__steps li{min-height:152px!important;padding:20px!important}
+.ptg-center-modern__checklist label{min-height:56px!important;padding:12px 14px!important}
+
+/* ---------- INHERITANCE ---------- */
+#ptg-inherit-onestop .ptg-service-card,
+#ptg-inherit-onestop .ptg-process-row,
+#ptg-inherit-onestop .ptg-case-card{
+  border:0!important;
+  border-radius:0!important;
+  background:#fff!important;
+  box-shadow:none!important;
+}
+#ptg-inherit-onestop .ptg-service-card{min-height:260px!important;padding:22px!important}
+#ptg-inherit-onestop .ptg-service-mark{font-size:11px!important;line-height:18px!important}
+#ptg-inherit-onestop .ptg-service-title{font-size:17px!important;line-height:25px!important}
+#ptg-inherit-onestop .ptg-service-desc{font-size:13px!important;line-height:21px!important}
+#ptg-inherit-onestop .ptg-service-detail{gap:6px!important;margin-top:18px!important}
+#ptg-inherit-onestop .ptg-service-line{font-size:12px!important;line-height:19px!important}
+#ptg-inherit-onestop .ptg-process-row{min-height:144px!important;padding:20px!important}
+#ptg-inherit-onestop .ptg-process-title{font-size:16px!important;line-height:24px!important}
+#ptg-inherit-onestop .ptg-process-desc{font-size:13px!important;line-height:21px!important}
+#ptg-inherit-onestop .ptg-case-card{min-height:170px!important;padding:20px!important}
+
+/* ---------- SECTION BACKDROP / RHYTHM ---------- */
+.home-proof,
+.penta-case-dark,
+.ptg-center-modern__process,
+.ptg-center-modern__prepare,
+#ptg-inherit-onestop .ptg-why,
+#ptg-inherit-onestop .ptg-price,
+#ptg-inherit-onestop .ptg-cases{
+  background:#f7f8fa!important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1100px){
+  .home-proof-list,
+  .about-standard-list,
+  .penta-problem-list,
+  .penta-process-list,
+  .ptg-center-modern__rows,
+  .ptg-center-modern__steps,
+  .ptg-center-modern__checklist,
+  #ptg-inherit-onestop .ptg-service-grid,
+  #ptg-inherit-onestop .ptg-process,
+  #ptg-inherit-onestop .ptg-case-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+@media(max-width:700px){
+  .home-proof-list,
+  .about-standard-list,
+  .penta-problem-list,
+  .penta-case-grid,
+  .penta-process-list,
+  .ptg-center-modern__rows,
+  .ptg-center-modern__steps,
+  .ptg-center-modern__checklist,
+  #ptg-inherit-onestop .ptg-service-grid,
+  #ptg-inherit-onestop .ptg-process,
+  #ptg-inherit-onestop .ptg-case-grid{
+    grid-template-columns:1fr!important;
+  }
+  .home-proof-list article,.about-standard,.penta-problem-item,.penta-case-item,.penta-process-item,
+  .ptg-center-modern__row,.ptg-center-modern__steps li,#ptg-inherit-onestop .ptg-service-card,
+  #ptg-inherit-onestop .ptg-process-row,#ptg-inherit-onestop .ptg-case-card{min-height:0!important;padding:20px!important}
+}
