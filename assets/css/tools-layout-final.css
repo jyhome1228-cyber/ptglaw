@@ -1,0 +1,42 @@
+/* Final layout authority for 제공서비스 pages */
+.ptg-tools-page .ptg-tools-shell{
+  width:min(calc(100% - 64px),1280px)!important;
+  max-width:1280px!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+.ptg-tools-page .ptg-tools-head{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:minmax(320px,.68fr) minmax(0,1.32fr)!important;
+  gap:56px!important;
+}
+.ptg-tools-page .ptg-tools-head>p{
+  max-width:760px!important;
+}
+.ptg-tools-page .ptg-calc-wrap{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:minmax(0,1fr) 360px!important;
+  gap:32px!important;
+}
+.ptg-tools-page .ptg-calc-panel,
+.ptg-tools-page .ptg-calc-note{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+.ptg-tools-page .ptg-tools-grid{
+  width:100%!important;
+  max-width:none!important;
+}
+@media(max-width:1280px){
+  .ptg-tools-page .ptg-tools-shell{width:calc(100% - 48px)!important}
+}
+@media(max-width:900px){
+  .ptg-tools-page .ptg-tools-head{grid-template-columns:1fr!important;gap:14px!important}
+  .ptg-tools-page .ptg-calc-wrap{grid-template-columns:1fr!important;gap:20px!important}
+}
+@media(max-width:767px){
+  .ptg-tools-page .ptg-tools-shell{width:calc(100% - 32px)!important}
+}
