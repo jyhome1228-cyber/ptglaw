@@ -2,156 +2,42 @@ name: Setup Pentagon favicon and social preview
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
-      - '.github/workflows/brand-meta-setup.yml'
+      - .github/workflows/brand-meta-setup.yml
 
 permissions:
   contents: write
 
 jobs:
-  setup-brand-meta:
+  setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Install image tools
-        run: pip install pillow cairosvg
+      - name: Install dependencies
+        run: python -m pip install pillow cairosvg
 
-      - name: Generate favicon assets and Open Graph preview
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          from PIL import Image, ImageDraw, ImageFont
-          import cairosvg
+      - name: Generate favicon and preview metadata
+        run: python .github/scripts/setup_brand_meta.py
 
-          root = Path('.')
-          img_dir = root / 'assets' / 'images'
-          img_dir.mkdir(parents=True, exist_ok=True)
-
-          svg = img_dir / 'favicon.svg'
-          png = img_dir / 'favicon-512.png'
-          ico = root / 'favicon.ico'
-
-          cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=512, output_height=512)
-          icon = Image.open(png).convert('RGBA')
-          icon.save(ico, format='ICO', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
-
-          W, H = 1200, 630
-          canvas = Image.new('RGB', (W, H), '#f7f8fa')
-          d = ImageDraw.Draw(canvas)
-          d.rectangle([0, 0, W, 8], fill='#f58220')
-
-          symbol = icon.copy()
-          symbol.thumbnail((190, 190), Image.Resampling.LANCZOS)
-          canvas.paste(symbol, (112, 182), symbol)
-
-          def font(path_candidates, size):
-              for p in path_candidates:
-                  if Path(p).exists():
-                      return ImageFont.truetype(p, size)
-              return ImageFont.load_default()
-
-          bold = font([
-              '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-              '/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf'
-          ], 72)
-          regular = font([
-              '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-              '/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf'
-          ], 26)
-          small = font([
-              '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-              '/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf'
-          ], 20)
-
-          x = 360
-          d.text((x, 190), 'PENTAGON', font=bold, fill='#181818')
-          d.text((x+4, 292), 'LEGAL · TAX · IP · RECOVERY · REGISTRY', font=regular, fill='#62676d')
-          d.line((x+4, 350, 1040, 350), fill='#d9dde2', width=2)
-          d.text((x+4, 382), 'ONE CONNECTED PROFESSIONAL SERVICE', font=small, fill='#f58220')
-          d.text((x+4, 427), 'PTG LAW OFFICE · SEOCHO, SEOUL', font=small, fill='#8a8f96')
-
-          canvas.save(img_dir / 'og-preview.png', 'PNG', optimize=True)
-          PY
-
-      - name: Add favicon and social meta to HTML pages
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          ROOT_URL = 'https://ptglaw.co.kr'
-          DEFAULT_DESC = '법률·세무·지식재산권·채권추심·등기를 하나의 해결 흐름으로 연결합니다.'
-
-          def attr(content, pattern, default=''):
-              m = re.search(pattern, content, re.I | re.S)
-              return (m.group(1).strip() if m else default)
-
-          for path in Path('.').rglob('*.html'):
-              if '.git' in path.parts:
-                  continue
-              text = path.read_text(encoding='utf-8')
-              if '</head>' not in text.lower():
-                  continue
-
-              # Remove previously managed tags so this remains idempotent.
-              patterns = [
-                  r'\s*<link[^>]+rel=["\'](?:icon|shortcut icon|apple-touch-icon)["\'][^>]*>',
-                  r'\s*<meta[^>]+property=["\']og:site_name["\'][^>]*>',
-                  r'\s*<meta[^>]+property=["\']og:image(?::width|:height|:alt)?["\'][^>]*>',
-                  r'\s*<meta[^>]+name=["\']twitter:(?:card|title|description|image)["\'][^>]*>',
-                  r'\s*<meta[^>]+name=["\']theme-color["\'][^>]*>',
-              ]
-              for p in patterns:
-                  text = re.sub(p, '', text, flags=re.I)
-
-              title = attr(text, r'<title>(.*?)</title>', '펜타곤 법률세무회계')
-              desc = attr(text, r'<meta[^>]+name=["\']description["\'][^>]+content=["\'](.*?)["\']', DEFAULT_DESC)
-              canonical = attr(text, r'<link[^>]+rel=["\']canonical["\'][^>]+href=["\'](.*?)["\']', ROOT_URL + '/')
-
-              extra = f'''
-  <link rel="icon" type="image/svg+xml" href="{ROOT_URL}/assets/images/favicon.svg">
-  <link rel="shortcut icon" href="{ROOT_URL}/favicon.ico">
-  <link rel="apple-touch-icon" href="{ROOT_URL}/assets/images/favicon-512.png">
-  <meta name="theme-color" content="#f58220">
-  <meta property="og:site_name" content="펜타곤 법률세무회계">
-  <meta property="og:image" content="{ROOT_URL}/assets/images/og-preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="펜타곤 법률세무회계">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{title.replace(chr(34), '&quot;')}">
-  <meta name="twitter:description" content="{desc.replace(chr(34), '&quot;')}">
-  <meta name="twitter:image" content="{ROOT_URL}/assets/images/og-preview.png">'''
-
-              if not re.search(r'property=["\']og:title["\']', text, re.I):
-                  extra += f'\n  <meta property="og:title" content="{title.replace(chr(34), "&quot;")}">'
-              if not re.search(r'property=["\']og:description["\']', text, re.I):
-                  extra += f'\n  <meta property="og:description" content="{desc.replace(chr(34), "&quot;")}">'
-              if not re.search(r'property=["\']og:type["\']', text, re.I):
-                  extra += '\n  <meta property="og:type" content="website">'
-              if not re.search(r'property=["\']og:url["\']', text, re.I):
-                  extra += f'\n  <meta property="og:url" content="{canonical}">'
-
-              text = re.sub(r'</head>', extra + '\n</head>', text, count=1, flags=re.I)
-              path.write_text(text, encoding='utf-8')
-          PY
-
-      - name: Commit brand metadata
+      - name: Commit generated assets and metadata
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add favicon.ico assets/images/favicon-512.png assets/images/og-preview.png '*.html' '**/*.html'
+          git add -A
           if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Set Pentagon favicon and social preview"
-            git push
+            echo "No changes"
+            exit 0
           fi
+          git commit -m "Set Pentagon favicon and social preview"
+          git push
