@@ -3,10 +3,10 @@
   const base=isProject?'/ptglaw':'';
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20260913-1105';
+  const CSS_VERSION='20260913-1148';
   const LOGO_VERSION='20260909-0955';
   const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
-  ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish'][i],file));
+  ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
   document.body.classList.add('ptg-global-ui');
 
   const localDateKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
@@ -58,4 +58,5 @@
 
   if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20260912-1328`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260913-1018`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
+  if((path.startsWith('/inheritance/')||path.startsWith('/center/'))&&!document.querySelector('script[data-ptg-package-landing]')){const s=document.createElement('script');s.src=`${base}/assets/js/package-landing.js?v=20260913-1148`;s.defer=true;s.dataset.ptgPackageLanding='true';document.body.appendChild(s)}
 })();
