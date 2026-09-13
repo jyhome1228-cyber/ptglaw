@@ -4,6 +4,15 @@
   const isCenter=/\/center\/?$/.test(path);
   if(!isInheritance&&!isCenter)return;
 
+  const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
+  if(!document.querySelector('link[data-ptg-package-premium]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=`${base}/assets/css/package-premium.css?v=20260913-2145`;
+    link.dataset.ptgPackagePremium='true';
+    document.head.appendChild(link);
+  }
+
   document.body.classList.add('ptg-package-landing',isInheritance?'ptg-package-inheritance':'ptg-package-center');
 
   const insertAfter=(node,newNode)=>node?.parentNode?.insertBefore(newNode,node.nextSibling);
@@ -27,6 +36,8 @@
     }
     if(visual)visual.innerHTML=`<div class="pkg-visual-panel"><div class="pkg-visual-head"><span>서비스 구성</span><strong>Inheritance One-Stop</strong></div><div class="pkg-visual-list"><div><b>01</b><strong>법률</strong><span>상속인 확인 · 재산분할 협의</span></div><div><b>02</b><strong>세무</strong><span>상속재산 검토 · 상속세 신고</span></div><div><b>03</b><strong>등기</strong><span>부동산 상속등기 · 완료 확인</span></div></div><div class="pkg-visual-foot">하나의 상담 · 하나의 사건 · 연결된 진행</div></div>`;
 
+    const oldOverview=document.querySelector('#ptg-package-overview');
+    if(oldOverview)oldOverview.remove();
     const overview=make(`<section class="pkg-overview" id="ptg-package-overview"><div class="pkg-inner"><div class="pkg-overview-grid"><div class="pkg-problem"><div class="pkg-section-label">WHY ONE-STOP</div><h2>상속 업무가 복잡해지는 이유</h2><div class="pkg-problem-list"><article><b>01</b><div><strong>전문가가 나뉩니다.</strong><p>법률, 세무, 등기 업무를 각각 따로 맡겨야 하는 경우가 많습니다.</p></div></article><article><b>02</b><div><strong>같은 설명을 반복합니다.</strong><p>상속관계와 재산정보를 담당자마다 다시 전달하게 됩니다.</p></div></article><article><b>03</b><div><strong>절차가 서로 영향을 줍니다.</strong><p>분할 방식에 따라 세금과 등기 방식이 함께 달라질 수 있습니다.</p></div></article></div></div><div class="pkg-solution"><div class="pkg-section-label">PENTAGON ONE-STOP</div><h2>한 번 상담하고, 하나의 사건으로 관리합니다.</h2><p class="pkg-solution-lead">앞 단계의 판단이 다음 절차에 그대로 이어지도록 사건정보와 진행 순서를 연결합니다.</p><div class="pkg-flow-list"><div><span>01</span><strong>상속 협의</strong><em>상속인·재산·채무 확인</em></div><div><span>02</span><strong>상속세 신고</strong><em>재산 검토·공제·신고</em></div><div><span>03</span><strong>상속등기</strong><em>협의 내용 반영·등기 완료</em></div></div></div></div></div></section>`);
     insertAfter(hero,overview);
 
@@ -57,6 +68,8 @@
     }
     if(visual)visual.innerHTML=`<div class="pkg-visual-panel"><div class="pkg-visual-head"><span>설립 검토 범위</span><strong>Corporate Formation</strong></div><div class="pkg-visual-list pkg-visual-list--five"><div><b>01</b><strong>구조</strong><span>주주 · 지분 · 임원</span></div><div><b>02</b><strong>세무</strong><span>자본금 · 전환 · 투자</span></div><div><b>03</b><strong>정관</strong><span>사업목적 · 의사결정</span></div><div><b>04</b><strong>등기</strong><span>설립서류 · 법인등기</span></div><div><b>05</b><strong>관리</strong><span>사업자등록 · 기장 · 신고</span></div></div><div class="pkg-visual-foot">설립 전 검토부터 설립 후 운영까지</div></div>`;
 
+    const oldOverview=document.querySelector('#ptg-package-overview');
+    if(oldOverview)oldOverview.remove();
     const overview=make(`<section class="pkg-overview" id="ptg-package-overview"><div class="pkg-inner"><div class="pkg-overview-grid"><div class="pkg-problem"><div class="pkg-section-label">BEFORE INCORPORATION</div><h2>등기 전에 먼저 결정해야 할 것</h2><div class="pkg-problem-list"><article><b>01</b><div><strong>누가 어떤 지분을 갖는지</strong><p>주주구성과 의결권 구조는 이후 투자와 경영권에 영향을 줍니다.</p></div></article><article><b>02</b><div><strong>자본금과 정관을 어떻게 설계할지</strong><p>업종과 사업계획에 따라 초기 구조가 달라질 수 있습니다.</p></div></article><article><b>03</b><div><strong>설립 이후 세무를 어떻게 이어갈지</strong><p>사업자등록, 급여, 기장과 신고 일정까지 미리 연결해야 합니다.</p></div></article></div></div><div class="pkg-solution"><div class="pkg-section-label">PENTAGON FORMATION</div><h2>설립 절차보다 운영 구조를 먼저 봅니다.</h2><p class="pkg-solution-lead">법률·세무·등기를 각각 나누지 않고 사업형태와 향후 계획을 기준으로 하나의 설립 구조를 만듭니다.</p><div class="pkg-flow-list pkg-flow-list--five"><div><span>01</span><strong>구조 설계</strong><em>주주·지분·임원</em></div><div><span>02</span><strong>세무 검토</strong><em>자본금·투자·전환</em></div><div><span>03</span><strong>정관 설계</strong><em>사업목적·운영기준</em></div><div><span>04</span><strong>법인등기</strong><em>서류·등기 진행</em></div><div><span>05</span><strong>설립 후 관리</strong><em>등록·기장·신고</em></div></div></div></div></div></section>`);
     insertAfter(hero,overview);
 
