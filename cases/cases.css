@@ -1,8 +1,8 @@
 .ptg-cases-page{padding:48px 0 64px;background:#fff}
 .ptg-cases-page__inner{width:min(calc(100% - 64px),1280px);margin-inline:auto}
-.ptg-cases-head{display:grid;grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr);gap:32px;align-items:start;margin-bottom:28px}
-.ptg-cases-head h1{margin:0!important;font-size:30px!important;line-height:40px!important;letter-spacing:-.04em!important}
-.ptg-cases-head p{max-width:620px;margin:0!important;color:#62676d!important;font-size:14px!important;line-height:22px!important}
+.ptg-cases-head{display:block;margin-bottom:28px}
+.ptg-cases-head h1{margin:0 0 12px!important;font-size:30px!important;line-height:40px!important;letter-spacing:-.04em!important}
+.ptg-cases-head p{max-width:720px;margin:0!important;color:#62676d!important;font-size:14px!important;line-height:22px!important}
 .ptg-cases-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
 .ptg-cases-filter button{min-height:40px;padding:0 14px;border:0;border-radius:8px;background:#f7f8fa;color:#62676d;font-size:13px;font-weight:600;cursor:pointer;transition:background .16s ease,color .16s ease,transform .16s ease}
 .ptg-cases-filter button:hover{background:#eef1f4;color:#181818}.ptg-cases-filter button:active{transform:scale(.98)}
@@ -24,4 +24,4 @@
 .ptg-case-card__more{display:inline-flex;align-items:center;margin-top:16px;color:#f58220;font-size:13px;font-weight:700}
 .ptg-case-card__more:hover{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:980px){.ptg-cases-page__inner{width:min(calc(100% - 48px),1280px)}.ptg-cases-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:767px){.ptg-cases-page{padding:40px 0 56px}.ptg-cases-page__inner{width:calc(100% - 32px)}.ptg-cases-head{grid-template-columns:1fr;gap:10px}.ptg-cases-head h1{font-size:28px!important;line-height:38px!important}.ptg-cases-grid{grid-template-columns:1fr}.ptg-case-card{padding:18px}.ptg-case-card__top{align-items:flex-start}.ptg-case-card__result{white-space:normal;text-align:right}}
+@media(max-width:767px){.ptg-cases-page{padding:40px 0 56px}.ptg-cases-page__inner{width:calc(100% - 32px)}.ptg-cases-head h1{margin-bottom:10px!important;font-size:28px!important;line-height:38px!important}.ptg-cases-grid{grid-template-columns:1fr}.ptg-case-card{padding:18px}.ptg-case-card__top{align-items:flex-start}.ptg-case-card__result{white-space:normal;text-align:right}}
