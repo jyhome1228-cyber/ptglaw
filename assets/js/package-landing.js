@@ -8,7 +8,7 @@
   if(!document.querySelector('link[data-ptg-package-premium]')){
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/package-premium.css?v=20260913-2145`;
+    link.href=`${base}/assets/css/package-premium.css?v=20260914-0950`;
     link.dataset.ptgPackagePremium='true';
     document.head.appendChild(link);
   }
