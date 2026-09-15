@@ -5,7 +5,7 @@
   const footer=document.querySelector('[data-site-footer]');
   const CSS_VERSION='20260914-0950';
   const LOGO_VERSION='20260909-0955';
-  const SERVICE_ASSET_VERSION='20260915-0945';
+  const SERVICE_ASSET_VERSION='20260915-1126';
   const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
   ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
   document.body.classList.add('ptg-global-ui');
@@ -84,6 +84,30 @@
       img.decoding='async';
       figure.appendChild(img);
       if(points)grid.insertBefore(figure,points);else grid.appendChild(figure);
+    }
+  }
+
+  const isServicesLanding=path==='/services/'||path==='/services';
+  if(isServicesLanding){
+    if(!document.querySelector('link[data-ptg-services-landing-visual]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=`${base}/assets/css/services-landing-visual.css?v=${SERVICE_ASSET_VERSION}`;
+      link.dataset.ptgServicesLandingVisual='true';
+      document.head.appendChild(link);
+    }
+    const grid=document.querySelector('.penta-business-hero-grid');
+    const index=grid?.querySelector('.penta-hero-index');
+    if(grid&&!grid.querySelector('.penta-business-team-visual')){
+      const figure=document.createElement('figure');
+      figure.className='penta-business-team-visual';
+      const img=document.createElement('img');
+      img.src='https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004130-2-d818192f.webp';
+      img.alt='펜타곤의 다섯 전문 영역을 상징하는 협업 이미지';
+      img.loading='eager';
+      img.decoding='async';
+      figure.appendChild(img);
+      if(index)grid.insertBefore(figure,index);else grid.appendChild(figure);
     }
   }
 
