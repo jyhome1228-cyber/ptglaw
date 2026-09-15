@@ -5,6 +5,7 @@
   const footer=document.querySelector('[data-site-footer]');
   const CSS_VERSION='20260914-0950';
   const LOGO_VERSION='20260909-0955';
+  const SERVICE_ASSET_VERSION='20260915-0945';
   const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
   ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
   document.body.classList.add('ptg-global-ui');
@@ -49,6 +50,51 @@
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
   if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
   if(path.startsWith('/tools/'))document.querySelector('.ptg-nav-link[href$="/tools/"]')?.classList.add('is-active');
+
+  document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(link=>{
+    link.href=`${base}/assets/images/favicon.svg?v=${SERVICE_ASSET_VERSION}`;
+    link.type='image/svg+xml';
+  });
+
+  const serviceHeroAssets={
+    '/services/legal/':{src:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004128-image-84cfea92.webp',alt:'법률 자문 및 소송 대표 이미지'},
+    '/services/tax/':{src:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004128-image-2a796425.webp',alt:'세무 기장 및 자문 대표 이미지'},
+    '/services/ip/':{src:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004130-ip-0c820e7c.webp',alt:'IP 지식재산권 대표 이미지'},
+    '/services/recovery/':{src:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004129-image-f775d8ba.webp',alt:'채권 추심 대표 이미지'},
+    '/services/registry/':{src:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004127-image-022c459b.webp',alt:'등기 업무 대표 이미지'}
+  };
+  const serviceAsset=Object.entries(serviceHeroAssets).find(([prefix])=>path.startsWith(prefix))?.[1];
+  if(serviceAsset){
+    if(!document.querySelector('link[data-ptg-service-hero-images]')){
+      const link=document.createElement('link');
+      link.rel='stylesheet';
+      link.href=`${base}/assets/css/service-hero-images.css?v=${SERVICE_ASSET_VERSION}`;
+      link.dataset.ptgServiceHeroImages='true';
+      document.head.appendChild(link);
+    }
+    const grid=document.querySelector('.svc-hero-grid');
+    const points=grid?.querySelector('.svc-hero-points');
+    if(grid&&!grid.querySelector('.svc-hero-media')){
+      const figure=document.createElement('figure');
+      figure.className='svc-hero-media';
+      const img=document.createElement('img');
+      img.src=serviceAsset.src;
+      img.alt=serviceAsset.alt;
+      img.loading='eager';
+      img.decoding='async';
+      figure.appendChild(img);
+      if(points)grid.insertBefore(figure,points);else grid.appendChild(figure);
+    }
+  }
+
+  if(path.startsWith('/about/')){
+    const aboutPhoto=document.querySelector('.about-photo img');
+    if(aboutPhoto){
+      aboutPhoto.src='https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-004130-2-d818192f.webp';
+      aboutPhoto.alt='펜타곤의 다섯 전문 영역과 협업을 상징하는 이미지';
+      aboutPhoto.decoding='async';
+    }
+  }
 
   const menuBtn=document.querySelector('.ptg-site-header__menu'),nav=document.querySelector('#ptgSiteNav');
   menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.textContent=open?'닫기':'메뉴'});
