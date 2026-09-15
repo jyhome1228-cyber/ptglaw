@@ -41,15 +41,35 @@
     grid.innerHTML='<div class="ptg-cases-empty">등록된 업무사례가 없습니다.</div>';
   }
 
+  const empty=document.createElement('div');
+  empty.className='ptg-cases-empty';
+  empty.textContent='해당 분류의 업무사례가 없습니다.';
+  empty.hidden=true;
+  grid.insertAdjacentElement('afterend',empty);
+
   const applyFilter=filter=>{
+    let visible=0;
     cards.forEach(card=>{
       const show=filter==='all'||card.dataset.categories.split(' ').includes(filter);
+      card.classList.toggle('is-hidden',!show);
       card.hidden=!show;
+      card.setAttribute('aria-hidden',String(!show));
+      if(show)visible+=1;
     });
+    empty.hidden=visible!==0;
   };
 
-  buttons.forEach(button=>button.addEventListener('click',()=>{
-    buttons.forEach(x=>x.classList.toggle('is-active',x===button));
-    applyFilter(button.dataset.caseFilter||'all');
-  }));
+  buttons.forEach(button=>{
+    button.setAttribute('aria-pressed',String(button.classList.contains('is-active')));
+    button.addEventListener('click',()=>{
+      buttons.forEach(x=>{
+        const active=x===button;
+        x.classList.toggle('is-active',active);
+        x.setAttribute('aria-pressed',String(active));
+      });
+      applyFilter(button.dataset.caseFilter||'all');
+    });
+  });
+
+  applyFilter('all');
 })();
