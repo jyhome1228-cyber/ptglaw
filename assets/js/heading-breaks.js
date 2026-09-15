@@ -1,39 +1,40 @@
 (()=>{
   /*
-   * Punctuation line-break helper.
-   * Scope is intentionally limited to headings and heading/section lead copy.
-   * Card/body paragraphs are not touched.
+   * Global punctuation line-break helper.
+   * Long-form copy across the site should start a new visual line after a full stop.
+   * Decimal numbers, domains/abbreviations and code-like content are excluded.
    */
   const SELECTORS=[
     'main h1','main h2','main h3','main h4',
-    '.svc-heading > p',
-    '.svc-hero-copy > p',
-    '.about-section__head > p',
-    '.about-hero__content > p',
-    '.penta-business-head > p',
-    '.penta-business-desc',
-    '.penta-case-head > p',
-    '.home-section__head .home-intro',
-    '.home-hero__content > p:not(.home-label)',
-    '.ptg-center-modern__section-head > p',
-    '.ptg-center-modern__lead',
-    '#ptg-inherit-onestop .ptg-section-head > p',
-    '#ptg-inherit-onestop .ptg-lead',
-    '.section-heading > p',
-    '.split-heading > p',
-    '.page-hero .wrap > p:not(.eyebrow)',
-    '.ptg-team-head__text > p:last-child',
-    '.ptg-profile__summary'
+    'main p'
   ].join(',');
 
+  const EXCLUDE='nav,table,pre,code,kbd,samp,[contenteditable="true"],[data-punct-break="off"]';
   const PERIODS=new Set(['.','。']);
   const isDigit=c=>/\d/.test(c||'');
+  const isAsciiLetter=c=>/[A-Za-z]/.test(c||'');
 
   const getTextAfterPoint=(el,node,offset)=>{
     const range=document.createRange();
     range.setStart(node,offset);
     range.setEndAfter(el.lastChild||el);
     return range.toString().trim();
+  };
+
+  const shouldSkipPoint=(text,index)=>{
+    const prev=text[index-1]||'';
+    const next=text[index+1]||'';
+
+    // 3.3 / 1.25 같은 소수점
+    if(isDigit(prev)&&isDigit(next))return true;
+
+    // ptglaw.co.kr / e.g. / A.B 같은 영문 도메인·약어 내부
+    if(isAsciiLetter(prev)&&isAsciiLetter(next))return true;
+
+    // 말줄임표·연속 온점
+    if(PERIODS.has(prev)||PERIODS.has(next))return true;
+
+    return false;
   };
 
   const markExistingBreaks=el=>{
@@ -44,6 +45,8 @@
 
   const insertPeriodBreaks=el=>{
     if(!el||el.dataset.punctBreak==='off'||el.dataset.punctBreakApplied==='true')return;
+    if(el.closest(EXCLUDE))return;
+
     markExistingBreaks(el);
 
     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
@@ -58,8 +61,10 @@
       for(let i=0;i<original.length;i+=1){
         const c=original[i];
         if(!PERIODS.has(c))continue;
-        if(c==='.'&&isDigit(original[i-1])&&isDigit(original[i+1]))continue;
-        if(getTextAfterPoint(el,textNode,i+1).length<2)continue;
+        if(shouldSkipPoint(original,i))continue;
+
+        // 문장 끝 뒤에 실제 다음 문장이 있을 때만 줄바꿈
+        if(getTextAfterPoint(el,textNode,i+1).length<1)continue;
         points.push(i+1);
       }
 
