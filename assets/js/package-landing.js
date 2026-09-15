@@ -12,6 +12,13 @@
     link.dataset.ptgPackagePremium='true';
     document.head.appendChild(link);
   }
+  if(!document.querySelector('link[data-ptg-package-hero-media]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=`${base}/assets/css/package-hero-media.css?v=20260915-1238`;
+    link.dataset.ptgPackageHeroMedia='true';
+    document.head.appendChild(link);
+  }
 
   document.body.classList.add('ptg-package-landing',isInheritance?'ptg-package-inheritance':'ptg-package-center');
 
@@ -34,7 +41,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML=`<div class="pkg-visual-panel"><div class="pkg-visual-head"><span>서비스 구성</span><strong>Inheritance One-Stop</strong></div><div class="pkg-visual-list"><div><b>01</b><strong>법률</strong><span>상속인 확인 · 재산분할 협의</span></div><div><b>02</b><strong>세무</strong><span>상속재산 검토 · 상속세 신고</span></div><div><b>03</b><strong>등기</strong><span>부동산 상속등기 · 완료 확인</span></div></div><div class="pkg-visual-foot">하나의 상담 · 하나의 사건 · 연결된 진행</div></div>`;
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-025514-dc9cce09-8304-44bb-9c70-b5d176016a84-3b6b2621.webp" alt="상속 원스탑 서비스 대표 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
@@ -66,7 +73,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML=`<div class="pkg-visual-panel"><div class="pkg-visual-head"><span>설립 검토 범위</span><strong>Corporate Formation</strong></div><div class="pkg-visual-list pkg-visual-list--five"><div><b>01</b><strong>구조</strong><span>주주 · 지분 · 임원</span></div><div><b>02</b><strong>세무</strong><span>자본금 · 전환 · 투자</span></div><div><b>03</b><strong>정관</strong><span>사업목적 · 의사결정</span></div><div><b>04</b><strong>등기</strong><span>설립서류 · 법인등기</span></div><div><b>05</b><strong>관리</strong><span>사업자등록 · 기장 · 신고</span></div></div><div class="pkg-visual-foot">설립 전 검토부터 설립 후 운영까지</div></div>`;
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-025515-e1fd3d31-1119-4947-81e9-39a10a8a8a45-23f6ccd4.webp" alt="법인설립 지원센터 대표 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
