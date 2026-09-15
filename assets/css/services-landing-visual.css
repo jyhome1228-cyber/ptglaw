@@ -1,0 +1,60 @@
+/* Services landing visual enhancement — Pentagon five-field collaboration image */
+.penta-business-page .penta-business-hero-logo{display:none!important}
+
+.penta-business-page .penta-business-hero-grid{
+  grid-template-columns:minmax(0,.88fr) minmax(420px,1.12fr)!important;
+  column-gap:72px!important;
+  row-gap:28px!important;
+  align-items:start!important;
+}
+
+.penta-business-page .penta-business-hero-grid>div:first-child{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  align-self:center!important;
+}
+
+.penta-business-page .penta-business-team-visual{
+  grid-column:2!important;
+  grid-row:1!important;
+  width:100%!important;
+  margin:0!important;
+  aspect-ratio:2 / 1!important;
+  overflow:hidden!important;
+  border-radius:16px!important;
+  background:#f5f6f7!important;
+}
+
+.penta-business-page .penta-business-team-visual img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+
+.penta-business-page .penta-hero-index{
+  grid-column:2!important;
+  grid-row:2!important;
+  width:100%!important;
+}
+
+@media(max-width:1100px){
+  .penta-business-page .penta-business-hero-grid{
+    grid-template-columns:1fr!important;
+    gap:32px!important;
+  }
+  .penta-business-page .penta-business-hero-grid>div:first-child,
+  .penta-business-page .penta-business-team-visual,
+  .penta-business-page .penta-hero-index{
+    grid-column:1!important;
+    grid-row:auto!important;
+  }
+}
+
+@media(max-width:760px){
+  .penta-business-page .penta-business-team-visual{
+    aspect-ratio:16 / 10!important;
+    border-radius:14px!important;
+  }
+}
