@@ -143,4 +143,79 @@
     }
     setMode('transfer');
   }
+
+  /* RESULT SHARE — common to all five calculators */
+  const calcRoots=[withholding,vat,corporate,severance,asset].filter(Boolean);
+  const pageTitle=document.querySelector('.ptg-tools-head h1')?.textContent.trim()||document.title.replace(/\s*\|.*$/,'');
+  const cleanUrl=()=>`${location.origin}${location.pathname}`;
+  const copyText=async text=>{
+    try{await navigator.clipboard.writeText(text);return true}catch(e){
+      const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();return ok;
+    }
+  };
+  const toast=(box,message)=>{
+    const el=box.querySelector('.ptg-share-toast');
+    if(!el)return;
+    el.textContent=message;el.classList.add('is-show');
+    clearTimeout(el._timer);el._timer=setTimeout(()=>el.classList.remove('is-show'),2200);
+  };
+  const getFieldLines=scope=>[...scope.querySelectorAll('.ptg-calc-field')].map(field=>{
+    const label=field.querySelector('label')?.textContent.trim();
+    const control=field.querySelector('input,select');
+    if(!label||!control)return null;
+    let value='';
+    if(control.tagName==='SELECT')value=control.options[control.selectedIndex]?.textContent.trim()||'';
+    else value=control.value.trim();
+    const unit=field.querySelector('.ptg-calc-input>span')?.textContent.trim()||'';
+    return `${label}: ${value}${value&&unit?unit:''}`;
+  }).filter(Boolean);
+  const getShareText=result=>{
+    const panel=result.closest('[data-tax-panel]');
+    const scope=panel||result.closest('.ptg-calc-panel')||result.parentElement;
+    const root=result.closest('[data-withholding-calculator],[data-vat-calculator],[data-corporate-registration-calculator],[data-severance-calculator],[data-asset-tax-calculator]');
+    const activeMode=panel
+      ? root?.querySelector(`[data-tax-mode="${panel.dataset.taxPanel}"]`)?.textContent.trim()
+      : root?.querySelector('.ptg-calc-tabs .is-active')?.textContent.trim();
+    const inputLines=getFieldLines(scope);
+    const resultLines=[...result.querySelectorAll('.ptg-calc-row')].map(row=>{
+      const label=row.querySelector('span')?.textContent.trim();
+      const value=row.querySelector('strong')?.textContent.trim();
+      return label&&value?`${label}: ${value}`:null;
+    }).filter(Boolean);
+    return [
+      `[펜타곤 ${pageTitle}]`,
+      activeMode?`계산 방식: ${activeMode}`:'',
+      inputLines.length?'\n[입력값]':'',
+      ...inputLines,
+      resultLines.length?'\n[계산 결과]':'',
+      ...resultLines,
+      `\n계산기 링크: ${cleanUrl()}`,
+      '※ 계산 결과는 참고용이며 실제 세무·법률 판단은 개별 사실관계에 따라 달라질 수 있습니다.'
+    ].filter(Boolean).join('\n');
+  };
+  const addShare= result=>{
+    if(result.nextElementSibling?.classList.contains('ptg-result-share'))return;
+    const box=document.createElement('div');
+    box.className='ptg-result-share';
+    box.innerHTML=`<div class="ptg-result-share__head"><strong>결과 공유하기</strong><span>현재 계산 결과를 간편하게 전달할 수 있습니다.</span></div><div class="ptg-result-share__actions"><button type="button" data-share-kakao>카카오톡 공유</button><button type="button" data-share-link>링크 공유하기</button><button type="button" data-share-text>텍스트 복사하기</button></div><div class="ptg-share-toast" role="status" aria-live="polite"></div>`;
+    result.insertAdjacentElement('afterend',box);
+    box.querySelector('[data-share-kakao]').addEventListener('click',async()=>{
+      const text=getShareText(result);
+      if(navigator.share){
+        try{await navigator.share({title:pageTitle,text,url:cleanUrl()});return}catch(e){if(e?.name==='AbortError')return;}
+      }
+      await copyText(text);toast(box,'공유 내용을 복사했습니다. 카카오톡에 붙여넣어 주세요.');
+    });
+    box.querySelector('[data-share-link]').addEventListener('click',async()=>{
+      const url=cleanUrl();
+      if(navigator.share){
+        try{await navigator.share({title:pageTitle,url});return}catch(e){if(e?.name==='AbortError')return;}
+      }
+      await copyText(url);toast(box,'계산기 링크를 복사했습니다.');
+    });
+    box.querySelector('[data-share-text]').addEventListener('click',async()=>{
+      await copyText(getShareText(result));toast(box,'계산 결과 텍스트를 복사했습니다.');
+    });
+  };
+  calcRoots.forEach(root=>root.querySelectorAll('.ptg-calc-result').forEach(addShare));
 })();
