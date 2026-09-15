@@ -24,7 +24,7 @@
   width:100%!important;
   max-width:none!important;
   margin:0!important;
-  aspect-ratio:2 / 1!important;
+  aspect-ratio:4 / 1!important;
   overflow:hidden!important;
   border-radius:20px!important;
   background:#f3f4f6!important;
@@ -118,7 +118,10 @@
 
 @media(max-width:1024px){
   .svc-detail .svc-hero{padding:64px 0 68px!important}
-  .svc-detail .svc-hero-media{width:100%!important}
+  .svc-detail .svc-hero-media{
+    width:100%!important;
+    aspect-ratio:3 / 1!important;
+  }
   .svc-detail .svc-hero-copy{margin-top:32px!important}
   .svc-detail .svc-hero-points{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -143,7 +146,7 @@
   }
   .svc-detail .svc-hero{padding:48px 0 56px!important}
   .svc-detail .svc-hero-media{
-    aspect-ratio:16 / 10!important;
+    aspect-ratio:2 / 1!important;
     border-radius:16px!important;
   }
   .svc-detail .svc-hero-copy{margin-top:28px!important}
