@@ -14,6 +14,19 @@
   const isDigit=c=>/\d/.test(c||'');
   const isAsciiLetter=c=>/[A-Za-z]/.test(c||'');
 
+  const normalizeFooter=()=>{
+    const mainPhone=document.querySelector('.ptg-site-footer__contact-main a');
+    if(mainPhone){
+      mainPhone.textContent='02-6447-5599';
+      mainPhone.setAttribute('href','tel:0264475599');
+    }
+    document.querySelectorAll('.ptg-site-footer__contact dl>div').forEach(row=>{
+      const label=row.querySelector('dt')?.textContent?.trim();
+      const value=row.querySelector('dd');
+      if(label==='팩스'&&value)value.textContent='02-6447-5598';
+    });
+  };
+
   const getTextAfterPoint=(el,node,offset)=>{
     const range=document.createRange();
     range.setStart(node,offset);
@@ -88,11 +101,17 @@
   };
 
   const start=()=>{
+    normalizeFooter();
     apply(document);
     const observer=new MutationObserver(mutations=>{
+      let shouldNormalizeFooter=false;
       mutations.forEach(m=>m.addedNodes.forEach(node=>{
-        if(node.nodeType===1)apply(node);
+        if(node.nodeType===1){
+          apply(node);
+          if(node.matches?.('.ptg-site-footer')||node.querySelector?.('.ptg-site-footer'))shouldNormalizeFooter=true;
+        }
       }));
+      if(shouldNormalizeFooter)normalizeFooter();
     });
     observer.observe(document.body,{childList:true,subtree:true});
   };
