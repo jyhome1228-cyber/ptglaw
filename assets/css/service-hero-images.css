@@ -1,0 +1,50 @@
+/* Pentagon service hero imagery — 2026-09-15 */
+.svc-detail .svc-hero-grid{
+  align-items:start!important;
+}
+.svc-detail .svc-hero-copy{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  align-self:center!important;
+}
+.svc-detail .svc-hero-media{
+  grid-column:2!important;
+  grid-row:1!important;
+  width:100%!important;
+  margin:0!important;
+  aspect-ratio:2 / 1!important;
+  overflow:hidden!important;
+  border-radius:16px!important;
+  background:#f3f4f6!important;
+}
+.svc-detail .svc-hero-media img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+.svc-detail .svc-hero-points{
+  grid-column:2!important;
+  grid-row:2!important;
+  margin-top:24px!important;
+}
+
+@media(max-width:1100px){
+  .svc-detail .svc-hero-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .svc-detail .svc-hero-copy,
+  .svc-detail .svc-hero-media,
+  .svc-detail .svc-hero-points{
+    grid-column:1!important;
+    grid-row:auto!important;
+  }
+  .svc-detail .svc-hero-copy{align-self:auto!important}
+  .svc-detail .svc-hero-points{margin-top:0!important}
+}
+
+@media(max-width:760px){
+  .svc-detail .svc-hero-media{
+    aspect-ratio:16 / 10!important;
+    border-radius:14px!important;
+  }
+}
