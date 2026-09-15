@@ -3,8 +3,8 @@
   if(!root)return;
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
   const BUILTIN=[
+    ['2026.09.01','머니투데이','펜타곤 법률세무회계, 서울지방국세청 출신 전승환 변호사 영입','https://www.mt.co.kr/index.php/society/2026/09/01/2026090109034070350','https://www.mt.co.kr/index.php/society/2026/09/01/2026090109034070350','firm'],
     ['2026.08.24','법조신문','[채용현 기고] AI 폭풍우 속에서 춤추는 변호사','https://news.koreanbar.or.kr/news/articleView.html?idxno=36046','https://news.koreanbar.or.kr/news/articleView.html?idxno=36046','column'],
-    ['2026.08.14','머니투데이','펜타곤 법률세무회계, 서울국세청 출신 전승환 변호사 영입','https://www.mt.co.kr/society/2026/08/14/2026081416423853952','https://www.mt.co.kr/society/2026/08/14/2026081416423853952','firm'],
     ['2026.07.10','법률신문','독일의 변호사 직역 확대 및 법률서비스 시장의 외연 확장을 위한 제도적 대응방안 및 지정토론','https://www.lawtimes.co.kr/news/articleView.html?idxno=223283','https://www.lawtimes.co.kr/news/articleView.html?idxno=223283','activity'],
     ['2026.07.09','로리더','제15회 여성변호사대회 관련 – 채용현 한국법조인협회장 참석','https://www.lawleader.co.kr/news/articleView.html?idxno=19472','https://www.lawleader.co.kr/news/articleView.html?idxno=19472','activity'],
     ['2026.06.08','법조신문','[채용현 기고] 법률서비스의 적정 가격은 국가가 아니라 시장이 정한다','https://news.koreanbar.or.kr/news/articleView.html?idxno=35712','https://news.koreanbar.or.kr/news/articleView.html?idxno=35712','column'],
@@ -38,7 +38,7 @@
   ];
   const LABEL={firm:'펜타곤 소식',interview:'인터뷰',column:'기고',activity:'법조 활동',broadcast:'방송'};
   const COPY={firm:'펜타곤 법률세무회계의 주요 소식과 전문 서비스 관련 보도입니다.',interview:'인터뷰와 법조계 현안에 관한 주요 발언을 확인하세요.',column:'법률·조세·법조 제도에 관한 전문가 기고입니다.',activity:'한국법조인협회와 주요 법조계 활동을 다룬 보도입니다.',broadcast:'방송 보도와 인터뷰 내용을 확인하세요.'};
-  const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[x]));
   let extra=[];
   try{const res=await fetch(`${base}/content/news.json?v=${Date.now()}`,{cache:'no-store'});if(res.ok)extra=await res.json()}catch(e){}
   const cms=extra.map(x=>[x.date||'',x.source||'',x.title||'',x.url||'#',x.image||x.url||'',x.category||'firm',x.summary||'']);
@@ -47,7 +47,7 @@
   const more=root.querySelector('[data-news-more]');
   const buttons=[...root.querySelectorAll('[data-news-filter]')];
   let filter='all',limit=12;
-  const preview=u=>'https://api.microlink.io/?url='+encodeURIComponent(u)+'&embed=image.url';
+  const preview=u=>'https://api.microlink.io/?url='+encodeURIComponent(u)+'&screenshot=true&embed=screenshot.url&viewport.width=1280&viewport.height=800';
   const cards=DATA.map((item,i)=>{
     const [date,source,title,href,visual,category,summary]=item;
     const external=/^https?:\/\//.test(href);
@@ -55,7 +55,9 @@
     card.className='ptg-newsroom-card';card.dataset.category=category;
     const imgSrc=/^https?:\/\//.test(visual)&&/\.(png|jpe?g|webp|gif)(\?|$)/i.test(visual)?visual:preview(visual||href);
     card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div><img src="${esc(imgSrc)}" alt="${esc(title)}" loading="${i<6?'eager':'lazy'}" decoding="async"></div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ↗':'자세히 보기 →'}</span></div></a>`;
-    card.querySelector('img')?.addEventListener('error',e=>e.currentTarget.style.display='none');
+    const img=card.querySelector('img');
+    img?.addEventListener('load',()=>img.classList.add('is-loaded'));
+    img?.addEventListener('error',()=>img.remove());
     return card;
   });
   cards.forEach(x=>grid.appendChild(x));
