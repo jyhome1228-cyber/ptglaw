@@ -242,10 +242,24 @@
   .ptg-notice-bar__copy strong{font-size:12px!important}
   .ptg-site-footer__top{
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:36px 24px!important;
+    column-gap:24px!important;
+    row-gap:40px!important;
     padding:44px 0 36px!important;
   }
   .ptg-site-footer__brand{grid-column:1/-1!important}
+  .ptg-site-footer__brand-copy{max-width:300px!important;margin-top:16px!important}
+  .ptg-site-footer__menu{gap:8px!important}
+  .ptg-site-footer__menu-title{font-size:14px!important;line-height:20px!important;margin-bottom:8px!important}
+  .ptg-site-footer__menu a{font-size:14px!important;line-height:21px!important}
+  .ptg-site-footer__menu:nth-of-type(3){
+    grid-column:1/-1!important;
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:24px!important;
+    row-gap:10px!important;
+  }
+  .ptg-site-footer__menu:nth-of-type(3) .ptg-site-footer__menu-title{grid-column:1/-1!important}
+  .ptg-site-footer__menu:nth-of-type(3) .ptg-site-footer__menu-title[style]{margin-top:14px!important}
   .ptg-site-footer__contact{grid-column:1/-1!important}
   .ptg-site-footer__office{grid-template-columns:1fr!important;gap:16px!important;padding:20px 0 24px!important}
   .ptg-site-footer__legal{justify-content:flex-start!important;gap:10px 16px!important}
@@ -254,9 +268,15 @@
 @media(max-width:479px){
   .ptg-site-header__logo img,.ptg-site-footer__logo img{width:140px!important;max-height:36px!important}
   .ptg-notice-bar__today{display:none!important}
-  .ptg-site-footer__top{grid-template-columns:1fr!important;gap:30px!important}
-  .ptg-site-footer__brand,.ptg-site-footer__contact{grid-column:auto!important}
+  .ptg-site-footer__top{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:20px!important;
+    row-gap:36px!important;
+    padding:40px 0 32px!important;
+  }
+  .ptg-site-footer__brand,.ptg-site-footer__contact{grid-column:1/-1!important}
   .ptg-site-footer__brand-copy{max-width:280px!important}
+  .ptg-site-footer__menu:nth-of-type(3){grid-column:1/-1!important;column-gap:20px!important}
   .ptg-site-footer__contact dl>div{grid-template-columns:64px minmax(0,1fr)!important}
   .ptg-site-footer__address{display:block!important}
   .ptg-site-footer__address>span{display:block!important;margin-bottom:4px!important}
