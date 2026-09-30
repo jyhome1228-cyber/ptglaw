@@ -8,7 +8,9 @@
   const SERVICE_ASSET_VERSION='20260915-1435';
   const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
   ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
-  document.body.classList.add('ptg-global-ui');
+  document.body.classList.add('ptg-global-ui','ptg-notice-hidden');
+  document.documentElement.style.setProperty('--notice-height','0px');
+  document.body.style.setProperty('--notice-height','0px');
 
   // Pre-launch: top notice banner removed.
 
