@@ -10,25 +10,8 @@
   ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
   document.body.classList.add('ptg-global-ui');
 
-  const localDateKey=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
-  const notice=document.createElement('div');
-  notice.className='ptg-notice-bar';
-  notice.innerHTML=`<div class="ptg-notice-bar__inner"><div class="ptg-notice-bar__copy"><strong>변호사·세무사·변리사 자격을 갖춘 대표가 직접 소통하고 상담합니다.</strong><span>법률·세무·지식재산권 쟁점을 하나의 흐름으로 검토합니다.</span></div><div class="ptg-notice-bar__actions"><button type="button" class="ptg-notice-bar__today">오늘 하루 보지 않기</button><button type="button" class="ptg-notice-bar__close" aria-label="공지 닫기">×</button></div></div>`;
-  // Pre-launch: legacy top notice is temporarily disabled.\n  notice.classList.add('is-hidden');
-  notice.style.setProperty('background','#f58220','important');
-  notice.style.setProperty('color','#fff','important');
-  notice.style.setProperty('border-bottom-color','#f58220','important');
-  notice.querySelector('.ptg-notice-bar__copy strong')?.style.setProperty('color','#fff','important');
-  notice.querySelector('.ptg-notice-bar__copy span')?.style.setProperty('color','rgba(255,255,255,.88)','important');
-  notice.querySelector('.ptg-notice-bar__today')?.style.setProperty('color','rgba(255,255,255,.9)','important');
-  const closeBtn=notice.querySelector('.ptg-notice-bar__close');
-  closeBtn?.style.setProperty('color','#fff','important');
-  closeBtn?.style.setProperty('background','rgba(255,255,255,.08)','important');
-  closeBtn?.style.setProperty('border-color','rgba(255,255,255,.5)','important');
-  const hideNotice=(remember=false)=>{if(remember){try{localStorage.setItem('ptgNoticeHiddenDate',localDateKey())}catch(e){}}notice.classList.add('is-hidden');document.body.classList.add('ptg-notice-hidden')};
-  try{if(localStorage.getItem('ptgNoticeHiddenDate')===localDateKey())hideNotice(false)}catch(e){}
-  notice.querySelector('.ptg-notice-bar__today')?.addEventListener('click',()=>hideNotice(true));
-  notice.querySelector('.ptg-notice-bar__close')?.addEventListener('click',()=>hideNotice(false));
+  // Pre-launch: top notice banner removed.
+
 
   const logoSrc=`${base}/assets/images/logo.svg?v=${LOGO_VERSION}`;
   if(header)header.innerHTML=`<header class="ptg-site-header"><div class="ptg-site-header__inner"><a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a><nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
