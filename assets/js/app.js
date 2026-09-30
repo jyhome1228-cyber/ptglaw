@@ -32,13 +32,11 @@
 
   const logoSrc=`${base}/assets/images/logo.svg?v=${LOGO_VERSION}`;
   if(header)header.innerHTML=`<header class="ptg-site-header"><div class="ptg-site-header__inner"><a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a><nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div></div>
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무분야</a><div class="ptg-nav-dropdown ptg-nav-dropdown--services"><a href="${base}/services/legal/"><strong>법률 자문 및 소송</strong><span>계약·분쟁·민형사·행정 대응</span></a><a href="${base}/services/tax/"><strong>세무 기장 및 자문</strong><span>기장·신고·세무조사·조세불복</span></a><a href="${base}/services/ip/"><strong>IP 지식재산권</strong><span>상표·특허·디자인·침해 대응</span></a><a href="${base}/services/recovery/"><strong>채권 추심</strong><span>미수금·지급명령·소송·집행</span></a><a href="${base}/services/registry/"><strong>등기 업무</strong><span>법인·부동산·상속·변경등기</span></a></div></div>
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown ptg-nav-dropdown--people"><a href="${base}/professionals/chaeyonghyun/">채용현 대표변호사 | 세무사</a><a href="${base}/professionals/kanggeon/">강건 파트너변호사</a><a href="${base}/professionals/jeonseunghwan/">전승환 파트너변호사</a><a href="${base}/professionals/kimjisoo/">김지수 소속세무사</a></div></div>
-    <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무사례</a></div>
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/tools/">제공서비스</a><div class="ptg-nav-dropdown ptg-nav-dropdown--services"><a href="${base}/tools/withholding/"><strong>3.3% 원천징수 계산기</strong><span>지급액과 실수령액 계산</span></a><a href="${base}/tools/vat/"><strong>부가세 계산기</strong><span>공급가액·부가세·합계 계산</span></a><a href="${base}/tools/corporate-registration/"><strong>법인등기 비용 계산기</strong><span>등록면허세·지방교육세 계산</span></a><a href="${base}/tools/severance/"><strong>퇴직금 계산기</strong><span>평균임금·예상 퇴직금 계산</span></a><a href="${base}/tools/asset-tax/"><strong>양도·증여·상속세 계산기</strong><span>자산이전 세금 간편 계산</span></a></div></div>
-    <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스탑서비스</a></div>
-    <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립센터</a></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/location/">오시는 길</a></div></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무 안내</a><div class="ptg-nav-dropdown"><a href="${base}/services/">업무 분야</a><a href="${base}/cases/">업무 사례</a></div></div>
+    <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스톱서비스</a></div>
+    <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/content/">정보센터</a><div class="ptg-nav-dropdown"><a href="${base}/content/?category=notice">공지사항</a><a href="${base}/content/">통합법률지원센터</a><a href="${base}/contact/">Q&amp;A</a></div></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/contact/">문의하기</a></div>
   </nav><button class="ptg-site-header__menu" type="button" aria-expanded="false" aria-controls="ptgSiteNav" aria-label="메뉴 열기">☰</button></div></header>`;
 
@@ -48,7 +46,9 @@
   document.querySelectorAll('.ptg-nav-link,.ptg-nav-dropdown a').forEach(a=>{const href=a.getAttribute('href')||'',local=href.replace(base,'');if(local!=='/'&&path.startsWith(local))a.classList.add('is-active')});
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
-  if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
+  if(path.startsWith('/professionals/'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
+  if(path.startsWith('/cases/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
+  if(path.startsWith('/content/'))document.querySelector('.ptg-nav-link[href$="/content/"]')?.classList.add('is-active');
   if(path.startsWith('/tools/'))document.querySelector('.ptg-nav-link[href$="/tools/"]')?.classList.add('is-active');
 
   document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(link=>{
