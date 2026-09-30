@@ -27,6 +27,45 @@
   <meta name="twitter:image" content="https://ptglaw.co.kr/assets/images/og-preview.png">
 </head>
 <body class="ptg-home-page">
+  <div class="ptg-update-modal" id="ptgUpdateModal" role="dialog" aria-modal="true" aria-labelledby="ptgUpdateTitle">
+    <div class="ptg-update-modal__backdrop"></div>
+    <div class="ptg-update-modal__panel">
+      <button class="ptg-update-modal__close" type="button" aria-label="닫기">×</button>
+      <span class="ptg-update-modal__eyebrow">PENTAGON</span>
+      <h2 id="ptgUpdateTitle">사이트 업데이트 중입니다.</h2>
+      <p>현재 정식 오픈을 앞두고 홈페이지를 업데이트하고 있습니다.<br>보다 나은 모습으로 곧 찾아뵙겠습니다.</p>
+      <button class="ptg-update-modal__confirm" type="button">확인</button>
+    </div>
+  </div>
+
+  <style>
+    .ptg-update-modal{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px}
+    .ptg-update-modal.is-hidden{display:none}
+    .ptg-update-modal__backdrop{position:absolute;inset:0;background:rgba(10,12,15,.52);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+    .ptg-update-modal__panel{position:relative;width:min(100%,440px);padding:42px 36px 32px;background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.2);text-align:center}
+    .ptg-update-modal__close{position:absolute;top:14px;right:16px;width:36px;height:36px;border:0;background:transparent;color:#777;font-size:28px;line-height:1;cursor:pointer}
+    .ptg-update-modal__eyebrow{display:block;margin-bottom:12px;color:#f58220;font-size:11px;font-weight:700;letter-spacing:.12em}
+    .ptg-update-modal h2{margin:0!important;color:#181818!important;font-size:25px!important;line-height:1.35!important;letter-spacing:-.04em!important}
+    .ptg-update-modal p{margin:16px 0 26px!important;color:#686d73!important;font-size:14px!important;line-height:1.7!important;word-break:keep-all}
+    .ptg-update-modal__confirm{width:100%;height:48px;border:0;border-radius:8px;background:#181818;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+    @media(max-width:600px){
+      .ptg-update-modal{padding:20px}
+      .ptg-update-modal__panel{padding:38px 24px 26px;border-radius:14px}
+      .ptg-update-modal h2{font-size:22px!important}
+      .ptg-update-modal p br{display:none}
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      var modal=document.getElementById('ptgUpdateModal');
+      if(!modal)return;
+      function closeModal(){modal.classList.add('is-hidden');}
+      modal.querySelector('.ptg-update-modal__close').addEventListener('click',closeModal);
+      modal.querySelector('.ptg-update-modal__confirm').addEventListener('click',closeModal);
+    });
+  </script>
+
   <div data-site-header></div>
 
   <main class="ptg-home-main">
