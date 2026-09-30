@@ -18,7 +18,7 @@
   const logoSrc=`${base}/assets/images/logo.svg?v=${LOGO_VERSION}`;
   if(header)header.innerHTML=`<header class="ptg-site-header"><div class="ptg-site-header__inner"><a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a><nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
     <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/location/">오시는 길</a></div></div>
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무 안내</a><div class="ptg-nav-dropdown"><a href="${base}/services/">업무 분야</a><a href="${base}/cases/">업무 사례</a></div></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무 안내</a><div class="ptg-nav-dropdown ptg-nav-dropdown--business"><a class="ptg-business-overview" href="${base}/services/">업무 분야 전체보기</a><div class="ptg-business-links"><a href="${base}/services/legal/">법률 자문 및 소송</a><a href="${base}/services/tax/">세무 기장 및 자문</a><a href="${base}/services/ip/">IP 지식재산권</a><a href="${base}/services/recovery/">채권 추심</a><a href="${base}/services/registry/">등기 업무</a></div><a class="ptg-business-cases" href="${base}/cases/">업무 사례 보기</a></div></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스톱서비스</a></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
     <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/information/">정보센터</a><div class="ptg-nav-dropdown"><a href="${base}/information/notice/">공지사항</a><a href="${base}/information/legal-support/">통합법률지원센터</a><a href="${base}/information/qna/">Q&amp;A</a><a href="${base}/tools/">간편 계산 서비스</a></div></div>
@@ -106,7 +106,13 @@
   }
 
   if(header&&!document.getElementById('ptg-nav-enhance-style')){const style=document.createElement('style');style.id='ptg-nav-enhance-style';style.textContent=`
+    .ptg-nav-dropdown--business{width:270px!important;padding:10px!important}
+    .ptg-nav-dropdown--business .ptg-business-overview,.ptg-nav-dropdown--business .ptg-business-cases{font-weight:700!important}
+    .ptg-nav-dropdown--business .ptg-business-links{margin:4px 0;padding:4px 0;border-top:1px solid #eceef1;border-bottom:1px solid #eceef1}
+    .ptg-nav-dropdown--business .ptg-business-links a{padding-left:12px!important;color:#555!important}
     @media(max-width:980px){
+      .ptg-nav-dropdown--business{width:100%!important;padding:0 0 12px 16px!important}
+      .ptg-nav-dropdown--business .ptg-business-links{margin:0!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link{position:relative!important;padding-right:42px!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link:before,.ptg-nav-item[data-dropdown]>.ptg-nav-link:after{content:''!important;position:absolute!important;right:8px!important;top:50%!important;width:12px!important;height:1.5px!important;background:currentColor!important;transition:transform .18s ease!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link:after{transform:rotate(90deg)!important}
