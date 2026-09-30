@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ptglaw.co.kr/">
   <link rel="canonical" href="https://ptglaw.co.kr/">
-  <link rel="stylesheet" href="./assets/css/style.css?v=20260915-1448">
+  <link rel="stylesheet" href="./assets/css/style.css?v=20261001-0001">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"LegalService","name":"펜타곤 법률세무회계","url":"https://ptglaw.co.kr/","telephone":"02-6447-5599","email":"yhchae@ptglaw.co.kr","address":{"@type":"PostalAddress","streetAddress":"반포대로30길 32, 3층 (서초동, 트러스트힐)","addressLocality":"서초구","addressRegion":"서울","addressCountry":"KR"}}</script>
   <link rel="icon" type="image/svg+xml" href="https://ptglaw.co.kr/assets/images/favicon.svg">
   <link rel="shortcut icon" href="https://ptglaw.co.kr/favicon.ico">
@@ -176,9 +176,30 @@
   </main>
 
   <div data-site-footer></div>
-  <script src="./assets/js/app.js?v=20260915-1448"></script>
+  <script src="./assets/js/app.js?v=20261001-0001"></script>
 
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      var header=document.querySelector('.ptg-site-header');
+      if(!header)return;
+      function syncHeader(){
+        header.style.setProperty('position','fixed','important');
+        header.style.setProperty('top','0','important');
+        header.style.setProperty('left','0','important');
+        header.style.setProperty('right','0','important');
+        header.style.setProperty('z-index','9990','important');
+        header.classList.toggle('ptg-home-header--scrolled',window.scrollY>24);
+      }
+      syncHeader();
+      window.addEventListener('scroll',syncHeader,{passive:true});
+    });
+  </script>
   <style>
+    .ptg-home-page .ptg-site-header.ptg-home-header--scrolled{background:rgba(255,255,255,.98)!important;border-bottom:1px solid #e6e8eb!important;box-shadow:0 4px 18px rgba(0,0,0,.05)!important;backdrop-filter:blur(14px)!important;-webkit-backdrop-filter:blur(14px)!important}
+    .ptg-home-page .ptg-site-header.ptg-home-header--scrolled .ptg-site-header__logo img{filter:none!important}
+    .ptg-home-page .ptg-site-header.ptg-home-header--scrolled .ptg-nav-link{color:#181818!important;text-shadow:none!important}
+    .ptg-home-page .ptg-site-header.ptg-home-header--scrolled .ptg-site-header__menu{color:#181818!important}
+    .ptg-home-page .ptg-site-header.ptg-home-header--scrolled .ptg-nav-link:hover,.ptg-home-page .ptg-site-header.ptg-home-header--scrolled .ptg-nav-item:hover>.ptg-nav-link{color:#f58220!important;opacity:1}
     .ptg-home-page{--home-line:#e6e8eb;--home-soft:#f7f8fa;--home-ink:#181818;--home-text:#62676d}
     .ptg-home-main{width:100%;overflow:hidden;background:#fff}
     .ptg-home-shell{width:min(calc(100% - 64px),1280px);margin-inline:auto}
