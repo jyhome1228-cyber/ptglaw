@@ -16,8 +16,25 @@
   const CSS_VERSION='20261001-0900';
   const LOGO_VERSION='20261001-0900';
   const SERVICE_ASSET_VERSION='20261001-0900';
-  const ensureCss=(key,file)=>{if(document.querySelector(`link[data-${key}]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;link.setAttribute(`data-${key}`,'true');document.head.appendChild(link)};
-  ['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].forEach((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file));
+  const ensureCss=(key,file)=>new Promise(resolve=>{
+    const existing=document.querySelector(`link[data-${key}]`);
+    if(existing){
+      if(existing.sheet){resolve();return}
+      existing.addEventListener('load',resolve,{once:true});
+      existing.addEventListener('error',resolve,{once:true});
+      setTimeout(resolve,1200);
+      return;
+    }
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;
+    link.setAttribute(`data-${key}`,'true');
+    link.addEventListener('load',resolve,{once:true});
+    link.addEventListener('error',resolve,{once:true});
+    document.head.appendChild(link);
+    setTimeout(resolve,1200);
+  });
+  const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file)));
   document.body.classList.add('ptg-global-ui','ptg-notice-hidden');
   document.documentElement.style.setProperty('--notice-height','0px');
   document.body.style.setProperty('--notice-height','0px');
@@ -124,7 +141,7 @@
       .ptg-nav-dropdown--business{width:100%!important;padding:0 0 12px 16px!important}
       .ptg-nav-dropdown--business .ptg-business-links{margin:0!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link{position:relative!important;padding-right:42px!important}
-      .ptg-nav-item[data-dropdown]>.ptg-nav-link:before,.ptg-nav-item[data-dropdown]>.ptg-nav-link:after{content:''!important;position:absolute!important;right:8px!important;top:50%!important;width:12px!important;height:1.5px!important;background:currentColor!important;transition:transform .18s ease!important}
+      .ptg-nav-item[data-dropdown]>.ptg-nav-link:before,.ptg-nav-item[data-dropdown]>.ptg-nav-link:after{content:''!important;display:block!important;position:absolute!important;right:8px!important;top:50%!important;width:12px!important;height:1.5px!important;background:currentColor!important;transition:transform .18s ease!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link:after{transform:rotate(90deg)!important}
       .ptg-nav-item[data-dropdown].open>.ptg-nav-link:after{transform:rotate(0)!important}
       .ptg-site-header__nav.open{max-height:calc(100svh - var(--header-height))!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
@@ -135,7 +152,7 @@
   const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{if(!mobile.matches)return;const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
   bindMobileDropdowns();mobile.addEventListener?.('change',()=>{bindMobileDropdowns();if(!mobile.matches){nav?.classList.remove('open');menuBtn?.setAttribute('aria-expanded','false');menuBtn?.setAttribute('aria-label','메뉴 열기');menuBtn.textContent='☰';document.querySelectorAll('[data-dropdown].open').forEach(x=>x.classList.remove('open'));}});
 
-  requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready'));
+  Promise.race([sharedCssReady,new Promise(resolve=>setTimeout(resolve,1400))]).finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
 
   if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20260912-1328`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260915-1426`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
