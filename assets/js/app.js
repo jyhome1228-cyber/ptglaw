@@ -7,15 +7,15 @@
   bootStyle.textContent=`
     [data-site-header]:empty{height:var(--header-height,88px);background:#fff}
     [data-site-footer]:empty{min-height:1px}
-    body:not(.ptg-ui-ready) [data-site-header],body:not(.ptg-ui-ready) [data-site-footer]{visibility:hidden}
-    body.ptg-ui-ready [data-site-header],body.ptg-ui-ready [data-site-footer]{visibility:visible}
+    body:not(.ptg-ui-ready) main,body:not(.ptg-ui-ready) [data-site-header],body:not(.ptg-ui-ready) [data-site-footer]{visibility:hidden}
+    body.ptg-ui-ready main,body.ptg-ui-ready [data-site-header],body.ptg-ui-ready [data-site-footer]{visibility:visible}
   `;
   document.head.appendChild(bootStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261001-0900';
-  const LOGO_VERSION='20261001-0900';
-  const SERVICE_ASSET_VERSION='20261001-0900';
+  const CSS_VERSION='20261005-1540';
+  const LOGO_VERSION='20261005-1540';
+  const SERVICE_ASSET_VERSION='20261005-1540';
   const ensureCss=(key,file)=>new Promise(resolve=>{
     const existing=document.querySelector(`link[data-${key}]`);
     if(existing){
@@ -152,7 +152,7 @@
   const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{if(!mobile.matches)return;const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
   bindMobileDropdowns();mobile.addEventListener?.('change',()=>{bindMobileDropdowns();if(!mobile.matches){nav?.classList.remove('open');menuBtn?.setAttribute('aria-expanded','false');menuBtn?.setAttribute('aria-label','메뉴 열기');menuBtn.textContent='☰';document.querySelectorAll('[data-dropdown].open').forEach(x=>x.classList.remove('open'));}});
 
-  Promise.race([sharedCssReady,new Promise(resolve=>setTimeout(resolve,1400))]).finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
+  sharedCssReady.finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
 
   if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20260912-1328`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260915-1426`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
