@@ -111,3 +111,93 @@
     border-radius:8px!important;
   }
 }
+
+/* PTG 2026-10-05 services landing continuation */
+.penta-business-page .penta-business-quick--wide{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:0!important;
+  width:100%!important;
+  margin:36px 0 0!important;
+  border:1px solid var(--border-default,#e4e4df)!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+.penta-business-page .penta-business-quick--wide a{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  min-height:82px!important;
+  padding:16px 18px!important;
+  border:0!important;
+  border-right:1px solid var(--border-default,#e4e4df)!important;
+  border-radius:0!important;
+  background:#fff!important;
+  color:#181818!important;
+  font-size:15px!important;
+  line-height:22px!important;
+  text-align:left!important;
+}
+.penta-business-page .penta-business-quick--wide a:last-child{border-right:0!important}
+.penta-business-page .penta-business-quick--wide a span{
+  display:block!important;
+  margin-bottom:6px!important;
+  color:var(--brand-primary,#f58220)!important;
+  font-size:11px!important;
+  line-height:16px!important;
+  font-weight:700!important;
+}
+.penta-business-page .penta-business-quick--wide a:hover{
+  background:#f7f8fa!important;
+  color:var(--brand-primary,#f58220)!important;
+}
+.penta-business-page .penta-hero-index span,
+.penta-business-page .penta-service-content p,
+.penta-business-page .penta-business-desc,
+.penta-business-page .penta-process-item p{
+  font-size:15px!important;
+}
+.penta-business-page .penta-process-list{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:0!important;
+  padding:0!important;
+  border:0!important;
+  border-top:1px solid var(--border-strong,#d5d5cf)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+.penta-business-page .penta-process-item{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  min-height:190px!important;
+  padding:22px 18px!important;
+  border:0!important;
+  border-right:1px solid var(--border-default,#e4e4df)!important;
+  border-bottom:1px solid var(--border-default,#e4e4df)!important;
+  background:#fff!important;
+  opacity:1!important;
+  transform:none!important;
+}
+.penta-business-page .penta-process-item:last-child{border-right:0!important}
+.penta-business-page .penta-process-no{margin-bottom:8px!important}
+.penta-business-page .penta-process-item h3{font-size:17px!important;line-height:25px!important}
+.penta-business-page .penta-process-item p{margin-top:6px!important;line-height:23px!important}
+
+@media(max-width:1100px){
+  .penta-business-page .penta-business-quick--wide{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .penta-business-page .penta-business-quick--wide a{border-bottom:1px solid var(--border-default,#e4e4df)!important}
+  .penta-business-page .penta-process-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .penta-business-page .penta-process-item{min-height:160px!important}
+  .penta-business-page .penta-process-item:nth-child(2n){border-right:0!important}
+}
+@media(max-width:700px){
+  .penta-business-page .penta-business-quick--wide{grid-template-columns:1fr!important;margin-top:28px!important}
+  .penta-business-page .penta-business-quick--wide a{min-height:64px!important;border-right:0!important}
+  .penta-business-page .penta-process-list{grid-template-columns:1fr!important}
+  .penta-business-page .penta-process-item{min-height:0!important;padding:20px 0!important;border-right:0!important}
+}
