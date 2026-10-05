@@ -13,9 +13,9 @@
   document.head.appendChild(bootStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261005-1715';
-  const LOGO_VERSION='20261005-1715';
-  const SERVICE_ASSET_VERSION='20261005-1715';
+  const CSS_VERSION='20261005-2039';
+  const LOGO_VERSION='20261005-2039';
+  const SERVICE_ASSET_VERSION='20261005-2039';
   const ensureCss=(key,file)=>new Promise(resolve=>{
     const existing=document.querySelector(`link[data-${key}]`);
     if(existing){
@@ -52,7 +52,7 @@
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스톱서비스</a></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
     <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/information/">정보센터</a><div class="ptg-nav-dropdown"><a href="${base}/information/notice/">공지사항</a><a href="${base}/information/legal-support/">통합법률지원센터</a><a href="${base}/information/qna/">Q&amp;A</a><a href="${base}/tools/">간편 계산 서비스</a></div></div>
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/contact/">문의하기</a><div class="ptg-nav-dropdown ptg-nav-dropdown--contact"><a href="${base}/contact/"><strong>일반 상담 문의</strong><span>법률·세무·IP·추심·등기 관련 상담</span></a><a href="${base}/tools/corporate-registration/"><strong>법인등기 비용 계산기</strong><span>자본금과 지역 기준 예상 세금 계산</span></a><a href="${base}/services/registry/estimate/?type=real"><strong>부동산등기 간편 견적</strong><span>부동산 정보와 자료를 남기고 견적 요청</span></a></div></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/contact/">문의하기</a><div class="ptg-nav-dropdown ptg-nav-dropdown--contact"><a href="${base}/contact/"><strong>일반 상담 문의</strong><span>법률·세무·IP·추심·등기 관련 상담</span></a><a href="${base}/tools/corporate-registration/"><strong>법인등기 비용 계산기</strong><span>자본금과 지역 기준 예상 세금 계산</span></a><a href="${base}/services/registry/estimate/"><strong>부동산등기 간편 견적</strong><span>부동산 정보와 자료를 남기고 견적 요청</span></a></div></div>
   </nav><button class="ptg-site-header__menu" type="button" aria-expanded="false" aria-controls="ptgSiteNav" aria-label="메뉴 열기">☰</button></div></header>`;
 
   if(footer)footer.innerHTML=`<footer class="ptg-site-footer"><div class="ptg-site-footer__inner"><div class="ptg-site-footer__top"><div class="ptg-site-footer__brand"><a href="${base}/" class="ptg-site-footer__logo"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a><p class="ptg-site-footer__brand-copy">법률·세무·지식재산권·채권추심·등기를<br>하나의 해결 흐름으로 연결합니다.</p></div><nav class="ptg-site-footer__menu"><p class="ptg-site-footer__menu-title">펜타곤 소개</p><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/location/">오시는 길</a></nav><nav class="ptg-site-footer__menu"><p class="ptg-site-footer__menu-title">업무 안내</p><a href="${base}/services/">업무 분야</a><a href="${base}/cases/">업무 사례</a><p class="ptg-site-footer__menu-title" style="margin-top:18px">전문 서비스</p><a href="${base}/inheritance/">상속원스톱서비스</a><a href="${base}/center/">법인설립지원센터</a></nav><nav class="ptg-site-footer__menu"><p class="ptg-site-footer__menu-title">정보센터</p><a href="${base}/information/notice/">공지사항</a><a href="${base}/information/legal-support/">통합법률지원센터</a><a href="${base}/information/qna/">Q&amp;A</a><a href="${base}/tools/">간편 계산 서비스</a></nav><div class="ptg-site-footer__contact"><p class="ptg-site-footer__menu-title">문의하기</p><div class="ptg-site-footer__contact-main"><span>대표 문의</span><a href="tel:0264475599">02-6447-5599</a></div><dl><div><dt>팩스</dt><dd>02-6447-5598</dd></div><div><dt>휴대전화</dt><dd><a href="tel:01032113132">010-3211-3132</a></dd></div><div><dt>이메일</dt><dd><a href="mailto:yhchae@ptglaw.co.kr">yhchae@ptglaw.co.kr</a></dd></div></dl></div></div><div class="ptg-site-footer__office"><div class="ptg-site-footer__address"><span>주소</span><p>서울 서초구 반포대로30길 32, 3층 (서초동, 트러스트힐)</p></div><div class="ptg-site-footer__legal"><p>광고책임변호사 : 채용현</p><a href="${base}/privacy/">개인정보처리방침</a><a href="mailto:yhchae@ptglaw.co.kr">이메일무단수집거부</a></div></div></div></footer>`;
@@ -65,6 +65,12 @@
   if(path.startsWith('/cases/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/information/'))document.querySelector('.ptg-nav-link[href$="/information/"]')?.classList.add('is-active');
   if(path.startsWith('/tools/'))document.querySelector('.ptg-nav-link[href$="/information/"]')?.classList.add('is-active');
+  const isInquiryService=path.startsWith('/services/registry/estimate/')||path.startsWith('/tools/corporate-registration/');
+  if(isInquiryService){
+    document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.remove('is-active');
+    document.querySelector('.ptg-nav-link[href$="/information/"]')?.classList.remove('is-active');
+    document.querySelector('.ptg-nav-link[href$="/contact/"]')?.classList.add('is-active');
+  }
 
   document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(link=>{
     link.href=`${base}/assets/images/favicon.svg?v=${SERVICE_ASSET_VERSION}`;
