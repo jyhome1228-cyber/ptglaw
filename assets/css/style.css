@@ -1040,3 +1040,16 @@ main .section-dark .btn-ghost {
 .ptg-v5 .ptg-field-track i {
   background: #f58220 !important;
 }
+
+/* PTG 2026-10-05 first-paint stabilization */
+html{background:#fff}
+body:not(.ptg-ui-ready) main,
+body:not(.ptg-ui-ready) [data-site-header],
+body:not(.ptg-ui-ready) [data-site-footer]{
+  visibility:hidden;
+}
+body.ptg-ui-ready main,
+body.ptg-ui-ready [data-site-header],
+body.ptg-ui-ready [data-site-footer]{
+  visibility:visible;
+}
