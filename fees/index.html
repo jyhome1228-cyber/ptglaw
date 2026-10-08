@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>법인등기 수수료 안내 | 펜타곤 법률세무회계</title>
+  <meta name="description" content="법인설립, 본점이전, 임원변경, 증자, 스톡옵션, 해산 및 청산까지 펜타곤의 법인등기 수수료와 예상 비용을 확인하세요.">
+  <link rel="canonical" href="https://ptglaw.co.kr/fees/">
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261005-1715">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <meta name="theme-color" content="#f58220">
+  <meta property="og:title" content="법인등기 수수료 안내 | 펜타곤 법률세무회계">
+  <meta property="og:description" content="등기 업무별 실비·공과금·수수료를 확인하고 법인설립 및 증자 비용을 계산해 보세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ptglaw.co.kr/fees/">
+  <meta property="og:image" content="https://ptglaw.co.kr/assets/images/og-preview.png">
+  <style>
+    .fees{--orange:#f58220;--ink:#171717;--soft:#777;--border:#e6e6e6;background:#fff;color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo",sans-serif;font-size:17px;line-height:1.65;word-break:keep-all}
+    .fees *{box-sizing:border-box}.fees button,.fees input,.fees select{font:inherit}
+    .fees a{text-decoration:none}.fees-shell{width:min(1370px,calc(100% - 72px));margin:0 auto}
+    .fees-hero{padding:94px 0 92px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+    .fees-hero:after{content:"";position:absolute;top:-190px;right:-130px;width:540px;height:540px;border:1px solid rgba(245,130,32,.23);border-radius:50%;pointer-events:none}
+    .fees-eyebrow{font-size:13px!important;letter-spacing:.12em!important;font-weight:800!important;color:var(--orange)!important;margin:0 0 18px!important}
+    .fees-hero h1{font-size:clamp(38px,4.1vw,64px)!important;line-height:1.2!important;letter-spacing:-.052em!important;margin:0 0 23px!important;font-weight:750!important}
+    .fees-hero p:not(.fees-eyebrow){font-size:18px!important;line-height:1.9!important;color:#666!important;max-width:800px;margin:0!important}
+    .fees-quick-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:31px}
+    .fees-pill{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:48px;padding:10px 20px;background:#171717;color:#fff!important;font-size:15px!important;font-weight:700!important;border:1px solid #171717;border-radius:999px;transition:background .2s,border-color .2s}
+    .fees-pill:hover,.fees-pill:focus-visible{background:var(--orange);border-color:var(--orange)}
+    .fees-pill--light{background:#fff;color:#171717!important;border-color:#dadada}.fees-pill--light:hover{color:#fff!important}
+    .fees-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-bottom:1px solid var(--border)}
+    .fees-summary>div{padding:25px 30px;border-right:1px solid var(--border)}.fees-summary>div:first-child{padding-left:0}.fees-summary>div:last-child{border:0}
+    .fees-summary strong{display:block;font-weight:800;font-size:22px!important;letter-spacing:-.025em}.fees-summary span{display:block;margin-top:2px;font-size:14px;color:#777}
+    .fees-content{padding:94px 0 90px}
+    .fees-section-top{margin:0 0 38px}.fees-section-top h2{font-size:clamp(30px,2.8vw,44px)!important;line-height:1.3!important;letter-spacing:-.04em!important;margin:0 0 12px!important}.fees-section-top>p:not(.fees-eyebrow){margin:0!important;color:#666;font-size:17px!important}
+    .fees-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:72px;align-items:start}
+    .fees-nav{position:sticky;top:110px;border-top:2px solid #171717}
+    .fee-category{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:17px 8px;border:0;border-bottom:1px solid var(--border);background:#fff;color:#666;text-align:left;font-weight:650;font-size:16px;cursor:pointer;transition:color .15s,padding .15s}
+    .fee-category span{font-size:12px;color:#a3a3a3;font-weight:600;font-variant-numeric:tabular-nums}
+    .fee-category:hover,.fee-category.is-current{color:var(--orange);padding-left:14px}
+    .fee-category.is-current{font-weight:800}
+    .fees-group-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;border-bottom:1px solid #171717;padding-bottom:22px;margin-bottom:25px;scroll-margin-top:96px}
+    .fees-group-heading h3{font-size:32px!important;line-height:1.25!important;letter-spacing:-.04em!important;margin:0 0 7px!important}
+    .fees-group-heading p{font-size:16px!important;margin:0!important;color:#777}
+    .fees-group-heading>span{white-space:nowrap;font-size:14px;color:#777;padding-bottom:3px}
+    .fees-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
+    .fee-card{border:1px solid #e4e4e4;border-radius:15px;padding:28px;display:flex;flex-direction:column;min-width:0;background:#fff;transition:border-color .2s,box-shadow .2s}
+    .fee-card:hover{border-color:#cfcfcf;box-shadow:0 10px 30px rgba(0,0,0,.035)}
+    .fee-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .fee-card h3{font-size:21px!important;line-height:1.4!important;letter-spacing:-.035em!important;margin:0!important}
+    .fee-card-tag{color:#b65b0f;background:#fff4e9;white-space:nowrap;border-radius:4px;padding:4px 7px;font-size:11px;font-weight:800;line-height:1.4}
+    .fee-card-price{padding:0 0 22px;border-bottom:1px solid #e9e9e9}
+    .fee-card-price span{display:block;color:#777;font-size:14px!important;margin-bottom:6px}
+    .fee-card-price strong{display:block;font-weight:800;font-size:29px!important;letter-spacing:-.035em;line-height:1.35;overflow-wrap:anywhere}
+    .fee-lines{padding:14px 0 1px}.fee-line{display:flex;justify-content:space-between;gap:12px;margin:10px 0;font-size:14px!important;line-height:1.45}
+    .fee-line span{color:#777}.fee-line b{color:#3d3d3d;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .fee-card-note,.fee-only-msg,.fee-extra{font-size:13px!important;color:#888!important;line-height:1.75!important;margin:15px 0 0!important}
+    .fee-extra{font-weight:750!important;color:#a75c20!important}
+    .fee-calc-link{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto!important;padding:21px 0 0!important;color:var(--orange)!important;font-weight:800!important;font-size:14px!important}
+    .fee-calc-link:hover{text-decoration:underline}
+    .fees-info{padding:54px 0 0}.fees-info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .fees-info-grid>div{border-top:1px solid #171717;padding:19px 0 0}
+    .fees-info-grid b{font-size:17px}.fees-info-grid p{font-size:14px;color:#777;line-height:1.85;margin:8px 0 0}
+    .fees-calculator{background:#f7f7f7;padding:100px 0;scroll-margin-top:80px}
+    .fees-calculator .fees-section-top{margin-bottom:34px}
+    .fees-calc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.8fr);gap:24px}
+    .fees-calc-inputs{background:#fff;padding:42px 46px;border:1px solid #e8e8e8;border-radius:16px}
+    .fees-calc-field{margin-bottom:25px}.fees-calc-field label{display:block;font-size:16px;font-weight:750;margin-bottom:11px}
+    .fees-calc-field input,.fees-calc-field select{width:100%;height:56px;padding:0 18px;border:1px solid #d6d6d6;border-radius:8px;background:#fff;color:#222;font-size:16px!important;outline:none;min-width:0}
+    .fees-calc-field input:focus,.fees-calc-field select:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(245,130,32,.09)}
+    .fees-calc-field small{display:block;margin:8px 0 0;font-size:13px;color:#888}
+    .fees-calc-button{width:100%;height:56px;border:0;border-radius:8px;background:var(--orange);color:#fff;font-weight:800;cursor:pointer;transition:filter .2s}
+    .fees-calc-button:hover{filter:brightness(.93)}
+    .fees-result{background:#212121;color:#fff;padding:44px 40px;border-radius:16px;display:flex;flex-direction:column;min-width:0}
+    .fee-result-eyebrow{display:block;font-size:15px;font-weight:750;color:#c8c8c8}
+    .fee-result-total{display:block;font-size:clamp(30px,3.1vw,46px)!important;line-height:1.3!important;letter-spacing:-.035em;overflow-wrap:anywhere;margin-top:10px}
+    .fee-result-rows{margin-top:30px;padding-top:23px;border-top:1px solid #4c4c4c}
+    .fee-result-rows>div{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px;font-size:15px}
+    .fee-result-rows>div span{color:#c0c0c0}.fee-result-rows>div b{font-weight:700;white-space:nowrap}
+    .fee-result-info{font-size:13px!important;line-height:1.8!important;color:#bbb!important;margin:21px 0!important}
+    .fee-result-consult{display:flex;align-items:center;justify-content:space-between;margin-top:auto;color:#fff!important;border-top:1px solid #4c4c4c;padding-top:21px;font-size:16px!important;font-weight:800}
+    .fee-result-consult:hover{color:#ff9f53!important}.fee-calc-error{color:#fff}
+    .fees-final{padding:85px 0 100px}
+    .fees-final-wrap{display:flex;align-items:end;justify-content:space-between;gap:30px;border-top:1px solid #171717;padding-top:38px}
+    .fees-final h2{font-size:clamp(29px,3vw,43px)!important;line-height:1.3!important;letter-spacing:-.04em!important;margin:0 0 10px!important}
+    .fees-final p{margin:0!important;color:#777;font-size:16px!important}
+    @media(max-width:1100px){.fees-layout{grid-template-columns:220px minmax(0,1fr);gap:35px}.fees-cards{grid-template-columns:1fr}.fee-card-head{flex-wrap:wrap}}
+    @media(max-width:900px){.fees-shell{width:calc(100% - 40px)}.fees-hero{padding:65px 0 64px}.fees-content,.fees-calculator{padding:65px 0}.fees-layout{grid-template-columns:1fr;gap:32px}.fees-nav{position:static;display:flex;overflow-x:auto;white-space:nowrap;border-top:0;border-bottom:1px solid #ddd;gap:13px;scrollbar-width:thin}.fee-category{width:auto;flex:0 0 auto;gap:8px;padding:14px 3px}.fee-category:hover,.fee-category.is-current{padding-left:3px}.fees-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.fees-calc-grid{grid-template-columns:1fr}.fees-info-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.fees-shell{width:calc(100% - 32px)}.fees{font-size:16px}.fees-hero h1{font-size:37px!important}.fees-hero p:not(.fees-eyebrow){font-size:16px!important}.fees-quick-links{margin-top:25px}.fees-pill{width:100%}.fees-summary{grid-template-columns:1fr;gap:0}.fees-summary>div,.fees-summary>div:first-child{padding:15px 0;border-right:0;border-bottom:1px solid #eee}.fees-summary>div:last-child{border:0}.fees-summary strong{font-size:19px!important}.fees-section-top h2{font-size:30px!important}.fees-cards{grid-template-columns:1fr}.fee-card{padding:22px}.fee-card-price strong{font-size:27px!important}.fees-group-heading{align-items:flex-start}.fees-group-heading h3{font-size:26px!important}.fees-group-heading>span{font-size:12px}.fees-info-grid{grid-template-columns:1fr}.fees-calc-inputs,.fees-result{padding:28px 22px}.fees-final-wrap{flex-direction:column;align-items:stretch}.fees-final-wrap .fees-pill{width:100%}}
+    @media(prefers-reduced-motion:reduce){.fees *{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div data-site-header></div>
+  <main class="fees">
+    <section class="fees-hero">
+      <div class="fees-shell">
+        <p class="fees-eyebrow">CORPORATE REGISTRATION FEES</p>
+        <h1>법인등기 수수료 안내</h1>
+        <p>법인설립부터 변경등기, 증자, 해산·청산까지.<br>업무별 공과금과 펜타곤 수수료를 명확하게 안내합니다.</p>
+        <div class="fees-quick-links">
+          <a class="fees-pill" href="#feesServices">업무별 비용 보기 <span aria-hidden="true">↘</span></a>
+          <a class="fees-pill fees-pill--light" href="#feeCalculator">설립·증자 비용 계산하기 <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </section>
+    <div class="fees-shell">
+      <div class="fees-summary" aria-label="수수료 안내 기준">
+        <div><strong>09</strong><span>등기 업무 카테고리</span></div>
+        <div><strong>전자등기 기준</strong><span>업무별 공과금·실비 구분</span></div>
+        <div><strong>조건별 예상 비용</strong><span>설립·증자 맞춤 계산</span></div>
+      </div>
+    </div>
+    <section class="fees-content" id="feesServices">
+      <div class="fees-shell">
+        <header class="fees-section-top">
+          <p class="fees-eyebrow">SERVICE &amp; PRICING</p>
+          <h2>업무별 등기 비용</h2>
+          <p>업무를 선택하면 세부 보수와 실비를 확인할 수 있습니다.</p>
+        </header>
+        <div class="fees-layout">
+          <nav class="fees-nav" id="feesCategories" aria-label="등기 업무 선택"></nav>
+          <div>
+            <div class="fees-group-heading">
+              <div><h3 id="feesGroupTitle">법인설립</h3><p id="feesGroupIntro"></p></div>
+              <span id="feesGroupCount"></span>
+            </div>
+            <div class="fees-cards" id="feesCatalog" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="fees-info">
+          <div class="fees-info-grid">
+            <div><b>전자등기 기준</b><p>안내 비용은 원칙적으로 전자등기 기준입니다. 서류등기 또는 추가 공증이 필요한 경우 실비가 달라질 수 있습니다.</p></div>
+            <div><b>수수료와 공과금 구분</b><p>각 업무의 펜타곤 보수와 세금·등기신청수수료 등 실비를 분리해 표시합니다. 개별 업무에 따라 별도 비용이 발생할 수 있습니다.</p></div>
+            <div><b>최종 금액은 상담 후 확정</b><p>등기 관할, 법인 형태, 중과·감면 적용, 신문공고 및 추가 절차에 따라 실제 비용은 달라질 수 있습니다.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="fees-calculator" id="feeCalculator">
+      <div class="fees-shell">
+        <header class="fees-section-top">
+          <p class="fees-eyebrow">COST CALCULATOR</p>
+          <h2>설립 · 증자 예상 비용 계산</h2>
+          <p>펜타곤의 업무별 수수료와 제공된 등록면허세 등 요율을 기준으로 예상 비용을 계산합니다.</p>
+        </header>
+        <div class="fees-calc-grid">
+          <div class="fees-calc-inputs">
+            <div class="fees-calc-field">
+              <label for="feesService">등기 업무</label>
+              <select id="feesService" aria-label="등기 업무 선택"><option>주식회사 설립</option></select>
+            </div>
+            <div class="fees-calc-field">
+              <label for="feesCapital" id="feesCapitalLabel">설립 자본금</label>
+              <input id="feesCapital" inputmode="numeric" autocomplete="off" value="28,000,000" aria-label="금액 (원)">
+              <small>금액 단위: 원</small>
+            </div>
+            <div class="fees-calc-field">
+              <label for="feesRegion">등기 지역 · 중과 여부</label>
+              <select id="feesRegion" aria-label="등기 지역 및 중과 여부"><option value="normal">비과밀지역</option></select>
+              <small id="feesRegionHelp">지역에 따라 적용되는 세액이 달라질 수 있습니다.</small>
+            </div>
+            <button class="fees-calc-button" type="button" id="feesCalculate">예상 비용 계산하기 →</button>
+          </div>
+          <div class="fees-result" id="feesResult" aria-live="polite">
+            <span class="fee-result-eyebrow">예상 총 비용</span>
+            <strong class="fee-result-total">계산 중...</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="fees-final">
+      <div class="fees-shell">
+        <div class="fees-final-wrap">
+          <div><p class="fees-eyebrow">CONTACT PENTAGONE</p><h2>정확한 등기 비용이 필요하신가요?</h2><p>법인 현황과 진행 조건을 알려주시면 필요한 절차와 비용을 안내드립니다.</p></div>
+          <a href="../contact/" class="fees-pill">상담 문의하기 <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="./fees.js?v=20261008-1" defer></script>
+  <script src="../assets/js/app.js?v=20261005-2149" defer></script>
+</body>
+</html>
