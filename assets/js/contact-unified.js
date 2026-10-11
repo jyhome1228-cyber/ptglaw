@@ -70,8 +70,14 @@
   const estimateLink = $('ptgQuoteBackLink');
   if (estimateLink) estimateLink.href = '../fees/#feeCalculator';
   fillFromQuery();
+  if (params.get('type') === 'estimate' && window.location.hash === '#ptgContactFormTitle') {
+    window.addEventListener('load', function () {
+      const heading = $('ptgContactFormTitle');
+      if (heading) heading.scrollIntoView({behavior:'auto',block:'start'});
+    }, {once:true});
+  }
 
-  const estimateForm = readMode() === 'estimate';
+  // 서비스별 안내와 입력 필드는 전환 즉시 갱신됩니다.
   const quoteService = () => quoteKind.value === 'realestate' ? '부동산등기' : '법인등기';
   const errors = () => {
     if (!get('contactName')) return '이름을 입력해주세요.';
