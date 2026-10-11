@@ -4,6 +4,7 @@
 ======================================================= */
 :root{
   --layout-site:1280px;
+  --container:1280px;
   --layout-gutter:32px;
   --layout-wide:var(--layout-site);
   --layout-content:var(--layout-site);
@@ -126,3 +127,38 @@
 @media(max-width:767px){
   :root{--layout-gutter:16px}
 }
+
+
+/* 2026-10-11 — ensure all primary pages begin at same x as header and footer.
+   Only outer shells are expanded; inner prose remains at readable line widths. */
+:root{--layout-gutter:32px}
+.ptg-home-shell,
+.about-shell,
+.case-shell,
+.ptg-cases-page__inner,
+.ptg-newsroom-page__inner,
+.ptg-location-page .wrap,
+.ptg-tools-shell,
+.fees-shell,
+.info-shell,
+.ptg-assistant__inner,
+.ptg-contact__inner,
+.ptg-case-detail__inner,
+.ptg-case-view__inner,
+.ptg-profile__inner,
+.ptg-team-page__inner,
+.ptg-newsroom-clean__inner,
+.ptg-v5 .ptg-container,
+.ptg-site-header__inner,
+.ptg-site-footer__inner{
+  width:min(calc(100% - (var(--layout-gutter) * 2)),var(--layout-site))!important;
+  max-width:var(--layout-site)!important;
+  margin-inline:auto!important;
+  padding-inline:0!important;
+}
+/* No unexpected horizontal scrollbar due to nested flex/grid layout. */
+.ptg-home-shell, .about-shell, .svc-shell, .ptg-cases-page__inner,
+.ptg-newsroom-page__inner, .ptg-tools-shell, .fees-shell,
+.info-shell, .ptg-contact__inner{min-width:0}
+@media(max-width:1024px){:root{--layout-gutter:24px}}
+@media(max-width:767px){:root{--layout-gutter:16px}}
