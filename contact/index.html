@@ -34,29 +34,29 @@
     <header class="ptg-contact__head">
       <p class="ptg-contact__eyebrow">CONTACT PTG LAW</p>
       <div class="ptg-contact__head-grid">
-        <h1>필요한 내용을<br>바로 문의해주세요.</h1>
-        <p>빠른 확인이 필요한 경우 현재 상황을 간단히 작성해 주세요. 담당자가 내용을 확인한 뒤 상담 가능 범위와 필요한 자료를 안내드립니다.</p>
+        <h1>상담부터 견적까지<br>한곳에서 신청하세요.</h1>
+        <p>일반 상담과 등기 견적 신청을 하나의 창구로 통합했습니다. 필요한 서비스에 따라 정보를 작성해 주시면 검토 후 안내드립니다.</p>
       </div>
     </header>
 
     <div class="ptg-contact__guide">
       <div><span>01</span><strong>현재 상황</strong><p>어떤 문제가 발생했는지 간단히 적어주세요.</p></div>
       <div><span>02</span><strong>중요 기한</strong><p>신고일, 제출일, 재판일 등 기한이 있다면 함께 남겨주세요.</p></div>
-      <div><span>03</span><strong>보유 자료</strong><p>계약서, 고지서, 안내문 등 가지고 있는 자료를 알려주세요.</p></div>
+      <div><span>03</span><strong>접수 확인</strong><p>메일 앱에서 내용을 확인하고 전송해 주세요.</p></div>
     </div>
 
     <section class="ptg-contact-services" aria-labelledby="ptgContactServicesTitle">
       <div class="ptg-contact-services__head">
         <div><span>SERVICE</span><h2 id="ptgContactServicesTitle">제공 서비스</h2></div>
-        <p>일반 상담과 별도로, 등기 관련 비용 확인과 견적 요청은 아래 서비스에서 바로 진행할 수 있습니다.</p>
+        <p>법인등기는 보수표 기준 예상 비용을 직접 계산하고, 부동산등기는 상황에 맞는 간편 견적을 신청할 수 있습니다.</p>
       </div>
       <div class="ptg-contact-services__grid">
-        <a class="ptg-contact-service-card" href="../tools/corporate-registration/">
-          <div><span>01</span><h3>법인등기 비용 계산기</h3><p>자본금과 설립 지역을 기준으로 등록면허세와 지방교육세 예상 금액을 간편하게 계산합니다.</p></div>
+        <a class="ptg-contact-service-card" href="../fees/#feeCalculator">
+          <div><span>01</span><h3>법인등기 비용 계산기</h3><p>설립·증자 조건에 따라 공과금과 펜타곤 보수를 구분해 예상 총 비용을 확인합니다.</p></div>
           <strong>비용 계산하기 →</strong>
         </a>
-        <a class="ptg-contact-service-card" href="../services/registry/estimate/">
-          <div><span>02</span><h3>부동산등기 간편 견적</h3><p>등기 종류, 부동산 정보, 관련 금액과 자료를 남기면 확인 후 견적 및 진행 절차를 안내받을 수 있습니다.</p></div>
+        <a class="ptg-contact-service-card" href="?type=estimate&amp;service=realestate#ptgContactFormTitle">
+          <div><span>02</span><h3>부동산등기 간편 견적</h3><p>등기 종류와 부동산 정보를 입력하고 동일한 문의 창구에서 검토 견적을 요청합니다.</p></div>
           <strong>견적 신청하기 →</strong>
         </a>
       </div>
@@ -71,6 +71,21 @@
         </div>
 
         <form class="ptg-contact-form" id="ptgContactForm" novalidate>
+          <fieldset class="ptg-request-switch" aria-label="접수 유형"><legend>어떤 도움을 원하시나요?</legend><label><input type="radio" name="ptgRequestType" value="general" checked><span>일반 상담</span></label><label><input type="radio" name="ptgRequestType" value="estimate"><span>등기 견적 신청</span></label></fieldset>
+          <p class="ptg-process-note" id="ptgRequestProcessNote">상담 내용과 연락처를 남겨주세요. 메일 앱에서 전송을 완료해야 접수됩니다.</p>
+          <div class="ptg-quote-fields" id="ptgQuoteFields" hidden>
+            <label class="ptg-field"><span>견적 종류 <b>*</b></span><select id="ptgQuoteKind"><option value="corporate">법인등기 견적</option><option value="realestate">부동산등기 견적</option></select></label>
+            <div class="ptg-quote-details" id="ptgQuoteCorporate">
+              <div class="ptg-quote-details__heading"><strong>법인등기 정보</strong><a id="ptgQuoteBackLink" href="../fees/#feeCalculator">보수표·계산기에서 다시 계산하기 ↗</a></div>
+              <div class="ptg-field-grid"><label class="ptg-field"><span>등기 업무 <b>*</b></span><input id="contactCorpWork" placeholder="예: 주식회사 설립, 유상증자"></label><label class="ptg-field"><span>설립 자본금 / 증자금액</span><input id="contactCorpAmount" inputmode="numeric" placeholder="금액 (원)"></label><label class="ptg-field"><span>설립 지역·중과 조건</span><select id="contactCorpRegion"><option value="normal">비과밀지역</option><option value="over5">과밀억제권역 (설립 5년 경과)</option><option value="metro">과밀지역 (중과 적용)</option></select></label><label class="ptg-field"><span>계산기 예상 금액</span><input id="contactCorpEstimate" readonly placeholder="계산기를 이용하면 자동 입력"></label></div>
+              <p class="ptg-quote-help">계산기에서 견적 신청을 누르면 업무·금액·지역·예상 비용이 자동으로 들어옵니다.</p>
+            </div>
+            <div class="ptg-quote-details" id="ptgQuoteRealestate" hidden>
+              <div class="ptg-quote-details__heading"><strong>부동산등기 정보</strong><a href="../inheritance/">상속등기는 상속원스톱서비스 이용 ↗</a></div>
+              <div class="ptg-field-grid"><label class="ptg-field"><span>신청할 등기 종류 <b>*</b></span><select id="contactEstateType"><option value="">선택해주세요</option><option>소유권 이전</option><option>임차권등기명령</option><option>전세권 설정</option><option>전세권 말소</option><option>근저당권 설정</option><option>근저당권 말소</option><option>기타 등기</option></select></label><label class="ptg-field"><span>신청자 구분</span><select id="contactEstateApplicant"><option>개인</option><option>법인</option></select></label><label class="ptg-field ptg-span-2"><span>부동산 소재지 주소 <b>*</b></span><input id="contactEstateAddress" placeholder="소재지 주소를 입력해주세요"></label><label class="ptg-field"><span>상세주소</span><input id="contactEstateAddress2" placeholder="동·호수 등"></label><label class="ptg-field"><span>관련 금액</span><input id="contactEstateAmount" placeholder="매매금액·보증금·채권최고액 등"></label></div>
+              <p class="ptg-quote-help">부동산등기는 입력자료 검토 후 견적을 안내합니다. 상속등기 신청은 상속원스톱서비스에서 진행합니다.</p>
+            </div>
+          </div>
           <div class="ptg-field-grid">
             <label class="ptg-field"><span>이름 <b>*</b></span><input id="contactName" name="name" type="text" autocomplete="name" required placeholder="이름을 입력해주세요"></label>
             <label class="ptg-field"><span>연락처 <b>*</b></span><input id="contactPhone" name="phone" type="tel" autocomplete="tel" required placeholder="010-0000-0000"></label>
@@ -82,16 +97,17 @@
 
           <label class="ptg-field ptg-field--wide"><span>문의 내용 <b>*</b></span><textarea id="contactMessage" required placeholder="현재 상황, 상대방과의 관계, 이미 진행한 절차, 중요 기한 등을 자유롭게 작성해주세요."></textarea></label>
 
-          <label class="ptg-file-field"><span>파일 첨부</span><div class="ptg-file-drop" id="contactFileDrop"><input id="contactFiles" type="file" multiple><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13.5v4A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-4"/></svg><strong>파일을 끌어오거나 클릭해서 선택</strong><small>계약서, 고지서, 안내문 등 보유 자료를 선택해주세요. 현재는 파일명이 문의 내용에 포함되며 실제 첨부 전송은 접수 시스템 연결 후 활성화됩니다.</small><div id="contactFileNames">선택된 파일 없음</div></div></label>
+          <label class="ptg-file-field"><span>관련 서류 (선택사항)</span><div class="ptg-file-drop" id="contactFileDrop"><input id="contactFiles" type="file" multiple><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13.5v4A2.5 2.5 0 0 0 7.5 20h9a2.5 2.5 0 0 0 2.5-2.5v-4"/></svg><strong>파일을 끌어오거나 클릭해서 선택</strong><small>여기서 선택한 파일은 파일명만 기록됩니다. 파일 자체는 전송되지 않으므로 메일 앱에서 별도로 첨부해주세요.</small><div id="contactFileNames">선택된 파일 없음</div></div></label>
 
           <label class="ptg-consent"><input id="contactConsent" type="checkbox" required><span>상담 접수를 위해 이름, 연락처, 문의 내용을 제공하는 데 동의합니다. <a href="../privacy/" target="_blank">개인정보처리방침</a></span></label>
 
           <div class="ptg-contact-form__actions">
-            <button type="submit" class="ptg-submit">이메일로 문의 보내기 →</button>
+            <button type="submit" class="ptg-submit">메일 앱에서 상담 문의하기 →</button>
             <a href="tel:0264475599" class="ptg-call">전화 문의 02-6447-5599</a>
           </div>
           <p class="ptg-form-status" id="contactStatus" aria-live="polite"></p>
-          <p class="ptg-form-note">문의 내용만으로 구체적인 법률·세무 판단이 확정되는 것은 아니며, 정확한 검토는 담당자 상담과 관련 자료 확인 후 진행됩니다.</p>
+          <a id="contactMailFallback" class="ptg-contact-mail-fallback" href="mailto:yhchae@ptglaw.co.kr" hidden>메일 앱이 열리지 않으면 여기서 다시 열기 ↗</a>
+          <p class="ptg-form-note">메일 앱에서 실제 전송을 완료해야 접수됩니다. 견적 계산 결과는 참고용이며, 확정 비용과 세무·법률 판단은 담당자 확인 후 안내됩니다.</p>
         </form>
       </section>
 
@@ -124,6 +140,8 @@
 .ptg-contact-info{position:sticky;top:110px;border-top:2px solid #111}.ptg-contact-info__block{padding:20px 0;border-bottom:1px solid var(--line)}.ptg-contact-info__block>span{display:block;margin-bottom:8px;color:var(--o);font-size:10px;font-weight:700;letter-spacing:.08em}.ptg-contact-info__block a,.ptg-contact-info__block p{margin:0;font-size:13px;line-height:1.65}.ptg-contact-info__phone{font-size:24px!important;font-weight:700}.ptg-contact-info__caption{margin:22px 0 0;color:#777;font-size:12px;line-height:1.7}
 .ptg-assistant{margin-top:92px;padding-top:72px;border-top:1px solid var(--line)}.ptg-assistant[hidden]{display:none}.ptg-assistant__head{display:flex;justify-content:space-between;gap:40px;align-items:start;margin-bottom:38px}.ptg-assistant__head h2{margin:0;font-size:clamp(28px,2.6vw,38px);line-height:1.25;letter-spacing:-.055em}.ptg-assistant__head button{border:1px solid var(--line);background:#fff;padding:10px 14px;cursor:pointer}.ptg-assistant__step{display:grid;grid-template-columns:70px minmax(0,1fr);gap:26px;padding:30px 0;border-top:1px solid var(--line)}.ptg-assistant__step>span{color:var(--o);font-size:13px;font-weight:700}.ptg-assistant__step h3{margin:0 0 18px;font-size:20px}.ptg-choice{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}.ptg-choice button,.ptg-tabs button,.ptg-issues button{appearance:none;border:1px solid var(--line);background:#fff;color:#111;font:inherit;font-size:13px;cursor:pointer}.ptg-choice button{min-height:72px;padding:16px;text-align:left;border-top:0}.ptg-choice button.is-active,.ptg-tabs button.is-active,.ptg-issues button.is-active{background:#111;color:#fff;border-color:#111}.ptg-tabs,.ptg-issues{display:flex;flex-wrap:wrap;gap:8px}.ptg-tabs button,.ptg-issues button{min-height:39px;padding:0 14px}.ptg-issues{margin-top:16px}.ptg-issues p{margin:0;color:#888;font-size:13px}.ptg-assistant__result{padding:28px 0;border-top:2px solid var(--o)}.ptg-assistant__result span{color:var(--o);font-size:11px;font-weight:700}.ptg-assistant__result h3{margin:8px 0 18px;font-size:22px}.ptg-assistant__result textarea{width:100%;min-height:240px;padding:18px;border:1px solid var(--line);font:inherit;font-size:13px;line-height:1.75;resize:vertical}.ptg-assistant__actions{display:flex;gap:8px;margin-top:14px}.ptg-assistant__actions button{min-height:44px;padding:0 18px;border:1px solid #111;background:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}.ptg-assistant__actions button:first-child{background:var(--o);border-color:var(--o);color:#fff}
 @media(max-width:1050px){.ptg-contact__head-grid,.ptg-contact__layout,.ptg-contact-services__head{grid-template-columns:1fr}.ptg-contact-services__head{gap:14px}.ptg-contact-info{position:relative;top:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:0 30px}.ptg-contact-info__caption{grid-column:1/-1}.ptg-assistant__step{grid-template-columns:50px 1fr}}@media(max-width:720px){.ptg-contact{padding:58px 0 84px}.ptg-contact-services{padding-top:44px}.ptg-contact-services__grid{grid-template-columns:1fr}.ptg-contact-service-card{min-height:0;padding:20px}.ptg-contact__inner{width:calc(100% - 40px)}.ptg-contact__head h1{font-size:clamp(32px,9vw,40px)}.ptg-contact__guide{grid-template-columns:1fr}.ptg-contact__guide>div{border-right:0;border-bottom:1px solid var(--line);padding:18px 0}.ptg-field-grid{grid-template-columns:1fr}.ptg-contact-form__title{display:block}.ptg-contact-form__title button{margin-top:15px;text-align:left}.ptg-contact-form__actions{display:grid}.ptg-submit,.ptg-call{width:100%}.ptg-contact-info{grid-template-columns:1fr}.ptg-choice{grid-template-columns:1fr}.ptg-assistant__head{display:block}.ptg-assistant__head button{margin-top:20px}.ptg-assistant__step{grid-template-columns:1fr;gap:8px}.ptg-assistant__actions{display:grid}.ptg-assistant__actions button{width:100%}}
+
+.ptg-contact [hidden]{display:none!important}.ptg-contact-form__title{scroll-margin-top:110px}.ptg-request-switch{display:flex;align-items:center;gap:10px;padding:0 0 26px;margin:0 0 20px;border:0;border-bottom:1px solid var(--line)}.ptg-request-switch legend{font-weight:750;font-size:16px;padding:0 0 14px}.ptg-request-switch label{cursor:pointer;display:inline-flex;align-items:center;gap:10px;margin-right:10px;padding:12px 18px;border:1px solid #e0e0e0;border-radius:8px;font-size:15px;font-weight:650}.ptg-request-switch label:has(input:checked){border-color:var(--o);background:#fff8f2}.ptg-request-switch input{accent-color:var(--o)}.ptg-process-note{font-size:14px!important;color:#696969!important;line-height:1.8!important;margin:0 0 30px!important}.ptg-quote-fields{padding:28px;background:#fafaf9;border:1px solid #e8e8e6;border-radius:12px;margin:0 0 34px}.ptg-quote-details{margin-top:25px}.ptg-quote-details__heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:12px;border-bottom:1px solid #ddd;padding-bottom:16px}.ptg-quote-details__heading strong{font-size:19px}.ptg-quote-details__heading a{font-size:13px!important;color:var(--o);font-weight:700}.ptg-quote-fields>.ptg-field{max-width:100%}.ptg-quote-help{font-size:13px!important;color:#777!important;margin:15px 0 0!important;line-height:1.8!important}.ptg-span-2{grid-column:1/-1}.ptg-quote-fields .ptg-field input,.ptg-quote-fields .ptg-field select{background:transparent}.ptg-contact-mail-fallback{display:inline-block;margin-top:10px;color:var(--o)!important;text-decoration:underline!important;font-weight:750;font-size:14px}.ptg-contact-form .ptg-field input,.ptg-contact-form .ptg-field select,.ptg-contact-form .ptg-field textarea{font-size:16px}.ptg-contact-services__head p,.ptg-contact-service-card p{font-size:15px}.ptg-contact-service-card h3{font-size:20px}.ptg-contact-service-card>strong{font-size:15px}.ptg-file-drop small{font-size:13px}.ptg-form-note{font-size:13px}.ptg-contact__layout{scroll-margin-top:110px}@media(max-width:720px){.ptg-request-switch{flex-wrap:wrap}.ptg-request-switch label{flex:1;margin-right:0;padding:12px 10px}.ptg-quote-fields{padding:20px 16px}.ptg-quote-details__heading{align-items:flex-start;flex-direction:column;gap:8px}.ptg-span-2{grid-column:auto}.ptg-quote-fields .ptg-field-grid{gap:18px}}
 </style>
 
 <script>
@@ -143,10 +161,10 @@
   function renderResult(){document.getElementById('assistantResult').value=resultText()}
   document.getElementById('fillContactForm').addEventListener('click',function(){category.value=categoryLabel[state.category]||'';var prefix=resultText();message.value=prefix+'\n'+(message.value||'');assistant.hidden=true;form.scrollIntoView({behavior:'smooth',block:'start'})});
   document.getElementById('copyAssistantResult').addEventListener('click',function(){var text=document.getElementById('assistantResult').value;navigator.clipboard?navigator.clipboard.writeText(text):null});
-  form.addEventListener('submit',function(e){e.preventDefault();status.textContent='';if(!name.value.trim()||!phone.value.trim()||!category.value||!message.value.trim()||!consent.checked){status.textContent='필수 항목과 개인정보 동의를 확인해주세요.';return}var fileNames=Array.from(files.files).map(function(f){return f.name}).join(', ');var body=['[펜타곤 상담 문의]','', '이름: '+name.value.trim(),'연락처: '+phone.value.trim(),'이메일: '+email.value.trim(),'회사/브랜드: '+company.value.trim(),'문의 분야: '+category.value,'중요 기한: '+deadline.value.trim(),'선택 파일: '+(fileNames||'없음'),'','문의 내용:',message.value.trim(),'','※ 선택한 파일은 메일 앱에서 별도로 첨부해주세요.'].join('\n');var subject='[펜타곤 상담문의] '+name.value.trim()+' / '+category.value;status.textContent='메일 앱을 여는 중입니다. 선택한 파일은 메일 앱에서 직접 첨부해주세요.';window.location.href='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)});
   renderResult();
 })();
 </script>
+<script src="../assets/js/contact-unified.js?v=20261011-1"></script>
 </main>
 <div data-site-footer></div>
 <script src="../assets/js/app.js?v=20261005-2149"></script>
