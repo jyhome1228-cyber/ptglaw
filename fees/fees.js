@@ -76,7 +76,7 @@
       (item.feeOnly?'<p class="fee-only-msg">공과금 및 등기 실비는 별도 산정됩니다.</p>':'<div class="fee-lines">'+rows+'</div>')+
       (item.extra?'<p class="fee-extra">'+escape(item.extra)+'</p>':'')+
       (item.note?'<p class="fee-card-note">'+escape(item.note)+'</p>':'')+
-      (item.kind?'<a class="fee-calc-link" href="#feeCalculator" data-select-calc="'+item.kind+'">내 조건으로 비용 계산하기 <span aria-hidden="true">↗</span></a>':'')+
+      (item.kind?'<a class="fee-calc-link" href="#feeCalculator" data-select-calc="'+item.kind+'">내 조건으로 비용 계산하기 <span aria-hidden="true">↗</span></a>':'<a class="fee-calc-link" href="../contact/?type=estimate&amp;service=corporate&amp;work='+encodeURIComponent(item.title)+'#ptgContactFormTitle">이 업무로 견적 문의하기 <span aria-hidden="true">↗</span></a>')+
       '</article>';
   }
   function render() {
@@ -121,8 +121,9 @@
     if(!item || !Number.isFinite(amount) || amount<=0) {
       result.innerHTML='<p class="fee-calc-error">자본금 또는 증자 금액을 입력해 주세요.</p>';return;
     }
+    const makeContactUrl=(total)=>{const p=new URLSearchParams({type:'estimate',service:'corporate',work:item.title,capital:String(amount),region:region.value});if(total!=null)p.set('estimated',String(total));return '../../contact/?'+p.toString()+'#ptgContactFormTitle'};
     if(item.kind==='formation' && amount>=1000000000) {
-      result.innerHTML='<span class="fee-result-eyebrow">별도 상담 대상</span><strong class="fee-result-total">상담 후 안내</strong><p class="fee-result-info">설립 자본금 10억원 이상은 개별 법인구조 및 비용을 상담 후 안내드립니다.</p><a class="fee-result-consult" href="../../contact/">상담 문의하기 ↗</a>';return;
+      result.innerHTML='<span class="fee-result-eyebrow">별도 상담 대상</span><strong class="fee-result-total">상담 후 안내</strong><p class="fee-result-info">설립 자본금 10억원 이상은 개별 법인구조 및 비용을 상담 후 안내드립니다.</p><a class="fee-result-consult" href="'+makeContactUrl(null)+'">견적 상담 신청하기 ↗</a>';return;
     }
     const multiplier=region.value==='metro'?3:1;
     // 제공 문서: 최소 135,000원(2,800만원 이하), 일반 0.48%, 중과 3배
@@ -137,7 +138,7 @@
     result.innerHTML='<span class="fee-result-eyebrow">예상 총 비용</span><strong class="fee-result-total">'+won(total)+'</strong>'+
       '<div class="fee-result-rows">'+rows.map(p=>'<div><span>'+p[0]+'</span><b>'+won(p[1])+'</b></div>').join('')+'</div>'+
       '<p class="fee-result-info">선택한 업무·금액·지역을 기준으로 계산한 예상 금액입니다. 전자등기 기준이며 실제 세액, 중과 예외, 추가 실비는 상담 후 확정됩니다.</p>'+
-      '<a class="fee-result-consult" href="../../contact/">상담 문의하기 ↗</a>';
+      '<a class="fee-result-consult" href="'+makeContactUrl(total)+'">이 계산 결과로 견적 신청하기 ↗</a>';
   }
   function formatCapital() {
     const n=Number(capital.value.replace(/[^0-9]/g,''));
