@@ -162,3 +162,16 @@
 .info-shell, .ptg-contact__inner{min-width:0}
 @media(max-width:1024px){:root{--layout-gutter:24px}}
 @media(max-width:767px){:root{--layout-gutter:16px}}
+
+/* 2026-10-11 Additional page templates. */
+.ptg-case-detail-page__inner,
+.news-shell,
+.ptg-cases-page__inner,
+.ptg-newsroom-page__inner,
+.ptg-home-shell,
+.ptg-info .info-shell {
+  width:min(calc(100% - (var(--layout-gutter) * 2)),var(--layout-site))!important;
+  max-width:var(--layout-site)!important;
+  padding-inline:0!important;
+  margin-inline:auto!important;
+}
