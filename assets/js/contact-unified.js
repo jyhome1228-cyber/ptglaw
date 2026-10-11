@@ -51,8 +51,7 @@
   function fillFromQuery() {
     const isEstimate = params.get('type') === 'estimate';
     if (isEstimate) {
-      const mode = modeInputs.find(i => i.value === 'estimate');
-      if (mode) mode.checked = true;
+      modeInputs.forEach(input => { input.checked = input.value === 'estimate'; });
       if (params.get('service') === 'realestate') quoteKind.value = 'realestate';
       else quoteKind.value = 'corporate';
     }
