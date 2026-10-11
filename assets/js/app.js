@@ -13,7 +13,7 @@
   document.head.appendChild(bootStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261005-2149';
+  const CSS_VERSION='20261011-1400';
   const LOGO_VERSION='20261005-2149';
   const SERVICE_ASSET_VERSION='20261005-2149';
   const ensureCss=(key,file)=>new Promise(resolve=>{
@@ -34,7 +34,7 @@
     document.head.appendChild(link);
     setTimeout(resolve,1200);
   });
-  const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file)));
+  const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file))).then(()=>ensureCss('ptg-alignment','alignment.css'));
   document.body.classList.add('ptg-global-ui','ptg-notice-hidden');
   document.documentElement.style.setProperty('--notice-height','0px');
   document.body.style.setProperty('--notice-height','0px');
