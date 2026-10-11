@@ -34,7 +34,7 @@
     document.head.appendChild(link);
     setTimeout(resolve,1200);
   });
-  const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing'][i],file))).then(()=>ensureCss('ptg-alignment','alignment.css'));
+  const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css','alignment.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing','ptg-alignment'][i],file)));
   document.body.classList.add('ptg-global-ui','ptg-notice-hidden');
   document.documentElement.style.setProperty('--notice-height','0px');
   document.body.style.setProperty('--notice-height','0px');
