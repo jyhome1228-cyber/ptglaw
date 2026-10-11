@@ -48,6 +48,7 @@
   font-weight:400!important;
 }
 .ptg-contact .contact-body{padding:58px 0 90px}
+.ptg-contact #ptgContactFormTitle{scroll-margin-top:120px}
 .ptg-contact .contact-section-head{
   display:flex;
   align-items:baseline;
