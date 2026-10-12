@@ -79,7 +79,7 @@
   const region={criminal:'형사',tax:'조세·세무',civil:'민사',family:'가사·상속',corporate:'기업',realestate:'부동산·건설',ip:'지식재산'};
   const labelStatus=x=>status(x)==='draft'?'임시저장':'공개 중';
   const navHref=item=>{
-    if(item.href)return String(item.href);
+    if(item.href)return '../cases/'+String(item.href).replace(/^(\.\/|\.\.\/cases\/)/,'');
     return '../cases/view/?id='+encodeURIComponent(item.id||'');
   };
 
@@ -90,11 +90,11 @@
   const newsImageField=$('[data-news-image]')?.closest('.admin-field');
   newsImageField?.insertAdjacentHTML('afterend',
     '<div class="admin-field"><label>내부 상세페이지 링크 (선택)</label><input data-news-href placeholder="예: ../news5/ · 없으면 기사 원문"><small>기존 내부 뉴스 페이지를 유지할 때만 입력하세요.</small></div>'+
-    '<div class="admin-field"><label>공개 상태</label><select data-news-status><option value="published">즉시 공개</option><option value="draft">임시저장 (비공개)</option></select></div>');
+    '<div class="admin-field"><label>공개 상태</label><select data-news-status><option value="published">즉시 공개</option><option value="draft">임시저장 (목록 비노출 · JSON 공개)</option></select></div>');
   $('[data-publish-news]')?.insertAdjacentHTML('afterend','<button class="admin-btn" type="button" data-news-cancel hidden>수정 취소 · 새 글</button>');
   const caseTags=$('[data-case-tags]')?.closest('.admin-field');
   caseTags?.insertAdjacentHTML('afterend',
-    '<div class="admin-field"><label>공개 상태</label><select data-case-status><option value="published">즉시 공개</option><option value="draft">임시저장 (비공개)</option></select></div>');
+    '<div class="admin-field"><label>공개 상태</label><select data-case-status><option value="published">즉시 공개</option><option value="draft">임시저장 (목록 비노출 · JSON 공개)</option></select></div>');
   $('[data-publish-case]')?.insertAdjacentHTML('afterend','<button class="admin-btn" type="button" data-case-cancel hidden>수정 취소 · 새 사례</button>');
   const newsPanel=$('[data-panel="news"]');
   const casePanel=$('[data-panel="cases"]');
