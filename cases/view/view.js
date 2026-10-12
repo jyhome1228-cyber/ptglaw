@@ -5,7 +5,7 @@
   const id=new URLSearchParams(location.search).get('id');
   const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
   let item=null;
-  try{const res=await fetch(`${base}/content/cases.json?v=${Date.now()}`,{cache:'no-store'});const data=res.ok?await res.json():[];item=data.find(x=>String(x.id)===String(id))}catch(e){}
+  try{const res=await fetch(`${base}/content/cases.json?v=${Date.now()}`,{cache:'no-store'});const data=res.ok?await res.json():[];item=Array.isArray(data)?data.find(x=>String(x.id)===String(id)&&x.status!=='draft'):null}catch(e){}
   if(!item){root.innerHTML=`<div class="ptg-case-detail-hero"><div class="ptg-case-detail-hero__meta"><span>업무사례</span></div><h2>사례를 찾을 수 없습니다.</h2><p>삭제되었거나 아직 게시되지 않은 사례입니다.</p><div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></div>`;return}
   document.title=`${item.title} | 펜타곤 업무사례`;
   const tags=(item.tags||[]).map(t=>`<span>${esc(t)}</span>`).join('');
