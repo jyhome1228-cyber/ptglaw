@@ -92,6 +92,8 @@
     '<div class="admin-field"><label>내부 상세페이지 링크 (선택)</label><input data-news-href placeholder="예: ../news5/ · 없으면 기사 원문"><small>기존 내부 뉴스 페이지를 유지할 때만 입력하세요.</small></div>'+
     '<div class="admin-field"><label>공개 상태</label><select data-news-status><option value="published">즉시 공개</option><option value="draft">임시저장 (목록 비노출 · JSON 공개)</option></select></div>');
   $('[data-publish-news]')?.insertAdjacentHTML('afterend','<button class="admin-btn" type="button" data-news-cancel hidden>수정 취소 · 새 글</button>');
+  const caseCategory=$('[data-case-category]')?.closest('.admin-field');
+  caseCategory?.insertAdjacentHTML('afterend','<div class="admin-field"><label>추가 분야 (선택)</label><select data-case-extra-category><option value="">선택 안 함</option><option value="criminal">형사</option><option value="tax">조세·세무</option><option value="civil">민사</option><option value="family">가사·상속</option><option value="corporate">기업</option><option value="realestate">부동산·건설</option><option value="ip">지식재산</option></select><small>한 사례를 최대 두 분야에 노출할 수 있습니다.</small></div>');
   const caseTags=$('[data-case-tags]')?.closest('.admin-field');
   caseTags?.insertAdjacentHTML('afterend',
     '<div class="admin-field"><label>공개 상태</label><select data-case-status><option value="published">즉시 공개</option><option value="draft">임시저장 (목록 비노출 · JSON 공개)</option></select></div>');
@@ -157,7 +159,7 @@
     const keys=kind==='news'?['url','title','source','date','summary','image','href']:['title','summary','meta1','meta2','result','tags','overview','strategy','result-body','point'];
     keys.forEach(k=>setField(kind==='news'?'news':'case',k,''));
     if(kind==='news'){setField('news','category','firm');setField('news','status','published');setField('news','date',today());}
-    else{setField('case','category','criminal');setField('case','status','published');}
+    else{setField('case','category','criminal');setField('case','extra-category','');setField('case','status','published');}
     const cancelBtn=$('[data-'+(kind==='news'?'news':'case')+'-cancel]');
     if(cancelBtn)cancelBtn.hidden=true;
     const submit=$('[data-publish-'+(kind==='news'?'news':'case')+']');
@@ -177,7 +179,7 @@
       ['title','summary','meta1','meta2','result','overview','strategy','point'].forEach(k=>setField('case',k,item[k]||''));
       setField('case','result-body',item.resultBody||'');
       setField('case','tags',Array.isArray(item.tags)?item.tags.join(', '):'');
-      setField('case','category',item.categories?.[0]||'corporate');setField('case','status',status(item));
+      setField('case','category',item.categories?.[0]||'corporate');setField('case','extra-category',item.categories?.[1]||'');setField('case','status',status(item));
     }
     const c=$('[data-'+(kind==='news'?'news':'case')+'-cancel]');
     const submit=$('[data-publish-'+(kind==='news'?'news':'case')+']');
@@ -258,12 +260,14 @@
     if(!title||!summary)return notify('사례 제목과 요약은 필수입니다.');
     const id=editing.cases,prev=data.cases.find(x=>String(x.id)===String(id));
     const category=fieldValue('case','category')||'corporate';
+    const extra=fieldValue('case','extra-category');
+    const categories=[category,...(extra&&extra!==category?[extra]:[])];
     const record={
       ...(prev||{}),id:id||'case-'+Date.now(),title,summary,
       meta1:fieldValue('case','meta1')||region[category]||'업무사례',
       meta2:fieldValue('case','meta2'),result:fieldValue('case','result'),
       tags:fieldValue('case','tags').split(',').map(x=>x.trim()).filter(Boolean),
-      categories:prev?.legacy&&Array.isArray(prev.categories)?prev.categories:[category],
+      categories,
       overview:fieldValue('case','overview'),strategy:fieldValue('case','strategy'),
       resultBody:fieldValue('case','result-body'),point:fieldValue('case','point'),
       status:fieldValue('case','status')||'published',
