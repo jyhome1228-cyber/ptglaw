@@ -209,7 +209,7 @@
       if(!item)return;
       if(!hasToken())return notify('수정하려면 GitHub 토큰을 연결해주세요.');
       const legacyNotice=(item.legacy||(/^..\//.test(item.href||'')))?' (기존 정적 HTML 상세페이지는 그대로 유지됩니다.)':'';
-      const message=toggle?(status(item)==='draft'?'공개 전환':'비공개 전환'):'삭제';
+      const message=toggle?(status(item)==='draft'?'공개 전환':'목록 비노출 전환'):'삭제';
       if(!confirm('“'+item.title+'” '+message+'할까요?'+legacyNotice))return;
       const button=toggle||del;button.disabled=true;
       try{
@@ -239,7 +239,7 @@
     if(!id&&!get('[data-news-date]'))return notify('게시일을 선택해주세요.');
     const record={
       ...(prev||{}),id:id||'news-'+Date.now(),title,url,source:fieldValue('news','source'),
-      date:fieldValue('news','date')||(prev?.date||today()),
+      date:(fieldValue('news','date')?fieldValue('news','date').replace(/-/g,'.'):(prev?.date||today().replace(/-/g,'.'))),
       summary:fieldValue('news','summary'),image,category:fieldValue('news','category')||'firm',
       status:fieldValue('news','status')||'published',
       createdAt:prev?.createdAt||new Date().toISOString(),
