@@ -12,7 +12,7 @@
     const res=await fetch(`${base}/content/cases.json?v=${Date.now()}`,{cache:'no-store'});
     if(!res.ok)throw new Error('업무사례 데이터를 불러오지 못했습니다.');
     const json=await res.json();
-    data=Array.isArray(json)?json:[];
+    data=Array.isArray(json)?json.filter(item=>item&&item.status!=='draft'):[];
   }catch(e){
     grid.innerHTML='<div class="ptg-cases-empty">업무사례를 불러오지 못했습니다.</div>';
     return;
