@@ -3,7 +3,8 @@
   const root=document.querySelector('[data-cms-case]');
   if(!root)return;
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
-  const id=new URLSearchParams(location.search).get('id');
+  const casePath=location.pathname.match(/\/case(\d+)\/?$/);
+  const id=new URLSearchParams(location.search).get('id')||(casePath?'case-'+casePath[1]:null);
   const esc=value=>String(value??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
   const out=value=>esc(value).replace(/\r?\n/g,'<br>');
   let item=null;
@@ -41,5 +42,6 @@
     '<div class="ptg-case-detail-layout"><article class="ptg-case-detail-content">'+toc+overview+
     '<div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></article>'+
     '<aside class="ptg-case-detail-side"><div class="ptg-case-side-info"><p>사건 분야</p><strong>'+esc(item.meta1||'업무사례')+'</strong></div>'+
-    '<div class="ptg-case-side-info"><p>주요 결과</p><strong>'+esc(item.result||'-')+'</strong></div></aside></div>';
+    '<div class="ptg-case-side-info"><p>주요 결과</p><strong>'+esc(item.result||'-')+'</strong></div>'+ 
+    (Array.isArray(item.experts)&&item.experts.length?'<div class="ptg-case-side-info"><p>담당 변호사</p><strong>'+esc(item.experts.join(' · '))+'</strong></div>':'')+'</aside></div>';
 })();
