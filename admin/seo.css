@@ -1,0 +1,65 @@
+/* SEO management — admin only */
+.admin-seo-grid{display:grid;grid-template-columns:minmax(0,1.13fr) minmax(340px,.87fr);gap:16px;align-items:start}
+.admin-seo-grid>*{min-width:0}
+.admin-seo-aside{display:grid;gap:16px;min-width:0}
+.admin-seo-editor .admin-section-title{margin-bottom:24px}
+.seo-form{display:grid;gap:19px}
+.seo-field{display:grid;gap:7px;min-width:0}
+.seo-field>label{font-size:14px;color:#242424;font-weight:650}
+.seo-field>label span{font-size:11px;color:#a36a3d;font-weight:500}
+.seo-field>input,.seo-field>textarea,.seo-field select{
+ display:block;min-width:0;width:100%;padding:11px 13px;border:1px solid #d9dde2;
+ border-radius:7px;background:#fff;color:#181818;font:inherit;font-size:15px;line-height:1.65;
+ outline:0;transition:border .15s,box-shadow .15s;
+}
+.seo-field>input{min-height:46px}
+.seo-field>textarea{resize:vertical;min-height:90px}
+.seo-field>input:focus,.seo-field>textarea:focus,.seo-field select:focus{
+ border-color:#f58220;box-shadow:0 0 0 3px rgba(245,130,32,.08)
+}
+.seo-field>input[readonly]{background:#f7f8fa;color:#6c7177;font-size:13px}
+.seo-field>small{display:block;color:#8a8e94;font-size:12px;line-height:1.7}
+.seo-select-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:stretch}
+.seo-select-row select{height:46px}
+.seo-counts{font-size:12px;color:#747a81;line-height:1.6;padding:10px 0;border-top:1px solid #eee;border-bottom:1px solid #eee}
+.seo-actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.seo-actions .admin-btn{min-height:43px;height:auto;padding:10px 14px}
+.seo-status{min-height:22px;font-size:13px;line-height:1.65;margin:0}
+.seo-status[data-kind="error"]{color:#b42318}
+.seo-status[data-kind="good"]{color:#24794b}
+.seo-status[data-kind="warn"]{color:#95600c}
+.seo-save-note{font-size:12px;line-height:1.7;color:#858a90;margin:0}
+.seo-save-note code{background:#f6f6f6;padding:2px 4px;border-radius:3px;font-size:11px}
+.seo-serp-preview{padding:22px 20px;background:#fafafa;border:1px solid #eee;border-radius:9px;margin-bottom:12px}
+.seo-serp-domain{font-size:12px;line-height:1.6;color:#53765d;overflow-wrap:anywhere}
+.seo-serp-preview strong{display:block;margin:8px 0 5px;font-size:20px;line-height:1.4;color:#2855a0;font-weight:500;overflow-wrap:anywhere}
+.seo-serp-preview p{color:#626b72;font-size:13px;line-height:1.7;margin:0;overflow-wrap:anywhere}
+.seo-check-list{display:grid;gap:0}
+.seo-check-row{display:grid;grid-template-columns:10px minmax(90px,.5fr) minmax(0,1fr);align-items:start;gap:8px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.seo-check-row:last-child{border-bottom:0}
+.seo-check-row b{font-size:13px;font-weight:600;line-height:1.65}
+.seo-check-row small{font-size:12px;line-height:1.75;color:#7f848b;overflow-wrap:anywhere}
+.seo-dot{display:block;width:8px;height:8px;border-radius:50%;margin-top:7px;background:#aaa}
+.seo-dot.good{background:#4b9971}.seo-dot.bad{background:#c47a37}
+.seo-explain{color:#727981;font-size:13px;line-height:1.75;margin:0 0 15px}
+.seo-sitemap-result{font-size:12px;color:#62676d;line-height:1.85;margin-top:14px;overflow-wrap:anywhere}
+.seo-sitemap-result:empty{display:none}
+.admin-seo-all{margin-top:18px}
+.admin-seo-all .admin-section-title>div{display:grid;gap:5px}
+.admin-seo-all .admin-section-title{margin-bottom:22px}
+.seo-audit-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;font-size:13px;color:#7b8086}
+.seo-audit-item{display:grid;gap:4px;min-width:0;padding:13px 16px;border:1px solid #e9eaed;border-radius:8px}
+.seo-audit-item b{font-size:13px;line-height:1.5;color:#282828}
+.seo-audit-item span{font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.seo-audit-item .good{color:#39825d}.seo-audit-item .bad{color:#a15a19}
+@media(max-width:1180px){.admin-seo-grid{grid-template-columns:1fr}.admin-seo-aside{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-seo-aside>.admin-card:last-child{grid-column:1/-1}}
+@media(max-width:700px){
+ .admin-seo-aside{grid-template-columns:1fr}.admin-seo-aside>.admin-card:last-child{grid-column:auto}
+ .admin-seo-grid{gap:12px}.seo-audit-list{grid-template-columns:1fr}
+ .seo-field>input,.seo-field>textarea,.seo-field select{font-size:16px}
+ .seo-select-row{grid-template-columns:1fr}
+ .admin-seo-all .admin-section-title{display:grid;gap:12px}
+ .seo-actions .admin-btn{flex:1 1 150px;text-align:center}
+ .seo-check-row{grid-template-columns:10px minmax(75px,.4fr) minmax(0,1fr)}
+ .seo-audit-item{padding:11px 13px}
+}
