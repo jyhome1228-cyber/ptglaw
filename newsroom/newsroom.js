@@ -24,7 +24,7 @@
     const card=document.createElement('article');
     card.className='ptg-newsroom-card';card.dataset.category=category;
     const imgSrc=/^https?:\/\//.test(visual)&&/\.(png|jpe?g|webp|gif)(\?|$)/i.test(visual)?visual:preview(visual||href);
-    card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div><img src="${esc(imgSrc)}" alt="${esc(title)}" loading="${i<6?'eager':'lazy'}" decoding="async"></div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ↗':'자세히 보기 →'}</span></div></a>`;
+    card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div><img src="${esc(imgSrc)}" alt="${esc(title)}" loading="${i<6?'eager':'lazy'}" decoding="async"></div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ':'자세히 보기 →'}</span></div></a>`;
     const img=card.querySelector('img');
     img?.addEventListener('load',()=>img.classList.add('is-loaded'));
     img?.addEventListener('error',()=>img.remove());
