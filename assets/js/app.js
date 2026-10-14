@@ -13,9 +13,9 @@
   document.head.appendChild(bootStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261011-2010';
+  const CSS_VERSION='20261014-1115';
   const LOGO_VERSION='20261005-2149';
-  const SERVICE_ASSET_VERSION='20261005-2149';
+  const SERVICE_ASSET_VERSION='20261014-1115';
   const ensureCss=(key,file)=>new Promise(resolve=>{
     const existing=document.querySelector(`link[data-${key}]`);
     if(existing){
@@ -49,6 +49,7 @@
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무 사례</a></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스톱서비스</a></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/center/">법인설립지원센터</a></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/tools/">간편 계산</a><div class="ptg-nav-dropdown ptg-nav-dropdown--tools"><a href="${base}/tools/withholding/">3.3% 원천징수</a><a href="${base}/tools/vat/">부가세 계산</a><a href="${base}/fees/#feeCalculator">법인등기 비용</a><a href="${base}/tools/severance/">퇴직금 계산</a><a href="${base}/tools/asset-tax/">양도·증여·상속세</a></div></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/contact/">문의하기</a></div>
   </nav><button class="ptg-site-header__menu" type="button" aria-expanded="false" aria-controls="ptgSiteNav" aria-label="메뉴 열기">☰</button></div></header>`;
 
@@ -62,8 +63,8 @@
   if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/professionals/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/cases/'))document.querySelector('.ptg-nav-link[href$="/cases/"]')?.classList.add('is-active');
-  if(path.startsWith('/fees/')||path.startsWith('/tools/corporate-registration/')){
-    document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
+  if(path.startsWith('/tools/')||path.startsWith('/fees/')){
+    document.querySelector('.ptg-nav-link[href$="/tools/"]')?.classList.add('is-active');
   }
 
   document.querySelectorAll('link[rel="icon"],link[rel="shortcut icon"]').forEach(link=>{
@@ -141,6 +142,8 @@
     .ptg-nav-dropdown--services-clean{width:260px!important;padding:10px!important}
     .ptg-nav-dropdown--services-clean .ptg-nav-overview{margin-bottom:4px!important;padding-bottom:12px!important;border-bottom:1px solid #eceef1!important;font-weight:700!important;color:#181818!important}
     .ptg-nav-dropdown--services-clean a:not(.ptg-nav-overview){padding-left:12px!important;color:#50555b!important}
+    .ptg-nav-dropdown--tools{width:240px!important}
+    .ptg-nav-dropdown--tools a{font-size:14px!important}
     @media(max-width:1120px) and (min-width:981px){
       .ptg-site-header__logo img{width:150px!important}
       .ptg-site-header__nav{gap:12px!important}
@@ -148,6 +151,7 @@
     }
     @media(max-width:980px){
       .ptg-nav-dropdown--services-clean{width:100%!important;padding:0 0 12px 16px!important}
+      .ptg-nav-dropdown--tools{width:100%!important;padding:0 0 12px 16px!important}
       .ptg-nav-dropdown--services-clean .ptg-nav-overview{margin:0!important;padding:12px 0!important}
       .ptg-nav-dropdown--services-clean a:not(.ptg-nav-overview){padding:12px 0!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link{position:relative!important;padding-right:42px!important}
@@ -166,5 +170,5 @@
 
   if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20260912-1328`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260915-1426`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
-  if((path.startsWith('/inheritance/')||path.startsWith('/center/'))&&!document.querySelector('script[data-ptg-package-landing]')){const s=document.createElement('script');s.src=`${base}/assets/js/package-landing.js?v=20260915-1240`;s.defer=true;s.dataset.ptgPackageLanding='true';document.body.appendChild(s)}
+  if((path.startsWith('/inheritance/')||path.startsWith('/center/'))&&!document.querySelector('script[data-ptg-package-landing]')){const s=document.createElement('script');s.src=`${base}/assets/js/package-landing.js?v=20261014-1115`;s.defer=true;s.dataset.ptgPackageLanding='true';document.body.appendChild(s)}
 })();
