@@ -15,7 +15,7 @@
   if(!document.querySelector('link[data-ptg-package-hero-media]')){
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=`${base}/assets/css/package-hero-media.css?v=20260915-1238`;
+    link.href=`${base}/assets/css/package-hero-media.css?v=20261014-1135`;
     link.dataset.ptgPackageHeroMedia='true';
     document.head.appendChild(link);
   }
@@ -41,7 +41,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-025514-dc9cce09-8304-44bb-9c70-b5d176016a84-3b6b2621.webp" alt="상속 원스탑 서비스 대표 이미지" loading="eager" decoding="async">';
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010335-11-64a12406.webp" alt="상속 원스탑 서비스 대표 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
@@ -73,7 +73,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20260915-025515-e1fd3d31-1119-4947-81e9-39a10a8a8a45-23f6ccd4.webp" alt="법인설립 지원센터 대표 이미지" loading="eager" decoding="async">';
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010332-6-0d394319.webp" alt="법인설립 지원센터 대표 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
