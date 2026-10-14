@@ -24,7 +24,7 @@
 <h4>설립등기 비용 계산</h4><p>업무와 설립 조건을 선택해 예상 비용을 확인하세요.</p>
 <div class="pc-field"><label for="pcWork">세부 업무</label><select id="pcWork"></select></div>
 <div id="pcDynamicFields"></div>
-<p class="pc-form-foot">입력 즉시 자동 계산됩니다. 실제 세액·추가 비용은 상담 후 확정됩니다.</p>
+<button type="button" class="pc-btn pc-primary pc-calc-submit" id="pcCalculate">예상 비용 계산하기 →</button><p class="pc-form-foot">계산 버튼을 누르면 예상 비용이 표시됩니다. 실제 세액·추가 비용은 상담 후 확정됩니다.</p>
 </div><div class="pc-calc-result" id="pcCalcResult" aria-live="polite"></div></div>
 </div>
 <div class="pc-integrated-foot"><p>더 많은 등기 유형과 조건별 비용을 확인하고 싶으신가요?</p><a href="../fees/#feesServices">전체 등기 수수료 상세 안내 →</a></div>
@@ -48,6 +48,7 @@ const groups={
 const $=id=>document.getElementById(id),won=n=>Math.round(n).toLocaleString('ko-KR')+'원';
 let active='formation';const buttons=[...document.querySelectorAll('[data-service]')],work=$('pcWork'),fields=$('pcDynamicFields'),out=$('pcCalcResult');
 function contact(item,amount,region){const params=new URLSearchParams({type:'estimate',service:'corporate',work:item.name});if(amount)params.set('capital',amount);if(region)params.set('region',region);return '../contact/?'+params.toString()+'#ptgContactFormTitle'}
+function resetCalculation(){out.innerHTML='<span class="pc-result-kicker">ESTIMATED COST</span><strong class="pc-result-total">예상 비용 확인</strong><p class="pc-result-sub">업무와 조건을 선택한 후 계산 버튼을 눌러주세요.</p>';}
 function calculate(){
  const item=groups[active].items[Number(work.value)||0],dynamic=!!item.type;
  const amount=dynamic?Number(($('pcAmount')?.value||'').replace(/[^0-9]/g,'')):null;
@@ -108,18 +109,18 @@ if(/서울(특별시)?/.test(a)||/(수원|성남|안양|부천|광명|과천|의
 if(/부산|대구|광주|대전|울산|세종|강원|충청|전라|경상|제주/.test(a))return {status:'비과밀지역 안내',text:'수도권 외 지역이므로 수도권 과밀억제권역에 해당하지 않습니다. 실제 공과금은 별도로 확인해 주세요.',kind:'normal'};
 return {status:'주소별 권역 조회',text:'해당 주소의 권역은 토지이음에서 정확한 소재지를 기준으로 조회할 수 있습니다. 아래 공식 조회 링크를 이용해 주세요.',kind:'unknown'};
 }
-$('pcAreaForm').addEventListener('submit',e=>{e.preventDefault();const v=checkArea($('pcAreaInput').value);$('pcAreaResponse').innerHTML='<strong>'+v.status+'</strong><p>'+v.text+'</p>'+(v.kind==='unknown'?'':'<button type="button" id="pcUseArea">계산기에 '+(v.kind==='metro'?'과밀':'비과밀')+' 가정 적용</button>');const set=$('pcUseArea');if(set)set.addEventListener('click',()=>{const radio=document.querySelector('input[name="pcRegionChoice"][value="'+v.kind+'"]');if(radio){radio.checked=true;calculate()}closeAreaModal()})});
+$('pcAreaForm').addEventListener('submit',e=>{e.preventDefault();const v=checkArea($('pcAreaInput').value);$('pcAreaResponse').innerHTML='<strong>'+v.status+'</strong><p>'+v.text+'</p>'+(v.kind==='unknown'?'':'<button type="button" id="pcUseArea">계산기에 '+(v.kind==='metro'?'과밀':'비과밀')+' 가정 적용</button>');const set=$('pcUseArea');if(set)set.addEventListener('click',()=>{const radio=document.querySelector('input[name="pcRegionChoice"][value="'+v.kind+'"]');if(radio){radio.checked=true;resetCalculation()}closeAreaModal()})});
 areaModal.querySelectorAll('[data-area-example]').forEach(b=>b.addEventListener('click',()=>{$('pcAreaInput').value=b.dataset.areaExample;$('pcAreaForm').requestSubmit()}));
 function renderFields(){
  const item=groups[active].items[Number(work.value)||0];
- if(!item.type){fields.innerHTML='';calculate();return}
+ if(!item.type){fields.innerHTML='';resetCalculation();return}
  fields.innerHTML='<div class="pc-field"><label for="pcAmount">'+(item.type==='formation'?'설립 자본금':'증자 금액')+' (원)</label><input id="pcAmount" inputmode="numeric" value="28,000,000" autocomplete="off" aria-label="계산 금액"></div><div class="pc-field pc-region-field"><div class="pc-label-line"><span>본점 소재지 · 중과 가정</span><button type="button" id="pcAreaHelp" class="pc-lookup-open">과밀·비과밀지역 확인하기 →</button></div><div class="pc-region-row"><label><input type="radio" name="pcRegionChoice" value="normal" checked> 비과밀지역</label><label><input type="radio" name="pcRegionChoice" value="metro"> 과밀지역 (3배 중과 가정)</label></div></div><p class="pc-condition-note">예시 계산은 제공된 보수표의 기본 요율(0.48%, 최소 135,000원)을 사용합니다. 지역별 중과·감면 예외와 실제 법령 적용 여부는 상담 시 확인합니다.</p>';
- const input=$('pcAmount');input.addEventListener('input',()=>{const digits=input.value.replace(/[^0-9]/g,'');input.value=digits?Number(digits).toLocaleString('ko-KR'):'';calculate()});
- fields.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',calculate));
- $('pcAreaHelp').addEventListener('click',openAreaModal);calculate();
+ const input=$('pcAmount');input.addEventListener('input',()=>{const digits=input.value.replace(/[^0-9]/g,'');input.value=digits?Number(digits).toLocaleString('ko-KR'):'';resetCalculation()});
+ fields.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',resetCalculation));
+ $('pcAreaHelp').addEventListener('click',openAreaModal);resetCalculation();
 }
 function render(key){active=key;const g=groups[key];buttons.forEach(b=>{const on=b.dataset.service===key;b.classList.toggle('is-selected',on);b.setAttribute('aria-selected',String(on))});$('pcDetailTitle').textContent=g.title;$('pcDetailIntro').textContent=g.intro;$('pcDetailTags').innerHTML=g.tags.map(x=>'<span>'+x+'</span>').join('');$('pcServiceDetail').querySelector('.pc-kicker').textContent='선택한 업무';work.innerHTML=g.items.map((i,n)=>'<option value="'+n+'">'+i.name+'</option>').join('');renderFields()}
-buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));work.addEventListener('change',renderFields);render(active);
+buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));work.addEventListener('change',renderFields);$('pcCalculate').addEventListener('click',calculate);render(active);
 })();
 </script>
 <style>
@@ -247,4 +248,4 @@ buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));wo
 .pc-center .pc-select-grid .pc-service h3{margin:0 0 7px!important;font-size:19px!important;line-height:1.35!important}
 .pc-center .pc-select-grid .pc-service p{margin:0!important;font-size:12px!important;line-height:1.6!important}
 @media(max-width:700px){.pc-center .pc-select-grid .pc-service{min-height:155px!important;padding:17px 16px!important}.pc-center .pc-select-grid .pc-service .pc-clean-icon{margin-bottom:20px!important}.pc-center .pc-select-grid .pc-service h3{font-size:17px!important}}
-</style></body></html>
+</style><style>.pc-center .pc-calc-submit{width:100%;min-height:47px;border:0;border-radius:9px;font-size:14px;margin-top:10px;cursor:pointer}.pc-center .pc-calc-result{background:#f7f8f9}.pc-center .pc-calc-result .pc-result-total{font-size:clamp(24px,2.5vw,34px)}.pc-center .pc-form-foot{margin-top:12px!important}</style></body></html>
