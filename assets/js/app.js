@@ -171,4 +171,58 @@
   if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20260912-1328`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260915-1426`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
   if((path.startsWith('/inheritance/')||path.startsWith('/center/'))&&!document.querySelector('script[data-ptg-package-landing]')){const s=document.createElement('script');s.src=`${base}/assets/js/package-landing.js?v=20261014-1115`;s.defer=true;s.dataset.ptgPackageLanding='true';document.body.appendChild(s)}
+
+  // Compact quick inquiry: GitHub Pages cannot submit server-side; opens user's mail app.
+  (() => {
+    const enabled=/^\\/(?:ptglaw\\/)?(?:center|fees|contact|tools)(?:\\/|$)/.test(location.pathname);
+    if(!enabled)return;
+    const root=document.createElement('div');
+    root.className='ptg-quick-inquiry';
+    root.innerHTML=`<button type="button" class="ptg-quick-launch" aria-haspopup="dialog" aria-controls="ptgQuickDialog">빠른 간편문의 <span aria-hidden="true">↗</span></button>
+      <div class="ptg-quick-overlay" id="ptgQuickOverlay" hidden>
+        <div class="ptg-quick-dim" data-quick-close></div>
+        <section class="ptg-quick-dialog" id="ptgQuickDialog" role="dialog" aria-modal="true" aria-labelledby="ptgQuickTitle">
+          <div class="ptg-quick-heading"><div><span>QUICK CONTACT</span><h2 id="ptgQuickTitle">빠른 간편문의</h2><p>필요한 업무를 간단히 남겨주세요.</p></div><button type="button" data-quick-close aria-label="닫기">×</button></div>
+          <form id="ptgQuickForm">
+            <label>연락처 <b>*</b><input type="tel" name="phone" autocomplete="tel" placeholder="010-0000-0000" required maxlength="30"></label>
+            <label>이메일 <b>*</b><input type="email" name="email" autocomplete="email" placeholder="name@example.com" required maxlength="150"></label>
+            <label>문의내용 <b>*</b><textarea name="message" placeholder="어떤 업무가 필요하신가요?" required rows="5" maxlength="3000"></textarea></label>
+            <label class="ptg-quick-agree"><input type="checkbox" name="agree" required><span>상담을 위한 개인정보 수집·이용에 동의합니다. <a href="${base}/privacy/" target="_blank" rel="noopener">개인정보처리방침 ↗</a></span></label>
+            <button type="submit" class="ptg-quick-send">이메일로 문의하기 ↗</button>
+            <p class="ptg-quick-hint">메일 앱이 열리면 직접 '보내기'를 눌러야 접수됩니다.</p>
+            <p id="ptgQuickStatus" role="status" aria-live="polite"></p>
+            <a id="ptgQuickFallback" hidden>메일 작성 창 다시 열기 ↗</a>
+          </form>
+        </section>
+      </div>`;
+    const css=document.createElement('style');
+    css.textContent=`
+      .ptg-quick-inquiry{font-family:Pretendard,"Apple SD Gothic Neo",sans-serif;letter-spacing:-.025em}
+      .ptg-quick-launch{position:fixed;bottom:24px;right:24px;z-index:8990;background:#f58220;color:#fff;border:0;border-radius:50px;padding:15px 20px;font:700 14px inherit;box-shadow:0 6px 24px rgba(0,0,0,.18);cursor:pointer}
+      .ptg-quick-launch span{margin-left:8px}
+      .ptg-quick-overlay[hidden]{display:none!important}
+      .ptg-quick-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px}
+      .ptg-quick-dim{position:absolute;inset:0;background:rgba(10,13,18,.66)}
+      .ptg-quick-dialog{position:relative;width:min(100%,480px);max-height:92dvh;overflow-y:auto;background:#fff;padding:30px;border-radius:16px;box-shadow:0 28px 70px rgba(0,0,0,.2);color:#17191d}
+      .ptg-quick-heading{display:flex;justify-content:space-between;gap:16px;margin-bottom:24px}.ptg-quick-heading span{font-size:11px;font-weight:700;color:#f58220;letter-spacing:.08em}
+      .ptg-quick-heading h2{font-size:26px!important;color:#17191d!important;margin:9px 0!important;line-height:1.3!important}.ptg-quick-heading p{font-size:14px!important;color:#767a80!important;margin:0!important}
+      .ptg-quick-heading button{align-self:flex-start;border:0;background:#f4f4f4;border-radius:8px;width:36px;height:36px;font-size:24px;cursor:pointer}
+      .ptg-quick-dialog form>label{display:block;margin-bottom:16px;font-size:13px;font-weight:700}.ptg-quick-dialog label b{color:#ed751b}
+      .ptg-quick-dialog input:not([type=checkbox]),.ptg-quick-dialog textarea{display:block;width:100%;box-sizing:border-box;margin-top:7px;background:#fff;border:1px solid #dddfe3;border-radius:8px;padding:12px;font:400 15px Pretendard,sans-serif;color:#222;outline-offset:2px}
+      .ptg-quick-dialog textarea{resize:vertical;min-height:116px}
+      .ptg-quick-dialog .ptg-quick-agree{display:flex;align-items:flex-start;gap:10px;font-size:12px;font-weight:400;line-height:1.6;color:#646970}.ptg-quick-agree input{margin-top:3px;accent-color:#f58220}.ptg-quick-agree a{color:#c75d0c;text-decoration:underline}
+      .ptg-quick-send{width:100%;height:49px;border:0;border-radius:8px;background:#f58220;color:#fff;font:700 14px Pretendard,sans-serif;cursor:pointer}
+      .ptg-quick-hint,#ptgQuickStatus{font-size:12px!important;color:#777!important;line-height:1.6!important;margin:12px 0 0!important}
+      #ptgQuickFallback{display:inline-block;font-size:13px;color:#b55a15;margin-top:10px}#ptgQuickFallback[hidden]{display:none}
+      @media(max-width:640px){.ptg-quick-launch{right:14px;bottom:16px;padding:13px 16px}.ptg-quick-dialog{padding:22px;border-radius:14px}}
+    `;
+    document.head.appendChild(css);document.body.appendChild(root);
+    const overlay=root.querySelector('#ptgQuickOverlay'),open=root.querySelector('.ptg-quick-launch'),form=root.querySelector('#ptgQuickForm'),status=root.querySelector('#ptgQuickStatus'),fallback=root.querySelector('#ptgQuickFallback');
+    let focus=null;
+    function close(){overlay.hidden=true;document.body.style.overflow='';focus?.focus()}
+    open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.phone.focus()});
+    overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
+    document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+    form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();const subject='[펜타곤 빠른 간편문의] '+phone;const body=['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\\n');const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);fallback.href=url;fallback.hidden=false;status.textContent='메일 작성 창에서 보내기를 누르면 접수됩니다. 자동 전송은 되지 않습니다.';location.href=url;});
+  })();
 })();
