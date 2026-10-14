@@ -13,13 +13,13 @@
 <section class="pc-section pc-integrated" id="services"><div class="pc-shell">
 <div class="pc-head"><div><span class="pc-kicker">SELECT YOUR SERVICE</span><h2>어떤 업무가 필요하신가요?</h2></div><p>업무를 선택하면 상세 내용과 예상 수수료가 바로 나타납니다.</p></div>
 <div class="pc-service-grid pc-select-grid" role="tablist" aria-label="등기 업무 유형">
-<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><div class="pc-service-top"><span>01 / FORMATION</span><b>↗</b></div><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><div class="pc-service-top"><span>02 / CHANGES</span><b>↗</b></div><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><div class="pc-service-top"><span>03 / CAPITAL</span><b>↗</b></div><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><div class="pc-service-top"><span>04 / MANAGEMENT</span><b>↗</b></div><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
+<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><span class="ptg-choice-icon pc-service-top" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5M8 7h2m4 0h2M8 11h2m4 0h2"/></svg></span><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><span class="ptg-choice-icon pc-service-top" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7M13 3l5 5h-5V3M8 12h5M8 16h3"/><path d="m15 19 5-5 2 2-5 5-3 1z"/></svg></span><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><span class="ptg-choice-icon pc-service-top" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><path d="M8 5v6m-2-1h3a1.5 1.5 0 0 0 0-3H7M13 10h4a4 4 0 0 1 0 8h-2M4 15a4 4 0 0 0 4 5h7"/></svg></span><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><span class="ptg-choice-icon pc-service-top" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18m-11 0h4"/></svg></span><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
 </div>
 <div class="pc-detail" id="pcServiceDetail" role="tabpanel" aria-live="polite">
-<div class="pc-detail-header"><span class="pc-kicker">SELECTED SERVICE / 01</span><h3 id="pcDetailTitle">법인 설립</h3><p id="pcDetailIntro">주식회사 신규설립 및 설립 구조를 검토합니다.</p><div class="pc-detail-tags" id="pcDetailTags"></div></div>
+<div class="pc-detail-header"><span class="pc-kicker">선택한 업무</span><h3 id="pcDetailTitle">법인 설립</h3><p id="pcDetailIntro">주식회사 신규설립 및 설립 구조를 검토합니다.</p><div class="pc-detail-tags" id="pcDetailTags"></div></div>
 <div class="pc-calc-grid"><div class="pc-calc-form">
 <h4>설립등기 비용 계산</h4><p>업무와 설립 조건을 선택해 예상 비용을 확인하세요.</p>
 <div class="pc-field"><label for="pcWork">세부 업무</label><select id="pcWork"></select></div>
@@ -27,7 +27,7 @@
 <p class="pc-form-foot">입력 즉시 자동 계산됩니다. 실제 세액·추가 비용은 상담 후 확정됩니다.</p>
 </div><div class="pc-calc-result" id="pcCalcResult" aria-live="polite"></div></div>
 </div>
-<div class="pc-integrated-foot"><p>더 많은 등기 유형과 조건별 비용을 확인하고 싶으신가요?</p><a href="../fees/#feesServices">전체 등기 수수료 상세 안내 ↗</a></div>
+<div class="pc-integrated-foot"><p>더 많은 등기 유형과 조건별 비용을 확인하고 싶으신가요?</p><a href="../fees/#feesServices">전체 등기 수수료 상세 안내 →</a></div>
 </div></section>
 <section class="pc-section"><div class="pc-shell"><div class="pc-head"><div><span class="pc-kicker">HOW IT WORKS</span><h2>진행은 간단하게, 검토는 꼼꼼하게.</h2></div><p>현재 상황을 알려주시면 필요한 업무 범위부터 안내합니다.</p></div><div class="pc-process"><div><span>01</span><h3>상담 신청</h3><p>법인 현황과 필요한 업무 접수</p></div><div><span>02</span><h3>구조·비용 검토</h3><p>절차 및 예상 견적 안내</p></div><div><span>03</span><h3>서류 준비·등기</h3><p>필요 서류 확인 후 진행</p></div><div><span>04</span><h3>완료·후속 안내</h3><p>완료 사항 및 관리 일정 안내</p></div></div></div></section>
 <section class="pc-section pc-faq"><div class="pc-shell pc-faq-grid"><div><span class="pc-kicker">FAQ</span><h2>자주 묻는 질문</h2><p>상담 전 많이 궁금해하시는 내용을 간단히 정리했습니다.</p></div><div class="pc-questions">
@@ -36,8 +36,8 @@
 <details><summary>설립까지 얼마나 걸리나요?<span>+</span></summary><p>상호·주소·주주·임원 구성과 서류 준비 상황에 따라 일정이 달라집니다. 상담 후 예상 일정을 안내드립니다.</p></details>
 <details><summary>사업장 주소나 자본금이 미정이어도 상담할 수 있나요?<span>+</span></summary><p>가능합니다. 현재 정해진 사항부터 전달하시면 주소·자본금·사업목적 등 검토할 항목을 안내합니다.</p></details>
 </div></div></section>
-<section class="pc-end"><div class="pc-shell pc-end-inner"><div><span class="pc-kicker">CONTACT PENTAGON</span><h2>어떤 등기가 필요한지 몰라도 괜찮습니다.</h2><p>현재 상황을 알려주시면 필요한 절차와 예상 비용부터 안내해드립니다.</p></div><div class="pc-actions"><a class="pc-btn pc-primary" href="../contact/">상담 신청하기 ↗</a><a class="pc-btn pc-darkoutline" href="tel:0264475599">02-6447-5599</a></div></div></section>
-<div class="pc-area-modal" id="pcAreaModal" aria-hidden="true"><div class="pc-area-backdrop" data-close-area></div><div class="pc-area-dialog" role="dialog" aria-modal="true" aria-labelledby="pcAreaTitle"><div class="pc-area-header"><div><span class="pc-kicker">REGIONAL GUIDE</span><h2 id="pcAreaTitle">과밀억제권역 확인</h2></div><button type="button" class="pc-area-close" aria-label="팝업 닫기" data-close-area>×</button></div><p class="pc-area-desc">설립 예정 본점 주소의 시·군·구를 입력하면 참고용 권역 정보를 안내합니다. 도로명 전체를 입력해도 됩니다.</p><form id="pcAreaForm"><label for="pcAreaInput">본점 예정 주소</label><div class="pc-area-search"><input id="pcAreaInput" autocomplete="street-address" placeholder="예: 서울특별시 서초구 / 경기도 수원시"><button type="submit">확인하기</button></div></form><div id="pcAreaSuggestions" class="pc-area-suggestions" role="listbox" aria-label="주소 추천" hidden></div><div class="pc-area-response" id="pcAreaResponse" aria-live="polite">주소를 입력하면 해당 지역의 권역 여부를 참고용으로 확인할 수 있습니다.</div><div class="pc-area-quick"><b>빠른 예시</b><button type="button" data-area-example="서울특별시 서초구">서울 서초구</button><button type="button" data-area-example="경기도 수원시">경기 수원시</button><button type="button" data-area-example="경기도 남양주시">경기 남양주시</button><button type="button" data-area-example="부산광역시 해운대구">부산 해운대구</button></div><div class="pc-area-footer"><p>※ 과밀억제권역 여부와 등록면허세 3배 중과 적용 여부는 동일하지 않습니다. 설립 목적·업종·설립 후 경과 기간·예외 규정 등에 따라 결과가 달라질 수 있습니다.</p><div class="pc-area-links"><a href="https://www.eum.go.kr/" target="_blank" rel="noopener noreferrer">토지이음에서 주소별 확인 ↗</a><a href="https://www.law.go.kr/LSW/LsiJoLinkP.do?docType=JO&amp;joNo=000200000&amp;languageType=KO&amp;lsNm=%EC%88%98%EB%8F%84%EA%B6%8C%EC%A0%95%EB%B9%84%EA%B3%84%ED%9A%8D%EB%B2%95%20%EC%8B%9C%ED%96%89%EB%A0%B9&amp;paras=1" target="_blank" rel="noopener noreferrer">법령 기준 확인 ↗</a></div></div></div></div></main><div data-site-footer></div><script src="../assets/js/app.js?v=20261014-1220" defer></script>
+<section class="pc-end"><div class="pc-shell pc-end-inner"><div><span class="pc-kicker">CONTACT PENTAGON</span><h2>어떤 등기가 필요한지 몰라도 괜찮습니다.</h2><p>현재 상황을 알려주시면 필요한 절차와 예상 비용부터 안내해드립니다.</p></div><div class="pc-actions"><a class="pc-btn pc-primary" href="../contact/">상담 신청하기 →</a><a class="pc-btn pc-darkoutline" href="tel:0264475599">02-6447-5599</a></div></div></section>
+<div class="pc-area-modal" id="pcAreaModal" aria-hidden="true"><div class="pc-area-backdrop" data-close-area></div><div class="pc-area-dialog" role="dialog" aria-modal="true" aria-labelledby="pcAreaTitle"><div class="pc-area-header"><div><span class="pc-kicker">REGIONAL GUIDE</span><h2 id="pcAreaTitle">과밀억제권역 확인</h2></div><button type="button" class="pc-area-close" aria-label="팝업 닫기" data-close-area>×</button></div><p class="pc-area-desc">설립 예정 본점 주소의 시·군·구를 입력하면 참고용 권역 정보를 안내합니다. 도로명 전체를 입력해도 됩니다.</p><form id="pcAreaForm"><label for="pcAreaInput">본점 예정 주소</label><div class="pc-area-search"><input id="pcAreaInput" autocomplete="street-address" placeholder="예: 서울특별시 서초구 / 경기도 수원시"><button type="submit">확인하기</button></div></form><div id="pcAreaSuggestions" class="pc-area-suggestions" role="listbox" aria-label="주소 추천" hidden></div><div class="pc-area-response" id="pcAreaResponse" aria-live="polite">주소를 입력하면 해당 지역의 권역 여부를 참고용으로 확인할 수 있습니다.</div><div class="pc-area-quick"><b>빠른 예시</b><button type="button" data-area-example="서울특별시 서초구">서울 서초구</button><button type="button" data-area-example="경기도 수원시">경기 수원시</button><button type="button" data-area-example="경기도 남양주시">경기 남양주시</button><button type="button" data-area-example="부산광역시 해운대구">부산 해운대구</button></div><div class="pc-area-footer"><p>※ 과밀억제권역 여부와 등록면허세 3배 중과 적용 여부는 동일하지 않습니다. 설립 목적·업종·설립 후 경과 기간·예외 규정 등에 따라 결과가 달라질 수 있습니다.</p><div class="pc-area-links"><a href="https://www.eum.go.kr/" target="_blank" rel="noopener noreferrer">토지이음에서 주소별 확인 →</a><a href="https://www.law.go.kr/LSW/LsiJoLinkP.do?docType=JO&amp;joNo=000200000&amp;languageType=KO&amp;lsNm=%EC%88%98%EB%8F%84%EA%B6%8C%EC%A0%95%EB%B9%84%EA%B3%84%ED%9A%8D%EB%B2%95%20%EC%8B%9C%ED%96%89%EB%A0%B9&amp;paras=1" target="_blank" rel="noopener noreferrer">법령 기준 확인 →</a></div></div></div></div></main><div data-site-footer></div><script src="../assets/js/app.js?v=20261014-1220" defer></script>
 <script>
 (function(){
 const groups={
@@ -64,7 +64,7 @@ function calculate(){
  const only=item.consult;
  const label=!valid?'금액을 입력해 주세요':consult?(only?'펜타곤 보수':'개별 견적 필요'):'예상 총 비용';
  const price=!valid?'—':consult&&!only?'상담 후 안내':won(only?item.fee:total);
- out.innerHTML='<span class="pc-result-kicker">'+label+'</span><strong class="pc-result-total">'+price+'</strong><p class="pc-result-sub">'+(only?'공과금 및 등기 실비는 별도 산정됩니다.':dynamic?'입력한 금액·지역을 기준으로 한 참고 견적입니다.':'제공된 보수표 기준 참고 견적입니다.')+'</p><div class="pc-cost-lines">'+lines.filter(r=>!only||r[0]==='펜타곤 보수').map(r=>'<div><span>'+r[0]+'</span><b>'+won(r[1])+'</b></div>').join('')+'</div>'+(item.note?'<p class="pc-result-note">※ '+item.note+'</p>':'')+'<a class="pc-btn pc-primary pc-result-link" href="'+contact(item,amount,region)+'">이 업무 상담하기 ↗</a>';
+ out.innerHTML='<span class="pc-result-kicker">'+label+'</span><strong class="pc-result-total">'+price+'</strong><p class="pc-result-sub">'+(only?'공과금 및 등기 실비는 별도 산정됩니다.':dynamic?'입력한 금액·지역을 기준으로 한 참고 견적입니다.':'제공된 보수표 기준 참고 견적입니다.')+'</p><div class="pc-cost-lines">'+lines.filter(r=>!only||r[0]==='펜타곤 보수').map(r=>'<div><span>'+r[0]+'</span><b>'+won(r[1])+'</b></div>').join('')+'</div>'+(item.note?'<p class="pc-result-note">※ '+item.note+'</p>':'')+'<a class="pc-btn pc-primary pc-result-link" href="'+contact(item,amount,region)+'">이 업무 상담하기 →</a>';
 }
 const areaModal=$('pcAreaModal');let lastAreaFocus=null;
 function openAreaModal(){lastAreaFocus=document.activeElement;areaModal.classList.add('is-visible');areaModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('pcAreaInput').focus()}
@@ -87,7 +87,7 @@ function normalizeArea(v){return v.toLowerCase().replace(/\\s/g,'').replace(/특
 function showSuggestions(){const query=areaInput.value.trim();if(!query){suggestionBox.hidden=true;return}
 const q=normalizeArea(query),matches=areaAddresses.filter(a=>{const short=a.replace(/^([^ ]+) /,(m,city)=> (aliases[city]||city)+' ');return normalizeArea(a).includes(q)||normalizeArea(short).includes(q)||a.split(' ').slice(-1)[0].includes(query)}).slice(0,12);
 if(!matches.length){suggestionBox.hidden=true;return}
-suggestionBox.innerHTML=matches.map(a=>'<button type="button" role="option" class="pc-area-option" data-area-choice="'+a+'"><span>'+a+'</span><small>선택 ↗</small></button>').join('');suggestionBox.hidden=false;}
+suggestionBox.innerHTML=matches.map(a=>'<button type="button" role="option" class="pc-area-option" data-area-choice="'+a+'"><span>'+a+'</span><small>선택 →</small></button>').join('');suggestionBox.hidden=false;}
 areaInput.addEventListener('input',showSuggestions);
 suggestionBox.addEventListener('click',e=>{const btn=e.target.closest('[data-area-choice]');if(!btn)return;areaInput.value=btn.dataset.areaChoice;suggestionBox.hidden=true;$('pcAreaForm').requestSubmit()});
 areaInput.addEventListener('keydown',e=>{if(e.key==='ArrowDown'&&!suggestionBox.hidden){e.preventDefault();suggestionBox.querySelector('button')?.focus()}});
@@ -113,12 +113,12 @@ areaModal.querySelectorAll('[data-area-example]').forEach(b=>b.addEventListener(
 function renderFields(){
  const item=groups[active].items[Number(work.value)||0];
  if(!item.type){fields.innerHTML='';calculate();return}
- fields.innerHTML='<div class="pc-field"><label for="pcAmount">'+(item.type==='formation'?'설립 자본금':'증자 금액')+' (원)</label><input id="pcAmount" inputmode="numeric" value="28,000,000" autocomplete="off" aria-label="계산 금액"></div><div class="pc-field pc-region-field"><div class="pc-label-line"><span>본점 소재지 · 중과 가정</span><button type="button" id="pcAreaHelp" class="pc-lookup-open">과밀·비과밀지역 확인하기 ↗</button></div><div class="pc-region-row"><label><input type="radio" name="pcRegionChoice" value="normal" checked> 비과밀지역</label><label><input type="radio" name="pcRegionChoice" value="metro"> 과밀지역 (3배 중과 가정)</label></div></div><p class="pc-condition-note">예시 계산은 제공된 보수표의 기본 요율(0.48%, 최소 135,000원)을 사용합니다. 지역별 중과·감면 예외와 실제 법령 적용 여부는 상담 시 확인합니다.</p>';
+ fields.innerHTML='<div class="pc-field"><label for="pcAmount">'+(item.type==='formation'?'설립 자본금':'증자 금액')+' (원)</label><input id="pcAmount" inputmode="numeric" value="28,000,000" autocomplete="off" aria-label="계산 금액"></div><div class="pc-field pc-region-field"><div class="pc-label-line"><span>본점 소재지 · 중과 가정</span><button type="button" id="pcAreaHelp" class="pc-lookup-open">과밀·비과밀지역 확인하기 →</button></div><div class="pc-region-row"><label><input type="radio" name="pcRegionChoice" value="normal" checked> 비과밀지역</label><label><input type="radio" name="pcRegionChoice" value="metro"> 과밀지역 (3배 중과 가정)</label></div></div><p class="pc-condition-note">예시 계산은 제공된 보수표의 기본 요율(0.48%, 최소 135,000원)을 사용합니다. 지역별 중과·감면 예외와 실제 법령 적용 여부는 상담 시 확인합니다.</p>';
  const input=$('pcAmount');input.addEventListener('input',()=>{const digits=input.value.replace(/[^0-9]/g,'');input.value=digits?Number(digits).toLocaleString('ko-KR'):'';calculate()});
  fields.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',calculate));
  $('pcAreaHelp').addEventListener('click',openAreaModal);calculate();
 }
-function render(key){active=key;const g=groups[key];buttons.forEach(b=>{const on=b.dataset.service===key;b.classList.toggle('is-selected',on);b.setAttribute('aria-selected',String(on))});$('pcDetailTitle').textContent=g.title;$('pcDetailIntro').textContent=g.intro;$('pcDetailTags').innerHTML=g.tags.map(x=>'<span>'+x+'</span>').join('');$('pcServiceDetail').querySelector('.pc-kicker').textContent='SELECTED SERVICE / '+String(Object.keys(groups).indexOf(key)+1).padStart(2,'0');work.innerHTML=g.items.map((i,n)=>'<option value="'+n+'">'+i.name+'</option>').join('');renderFields()}
+function render(key){active=key;const g=groups[key];buttons.forEach(b=>{const on=b.dataset.service===key;b.classList.toggle('is-selected',on);b.setAttribute('aria-selected',String(on))});$('pcDetailTitle').textContent=g.title;$('pcDetailIntro').textContent=g.intro;$('pcDetailTags').innerHTML=g.tags.map(x=>'<span>'+x+'</span>').join('');$('pcServiceDetail').querySelector('.pc-kicker').textContent='선택한 업무';work.innerHTML=g.items.map((i,n)=>'<option value="'+n+'">'+i.name+'</option>').join('');renderFields()}
 buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));work.addEventListener('change',renderFields);render(active);
 })();
 </script>
@@ -216,4 +216,16 @@ buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));wo
 .pc-center .pc-area-option:last-child{border-bottom:0}
 .pc-center .pc-area-option:hover,.pc-center .pc-area-option:focus-visible{background:#fff4e9;color:#aa4a04;outline:none}
 .pc-center .pc-area-option small{color:#e17018;white-space:nowrap}
+
+/* 업무별 서비스 아이콘: 선택형 카드는 장식적 넘버링을 사용하지 않습니다. */
+.pc-center .pc-select-grid .pc-service .pc-service-top.ptg-choice-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:48px;height:48px;min-height:48px;margin:0 0 27px;
+  border:1px solid #f4dcc9;border-radius:13px;
+  background:#fff6ee;color:#d96c18!important;
+}
+.pc-center .pc-select-grid .pc-service .ptg-choice-icon svg{width:24px;height:24px;display:block;flex:none}
+.pc-center .pc-select-grid .pc-service.is-selected .ptg-choice-icon{color:#fff!important;background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.38)}
+.pc-center .pc-select-grid .pc-service .pc-service-top.ptg-choice-icon{font-size:inherit;letter-spacing:normal}
+@media(max-width:700px){.pc-center .pc-select-grid .pc-service .pc-service-top.ptg-choice-icon{width:42px;height:42px;min-height:42px;margin-bottom:19px;border-radius:11px}.pc-center .pc-select-grid .ptg-choice-icon svg{width:22px;height:22px}}
 </style></body></html>
