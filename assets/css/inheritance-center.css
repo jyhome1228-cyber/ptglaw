@@ -198,3 +198,8 @@
  }
  .pi-inheritance .pc-select-grid .ptg-choice-icon svg{width:22px;height:22px}
 }
+
+/* 2026-10-14: clean inheritance service cards, titles only */
+.pi-inheritance .pc-select-grid .pc-service{display:flex;flex-direction:column;justify-content:center!important;min-height:142px!important}
+.pi-inheritance .pc-select-grid .pc-service h3{margin:0!important}
+@media(max-width:700px){.pi-inheritance .pc-select-grid .pc-service{min-height:132px!important}}
