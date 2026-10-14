@@ -205,7 +205,7 @@
     if(!enabled)return;
     const root=document.createElement('div');
     root.className='ptg-quick-inquiry';
-    root.innerHTML=`<button type="button" class="ptg-quick-launch" aria-haspopup="dialog" aria-controls="ptgQuickDialog">빠른 간편문의 <span aria-hidden="true">↗</span></button>
+    root.innerHTML=`<button type="button" class="ptg-quick-launch" aria-haspopup="dialog" aria-controls="ptgQuickDialog">빠른 간편문의 </button>
       <div class="ptg-quick-overlay" id="ptgQuickOverlay" hidden>
         <div class="ptg-quick-dim" data-quick-close></div>
         <section class="ptg-quick-dialog" id="ptgQuickDialog" role="dialog" aria-modal="true" aria-labelledby="ptgQuickTitle">
@@ -214,11 +214,11 @@
             <label>연락처 <b>*</b><input type="tel" name="phone" autocomplete="tel" placeholder="010-0000-0000" required maxlength="30"></label>
             <label>이메일 <b>*</b><input type="email" name="email" autocomplete="email" placeholder="name@example.com" required maxlength="150"></label>
             <label>문의내용 <b>*</b><textarea name="message" placeholder="어떤 업무가 필요하신가요?" required rows="5" maxlength="3000"></textarea></label>
-            <label class="ptg-quick-agree"><input type="checkbox" name="agree" required><span>상담을 위한 개인정보 수집·이용에 동의합니다. <a href="${base}/privacy/" target="_blank" rel="noopener">개인정보처리방침 ↗</a></span></label>
-            <button type="submit" class="ptg-quick-send">이메일로 문의하기 ↗</button>
+            <label class="ptg-quick-agree"><input type="checkbox" name="agree" required><span>상담을 위한 개인정보 수집·이용에 동의합니다. <a href="${base}/privacy/" target="_blank" rel="noopener">개인정보처리방침 </a></span></label>
+            <button type="submit" class="ptg-quick-send">이메일로 문의하기 </button>
             
             <p id="ptgQuickStatus" role="status" aria-live="polite"></p>
-            <a id="ptgQuickFallback" hidden>메일 작성 창 다시 열기 ↗</a>
+            <a id="ptgQuickFallback" hidden>메일 작성 창 다시 열기 </a>
           </form>
         </section>
       </div>`;
