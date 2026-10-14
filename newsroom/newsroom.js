@@ -7,6 +7,8 @@
   const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[x]));
   let extra=[];
   try{const res=await fetch(`${base}/content/news.json?v=${Date.now()}`,{cache:'no-store'});if(res.ok)extra=await res.json()}catch(e){}
+  // Merge published Firestore items while preserving existing GitHub JSON articles.
+  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('news');if(items?.length){const ids=new Set(extra.map(x=>x.id));extra=[...items.filter(x=>!ids.has(x.id)),...extra]}}catch(err){console.warn('Firebase news fallback',err)}
   // All editorial articles now come from one CMS source; drafts are never rendered publicly.
   const records=Array.isArray(extra)?extra:[];
   const DATA=records.filter(x=>x&&x.status!=='draft').map(x=>[
