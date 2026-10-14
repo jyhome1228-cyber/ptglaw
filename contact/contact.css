@@ -346,3 +346,7 @@
 @media(prefers-reduced-motion:reduce){
   .ptg-contact *{transition:none!important;scroll-behavior:auto!important}
 }
+
+/* Contact sidebar border alignment: remove stray top line */
+.ptg-contact .contact-aside{border-top:0!important}
+.ptg-contact .contact-aside h3{padding-top:0!important}
