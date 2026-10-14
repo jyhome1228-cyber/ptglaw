@@ -52,3 +52,44 @@
     border-radius:12px!important;
   }
 }
+
+
+/* PENTAGON semantic pictograms — replaced decorative 01/02/03 labels. */
+.ptg-card-icon{
+  display:inline-flex;justify-content:center;align-items:center;
+  flex:0 0 auto;width:44px;height:44px;padding:0;
+  border-radius:12px;border:1px solid #f4dcc9;
+  background:#fff6ef;color:#cd681f!important;
+  font-style:normal;font-weight:400;
+}
+.ptg-card-icon svg{
+  display:block;width:23px;height:23px;
+  fill:none;stroke:currentColor;flex:0 0 auto;
+}
+.ptg-home-tool-grid>a>.ptg-card-icon{margin:0}
+.ptg-tool-card .ptg-tool-card__meta.ptg-card-icon{margin:0 0 20px;color:#cd681f!important}
+.penta-service-no.ptg-card-icon{margin-bottom:17px!important}
+.penta-business-quick a>.ptg-card-icon{
+  width:32px;height:32px;margin:0 11px 0 0;
+  border-radius:9px;vertical-align:middle;
+}
+.penta-business-quick a>.ptg-card-icon svg{width:17px;height:17px}
+.about-standard>span.ptg-card-icon{display:inline-flex!important;margin-bottom:17px!important;line-height:1!important}
+.svc-detail .svc-need-card>b.ptg-card-icon{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:44px!important;height:44px!important;margin:0 0 16px!important;
+  border:1px solid #f4dcc9!important;
+  border-radius:12px!important;background:#fff6ef!important;color:#cd681f!important;
+}
+.svc-detail .svc-service-row>span.ptg-card-icon{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:44px!important;height:44px!important;margin:0 0 16px!important;
+  border:1px solid #f4dcc9!important;
+  border-radius:12px!important;background:#fff6ef!important;color:#cd681f!important;
+}
+@media(max-width:767px){
+  .ptg-card-icon,.svc-detail .svc-need-card>b.ptg-card-icon,.svc-detail .svc-service-row>span.ptg-card-icon{
+    width:40px!important;height:40px!important;border-radius:11px!important;
+  }
+  .ptg-card-icon svg{width:21px;height:21px}
+}
