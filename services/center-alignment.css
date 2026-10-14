@@ -52,3 +52,24 @@
 @media(max-width:1000px){.pcp-hero-grid{grid-template-columns:1fr;gap:30px}.pcp-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.pcp-process{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.pcp-shell{width:calc(100% - 36px)}.pcp-hero{padding:51px 0 55px}.pcp-hero-grid{gap:25px}.pcp h1{font-size:31px}.pcp-hero-copy>p{font-size:14px}.pcp-highlights{gap:9px}.pcp-highlight{min-height:104px;padding:17px}.pcp-highlight strong{font-size:14px}.pcp-highlight span{font-size:12px}.pcp-section{padding:56px 0}.pcp-head{display:block;margin-bottom:21px}.pcp-head p{margin-top:12px}.pcp-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.pcp-tab{min-height:115px;padding:15px}.pcp-tab>strong{font-size:14px}.pcp-detail{padding:24px 20px}.pcp-detail h3{font-size:20px}.pcp-detail p{font-size:14px}.pcp-process{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.pcp-step{padding:18px 15px}.pcp-step h3{font-size:15px}.pcp-step p{font-size:12px}.pcp-cta-inner{display:block}.pcp-actions{margin-top:22px}.pcp-btn{flex:1}}
 @media(prefers-reduced-motion:reduce){.pcp-tab{transition:none}}
+
+/* Original practice hero images and centered typography */
+.pcp .pcp-hero{padding:34px 0 69px}
+.pcp .pcp-hero-media{width:100%;margin:0 0 37px;aspect-ratio:3.1/1;overflow:hidden;border-radius:16px;background:#eceef0}
+.pcp .pcp-hero-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.pcp .pcp-hero-grid{display:flex;flex-direction:column;align-items:center;gap:0;text-align:center}
+.pcp .pcp-hero-copy{width:min(100%,840px);text-align:center}
+.pcp .pcp-hero-copy .pcp-kicker{text-align:center}
+.pcp .pcp-hero-copy>p{max-width:780px;margin:0 auto;font-size:15px;line-height:1.8}
+.pcp .pcp-highlights{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:37px;border:1px solid #e5e7ea;border-radius:14px;background:#fff;overflow:hidden;gap:0}
+.pcp .pcp-highlight{min-height:115px;padding:20px;border:0;border-right:1px solid #e5e7ea;border-radius:0}
+.pcp .pcp-highlight:last-child{border-right:0}
+.pcp .pcp-highlight strong{font-size:14px}
+.pcp .pcp-highlight span{font-size:12px}
+/* independent, spaced FAQ items (not a continuous white strip) */
+.pcp .pcp-more{display:grid;grid-template-columns:1fr;gap:10px}
+.pcp .pcp-more details,.pcp .pcp-more details:first-child{border:1px solid #e3e6ea;border-radius:12px;background:#fff;overflow:hidden}
+.pcp .pcp-more summary{min-height:63px;padding:17px 22px;font-size:15px;line-height:1.5}
+.pcp .pcp-more details p{padding:0 22px 19px;font-size:14px;line-height:1.75}
+@media(max-width:900px){.pcp .pcp-hero-media{aspect-ratio:2.3/1}.pcp .pcp-highlights{grid-template-columns:repeat(2,minmax(0,1fr))}.pcp .pcp-highlight:nth-child(2){border-right:0}.pcp .pcp-highlight:nth-child(-n+2){border-bottom:1px solid #e5e7ea}}
+@media(max-width:700px){.pcp .pcp-hero{padding:22px 0 54px}.pcp .pcp-hero-media{margin-bottom:26px;border-radius:12px;aspect-ratio:1.8/1}.pcp .pcp-hero-copy>p{font-size:14px}.pcp .pcp-highlights{margin-top:26px}.pcp .pcp-highlight{min-height:110px;padding:15px}.pcp .pcp-more summary{padding:17px;font-size:14px}.pcp .pcp-more details p{padding:0 17px 17px}}
