@@ -93,3 +93,30 @@
   }
   .ptg-card-icon svg{width:21px;height:21px}
 }
+
+
+/* Process cards and values retain their ordering in the layout, not as badges. */
+.pc-center .pc-process .ptg-card-icon{
+ display:inline-flex;align-items:center;justify-content:center;
+ margin-bottom:0;width:44px;height:44px;
+ background:#fff6ef;border:1px solid #f4dcc9;border-radius:12px;color:#cd681f!important;
+}
+.pc-center .pc-process h3{margin-top:20px}
+.svc-detail .svc-process-row>span.ptg-card-icon{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex:none;width:44px!important;height:44px!important;margin:0 0 15px!important;
+ background:#fff6ef!important;border:1px solid #f4dcc9!important;border-radius:12px!important;color:#cd681f!important;
+}
+.about-value>span.ptg-card-icon{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ width:44px!important;height:44px!important;margin:0 0 23px!important;
+ background:#fff6ef!important;border:1px solid #f4dcc9!important;border-radius:12px!important;color:#cd681f!important;
+}
+@media(max-width:767px){
+ .about-standard{grid-template-columns:44px minmax(0,1fr)!important}
+ .pc-center .pc-process .ptg-card-icon,
+ .svc-detail .svc-process-row>span.ptg-card-icon,
+ .about-value>span.ptg-card-icon{
+  width:40px!important;height:40px!important;border-radius:11px!important;
+ }
+}
