@@ -63,9 +63,11 @@
             </dl>
 
             <div class="ptg-location-buttons" aria-label="지도 및 연락 바로가기">
-              <a class="ptg-location-button ptg-location-button--primary" href="https://www.google.com/maps?sca_esv=3ff8cd10b311c96c&output=search&q=%ED%8E%9C%ED%83%80%EA%B3%A4+%EB%B2%95%EB%A5%A0%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84&source=lnms&fbs=ABfTbFUgt-aXEFkBhPo84x72c1XoLHFs6TcISYM3FayWAWWA79YpAo9J0bSAl93sasSb-hgWXcTpckRyhh4upS9rSvub4dyk1nLaV8dDmdARd68ZpDyFhmZNCDcSYQlZrt_ec3KO2Avv9OhlzLtLwIrkxQeL0Fja9wZeIi1UA_NVXpTM3F5zF_C7nUVbwkN-JqZgSu_hcGVzDItQu8j5aVVxTkO8OH6naWlmVfXXp-DoGMaY7rQ6VZo&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener noreferrer">Google 지도에서 보기</a>
-              <a class="ptg-location-button" href="tel:0264475599">전화 문의</a>
+              <a class="ptg-location-button ptg-location-button--primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%84%9C%EC%B4%88%EA%B5%AC%20%EB%B0%98%ED%8F%AC%EB%8C%80%EB%A1%9C30%EA%B8%B8%2032" target="_blank" rel="noopener noreferrer" aria-label="네이버지도에서 펜타곤 위치 열기">네이버지도에서 열기 <span aria-hidden="true">↗</span></a>
+              <a class="ptg-location-button ptg-location-button--tmap" id="ptgTmapLink" href="tmap://route?rGoName=%ED%8E%9C%ED%83%80%EA%B3%A4%20%EB%B2%95%EB%A5%A0%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84%20(%ED%8A%B8%EB%9F%AC%EC%8A%A4%ED%8A%B8%ED%9E%90)&rGoX=127.01033947953&rGoY=37.491871145044" aria-label="티맵 앱에서 펜타곤을 목적지로 길찾기">티맵에서 열기 <span aria-hidden="true">↗</span></a>
+              <a class="ptg-location-button ptg-location-button--phone" href="tel:0264475599">전화 문의</a>
             </div>
+            <p class="ptg-location-map-note" id="ptgTmapGuide">티맵은 모바일 앱에서 길찾기가 열립니다. PC에서는 주소를 복사해 티맵에서 검색할 수 있습니다.</p>
           </div>
 
           <div class="ptg-location-map" aria-label="펜타곤 법률세무회계 위치 지도">
@@ -110,10 +112,35 @@
 
   <div data-site-footer></div>
   <script src="../assets/js/app.js?v=20261014-1220"></script>
+  <script>
+    (() => {
+      const link = document.getElementById('ptgTmapLink');
+      const guide = document.getElementById('ptgTmapGuide');
+      if (!link) return;
+      link.addEventListener('click', async (event) => {
+        const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (mobile) return; // Native TMAP URL scheme opens the app on supported phones.
+        event.preventDefault();
+        const address = '서울특별시 서초구 반포대로30길 32, 트러스트힐';
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(address);
+            if (guide) guide.textContent = '주소가 복사됐습니다. 열리는 티맵 페이지에서 주소를 검색해 주세요.';
+          } else if (guide) {
+            guide.textContent = '티맵에서 검색할 주소: ' + address;
+          }
+        } catch (_) {
+          if (guide) guide.textContent = '티맵에서 검색할 주소: ' + address;
+        }
+        window.open('https://www.tmap.co.kr/', '_blank', 'noopener,noreferrer');
+      });
+    })();
+  </script>
 
   <style>
     .ptg-location-page{padding:88px 0;background:#fff}
-    .ptg-location-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);gap:72px;align-items:start}
+    .ptg-location-grid{display:grid;grid-template-columns:minmax(0,.87fr) minmax(0,1.13fr);gap:clamp(28px,4vw,64px);align-items:start;min-width:0}
+    .ptg-location-copy,.ptg-location-map{min-width:0}
     .ptg-location-copy{padding-top:8px}
     .ptg-location-copy .eyebrow{margin:0 0 18px;color:#f58220}
     .ptg-location-copy h2{margin:0;font-size:clamp(30px,2.4vw,38px);line-height:1.24;font-weight:650;letter-spacing:-.05em;color:#171717}
@@ -125,11 +152,15 @@
     .ptg-location-info dd a{color:inherit;text-decoration:none}
     .ptg-location-info dd span{color:#7a7f85;font-size:12.5px}
     .ptg-location-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-    .ptg-location-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:1px solid #d3d6da;background:#fff;color:#222;text-decoration:none;font-size:13px;font-weight:650;transition:.18s ease}
-    .ptg-location-button:hover{border-color:#f58220;color:#f58220}
+    .ptg-location-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:11px 18px;border:1px solid #d3d6da;border-radius:9px;background:#fff;color:#222;text-decoration:none;font-size:13px;font-weight:650;line-height:1.5;text-align:center;white-space:normal;transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+    .ptg-location-button:hover,.ptg-location-button:focus-visible{border-color:#f58220;color:#b75407}
+    .ptg-location-button:focus-visible{outline:2px solid #f58220;outline-offset:2px}
     .ptg-location-button--primary{border-color:#f58220;background:#f58220;color:#fff}
-    .ptg-location-button--primary:hover{background:#e86f0d;border-color:#e86f0d;color:#fff}
-    .ptg-location-map{position:relative;min-height:520px;overflow:hidden;border:1px solid #dfe2e6;background:#f5f6f8}
+    .ptg-location-button--primary:hover,.ptg-location-button--primary:focus-visible{background:#e86f0d;border-color:#e86f0d;color:#fff}
+    .ptg-location-button--tmap{border-color:#d3d6da;background:#fff}
+    .ptg-location-button--phone{background:#f7f8fa}
+    .ptg-location-map-note{max-width:520px;margin:13px 0 0!important;color:#858a90!important;font-size:12px!important;line-height:1.7!important}
+    .ptg-location-map{position:relative;min-height:520px;overflow:hidden;border:1px solid #dfe2e6;border-radius:14px;background:#f5f6f8}
     .ptg-location-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.82) contrast(.98)}
 
     .ptg-location-support{padding:84px 0;background:#f5f6f8;border-top:1px solid #e1e4e8}
@@ -157,9 +188,15 @@
     }
     @media(max-width:520px){
       .ptg-location-info>div{grid-template-columns:58px minmax(0,1fr);gap:12px}
-      .ptg-location-buttons{display:grid;grid-template-columns:1fr}
-      .ptg-location-button{width:100%}
-      .ptg-location-map{min-height:300px}
+      .ptg-location-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+      .ptg-location-button{width:100%;min-width:0;min-height:50px;padding:11px 8px;font-size:12px}
+      .ptg-location-button--phone{grid-column:1/-1}
+      .ptg-location-map{min-height:320px;border-radius:12px}
+      .ptg-location-page{padding:44px 0}
+    }
+    @media(max-width:350px){
+      .ptg-location-buttons{grid-template-columns:1fr}
+      .ptg-location-button--phone{grid-column:auto}
     }
   </style>
 </body>
