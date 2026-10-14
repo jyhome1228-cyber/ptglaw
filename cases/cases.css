@@ -25,3 +25,7 @@
 .ptg-case-card__more:hover{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:980px){.ptg-cases-page__inner{width:min(calc(100% - 48px),1280px)}.ptg-cases-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.ptg-cases-page{padding:40px 0 56px}.ptg-cases-page__inner{width:calc(100% - 32px)}.ptg-cases-head h1{margin-bottom:10px!important;font-size:28px!important;line-height:38px!important}.ptg-cases-grid{grid-template-columns:1fr}.ptg-case-card{padding:18px}.ptg-case-card__top{align-items:flex-start}.ptg-case-card__result{white-space:normal;text-align:right}}
+
+/* Case numbers permanently hidden; preserve category metadata. */
+.ptg-cases-page .ptg-case-card__index,.ptg-cases-page [data-case-number]{display:none!important}
+.ptg-cases-page .ptg-case-card__meta-wrap{display:flex;align-items:center;gap:0!important}
