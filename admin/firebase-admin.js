@@ -15,10 +15,12 @@ $('#reload').addEventListener('click',()=>load());
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
 $('#logout').addEventListener('click',()=>signOut(auth));
 onAuthStateChanged(auth,async user=>{
- state.authorized=false;$('#manager').hidden=true;$('#loginPanel').hidden=true;
- if(!user){$('#loginPanel').hidden=false;$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
- try{const adm=await getDoc(doc(db,'admins',user.uid));if(!adm.exists()||adm.data().role!=='admin')throw Error('관리자 권한이 등록되지 않은 계정입니다.');state.authorized=true;$('#connection').textContent='데이터베이스 연결됨';$('#authName').textContent=user.email;$('#logout').hidden=false;$('#manager').hidden=false;msg('관리자 인증 완료');setView('dashboard');}
- catch(err){$('#loginPanel').hidden=false;$('#connection').textContent='관리자 권한 없음';$('#authName').textContent=user.email;$('#logout').hidden=false;msg(err.message);}
+ state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
+ if(!user){$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
+ try{const adm=await getDoc(doc(db,'admins',user.uid));if(!adm.exists()||adm.data().role!=='admin')throw Error('관리자 권한이 등록되지 않은 계정입니다.');
+ state.authorized=true;$('#connection').textContent='데이터베이스 연결됨';$('#authName').textContent=user.email;$('#logout').hidden=false;
+ $('#loginShell').hidden=true;$('#adminApp').hidden=false;$('#manager').hidden=false;document.body.classList.remove('admin-login-mode');msg('');setView('dashboard');
+ }catch(err){$('#connection').textContent='관리자 권한 없음';$('#authName').textContent=user.email;$('#logout').hidden=false;msg(err.message);}
 });
 async function load(){
  if(!state.authorized||!['news','cases'].includes(state.view))return;
