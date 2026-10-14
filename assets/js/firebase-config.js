@@ -5,7 +5,7 @@
  * replace existing JSON CMS, or access the database until imported by a later module.
  */
 export const firebaseConfig = Object.freeze({
-  apiKey: "AIzaSyDPUSZ7n8am8Uqsreh2MfC6ZESOnRVAYFE",
+  apiKey: "AIzaSyDPUSZTn8am8Uqsreh2MfC6ZESOnRVAYFE",
   authDomain: "ptglaw-8f411.firebaseapp.com",
   projectId: "ptglaw-8f411",
   storageBucket: "ptglaw-8f411.firebasestorage.app",
