@@ -11,6 +11,23 @@
     body.ptg-ui-ready main,body.ptg-ui-ready [data-site-header],body.ptg-ui-ready [data-site-footer]{visibility:visible}
   `;
   document.head.appendChild(bootStyle);
+  // Keep shared navigation visible while scrolling throughout the site.
+  const fixedHeaderStyle=document.createElement('style');
+  fixedHeaderStyle.id='ptg-fixed-site-header';
+  fixedHeaderStyle.textContent=`
+    body.ptg-global-ui [data-site-header]{
+      position:fixed!important;
+      top:0!important;left:0!important;right:0!important;
+      width:100%!important;
+      z-index:9000!important;
+      isolation:isolate;
+    }
+    body.ptg-global-ui:not(.ptg-home-page){padding-top:var(--header-height,88px)!important}
+    body.ptg-global-ui [data-site-header] .ptg-site-header{position:relative!important;top:auto!important;width:100%!important}
+    html{scroll-padding-top:calc(var(--header-height,88px) + 18px)}
+    @media(max-width:980px){body.ptg-global-ui [data-site-header]{z-index:9500!important}}
+  `;
+  document.head.appendChild(fixedHeaderStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
   const CSS_VERSION='20261014-1115';
@@ -199,7 +216,7 @@
             <label>문의내용 <b>*</b><textarea name="message" placeholder="어떤 업무가 필요하신가요?" required rows="5" maxlength="3000"></textarea></label>
             <label class="ptg-quick-agree"><input type="checkbox" name="agree" required><span>상담을 위한 개인정보 수집·이용에 동의합니다. <a href="${base}/privacy/" target="_blank" rel="noopener">개인정보처리방침 ↗</a></span></label>
             <button type="submit" class="ptg-quick-send">이메일로 문의하기 ↗</button>
-            <p class="ptg-quick-hint">메일 앱이 열리면 직접 '보내기'를 눌러야 접수됩니다.</p>
+            
             <p id="ptgQuickStatus" role="status" aria-live="polite"></p>
             <a id="ptgQuickFallback" hidden>메일 작성 창 다시 열기 ↗</a>
           </form>
