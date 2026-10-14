@@ -124,7 +124,7 @@
     if(!item || !Number.isFinite(amount) || amount<=0) {
       result.innerHTML='<p class="fee-calc-error">자본금 또는 증자 금액을 입력해 주세요.</p>';return;
     }
-    const makeContactUrl=(total)=>{const p=new URLSearchParams({type:'estimate',service:'corporate',work:item.title,capital:String(amount),region:region.value});if(total!=null)p.set('estimated',String(total));return '../../contact/?'+p.toString()+'#ptgContactFormTitle'};
+    const makeContactUrl=(total)=>{const p=new URLSearchParams({type:'estimate',service:'corporate',work:item.title,capital:String(amount),region:region.value});if(total!=null)p.set('estimated',String(total));return '../contact/?'+p.toString()+'#ptgContactFormTitle'};
     if(item.kind==='formation' && amount>=1000000000) {
       result.innerHTML='<span class="fee-result-eyebrow">별도 상담 대상</span><strong class="fee-result-total">상담 후 안내</strong><p class="fee-result-info">설립 자본금 10억원 이상은 개별 법인구조 및 비용을 상담 후 안내드립니다.</p><a class="fee-result-consult" href="'+makeContactUrl(null)+'">견적 상담 신청하기 </a>';return;
     }
