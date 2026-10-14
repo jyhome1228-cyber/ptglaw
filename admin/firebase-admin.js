@@ -28,7 +28,7 @@ togglePassword.addEventListener('click',()=>{
  passwordInput.type=visible?'text':'password';
  togglePassword.setAttribute('aria-pressed',String(visible));
  togglePassword.setAttribute('aria-label',visible?'비밀번호 숨기기':'비밀번호 표시');
- $('#passwordToggleText').textContent=visible?'숨김':'보기';
+ $('#eyeOpen').hidden=visible;$('#eyeClosed').hidden=!visible;
 });
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;if(rememberBox.checked)localStorage.setItem('ptgAdminRememberedEmail',emailInput.value.trim());else localStorage.removeItem('ptgAdminRememberedEmail');try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
 $('#logout').addEventListener('click',()=>signOut(auth));
