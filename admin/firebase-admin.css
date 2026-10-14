@@ -10,3 +10,19 @@
 .ops-row a{color:#ed7d22;font-size:12px;font-weight:700}.ops-row button,.ops-filters button{width:max-content;border:1px solid #e1e4e8;border-radius:7px;background:#fff;padding:8px 12px;font-size:12px;cursor:pointer}
 .ops-filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
 @media(max-width:800px){.ops-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Isolated authentication experience */
+[hidden]{display:none!important}
+body.admin-login-mode{background:#f58220!important;min-height:100vh}
+body.admin-login-mode #adminApp{display:none!important}
+.admin-auth-shell{min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+.admin-auth-card{width:min(100%,448px);padding:42px 35px 35px;background:#fff;border-radius:18px;box-shadow:0 24px 65px rgba(80,35,5,.13)}
+.admin-auth-logo{display:block;width:166px;max-width:100%;height:auto;margin:0 0 33px}
+.admin-auth-card h1{margin:0 0 30px;font-size:28px;line-height:1.3;font-weight:750;letter-spacing:-.04em}
+.admin-auth-card form{display:grid;gap:17px}
+.admin-auth-card label{display:grid;gap:9px;font-size:13px;font-weight:700}
+.admin-auth-card input{height:49px;border-radius:9px;border:1px solid #dde1e5;background:#fff;padding:0 14px;font-size:14px}
+.admin-auth-card .primary{margin-top:5px;width:100%;height:50px;background:#f58220;border:0;border-radius:9px;color:#fff;font-size:15px;font-weight:700;cursor:pointer}
+.admin-auth-card #status{min-height:0;margin:16px 0 0;font-size:12px;line-height:1.6;color:#b94b0a}
+.admin-auth-card #status:empty{display:none}
+@media(max-width:600px){.admin-auth-card{padding:33px 25px}.admin-auth-card h1{font-size:26px}}
