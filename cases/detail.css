@@ -28,3 +28,10 @@
 .ptg-case-side-consult,.ptg-case-detail-consult-btn{display:none!important}.ptg-case-side-info p{margin:0 0 4px!important;color:#8a8f96!important;font-size:11px!important;line-height:16px!important}.ptg-case-side-info strong{display:block;color:#181818;font-size:14px;line-height:22px;font-weight:700}
 @media(max-width:1024px){.ptg-case-detail-layout{grid-template-columns:1fr}.ptg-case-detail-side{position:static;grid-template-columns:1fr 1fr}.ptg-case-side-card{grid-column:1/-1}}
 @media(max-width:767px){.ptg-case-detail-page{padding:48px 0}.ptg-case-detail-page__inner{width:calc(100% - 32px)}.ptg-case-detail-hero{padding:24px}.ptg-case-detail-hero h2{font-size:28px!important;line-height:38px!important}.ptg-case-detail-content{padding:22px}.ptg-case-toc ol{grid-template-columns:1fr}.ptg-case-section h3{font-size:22px!important;line-height:32px!important}.ptg-case-section p{font-size:15px!important;line-height:26px!important}.ptg-case-detail-side{grid-template-columns:1fr}.ptg-case-side-card{grid-column:auto}}
+
+/* Case sidebar portrait: improve crop and clarity across breakpoints */
+.ptg-case-side-lawyer{grid-template-columns:68px minmax(0,1fr);gap:14px;padding:10px 12px}
+.ptg-case-side-lawyer__thumb{width:68px;height:76px;border-radius:8px;background:#f3f4f5}
+.ptg-case-side-lawyer__thumb img{display:block;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 13%!important;image-rendering:auto}
+.ptg-case-side-lawyer strong{font-size:15px;line-height:22px}
+@media(max-width:767px){.ptg-case-side-lawyer{grid-template-columns:64px minmax(0,1fr)}.ptg-case-side-lawyer__thumb{width:64px;height:72px}}
