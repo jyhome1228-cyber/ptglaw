@@ -121,8 +121,17 @@ async function renderOps(kind){
  }else if(kind==='inquiries'){
   root.innerHTML=panel('문의 관리','<p class="muted">빠른 문의와 일반 문의를 구분합니다. 현재 이메일 앱에서만 전송된 과거 문의는 데이터베이스에 자동 기록되지 않습니다.</p><div class="ops-filters"><button data-inquiry-kind="quick">빠른 문의</button><button data-inquiry-kind="general">일반 문의</button><button data-inquiry-kind="all">전체</button></div><div id="inquiryList">문의 조회 중...</div>');
   let docs=[];try{const snap=await getDocs(collection(db,'inquiries'));docs=snap.docs.map(d=>({id:d.id,...d.data()}));docs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0))}catch(e){$('#inquiryList').textContent='문의 조회 실패: '+e.message;return}
-  function draw(type){const items=docs.filter(x=>type==='all'||x.type===type);$('#inquiryList').innerHTML=items.length?items.map(x=>'<div class="ops-row"><strong>'+(x.type==='quick'?'빠른 문의':'일반 문의')+' · '+esc(x.name||'이름 미입력')+'</strong><span>'+esc(x.phone)+' / '+esc(x.email)+'</span><p>'+esc(x.message)+'</p><small>상태: '+esc(x.status||'new')+'</small><button data-mark="'+esc(x.id)+'">확인 처리</button></div>').join(''):'<p class="muted">등록된 문의가 없습니다.</p>';$$('[data-mark]').forEach(b=>b.onclick=async()=>{try{await setDoc(doc(db,'inquiries',b.dataset.mark),{status:'reviewed'},{merge:true});b.textContent='확인 완료'}catch(e){msg('처리 실패: '+e.message)}})}
-  $$('[data-inquiry-kind]').forEach(b=>b.onclick=()=>draw(b.dataset.inquiryKind));draw('all');
+  function draw(type){
+    const items=docs.filter(x=>type==='all'||x.type===type);
+    $('#inquiryList').innerHTML=items.length?items.map(x=>{
+      const date=x.createdAt?.toDate?.()?.toLocaleString('ko-KR')||'접수일 확인 중';
+      const pending=x.status==='new';
+      const details=x.details?'<details><summary>상세 접수 정보</summary><p>'+esc(x.details).replace(/\\n/g,'<br>')+'</p></details>':'';
+      return '<div class="ops-row"><strong>'+(x.type==='quick'?'빠른 문의':'일반 문의')+' · '+esc(x.name||'이름 미입력')+'</strong><small>'+esc(date)+' · '+(pending?'미확인':'확인 완료')+'</small><span>'+esc(x.phone||'연락처 없음')+' / '+esc(x.email||'이메일 없음')+'</span><p>'+esc(x.message||'')+'</p>'+details+(pending?'<button type="button" data-mark="'+esc(x.id)+'">확인 처리</button>':'')+'</div>';
+    }).join(''):'<p class="muted">등록된 문의가 없습니다.</p>';
+    $$('[data-mark]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await setDoc(doc(db,'inquiries',b.dataset.mark),{status:'reviewed'},{merge:true});const item=docs.find(x=>x.id===b.dataset.mark);if(item)item.status='reviewed';draw(type);msg('문의 확인 처리 완료');}catch(e){b.disabled=false;msg('처리 실패: '+e.message)}});
+  }
+  $('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-inquiry-kind]').forEach(x=>x.classList.toggle('active',x===b));draw(b.dataset.inquiryKind)});const first=root.querySelector('[data-inquiry-kind="all"]');if(first)first.click();
  }
 }
 clearForm('news');
