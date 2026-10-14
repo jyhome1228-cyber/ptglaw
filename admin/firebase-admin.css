@@ -48,3 +48,23 @@ body.admin-login-mode #adminApp{display:none!important}
 .admin-auth-card #loginForm>.remember-id{display:inline-flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:9px!important;min-height:20px!important;margin:0!important;padding:0!important;width:max-content!important;max-width:100%!important;font-size:13px!important;cursor:pointer}
 .admin-auth-card #rememberAdminEmail{appearance:checkbox!important;-webkit-appearance:checkbox!important;display:inline-block!important;position:static!important;flex:0 0 16px!important;width:16px!important;height:16px!important;min-width:16px!important;min-height:16px!important;max-width:16px!important;max-height:16px!important;padding:0!important;margin:0!important;border-radius:3px!important;accent-color:#f58220!important}
 .admin-auth-card .remember-id span{display:inline!important;font-size:13px!important;color:#4d5359!important;font-weight:500!important}
+
+/* Visitor overview and inquiry dashboard */
+.ops-periods{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.ops-periods button{border:1px solid #e1e4e8;background:#fff;border-radius:8px;padding:10px 17px;font-size:13px;font-weight:650;color:#73777e}
+.ops-periods button.active{border-color:#f58220;background:#fff4ea;color:#c96616}
+.ops-visitor-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.ops-visitor-cards>div{border:1px solid #e5e7ea;border-radius:11px;padding:19px;display:flex;flex-direction:column;gap:9px}
+.ops-visitor-cards small{color:#7a7f85;font-size:12px}
+.ops-visitor-cards strong{font-size:29px;line-height:1.3}
+.ops-visitor-cards span{font-size:12px;color:#999}
+.ops-chart-empty{display:flex;min-height:180px;margin-top:13px;border:1px dashed #d8dce1;border-radius:11px;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fafbfc}
+.ops-chart-empty span{font-size:13px;font-weight:700;color:#6b7077}
+.ops-chart-empty p{margin:10px 16px 0;font-size:13px;color:#9da1a6}
+.ops-tracking-foot{font-size:13px;color:#777;line-height:1.7;margin-top:18px}
+.ops-tracking-foot a{color:#d8751c;font-weight:700}
+.ops-dashboard-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.ops-dashboard-links button{padding:11px 15px;border:1px solid #e1e3e7;border-radius:8px;background:#fff;color:#333}
+.ops-stats small{display:block;margin-top:8px;color:#888;font-size:12px}
+.ops-unread{color:#c76510;font-size:13px;font-weight:650}
+@media(max-width:700px){.ops-visitor-cards{grid-template-columns:1fr}.ops-visitor-cards>div{padding:16px}.ops-chart-empty{min-height:145px}}
