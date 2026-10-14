@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // Create admin membership manually in the Firebase Console.
+    // Membership cannot be created or edited from the public website.
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function validVisibility() {
+      return request.resource.data.status in ['draft', 'published'];
+    }
+
+    match /news/{newsId} {
+      allow get, list: if resource.data.status == 'published' || isAdmin();
+      allow create, update: if isAdmin() && validVisibility();
+      allow delete: if isAdmin();
+    }
+
+    match /cases/{caseId} {
+      allow get, list: if resource.data.status == 'published' || isAdmin();
+      allow create, update: if isAdmin() && validVisibility();
+      allow delete: if isAdmin();
+    }
+
+    match /admins/{uid} {
+      allow get: if signedIn() && request.auth.uid == uid;
+      allow list, create, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
