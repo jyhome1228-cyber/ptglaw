@@ -34,6 +34,14 @@
   ).join('');
   const toc=sections.length>1?'<nav class="ptg-case-toc"><p>목차</p><ol>'+sections.map(section=>
     '<li><a href="#'+section.id+'">'+esc(section.title)+'</a></li>').join('')+'</ol></nav>':'';
+  const professionals={
+    '채용현':{slug:'chaeyonghyun',role:'대표변호사 · 세무사 · 변리사',image:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-025446-frame-137-740361d1.webp'},
+    '강건':{slug:'kanggeon',role:'파트너변호사',image:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-025447-frame-138-48e1878a.webp'},
+    '전승환':{slug:'jeonseunghwan',role:'파트너변호사 · 세무사',image:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-025447-frame-139-670dd6e5.webp'},
+    '김지수':{slug:'kimjisoo',role:'세무사',image:'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-025447-frame-140-f87ca9ee.webp'}
+  };
+  const experts=(Array.isArray(item.experts)?item.experts:[]).map(name=>({name,details:professionals[name]})).filter(x=>x.details);
+  const expertCard=experts.length?'<div class="ptg-case-side-card"><h3>담당 전문가</h3><div class="ptg-case-side-lawyers">'+experts.map(x=>'<a class="ptg-case-side-lawyer" href="'+base+'/professionals/'+x.details.slug+'/"><span class="ptg-case-side-lawyer__thumb"><img src="'+x.details.image+'" alt="'+esc(x.name)+'" loading="lazy"></span><span><strong>'+esc(x.name)+'</strong><em>'+esc(x.details.role)+'</em></span></a>').join('')+'</div></div>':'';
   root.innerHTML=
     '<header class="ptg-case-detail-hero"><div class="ptg-case-detail-hero__meta"><span>'+esc(item.meta1||'업무사례')+'</span>'+
     (item.meta2?'<i></i><span>'+esc(item.meta2)+'</span>':'')+'</div>'+
@@ -41,7 +49,7 @@
     '<div class="ptg-case-detail-tags">'+tags.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div></header>'+
     '<div class="ptg-case-detail-layout"><article class="ptg-case-detail-content">'+toc+overview+
     '<div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></article>'+
-    '<aside class="ptg-case-detail-side"><div class="ptg-case-side-info"><p>사건 분야</p><strong>'+esc(item.meta1||'업무사례')+'</strong></div>'+
+    '<aside class="ptg-case-detail-side">'+expertCard+'<div class="ptg-case-side-info"><p>사건 분야</p><strong>'+esc(item.meta1||'업무사례')+'</strong></div>'+
     '<div class="ptg-case-side-info"><p>주요 결과</p><strong>'+esc(item.result||'-')+'</strong></div>'+ 
-    (Array.isArray(item.experts)&&item.experts.length?'<div class="ptg-case-side-info"><p>담당 변호사</p><strong>'+esc(item.experts.join(' · '))+'</strong></div>':'')+'</aside></div>';
+    '</aside></div>';
 })();
