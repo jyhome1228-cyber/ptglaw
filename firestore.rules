@@ -30,6 +30,35 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // Public inquiries: write-once only, never publicly readable.
+    // Configure Firebase App Check / abuse protection before high-volume operation.
+    match /inquiries/{inquiryId} {
+      function validInquiry() {
+        return request.resource.data.keys().hasOnly([
+          'type','name','phone','email','message','category','details','consent','createdAt','status'
+        ])
+        && request.resource.data.keys().hasAll(['type','phone','email','message','consent','createdAt','status'])
+        && request.resource.data.type in ['quick','general']
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() >= 7
+        && request.resource.data.phone.size() <= 40
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 150
+        && request.resource.data.message is string
+        && request.resource.data.message.size() >= 2
+        && request.resource.data.message.size() <= 3000
+        && request.resource.data.get('name','') is string
+        && request.resource.data.get('category','') is string
+        && request.resource.data.get('details','') is string
+        && request.resource.data.get('details','').size() <= 4000
+        && request.resource.data.consent == true
+        && request.resource.data.status == 'new'
+        && request.resource.data.createdAt == request.time;
+      }
+      allow create: if validInquiry();
+      allow get, list, update, delete: if isAdmin();
+    }
+
     match /admins/{uid} {
       allow get: if signedIn() && request.auth.uid == uid;
       allow list, create, update, delete: if false;
