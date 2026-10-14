@@ -561,3 +561,40 @@
   .fees *{scroll-behavior:auto!important;transition:none!important}
 }
 
+
+/* 2026-10-14 / unified corporate-center treatment */
+.fees{--orange:#f58220;--line:#e5e7ea;--ink:#191919;--muted:#686e75;background:#fff}
+.fees .fees-shell{width:min(calc(100% - 64px),1280px)!important}
+.fees .fees-hero{padding:62px 0 54px;background:#fff}
+.fees .fees-hero h1{font-size:clamp(29px,2.8vw,38px)!important;font-weight:700!important;letter-spacing:-.05em!important}
+.fees .fees-hero p:not(.fees-eyebrow){font-size:15px!important;color:#62676d!important}
+.fees .fees-quick-links{gap:10px}
+.fees .fees-pill{border-radius:9px!important;font-size:13px!important;min-height:45px!important}
+.fees .fees-summary{border-bottom:1px solid var(--line)}
+.fees .fees-content{padding:66px 0!important}
+.fees .fees-section-top h2{font-size:clamp(25px,2.25vw,32px)!important;font-weight:700!important;letter-spacing:-.045em!important}
+.fees .fees-section-top p{font-size:14px!important;color:#686e75!important}
+.fees .fee-card{border:1px solid var(--line)!important;border-radius:13px!important;background:#fff!important;padding:23px!important}
+.fees .fee-card h3{font-size:17px!important}
+.fees .fee-card-price strong{font-size:24px!important;letter-spacing:-.035em!important}
+.fees .fees-calculator{padding:72px 0 78px!important;background:#f8f9fa!important}
+.fees .fees-calc-grid{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:16px!important}
+.fees .fees-calc-inputs,.fees .fees-result{padding:27px 29px!important;border:1px solid #e3e6e9!important;border-radius:14px!important;background:#fff}
+.fees .fees-calc-field{margin-bottom:18px}
+.fees .fees-calc-field label{font-size:13px!important;font-weight:700!important}
+.fees .fees-calc-field input,.fees .fees-calc-field select{height:46px;border-radius:8px;font-size:14px!important;border-color:#dce1e5}
+.fees .fees-calc-field small{font-size:12px!important}
+.fees .fees-calc-button{border-radius:9px;border-color:#f58220;background:#f58220;color:#fff;font-size:14px!important;min-height:47px}
+.fees .fees-calc-button:hover{background:#dd7114;border-color:#dd7114}
+.fees .fees-result{background:#f6f7f8}
+.fees .fees-calc-placeholder{display:flex;min-height:280px;flex-direction:column;justify-content:center;align-items:flex-start}
+.fees .fees-calc-placeholder>span{font-size:11px;letter-spacing:.08em;color:#e8751a;font-weight:700;margin-bottom:17px}
+.fees .fees-calc-placeholder>strong{font-size:25px;line-height:1.4;letter-spacing:-.045em;color:#222}
+.fees .fees-calc-placeholder>p{font-size:14px!important;line-height:1.75!important;color:#686e75!important;margin:11px 0 0!important}
+.fees .fee-result-eyebrow{font-size:13px!important}
+.fees .fee-result-total{font-size:clamp(27px,2.5vw,35px)!important}
+.fees .fee-result-rows>div,.fees .fee-result-rows>div b{font-size:13px!important}
+.fees .fee-result-consult{font-size:14px!important}
+.fees .fees-final{padding:60px 0 68px!important}
+@media(max-width:900px){.fees .fees-calc-grid{grid-template-columns:1fr}.fees .fees-calc-placeholder{min-height:180px}}
+@media(max-width:700px){.fees .fees-shell{width:calc(100% - 36px)!important}.fees .fees-hero{padding:42px 0}.fees .fees-content,.fees .fees-calculator{padding:54px 0!important}.fees .fees-calc-inputs,.fees .fees-result{padding:21px!important}.fees .fees-calc-placeholder{min-height:160px}}
