@@ -28,6 +28,9 @@
 .ptg-tools-page .ptg-tool-card{
   border-color:var(--ptg-card-stroke)!important;
 }
+/* Keep active inquiry selection visibly orange. */
+.ptg-contact .contact-mode:has(input:checked){border-color:#f58220!important}
+
 .ptg-cases-page .ptg-case-card,
 .ptg-newsroom-page .ptg-newsroom-card,
 .ptg-tools-page .ptg-tool-card,
