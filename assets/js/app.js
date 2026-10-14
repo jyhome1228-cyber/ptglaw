@@ -174,7 +174,7 @@
 
   // Compact quick inquiry: GitHub Pages cannot submit server-side; opens user's mail app.
   (() => {
-    const enabled=/^\\/(?:ptglaw\\/)?(?:center|fees|contact|tools)(?:\\/|$)/.test(location.pathname);
+    const enabled=/^\/(?:ptglaw\/)?(?:center|fees|contact|tools)(?:\/|$)/.test(location.pathname);
     if(!enabled)return;
     const root=document.createElement('div');
     root.className='ptg-quick-inquiry';
@@ -223,6 +223,6 @@
     open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.phone.focus()});
     overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
     document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
-    form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();const subject='[펜타곤 빠른 간편문의] '+phone;const body=['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\\n');const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);fallback.href=url;fallback.hidden=false;status.textContent='메일 작성 창에서 보내기를 누르면 접수됩니다. 자동 전송은 되지 않습니다.';location.href=url;});
+    form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();const subject='[펜타곤 빠른 간편문의] '+phone;const body=['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n');const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);fallback.href=url;fallback.hidden=false;status.textContent='메일 작성 창에서 보내기를 누르면 접수됩니다. 자동 전송은 되지 않습니다.';location.href=url;});
   })();
 })();
