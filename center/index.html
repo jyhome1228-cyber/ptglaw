@@ -13,10 +13,10 @@
 <section class="pc-section pc-integrated" id="services"><div class="pc-shell">
 <div class="pc-head"><div><span class="pc-kicker">SELECT YOUR SERVICE</span><h2>어떤 업무가 필요하신가요?</h2></div><p>업무를 선택하면 상세 내용과 예상 수수료가 바로 나타납니다.</p></div>
 <div class="pc-service-grid pc-select-grid" role="tablist" aria-label="등기 업무 유형">
-<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><span class="pc-service-top ptg-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 21v-5h6v5M8 7h2m4 0h2M8 11h2m4 0h2"/></svg></span><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><span class="pc-service-top ptg-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7M13 3l5 5h-5V3M8 12h5M8 16h3"/><path d="m15 19 5-5 2 2-4 4-3 1z"/></svg></span><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><span class="pc-service-top ptg-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><path d="M8 5v6m-2-1h3a1.5 1.5 0 0 0 0-3H7M13 10h4a4 4 0 0 1 0 8h-2M4 15a4 4 0 0 0 4 5h7"/></svg></span><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><span class="pc-service-top ptg-choice-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18m-11 0h4"/></svg></span><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
+<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
 </div>
 <div class="pc-detail" id="pcServiceDetail" role="tabpanel" aria-live="polite">
 <div class="pc-detail-header"><span class="pc-kicker">선택한 업무</span><h3 id="pcDetailTitle">법인 설립</h3><p id="pcDetailIntro">주식회사 신규설립 및 설립 구조를 검토합니다.</p><div class="pc-detail-tags" id="pcDetailTags"></div></div>
@@ -231,5 +231,11 @@ buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));wo
 /* Service selector: remove top numbering/arrows, preserve original cards */
 .pc-center .pc-select-grid .pc-service{justify-content:center!important;min-height:142px!important}
 .pc-center .pc-select-grid .pc-service h3{margin:0!important}
+@media(max-width:700px){.pc-center .pc-select-grid .pc-service{min-height:132px!important}}
+</style><style>
+/* Selectors intentionally contain no icons; title and description only */
+.pc-center .pc-select-grid .pc-service{display:flex!important;flex-direction:column!important;justify-content:center!important;min-height:142px!important}
+.pc-center .pc-select-grid .pc-service h3{margin:0!important}
+.pc-center .pc-select-grid .pc-service>svg,.pc-center .pc-select-grid .pc-service>.ptg-choice-icon{display:none!important}
 @media(max-width:700px){.pc-center .pc-select-grid .pc-service{min-height:132px!important}}
 </style></body></html>
