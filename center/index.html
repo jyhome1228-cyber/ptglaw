@@ -72,7 +72,7 @@ function closeAreaModal(){areaModal.classList.remove('is-visible');areaModal.set
 areaModal.querySelectorAll('[data-close-area]').forEach(b=>b.addEventListener('click',closeAreaModal));
 document.addEventListener('keydown',e=>{if(!areaModal.classList.contains('is-visible'))return;if(e.key==='Escape')closeAreaModal();if(e.key==='Tab'){const nodes=[...areaModal.querySelectorAll('button,input,a')].filter(el=>el.getClientRects().length);const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 function checkArea(input){
-const a=input.replace(/\\s+/g,' ').trim();
+const a=input.replace(/\s+/g,' ').trim();
 if(!a)return {status:'입력 필요',text:'본점 예정 주소 또는 시·군·구를 입력해 주세요.',kind:'unknown'};
 const mixed=/남양주|시흥시|인천|옹진|강화|안산|화성/;
 if(mixed.test(a))return {status:'상세 주소 확인 필요',text:'해당 지역은 일부 지역이 다른 권역에 속할 수 있습니다. 지번 단위로 토지이음의 토지이용계획을 열람하고 관할기관에 확인하세요.',kind:'unknown'};
