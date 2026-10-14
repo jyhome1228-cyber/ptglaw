@@ -35,3 +35,16 @@ body.admin-login-mode #adminApp{display:none!important}
 .admin-auth-card .remember-id{display:flex;flex-direction:row;align-items:center;gap:9px;margin:-1px 0 0;cursor:pointer}
 .admin-auth-card .remember-id input{width:16px;height:16px;min-height:16px;margin:0;accent-color:#f58220}
 .admin-auth-card .remember-id span{font-size:13px;font-weight:500;color:#51565c}
+
+/* Login card controls: scoped geometry, no native oversized checkbox/button */
+.admin-auth-card .auth-password-group{display:flex!important;flex-direction:column!important;gap:9px!important;min-width:0}
+.admin-auth-card .auth-password-group>label{display:block!important;font-size:13px!important;font-weight:700!important}
+.admin-auth-card .password-field{position:relative!important;display:block!important;width:100%!important;height:49px!important}
+.admin-auth-card .password-field>input{box-sizing:border-box!important;display:block!important;width:100%!important;height:49px!important;padding:0 51px 0 14px!important;margin:0!important;border:1px solid #dde1e5!important;border-radius:9px!important;background:#fff!important;font-size:14px!important}
+.admin-auth-card .password-field>button{position:absolute!important;top:50%!important;right:6px!important;left:auto!important;transform:translateY(-50%)!important;display:flex!important;align-items:center!important;justify-content:center!important;width:37px!important;min-width:37px!important;max-width:37px!important;height:37px!important;min-height:37px!important;margin:0!important;padding:0!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#73777d!important;cursor:pointer!important}
+.admin-auth-card .password-field>button:hover{background:#f3f4f6!important}
+.admin-auth-card .password-field>button svg{display:block;width:19px;height:19px;flex:none}
+.admin-auth-card .password-field>button svg[hidden]{display:none!important}
+.admin-auth-card #loginForm>.remember-id{display:inline-flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:9px!important;min-height:20px!important;margin:0!important;padding:0!important;width:max-content!important;max-width:100%!important;font-size:13px!important;cursor:pointer}
+.admin-auth-card #rememberAdminEmail{appearance:checkbox!important;-webkit-appearance:checkbox!important;display:inline-block!important;position:static!important;flex:0 0 16px!important;width:16px!important;height:16px!important;min-width:16px!important;min-height:16px!important;max-width:16px!important;max-height:16px!important;padding:0!important;margin:0!important;border-radius:3px!important;accent-color:#f58220!important}
+.admin-auth-card .remember-id span{display:inline!important;font-size:13px!important;color:#4d5359!important;font-weight:500!important}
