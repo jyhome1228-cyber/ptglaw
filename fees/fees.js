@@ -115,6 +115,9 @@
     capitalLabel.textContent=isFormation?'설립 자본금':'증자 금액';
     regionHelp.textContent=isFormation?'설립 지역에 따라 등록면허세 등 비용이 달라집니다.':'등기 대상 법인의 소재지와 설립 후 경과기간을 선택해 주세요.';
   }
+  function resetCalculation(){
+    result.innerHTML='<div class="fees-calc-placeholder"><span>ESTIMATED COST</span><strong>예상 비용 계산</strong><p>업무·금액·지역을 선택한 다음 <b>예상 비용 계산하기</b>를 눌러주세요.</p></div>';
+  }
   function calculate() {
     const item=calculatorItems.find(i=>i.kind===svc.value);
     const amount=Number(capital.value.replace(/[^0-9]/g,''));
@@ -144,14 +147,14 @@
     const n=Number(capital.value.replace(/[^0-9]/g,''));
     capital.value=n?n.toLocaleString('ko-KR'):'';
   }
-  svc.addEventListener('change',()=>{setRegions();calculate()});
-  region.addEventListener('change',calculate);
-  capital.addEventListener('input',()=>{formatCapital();calculate()});
+  svc.addEventListener('change',()=>{setRegions();resetCalculation()});
+  region.addEventListener('change',resetCalculation);
+  capital.addEventListener('input',()=>{formatCapital();resetCalculation()});
   calcButton.addEventListener('click',calculate);
   catalog.addEventListener('click',e=>{
     const a=e.target.closest('[data-select-calc]');
     if(!a)return;
-    svc.value=a.dataset.selectCalc;setRegions();calculate();
+    svc.value=a.dataset.selectCalc;setRegions();resetCalculation();
   });
-  setRegions();formatCapital();calculate();
+  setRegions();formatCapital();resetCalculation();
 })();
