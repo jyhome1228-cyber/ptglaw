@@ -1,0 +1,51 @@
+/* 2026-10-14 — PENTAGON COMMON CARD LANGUAGE
+   Rounded cards are distinct content containers; lists and tables remain semantic lists.
+   Keep header, navigation and footer unchanged. */
+:root{
+  --ptg-card-radius:14px;
+  --ptg-card-stroke:#e5e7eb;
+}
+.ptg-cases-page .ptg-case-card,
+.ptg-newsroom-page .ptg-newsroom-card,
+.ptg-tools-page .ptg-tool-card,
+.fees .fee-card,
+.fees .fees-calc-inputs,
+.fees .fees-result,
+.ptg-contact .contact-mode,
+.ptg-contact .contact-resource-note,
+.ptg-contact .contact-aside,
+.svc-detail .svc-need-card,
+.svc-detail .svc-service-row,
+.svc-detail .svc-flow-card,
+.svc-detail .svc-process-row {
+  border-radius:var(--ptg-card-radius)!important;
+}
+.fees .fee-card,
+.fees .fees-calc-inputs,
+.fees .fees-result,
+.ptg-contact .contact-mode,
+.ptg-contact .contact-resource-note,
+.ptg-tools-page .ptg-tool-card{
+  border-color:var(--ptg-card-stroke)!important;
+}
+.ptg-cases-page .ptg-case-card,
+.ptg-newsroom-page .ptg-newsroom-card,
+.ptg-tools-page .ptg-tool-card,
+.fees .fee-card{
+  transition:border-color .2s ease,background-color .2s ease,transform .2s ease;
+}
+.ptg-tools-page .ptg-tool-card:hover,
+.ptg-newsroom-page .ptg-newsroom-card:hover,
+.fees .fee-card:hover{
+  border-color:#c9cdd2!important;
+}
+/* Don't force squared, edge-to-edge legacy strips into rounded boxes. */
+@media(max-width:767px){
+  .ptg-cases-page .ptg-case-card,
+  .ptg-newsroom-page .ptg-newsroom-card,
+  .ptg-tools-page .ptg-tool-card,
+  .fees .fee-card,
+  .ptg-contact .contact-mode{
+    border-radius:12px!important;
+  }
+}
