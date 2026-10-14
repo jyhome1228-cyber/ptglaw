@@ -54,103 +54,67 @@
 }
 
 
-/* PENTAGON semantic pictograms — replaced decorative 01/02/03 labels. */
-.ptg-card-icon{
-  display:inline-flex;justify-content:center;align-items:center;
-  flex:0 0 auto;width:44px;height:44px;padding:0;
-  border-radius:12px;border:1px solid #f4dcc9;
-  background:#fff6ef;color:#cd681f!important;
-  font-style:normal;font-weight:400;
-}
-.ptg-card-icon svg{
-  display:block;width:23px;height:23px;
-  fill:none;stroke:currentColor;flex:0 0 auto;
-}
-.ptg-home-tool-grid>a>.ptg-card-icon{margin:0}
-.ptg-tool-card .ptg-tool-card__meta.ptg-card-icon{margin:0 0 20px;color:#cd681f!important}
-.penta-service-no.ptg-card-icon{margin-bottom:17px!important}
-.penta-business-quick a>.ptg-card-icon{
-  width:32px;height:32px;margin:0 11px 0 0;
-  border-radius:9px;vertical-align:middle;
-}
-.penta-business-quick a>.ptg-card-icon svg{width:17px;height:17px}
-.about-standard>span.ptg-card-icon{display:inline-flex!important;margin-bottom:17px!important;line-height:1!important}
-.svc-detail .svc-need-card>b.ptg-card-icon{
-  display:inline-flex!important;align-items:center!important;justify-content:center!important;
-  width:44px!important;height:44px!important;margin:0 0 16px!important;
-  border:1px solid #f4dcc9!important;
-  border-radius:12px!important;background:#fff6ef!important;color:#cd681f!important;
-}
-.svc-detail .svc-service-row>span.ptg-card-icon{
-  display:inline-flex!important;align-items:center!important;justify-content:center!important;
-  width:44px!important;height:44px!important;margin:0 0 16px!important;
-  border:1px solid #f4dcc9!important;
-  border-radius:12px!important;background:#fff6ef!important;color:#cd681f!important;
-}
-@media(max-width:767px){
-  .ptg-card-icon,.svc-detail .svc-need-card>b.ptg-card-icon,.svc-detail .svc-service-row>span.ptg-card-icon{
-    width:40px!important;height:40px!important;border-radius:11px!important;
-  }
-  .ptg-card-icon svg{width:21px;height:21px}
-}
 
-
-/* Process cards and values retain their ordering in the layout, not as badges. */
-.pc-center .pc-process .ptg-card-icon{
- display:inline-flex;align-items:center;justify-content:center;
- margin-bottom:0;width:44px;height:44px;
- background:#fff6ef;border:1px solid #f4dcc9;border-radius:12px;color:#cd681f!important;
-}
-.pc-center .pc-process h3{margin-top:20px}
-.svc-detail .svc-process-row>span.ptg-card-icon{
- display:inline-flex!important;align-items:center!important;justify-content:center!important;
- flex:none;width:44px!important;height:44px!important;margin:0 0 15px!important;
- background:#fff6ef!important;border:1px solid #f4dcc9!important;border-radius:12px!important;color:#cd681f!important;
-}
-.about-value>span.ptg-card-icon{
- display:inline-flex!important;align-items:center!important;justify-content:center!important;
- width:44px!important;height:44px!important;margin:0 0 23px!important;
- background:#fff6ef!important;border:1px solid #f4dcc9!important;border-radius:12px!important;color:#cd681f!important;
-}
-@media(max-width:767px){
- .about-standard{grid-template-columns:44px minmax(0,1fr)!important}
- .pc-center .pc-process .ptg-card-icon,
- .svc-detail .svc-process-row>span.ptg-card-icon,
- .about-value>span.ptg-card-icon{
-  width:40px!important;height:40px!important;border-radius:11px!important;
- }
-}
-
-/* 2026-10-14 — pictograms only: remove decorative containers site-wide */
+/* Shared pictogram system — one predictable icon geometry site-wide. */
 .ptg-card-icon,
 .ptg-home-tool-grid>a>.ptg-card-icon,
-.ptg-tool-card .ptg-tool-card__meta.ptg-card-icon,
-.penta-service-no.ptg-card-icon,
-.penta-business-quick a>.ptg-card-icon,
+.ptg-tools-page .ptg-tool-card .ptg-card-icon,
+.penta-business-page .ptg-card-icon,
 .about-standard>span.ptg-card-icon,
+.about-value>span.ptg-card-icon,
 .svc-detail .svc-need-card>b.ptg-card-icon,
 .svc-detail .svc-service-row>span.ptg-card-icon,
-.pc-center .pc-process .ptg-card-icon{
-  border:0!important;
-  box-shadow:none!important;
-  background:transparent!important;
-  border-radius:0!important;
-  color:#f58220!important;
-  width:27px!important;
-  height:27px!important;
-  min-width:27px!important;
-  min-height:27px!important;
+.svc-detail .svc-process-row>span.ptg-card-icon,
+.pc-center .pc-process .ptg-card-icon {
+  display:inline-flex!important;
+  position:static!important;
+  flex:0 0 24px!important;
+  flex-grow:0!important;
+  flex-shrink:0!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+  max-width:24px!important;
+  max-height:24px!important;
   padding:0!important;
+  margin:0 0 21px!important;
+  background:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#f58220!important;
+  font-size:0!important;
+  line-height:1!important;
 }
 .ptg-card-icon svg,
-.penta-business-quick a>.ptg-card-icon svg,
-.svc-detail .svc-need-card>b.ptg-card-icon svg,
-.svc-detail .svc-service-row>span.ptg-card-icon svg{
-  width:25px!important;height:25px!important;
-  color:#f58220!important;stroke:currentColor!important;
+.ptg-home-tool-grid>a>.ptg-card-icon svg,
+.ptg-tools-page .ptg-tool-card .ptg-card-icon svg,
+.penta-business-page .ptg-card-icon svg,
+.svc-detail .ptg-card-icon svg,
+.about-standard .ptg-card-icon svg,
+.about-value .ptg-card-icon svg,
+.pc-center .pc-process .ptg-card-icon svg {
+  display:block!important;
+  position:static!important;
+  flex:0 0 24px!important;
+  width:24px!important;
+  height:24px!important;
+  min-width:24px!important;
+  min-height:24px!important;
+  max-width:24px!important;
+  max-height:24px!important;
+  margin:0!important;
+  padding:0!important;
+  fill:none!important;
+  stroke:currentColor!important;
+  color:#f58220!important;
+  transform:none!important;
 }
-@media(max-width:767px){
- .ptg-card-icon,.svc-detail .svc-need-card>b.ptg-card-icon,.svc-detail .svc-service-row>span.ptg-card-icon{
-   width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;
- }
-}
+.penta-business-quick a>.ptg-card-icon{margin:0 10px 0 0!important}
+.about-standard{grid-template-columns:24px minmax(0,1fr)!important}
+.about-standard>span.ptg-card-icon{margin:0!important}
+.pc-center .pc-process h3{margin-top:18px}
+@media(max-width:767px){.ptg-card-icon,.ptg-card-icon svg{width:24px!important;height:24px!important}}
