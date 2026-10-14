@@ -1,5 +1,5 @@
 import {auth,db} from '../assets/js/firebase-client.js';
-import {signInWithEmailAndPassword,signOut,onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import {signInWithEmailAndPassword,signOut,onAuthStateChanged,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {doc,getDoc,collection,getDocs,query,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const state={view:'news',items:[],editing:null,authorized:false};
@@ -14,7 +14,10 @@ $$('[data-reset]').forEach(b=>b.addEventListener('click',()=>clearForm(b.dataset
 $('#reload').addEventListener('click',()=>load());
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
 $('#logout').addEventListener('click',()=>signOut(auth));
-onAuthStateChanged(auth,async user=>{
+async function startAdminSession(){
+ // Each new admin page entry requires explicit sign-in; no restored credentials.
+ try{await signOut(auth);await setPersistence(auth,inMemoryPersistence);}catch(err){msg('로그인 초기화 실패: '+err.message);return;}
+ onAuthStateChanged(auth,async user=>{
  state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
  if(!user){$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
  try{const adm=await getDoc(doc(db,'admins',user.uid));if(!adm.exists()||adm.data().role!=='admin')throw Error('관리자 권한이 등록되지 않은 계정입니다.');
@@ -22,6 +25,8 @@ onAuthStateChanged(auth,async user=>{
  $('#loginShell').hidden=true;$('#adminApp').hidden=false;$('#manager').hidden=false;document.body.classList.remove('admin-login-mode');msg('');setView('dashboard');
  }catch(err){$('#connection').textContent='관리자 권한 없음';$('#authName').textContent=user.email;$('#logout').hidden=false;msg(err.message);}
 });
+}
+startAdminSession();
 async function load(){
  if(!state.authorized||!['news','cases'].includes(state.view))return;
  $('#list').textContent='불러오는 중...';
