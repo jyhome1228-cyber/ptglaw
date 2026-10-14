@@ -30,8 +30,7 @@
     article.className='ptg-case-card';
     article.dataset.categories=categories.join(' ');
     const href=getHref(item);
-    const indexLabel=String(index+1).padStart(2,'0');
-    article.innerHTML=`<div class="ptg-case-card__top"><div class="ptg-case-card__meta-wrap"><span class="ptg-case-card__index">${esc(indexLabel)}</span><div class="ptg-case-card__meta"><span>${esc(item.meta1||'업무사례')}</span>${item.meta2?`<i></i><span>${esc(item.meta2)}</span>`:''}</div></div><span class="ptg-case-card__result">${esc(item.result||'')}</span></div><a class="ptg-case-card__title" href="${esc(href)}">${esc(item.title||'')}</a><p class="ptg-case-card__summary">${esc(item.summary||'')}</p><div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div><a class="ptg-case-card__more" href="${esc(href)}">사례 자세히 보기 →</a>`;
+    article.innerHTML=`<div class="ptg-case-card__top"><div class="ptg-case-card__meta-wrap"><div class="ptg-case-card__meta"><span>${esc(item.meta1||'업무사례')}</span>${item.meta2?`<i></i><span>${esc(item.meta2)}</span>`:''}</div></div><span class="ptg-case-card__result">${esc(item.result||'')}</span></div><a class="ptg-case-card__title" href="${esc(href)}">${esc(item.title||'')}</a><p class="ptg-case-card__summary">${esc(item.summary||'')}</p><div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div><a class="ptg-case-card__more" href="${esc(href)}">사례 자세히 보기 →</a>`;
     return article;
   });
 
