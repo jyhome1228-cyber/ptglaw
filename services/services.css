@@ -605,3 +605,15 @@
         display: none;
       }
     }
+
+/* Hero copy / following visual separation */
+.penta-business-page .penta-business-hero{padding-bottom:112px!important}
+.penta-business-page .penta-business-hero h1+p{margin-top:25px!important}
+.penta-business-page .penta-business-hero-grid{row-gap:48px}
+.penta-business-page .penta-business-hero p{margin-bottom:0!important}
+.penta-business-page .penta-business-hero + .penta-business-section{padding-top:88px}
+@media(max-width:767px){
+ .penta-business-page .penta-business-hero{padding-bottom:68px!important}
+ .penta-business-page .penta-business-hero-grid{row-gap:32px}
+ .penta-business-page .penta-business-hero + .penta-business-section{padding-top:56px}
+}
