@@ -18,6 +18,8 @@
     return;
   }
 
+  // New Firebase publications and legacy GitHub JSON are displayed together.
+  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('cases');if(items?.length){const ids=new Set(data.map(x=>x.id));data=[...items.filter(x=>!ids.has(x.id)),...data]}}catch(err){console.warn('Firebase cases fallback',err)}
   const getHref=item=>{
     if(item.href)return item.href;
     return `${base}/cases/view/?id=${encodeURIComponent(item.id||'')}`;
