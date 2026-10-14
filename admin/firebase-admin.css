@@ -26,3 +26,12 @@ body.admin-login-mode #adminApp{display:none!important}
 .admin-auth-card #status{min-height:0;margin:16px 0 0;font-size:12px;line-height:1.6;color:#b94b0a}
 .admin-auth-card #status:empty{display:none}
 @media(max-width:600px){.admin-auth-card{padding:33px 25px}.admin-auth-card h1{font-size:26px}}
+
+/* Login controls */
+.admin-auth-card .password-field{display:flex;position:relative;align-items:center}
+.admin-auth-card .password-field input{width:100%;padding-right:70px}
+.admin-auth-card .password-field button{position:absolute;right:7px;top:50%;transform:translateY(-50%);height:36px;min-width:52px;border:0;border-radius:7px;background:#f5f5f5;color:#62676d;font-size:12px;font-weight:700;cursor:pointer}
+.admin-auth-card .password-field button:hover{background:#eceef0}
+.admin-auth-card .remember-id{display:flex;flex-direction:row;align-items:center;gap:9px;margin:-1px 0 0;cursor:pointer}
+.admin-auth-card .remember-id input{width:16px;height:16px;min-height:16px;margin:0;accent-color:#f58220}
+.admin-auth-card .remember-id span{font-size:13px;font-weight:500;color:#51565c}
