@@ -198,7 +198,7 @@
     const css=document.createElement('style');
     css.textContent=`
       .ptg-quick-inquiry{font-family:Pretendard,"Apple SD Gothic Neo",sans-serif;letter-spacing:-.025em}
-      .ptg-quick-launch{position:fixed;bottom:24px;right:24px;z-index:8990;background:#f58220;color:#fff;border:0;border-radius:50px;padding:15px 20px;font:700 14px inherit;box-shadow:0 6px 24px rgba(0,0,0,.18);cursor:pointer}
+      .ptg-quick-launch{position:fixed;bottom:24px;right:24px;z-index:8990;background:#f58220;color:#fff;border:0;border-radius:50px;padding:15px 20px;font:700 14px Pretendard,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.18);cursor:pointer}
       .ptg-quick-launch span{margin-left:8px}
       .ptg-quick-overlay[hidden]{display:none!important}
       .ptg-quick-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px}
