@@ -120,3 +120,37 @@
   width:40px!important;height:40px!important;border-radius:11px!important;
  }
 }
+
+/* 2026-10-14 — pictograms only: remove decorative containers site-wide */
+.ptg-card-icon,
+.ptg-home-tool-grid>a>.ptg-card-icon,
+.ptg-tool-card .ptg-tool-card__meta.ptg-card-icon,
+.penta-service-no.ptg-card-icon,
+.penta-business-quick a>.ptg-card-icon,
+.about-standard>span.ptg-card-icon,
+.svc-detail .svc-need-card>b.ptg-card-icon,
+.svc-detail .svc-service-row>span.ptg-card-icon,
+.pc-center .pc-process .ptg-card-icon{
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  border-radius:0!important;
+  color:#f58220!important;
+  width:27px!important;
+  height:27px!important;
+  min-width:27px!important;
+  min-height:27px!important;
+  padding:0!important;
+}
+.ptg-card-icon svg,
+.penta-business-quick a>.ptg-card-icon svg,
+.svc-detail .svc-need-card>b.ptg-card-icon svg,
+.svc-detail .svc-service-row>span.ptg-card-icon svg{
+  width:25px!important;height:25px!important;
+  color:#f58220!important;stroke:currentColor!important;
+}
+@media(max-width:767px){
+ .ptg-card-icon,.svc-detail .svc-need-card>b.ptg-card-icon,.svc-detail .svc-service-row>span.ptg-card-icon{
+   width:25px!important;height:25px!important;min-width:25px!important;min-height:25px!important;
+ }
+}
