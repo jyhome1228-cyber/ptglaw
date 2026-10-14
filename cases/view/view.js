@@ -15,6 +15,8 @@
       item=Array.isArray(records)?records.find(x=>x&&String(x.id)===String(id)&&x.status!=='draft'):null;
     }
   }catch(e){}
+  // Try Firestore first for newly authored cases; legacy IDs continue to use JSON.
+  if(!item){try{const module=await import('../../assets/js/firebase-content.js');item=await module.publicEntry('cases',id)}catch(err){console.warn('Firebase case fallback',err)}}
   if(!item){
     root.innerHTML='<header class="ptg-case-detail-hero"><h1>사례를 찾을 수 없습니다.</h1><p>삭제되었거나 아직 공개되지 않은 업무사례입니다.</p><div class="ptg-case-detail-bottom"><a class="ptg-case-detail-list-btn" href="../">업무사례 목록</a></div></header>';
     return;
