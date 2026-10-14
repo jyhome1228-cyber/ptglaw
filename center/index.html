@@ -13,10 +13,10 @@
 <section class="pc-section pc-integrated" id="services"><div class="pc-shell">
 <div class="pc-head"><div><span class="pc-kicker">SELECT YOUR SERVICE</span><h2>어떤 업무가 필요하신가요?</h2></div><p>업무를 선택하면 상세 내용과 예상 수수료가 바로 나타납니다.</p></div>
 <div class="pc-service-grid pc-select-grid" role="tablist" aria-label="등기 업무 유형">
-<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
-<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
+<button type="button" class="pc-service is-selected" role="tab" aria-selected="true" data-service="formation"><span class="pc-clean-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h2m2 0h2M9 12h2m2 0h2M10 21v-5h4v5"/></svg></span><h3>법인 설립</h3><p>신규 주식회사 · 1인 법인 · 법인전환</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="changes"><span class="pc-clean-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12V9zM13 3v6h7M8 14h8m-8 4h5"/></svg></span><h3>변경등기</h3><p>본점이전 · 임원 · 상호 · 사업목적</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="capital"><span class="pc-clean-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="6"/><path d="M9 5v8M6.5 7h4a1.5 1.5 0 0 1 0 3h-3M16 10h2a4 4 0 0 1 0 8h-4m-4-4a4 4 0 0 0 4 4"/></svg></span><h3>자본·주식</h3><p>유상증자 · 감자 · 스톡옵션 · RSU</p></button>
+<button type="button" class="pc-service" role="tab" aria-selected="false" data-service="management"><span class="pc-clean-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg></span><h3>법인 관리</h3><p>지점 · 해산·청산 · 회사계속</p></button>
 </div>
 <div class="pc-detail" id="pcServiceDetail" role="tabpanel" aria-live="polite">
 <div class="pc-detail-header"><span class="pc-kicker">선택한 업무</span><h3 id="pcDetailTitle">법인 설립</h3><p id="pcDetailIntro">주식회사 신규설립 및 설립 구조를 검토합니다.</p><div class="pc-detail-tags" id="pcDetailTags"></div></div>
@@ -238,4 +238,13 @@ buttons.forEach(b=>b.addEventListener('click',()=>render(b.dataset.service)));wo
 .pc-center .pc-select-grid .pc-service h3{margin:0!important}
 .pc-center .pc-select-grid .pc-service>svg,.pc-center .pc-select-grid .pc-service>.ptg-choice-icon{display:none!important}
 @media(max-width:700px){.pc-center .pc-select-grid .pc-service{min-height:132px!important}}
+</style><style>
+/* Consistent compact pictograms — same alignment as the calculator cards */
+.pc-center .pc-select-grid .pc-service{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;min-height:165px!important;padding:21px 23px!important}
+.pc-center .pc-select-grid .pc-service .pc-clean-icon{display:block!important;position:static!important;align-self:flex-start!important;flex:0 0 24px!important;width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;max-width:24px!important;max-height:24px!important;margin:0 0 23px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f58220!important}
+.pc-center .pc-select-grid .pc-service .pc-clean-icon svg{display:block!important;width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;max-width:24px!important;max-height:24px!important;margin:0!important;padding:0!important;stroke:currentColor!important;fill:none!important}
+.pc-center .pc-select-grid .pc-service.is-selected .pc-clean-icon{color:#fff!important}
+.pc-center .pc-select-grid .pc-service h3{margin:0 0 7px!important;font-size:19px!important;line-height:1.35!important}
+.pc-center .pc-select-grid .pc-service p{margin:0!important;font-size:12px!important;line-height:1.6!important}
+@media(max-width:700px){.pc-center .pc-select-grid .pc-service{min-height:155px!important;padding:17px 16px!important}.pc-center .pc-select-grid .pc-service .pc-clean-icon{margin-bottom:20px!important}.pc-center .pc-select-grid .pc-service h3{font-size:17px!important}}
 </style></body></html>
