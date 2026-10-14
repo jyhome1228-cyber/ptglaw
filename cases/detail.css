@@ -35,3 +35,10 @@
 .ptg-case-side-lawyer__thumb img{display:block;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 13%!important;image-rendering:auto}
 .ptg-case-side-lawyer strong{font-size:15px;line-height:22px}
 @media(max-width:767px){.ptg-case-side-lawyer{grid-template-columns:64px minmax(0,1fr)}.ptg-case-side-lawyer__thumb{width:64px;height:72px}}
+
+/* Portrait-only case cards: keep transparent 500px headshots uncropped. */
+.ptg-case-detail-side .ptg-case-side-lawyer{grid-template-columns:78px minmax(0,1fr);gap:13px;align-items:center;padding:10px;border-radius:10px}
+.ptg-case-detail-side .ptg-case-side-lawyer__thumb{display:flex;align-items:flex-end;justify-content:center;width:78px;height:86px;overflow:hidden;background:#fff;border-radius:9px}
+.ptg-case-detail-side .ptg-case-side-lawyer__thumb img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center bottom!important;image-rendering:auto!important}
+.ptg-case-detail-side .ptg-case-side-lawyer strong{font-size:15px;line-height:1.45}
+@media(max-width:767px){.ptg-case-detail-side .ptg-case-side-lawyer{grid-template-columns:70px minmax(0,1fr)}.ptg-case-detail-side .ptg-case-side-lawyer__thumb{width:70px;height:80px}}
