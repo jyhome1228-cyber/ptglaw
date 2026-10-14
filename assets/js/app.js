@@ -250,6 +250,16 @@
     open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.phone.focus()});
     overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
     document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
-    form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();const subject='[펜타곤 빠른 간편문의] '+phone;const body=['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n');const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);fallback.href=url;fallback.hidden=false;status.textContent='메일 작성 창에서 보내기를 누르면 접수됩니다. 자동 전송은 되지 않습니다.';location.href=url;});
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();if(!form.reportValidity())return;
+      const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();
+      const button=form.querySelector('[type="submit"]');button.disabled=true;status.textContent='문의 접수 중입니다.';
+      try{const module=await import(base+'/assets/js/firebase-inquiries.js');await module.submitInquiry({type:'quick',phone,email,message,consent:form.elements.agree.checked});
+        status.textContent='문의가 접수되었습니다. 담당자가 내용을 확인하겠습니다.';fallback.hidden=true;form.reset();
+      }catch(err){status.textContent='온라인 접수가 완료되지 않았습니다. 이메일로 문의하거나 잠시 후 다시 시도해주세요.';console.warn('문의 접수 오류',err.code||err.message);
+        const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent('[펜타곤 빠른 문의]')+'&body='+encodeURIComponent(['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n'));
+        fallback.href=url;fallback.textContent='이메일로 대신 문의하기 →';fallback.hidden=false;
+      }finally{button.disabled=false}
+    });
   })();
 })();
