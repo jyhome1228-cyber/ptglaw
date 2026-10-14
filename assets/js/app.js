@@ -44,7 +44,8 @@
 
   const logoSrc=`${base}/assets/images/logo.svg?v=${LOGO_VERSION}`;
   if(header)header.innerHTML=`<header class="ptg-site-header"><div class="ptg-site-header__inner"><a class="ptg-site-header__logo" href="${base}/" aria-label="펜타곤 메인"><img src="${logoSrc}" alt="Pentagon Legal & Tax Partners"></a><nav class="ptg-site-header__nav" id="ptgSiteNav" aria-label="주요 메뉴">
-    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/professionals/">구성원 소개</a><a href="${base}/location/">오시는 길</a></div></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/about/">펜타곤 소개</a><div class="ptg-nav-dropdown"><a href="${base}/about/">인사말·비전</a><a href="${base}/newsroom/">펜타곤 소식</a><a href="${base}/location/">오시는 길</a></div></div>
+    <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/professionals/">구성원 소개</a><div class="ptg-nav-dropdown ptg-nav-dropdown--people"><a href="${base}/professionals/chaeyonghyun/">채용현 대표변호사 · 세무사</a><a href="${base}/professionals/kanggeon/">강건 파트너변호사</a><a href="${base}/professionals/jeonseunghwan/">전승환 파트너변호사 · 세무사</a><a href="${base}/professionals/kimjisoo/">김지수 세무사</a></div></div>
     <div class="ptg-nav-item" data-dropdown><a class="ptg-nav-link" href="${base}/services/">업무 분야</a><div class="ptg-nav-dropdown ptg-nav-dropdown--services-clean"><a href="${base}/services/legal/">법률 자문 및 소송</a><a href="${base}/services/tax/">세무 기장 및 자문</a><a href="${base}/services/ip/">IP 지식재산권</a><a href="${base}/services/recovery/">채권 추심</a><a href="${base}/services/registry/">등기 업무</a></div></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/cases/">업무 사례</a></div>
     <div class="ptg-nav-item"><a class="ptg-nav-link" href="${base}/inheritance/">상속원스톱서비스</a></div>
@@ -60,7 +61,12 @@
     const href=a.getAttribute('href')||'',local=href.replace(base,'');
     if(local!=='/'&&path.startsWith(local))a.classList.add('is-active');
   });
-  if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/professionals/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
+  if(path.startsWith('/about/')||path.startsWith('/newsroom/')||path.startsWith('/location/')||path.startsWith('/news'))document.querySelector('.ptg-nav-link[href$="/about/"]')?.classList.add('is-active');
+  if(path.startsWith('/professionals/')){
+    document.querySelector('.ptg-nav-link[href$="/professionals/"]')?.classList.add('is-active');
+    const personSlug=path.split('/').filter(Boolean)[1];
+    if(personSlug)document.querySelector('.ptg-nav-dropdown--people a[href$="/professionals/'+personSlug+'/"]')?.classList.add('is-active');
+  }
   if(path.startsWith('/services/'))document.querySelector('.ptg-nav-link[href$="/services/"]')?.classList.add('is-active');
   if(path.startsWith('/cases/'))document.querySelector('.ptg-nav-link[href$="/cases/"]')?.classList.add('is-active');
   if(path.startsWith('/tools/')||path.startsWith('/fees/')){
@@ -144,14 +150,18 @@
     .ptg-nav-dropdown--services-clean a:not(.ptg-nav-overview){padding-left:12px!important;color:#50555b!important}
     .ptg-nav-dropdown--tools{width:240px!important}
     .ptg-nav-dropdown--tools a{font-size:14px!important}
-    @media(max-width:1120px) and (min-width:981px){
-      .ptg-site-header__logo img{width:150px!important}
-      .ptg-site-header__nav{gap:12px!important}
-      .ptg-nav-link{font-size:14px!important}
+    .ptg-nav-dropdown--people{width:278px!important;padding:9px!important}
+    .ptg-nav-dropdown--people a{font-size:13px!important;line-height:1.5!important;white-space:nowrap!important}
+    @media(max-width:1180px) and (min-width:981px){
+      .ptg-site-header__logo img{width:142px!important}
+      .ptg-site-header__nav{gap:10px!important}
+      .ptg-nav-link{font-size:13px!important}
     }
     @media(max-width:980px){
       .ptg-nav-dropdown--services-clean{width:100%!important;padding:0 0 12px 16px!important}
       .ptg-nav-dropdown--tools{width:100%!important;padding:0 0 12px 16px!important}
+      .ptg-nav-dropdown--people{width:100%!important;padding:0 0 12px 16px!important}
+      .ptg-nav-dropdown--people a{white-space:normal!important;min-height:44px!important}
       .ptg-nav-dropdown--services-clean .ptg-nav-overview{margin:0!important;padding:12px 0!important}
       .ptg-nav-dropdown--services-clean a:not(.ptg-nav-overview){padding:12px 0!important}
       .ptg-nav-item[data-dropdown]>.ptg-nav-link{position:relative!important;padding-right:42px!important}
