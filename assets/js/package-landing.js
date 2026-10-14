@@ -41,7 +41,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010335-11-64a12406.webp" alt="상속 원스탑 서비스 대표 이미지" loading="eager" decoding="async">';
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010335-11-64a12406.webp" alt="펜타곤 상속원스톱서비스 안내 책자 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
@@ -73,7 +73,7 @@
       if(links[0]){links[0].textContent='상담하기';links[0].href='../contact/';}
       if(links[1]){links[1].textContent='서비스 범위';links[1].href='#ptg-package-overview';}
     }
-    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010332-6-0d394319.webp" alt="법인설립 지원센터 대표 이미지" loading="eager" decoding="async">';
+    if(visual)visual.innerHTML='<img src="https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261014-010332-6-0d394319.webp" alt="펜타곤 로고가 적용된 건물 외관 이미지" loading="eager" decoding="async">';
 
     const oldOverview=document.querySelector('#ptg-package-overview');
     if(oldOverview)oldOverview.remove();
