@@ -12,7 +12,25 @@ function setView(kind){state.view=kind;state.editing=null;$$('[data-view]').forE
 $$('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
 $$('[data-reset]').forEach(b=>b.addEventListener('click',()=>clearForm(b.dataset.reset)));
 $('#reload').addEventListener('click',()=>load());
-$('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
+const emailInput=$('#loginForm input[name="email"]');
+const rememberBox=$('#rememberAdminEmail');
+const passwordInput=$('#adminPassword');
+const togglePassword=$('#togglePassword');
+const storedEmail=localStorage.getItem('ptgAdminRememberedEmail');
+if(storedEmail){emailInput.value=storedEmail;rememberBox.checked=true;}
+rememberBox.addEventListener('change',()=>{
+ if(rememberBox.checked){const email=emailInput.value.trim();if(email)localStorage.setItem('ptgAdminRememberedEmail',email);}
+ else localStorage.removeItem('ptgAdminRememberedEmail');
+});
+emailInput.addEventListener('input',()=>{if(rememberBox.checked)localStorage.setItem('ptgAdminRememberedEmail',emailInput.value.trim());});
+togglePassword.addEventListener('click',()=>{
+ const visible=passwordInput.type==='password';
+ passwordInput.type=visible?'text':'password';
+ togglePassword.setAttribute('aria-pressed',String(visible));
+ togglePassword.setAttribute('aria-label',visible?'비밀번호 숨기기':'비밀번호 표시');
+ $('#passwordToggleText').textContent=visible?'숨김':'보기';
+});
+$('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;if(rememberBox.checked)localStorage.setItem('ptgAdminRememberedEmail',emailInput.value.trim());else localStorage.removeItem('ptgAdminRememberedEmail');try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
 $('#logout').addEventListener('click',()=>signOut(auth));
 async function startAdminSession(){
  // Each new admin page entry requires explicit sign-in; no restored credentials.
