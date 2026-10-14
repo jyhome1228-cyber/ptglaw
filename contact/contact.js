@@ -82,7 +82,7 @@
     if(!$('contactConsent').checked)return '개인정보 수집·이용에 동의해주세요.';
     return '';
   }
-  form.addEventListener('submit',e=>{
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
     const error=validation();
     if(error){
@@ -123,8 +123,21 @@
       '※ 예상 비용은 확정 견적이 아니며 최종 금액은 담당자 검토 후 안내됩니다.');
     const subject='[펜타곤 '+(m==='general'?'상담 문의':'견적 요청')+'] '+value('contactName')+' / '+serviceName(m);
     const link='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(lines.join('\n'));
-    if(fallback){fallback.href=link;fallback.hidden=false;}
-    result.textContent='메일 작성 창이 열립니다. 내용을 확인한 뒤 메일에서 보내기를 눌러야 접수됩니다.';
-    window.location.href=link;
+    const submitButton=form.querySelector('button[type="submit"]');if(submitButton)submitButton.disabled=true;
+    result.textContent='문의 접수 중입니다.';
+    try{
+      const api=await import('../assets/js/firebase-inquiries.js');
+      await api.submitInquiry({type:'general',name:value('contactName'),phone:value('contactPhone'),
+        email:value('contactEmail'),message:value('contactMessage')||lines.join('\n'),
+        category:m==='general'?category.value:serviceName(m),details:lines.join('\n'),
+        consent:$('contactConsent').checked});
+      result.textContent='문의가 접수되었습니다. 담당자가 확인 후 연락드리겠습니다.';
+      if(fallback)fallback.hidden=true;
+      form.reset();update();
+    }catch(err){
+      result.textContent='온라인 접수가 완료되지 않았습니다. 이메일로 문의하거나 잠시 후 다시 시도해주세요.';
+      if(fallback){fallback.href=link;fallback.textContent='이메일로 대신 문의하기 →';fallback.hidden=false;}
+      console.warn('문의 접수 실패',err.code||err.message);
+    }finally{if(submitButton)submitButton.disabled=false;}
   });
 })();
