@@ -617,3 +617,8 @@
  .penta-business-page .penta-business-hero-grid{row-gap:32px}
  .penta-business-page .penta-business-hero + .penta-business-section{padding-top:56px}
 }
+
+/* Ensure space directly BELOW the introductory text, not only around the section */
+.penta-business-page .penta-business-hero-grid>div:first-child{padding-bottom:64px!important}
+.penta-business-page .penta-business-hero-grid>div:first-child>p{margin-bottom:0!important}
+@media(max-width:768px){.penta-business-page .penta-business-hero-grid>div:first-child{padding-bottom:40px!important}}
