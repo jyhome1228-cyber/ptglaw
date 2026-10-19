@@ -2,7 +2,7 @@ import {auth,db} from '../assets/js/firebase-client.js';
 import {signInWithEmailAndPassword,signOut,onAuthStateChanged,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {doc,getDoc,collection,getDocs,query,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const state={view:'news',items:[],editing:null,authorized:false};
+const state={view:'news',items:[],editing:null,authorized:false,inquiryFilter:null};
 const msg=t=>{$('#status').textContent=t;};
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const categories={criminal:'형사',tax:'조세·세무',civil:'민사',family:'가사·상속',corporate:'기업',realestate:'부동산·건설',ip:'지식재산'};
@@ -51,16 +51,17 @@ async function load(){
  try{const snap=await getDocs(collection(db,state.view));state.items=snap.docs.map(d=>({id:d.id,...d.data()}));state.items.sort((a,b)=>String(b.date||b.createdAt?.seconds||'').localeCompare(String(a.date||a.createdAt?.seconds||'')));render();}
  catch(err){$('#list').textContent='조회 실패: '+err.message;msg('데이터베이스 접근 권한과 로그인 상태를 확인해주세요.');}
 }
+function kindLabel(item){if(state.view==='cases'){const raw=Array.isArray(item.categories)?item.categories:[item.category||''];return raw.map(x=>categories[x]||x).filter(Boolean).join(' · ')||item.meta1||'분야 미설정';}return item.date||item.source||'';}
 function render(){
  const root=$('#list');root.innerHTML='';
  if(!state.items.length){root.textContent='데이터베이스에 등록된 글이 없습니다. 기존 게시물은 홈페이지에 유지됩니다.';return;}
- state.items.forEach(item=>{const row=document.createElement('div');row.className='cms-item';row.innerHTML='<div><strong>'+esc(item.title)+'</strong><small>'+esc(item.status==='published'?'공개':'임시저장')+' · '+esc(item.date||item.source||item.meta1||'')+'</small></div><div class="cms-item-actions"><button type="button" data-edit>수정</button><button type="button" data-toggle>'+(item.status==='published'?'비공개':'공개')+'</button><button type="button" data-delete>삭제</button></div>';row.querySelector('[data-edit]').onclick=()=>edit(item);row.querySelector('[data-toggle]').onclick=()=>updateStatus(item);row.querySelector('[data-delete]').onclick=()=>remove(item);root.appendChild(row)});
+ state.items.forEach(item=>{const row=document.createElement('div');row.className='cms-item';row.innerHTML='<div><strong>'+esc(item.title)+'</strong><small>'+esc(item.status==='published'?'공개':'임시저장')+' · '+esc(kindLabel(item))+'</small></div><div class="cms-item-actions"><button type="button" data-edit>수정</button><button type="button" data-toggle>'+(item.status==='published'?'비공개':'공개')+'</button><button type="button" data-delete>삭제</button></div>';row.querySelector('[data-edit]').onclick=()=>edit(item);row.querySelector('[data-toggle]').onclick=()=>updateStatus(item);row.querySelector('[data-delete]').onclick=()=>remove(item);root.appendChild(row)});
 }
 function edit(item){
  const kind=state.view;state.editing=item.id;const f=form(kind);
  for(const key of ['title','summary','date','source','category','url','image','status','overview','strategy','resultBody','result','point'])if(f.elements[key])f.elements[key].value=item[key]||'';
  if(kind==='news'&&item.date)f.elements.date.value=item.date.replace(/\./g,'-');
- if(kind==='cases'){f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
+ if(kind==='cases'){f.elements.category.value=item.categories?.[0]||item.category||'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
  $('#'+kind+'FormTitle').textContent='게시물 수정';window.scrollTo({top:0,behavior:'smooth'});
 }
 async function updateStatus(item){try{await setDoc(doc(db,state.view,item.id),{status:item.status==='published'?'draft':'published',updatedAt:serverTimestamp()},{merge:true});msg('공개 상태 변경 완료');await load()}catch(err){msg('변경 실패: '+err.message)}}
@@ -107,7 +108,8 @@ async function renderOps(kind){
     const all=inquiries.docs.map(d=>({id:d.id,...d.data()}));
     const quick=all.filter(d=>d.type==='quick'),general=all.filter(d=>d.type!=='quick');
     const pending=all.filter(d=>d.status==='new');
-    $('#opSummary').innerHTML='<div class="ops-stats"><div>빠른 문의<strong>'+quick.length+'</strong><small>미확인 '+quick.filter(d=>d.status==='new').length+'건</small></div><div>일반 문의<strong>'+general.length+'</strong><small>미확인 '+general.filter(d=>d.status==='new').length+'건</small></div><div>뉴스<strong>'+news.size+'</strong><small>데이터베이스 등록</small></div><div>업무사례<strong>'+cases.size+'</strong><small>데이터베이스 등록</small></div></div>'+(pending.length?'<p class="ops-unread">확인이 필요한 문의 '+pending.length+'건</p>':'<p class="muted">미확인 문의가 없습니다.</p>');
+    $('#opSummary').innerHTML='<div class="ops-stats"><button type="button" class="ops-stat-link" data-open-inquiry="quick">빠른 문의<strong>'+quick.length+'</strong><small>미확인 '+quick.filter(d=>d.status==='new').length+'건 · 확인하기</small></button><button type="button" class="ops-stat-link" data-open-inquiry="general">일반 문의<strong>'+general.length+'</strong><small>미확인 '+general.filter(d=>d.status==='new').length+'건 · 확인하기</small></button><div>뉴스<strong>'+news.size+'</strong><small>데이터베이스 등록</small></div><div>업무사례<strong>'+cases.size+'</strong><small>데이터베이스 등록</small></div></div>'+(pending.length?'<p class="ops-unread">확인이 필요한 문의 '+pending.length+'건</p>':'<p class="muted">미확인 문의가 없습니다.</p>');
+    $('#opSummary [data-open-inquiry]').forEach(button=>button.onclick=()=>{state.inquiryFilter=button.dataset.openInquiry;setView('inquiries')});
   }catch(e){if($('#opSummary'))$('#opSummary').textContent='현황 조회 실패: '+e.message}
  }else if(kind==='visitors'){
   root.innerHTML=panel('방문자 현황','<div class="ops-periods" id="visitorPeriods"><button type="button" data-period="day">일일</button><button type="button" data-period="week">주간</button><button type="button" data-period="month">월간</button><button type="button" data-period="all">전체</button></div><div class="ops-visitor-summary" id="visitorSummary"></div><div class="ops-tracking-foot"><p>현재 방문자 측정 데이터가 연결되지 않아 실제 방문자 수를 표시하지 않습니다. GA4 측정 ID와 보고서 조회 연동 후 방문자·페이지뷰·유입경로가 표시됩니다.</p><a href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer">분석 보고서 열기 ↗</a></div>');
@@ -131,7 +133,7 @@ async function renderOps(kind){
     }).join(''):'<p class="muted">등록된 문의가 없습니다.</p>';
     $$('[data-mark]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await setDoc(doc(db,'inquiries',b.dataset.mark),{status:'reviewed'},{merge:true});const item=docs.find(x=>x.id===b.dataset.mark);if(item)item.status='reviewed';draw(type);msg('문의 확인 처리 완료');}catch(e){b.disabled=false;msg('처리 실패: '+e.message)}});
   }
-  $('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-inquiry-kind]').forEach(x=>x.classList.toggle('active',x===b));draw(b.dataset.inquiryKind)});const first=root.querySelector('[data-inquiry-kind="all"]');if(first)first.click();
+  $('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-inquiry-kind]').forEach(x=>x.classList.toggle('active',x===b));draw(b.dataset.inquiryKind)});const first=root.querySelector('[data-inquiry-kind="all"]');if(first){(root.querySelector('[data-inquiry-kind="'+(state.inquiryFilter||'all')+'"]')||first).click();state.inquiryFilter=null;}
  }
 }
 clearForm('news');
