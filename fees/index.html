@@ -16,7 +16,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ptglaw.co.kr/fees/">
   <meta property="og:image" content="https://ptglaw.co.kr/assets/images/og-preview.png">
-<link rel="stylesheet" href="./fees.css?v=20261014-1635">
+<link rel="stylesheet" href="./fees.css?v=20261019-areamodal1">
 </head>
 <body>
   <div data-site-header></div>
@@ -86,7 +86,7 @@
             <div class="fees-calc-field">
               <label for="feesRegion">등기 지역 · 중과 여부</label>
               <select id="feesRegion" aria-label="등기 지역 및 중과 여부"><option value="normal">비과밀지역</option></select>
-              <small id="feesRegionHelp">지역에 따라 적용되는 세액이 달라질 수 있습니다.</small><a href="../center/?area=check" style="display:inline-flex;align-items:center;min-height:44px;margin-top:8px;color:#d46b16;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px">과밀억제권역 확인하기 →</a>
+              <small id="feesRegionHelp">지역에 따라 적용되는 세액이 달라질 수 있습니다.</small><button type="button" id="feesAreaOpen" class="fees-area-open" aria-haspopup="dialog" aria-controls="feesAreaModal">과밀억제권역 확인하기 →</button>
             </div>
             <button class="fees-calc-button" type="button" id="feesCalculate">예상 비용 계산하기 →</button>
           </div>
@@ -97,6 +97,18 @@
         </div>
       </div>
     </section>
+    <div id="feesAreaModal" class="fees-area-modal" hidden>
+      <div class="fees-area-backdrop" data-fees-area-close></div>
+      <section class="fees-area-dialog" role="dialog" aria-modal="true" aria-labelledby="feesAreaTitle">
+        <div class="fees-area-heading"><div><span>REGIONAL GUIDE</span><h2 id="feesAreaTitle">과밀억제권역 확인</h2></div><button class="fees-area-close" type="button" data-fees-area-close aria-label="팝업 닫기">×</button></div>
+        <p class="fees-area-desc">본점 소재지의 시·군·구를 입력하면 참고용 권역 정보를 안내합니다. 실제 과밀억제권역 해당 여부는 상세 주소로 확인해야 합니다.</p>
+        <form id="feesAreaForm"><label for="feesAreaInput">본점 예정 주소</label><div class="fees-area-search"><input id="feesAreaInput" autocomplete="street-address" placeholder="예: 서울특별시 서초구" required><button type="submit">확인하기</button></div></form>
+        <div id="feesAreaSuggestions" class="fees-area-suggestions" hidden></div>
+        <div id="feesAreaResponse" class="fees-area-response" role="status" aria-live="polite">주소를 입력해 권역 정보를 확인하세요.</div>
+        <div class="fees-area-examples"><span>빠른 예시</span><button type="button" data-fees-example="서울특별시 서초구">서울 서초구</button><button type="button" data-fees-example="경기도 수원시">경기 수원시</button><button type="button" data-fees-example="경기도 남양주시">경기 남양주시</button><button type="button" data-fees-example="부산광역시 해운대구">부산 해운대구</button></div>
+        <div class="fees-area-foot"><p>과밀억제권역에 해당해도 등록면허세가 반드시 3배 중과되는 것은 아닙니다. 업종·설립 후 경과기간·예외규정을 확인해야 합니다.</p><a href="https://www.eum.go.kr/" target="_blank" rel="noopener noreferrer">토지이음에서 상세 주소 확인 ↗</a></div>
+      </section>
+    </div>
     <section class="fees-final">
       <div class="fees-shell">
         <div class="fees-final-wrap">
@@ -107,7 +119,7 @@
     </section>
   </main>
   <div data-site-footer></div>
-  <script src="./fees.js?v=20261014-1635" defer></script>
+  <script src="./fees.js?v=20261019-areamodal1" defer></script>
   <script src="../assets/js/app.js?v=20261019-mobilemenu3" defer></script>
 </body>
 </html>
