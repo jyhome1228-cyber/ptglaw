@@ -69,6 +69,7 @@ function calculate(){
 }
 const areaModal=$('pcAreaModal');let lastAreaFocus=null;
 function openAreaModal(){lastAreaFocus=document.activeElement;areaModal.classList.add('is-visible');areaModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';$('pcAreaInput').focus()}
+if(new URLSearchParams(location.search).get('area')==='check'){window.addEventListener('load',()=>setTimeout(openAreaModal,180),{once:true});}
 function closeAreaModal(){areaModal.classList.remove('is-visible');areaModal.setAttribute('aria-hidden','true');document.body.style.overflow='';lastAreaFocus?.focus()}
 areaModal.querySelectorAll('[data-close-area]').forEach(b=>b.addEventListener('click',closeAreaModal));
 document.addEventListener('keydown',e=>{if(!areaModal.classList.contains('is-visible'))return;if(e.key==='Escape')closeAreaModal();if(e.key==='Tab'){const nodes=[...areaModal.querySelectorAll('button,input,a')].filter(el=>el.getClientRects().length);const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
