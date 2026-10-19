@@ -30,7 +30,7 @@
   document.head.appendChild(fixedHeaderStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261019-mobileqa1';
+  const CSS_VERSION='20261019-mobileqa3';
   const LOGO_VERSION='20261005-2149';
   const SERVICE_ASSET_VERSION='20261014-1115';
   const ensureCss=(key,file)=>new Promise(resolve=>{
@@ -188,14 +188,59 @@
       .ptg-site-header__nav.open{max-height:calc(100svh - var(--header-height))!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
     }`;document.head.appendChild(style)}
   const menuBtn=document.querySelector('.ptg-site-header__menu'),nav=document.querySelector('#ptgSiteNav');
-  const closeMobileNav=()=>{nav?.classList.remove('open');document.body.classList.remove('ptg-menu-open');menuBtn?.setAttribute('aria-expanded','false');menuBtn?.setAttribute('aria-label','메뉴 열기');if(menuBtn)menuBtn.textContent='☰';document.querySelectorAll('[data-dropdown].open').forEach(x=>x.classList.remove('open'))};
-  menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');document.body.classList.toggle('ptg-menu-open',Boolean(open));menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');menuBtn.textContent=open?'×':'☰'});
   const mobile=matchMedia('(max-width:980px)');
-  const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{if(!mobile.matches)return;const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
-  bindMobileDropdowns();
-  nav?.addEventListener('click',e=>{if(!mobile.matches)return;const link=e.target.closest('a');if(!link)return;if(link.closest('.ptg-nav-dropdown')||!link.parentElement?.hasAttribute('data-dropdown'))closeMobileNav()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav?.classList.contains('open'))closeMobileNav()});
-  mobile.addEventListener?.('change',()=>{bindMobileDropdowns();if(!mobile.matches)closeMobileNav()});
+  const closeDropdowns=()=>document.querySelectorAll('.ptg-nav-item[data-dropdown].open').forEach(item=>{
+    item.classList.remove('open');
+    item.querySelector('.ptg-submenu-toggle')?.setAttribute('aria-expanded','false');
+  });
+  const closeMobileNav=()=>{
+    nav?.classList.remove('open');
+    document.body.classList.remove('ptg-menu-open');
+    menuBtn?.setAttribute('aria-expanded','false');
+    menuBtn?.setAttribute('aria-label','메뉴 열기');
+    if(menuBtn)menuBtn.textContent='☰';
+    closeDropdowns();
+  };
+  // Common mobile navigation: primary labels navigate directly, independent chevrons expand.
+  document.querySelectorAll('.ptg-nav-item[data-dropdown]').forEach((item,index)=>{
+    const parentLink=item.querySelector(':scope > .ptg-nav-link');
+    const submenu=item.querySelector(':scope > .ptg-nav-dropdown');
+    if(!parentLink||!submenu)return;
+    const id='ptgMobileSubmenu'+index;
+    submenu.id=id;
+    const toggle=document.createElement('button');
+    toggle.className='ptg-submenu-toggle';
+    toggle.type='button';
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-controls',id);
+    toggle.setAttribute('aria-label',parentLink.textContent.trim()+' 하위 메뉴 펼치기');
+    toggle.innerHTML='<span class="ptg-submenu-chevron" aria-hidden="true"></span>';
+    item.insertBefore(toggle,submenu);
+    toggle.addEventListener('click',()=>{
+      if(!mobile.matches)return;
+      const expand=!item.classList.contains('open');
+      closeDropdowns();
+      item.classList.toggle('open',expand);
+      toggle.setAttribute('aria-expanded',String(expand));
+      toggle.setAttribute('aria-label',parentLink.textContent.trim()+(expand?' 하위 메뉴 접기':' 하위 메뉴 펼치기'));
+    });
+  });
+  menuBtn?.addEventListener('click',()=>{
+    const open=nav?.classList.toggle('open')||false;
+    document.body.classList.toggle('ptg-menu-open',open);
+    menuBtn.setAttribute('aria-expanded',String(open));
+    menuBtn.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');
+    menuBtn.textContent=open?'×':'☰';
+    if(!open)closeDropdowns();
+  });
+  nav?.addEventListener('click',event=>{
+    if(!mobile.matches)return;
+    if(event.target.closest('a'))closeMobileNav();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&nav?.classList.contains('open'))closeMobileNav();
+  });
+  mobile.addEventListener?.('change',()=>{if(!mobile.matches)closeMobileNav()});
 
   sharedCssReady.finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
 
