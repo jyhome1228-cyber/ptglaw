@@ -157,4 +157,56 @@
     svc.value=a.dataset.selectCalc;setRegions();resetCalculation();
   });
   setRegions();formatCapital();resetCalculation();
+
+  // Region lookup stays inside the fee calculator page.
+  const areaModal=document.getElementById('feesAreaModal');
+  const areaOpen=document.getElementById('feesAreaOpen');
+  const areaInput=document.getElementById('feesAreaInput');
+  const areaResponse=document.getElementById('feesAreaResponse');
+  const areaSuggestions=document.getElementById('feesAreaSuggestions');
+  let previousFocus=null;
+  const closeArea=()=>{areaModal.hidden=true;document.body.style.overflow='';previousFocus?.focus()};
+  areaOpen?.addEventListener('click',()=>{previousFocus=document.activeElement;areaModal.hidden=false;document.body.style.overflow='hidden';areaInput.focus()});
+  areaModal?.querySelectorAll('[data-fees-area-close]').forEach(x=>x.addEventListener('click',closeArea));
+  document.addEventListener('keydown',e=>{
+    if(areaModal?.hidden!==false)return;
+    if(e.key==='Escape')closeArea();
+    if(e.key==='Tab'){
+      const nodes=[...areaModal.querySelectorAll('button,input,a')].filter(el=>el.getClientRects().length);
+      if(e.shiftKey&&document.activeElement===nodes[0]){e.preventDefault();nodes[nodes.length-1].focus()}
+      else if(!e.shiftKey&&document.activeElement===nodes[nodes.length-1]){e.preventDefault();nodes[0].focus()}
+    }
+  });
+  const knownAreas=['서울특별시 강남구','서울특별시 서초구','서울특별시 송파구','서울특별시 영등포구','서울특별시 마포구','서울특별시 종로구','서울특별시 중구','서울특별시 강서구','서울특별시 구로구','서울특별시 성동구','경기도 수원시','경기도 성남시','경기도 부천시','경기도 고양시','경기도 안양시','경기도 광명시','경기도 의왕시','경기도 하남시','경기도 남양주시','경기도 시흥시','경기도 안산시','경기도 화성시','인천광역시 연수구','인천광역시 남동구','인천광역시 서구','인천광역시 중구','인천광역시 부평구','인천광역시 계양구','인천광역시 미추홀구','인천광역시 강화군','인천광역시 옹진군','부산광역시 해운대구','대구광역시 수성구','대전광역시 서구','광주광역시 북구','울산광역시 남구','세종특별자치시'];
+  const normalize=v=>String(v||'').replace(/\s/g,'').replace(/특별시|광역시/g,'');
+  areaInput?.addEventListener('input',()=>{
+    const query=normalize(areaInput.value);
+    const matched=query.length>=2?knownAreas.filter(x=>normalize(x).includes(query)).slice(0,8):[];
+    areaSuggestions.hidden=!matched.length;
+    areaSuggestions.innerHTML=matched.map(x=>'<button type="button" data-area-name="'+x+'">'+x+'</button>').join('');
+  });
+  areaSuggestions?.addEventListener('click',e=>{
+    const b=e.target.closest('[data-area-name]');if(!b)return;
+    areaInput.value=b.dataset.areaName;areaSuggestions.hidden=true;
+    document.getElementById('feesAreaForm').requestSubmit();
+  });
+  const classifyArea=value=>{
+    const v=String(value).trim();
+    if(/강화군|옹진군/.test(v))return ['비과밀지역 안내','수도권 과밀억제권역에서 제외되는 지역입니다.'];
+    if(/인천|연수구|남동구|미추홀구|부평구|계양구/.test(v)){
+      if(/연수구|남동구|서구|중구/.test(v))return ['상세 주소 확인 필요','인천은 과밀억제권역과 제외 구역이 혼재할 수 있습니다. 토지이음에서 상세 주소를 확인해 주세요.'];
+      return ['과밀억제권역 해당 가능 지역','인천의 일부 지역은 과밀억제권역에 해당합니다. 실제 본점 주소와 중과 예외 여부를 확인해 주세요.'];
+    }
+    if(/남양주|시흥|안산|화성/.test(v))return ['상세 주소 확인 필요','해당 시에는 수도권 권역이 혼재할 수 있어 상세 주소를 기준으로 확인해야 합니다.'];
+    if(/서울|수원|성남|안양|부천|광명|과천|의정부|구리|하남|고양|군포|의왕/.test(v))return ['과밀억제권역 해당 가능 지역','해당 지역은 과밀억제권역에 해당할 수 있습니다. 중과세 적용은 설립 형태·시점·업종 등 개별 조건에 따라 다릅니다.'];
+    if(/부산|대구|광주|대전|울산|세종|강원|충북|충남|경북|경남|전북|전남|제주/.test(v))return ['비과밀지역 안내','수도권 외 지역으로 과밀억제권역에 해당하지 않습니다.'];
+    return ['상세 주소 확인 필요','권역은 시·군·구 및 세부 구역에 따라 달라질 수 있습니다. 토지이음에서 본점 소재지를 확인해 주세요.'];
+  };
+  document.getElementById('feesAreaForm')?.addEventListener('submit',e=>{
+    e.preventDefault();
+    const [status,description]=classifyArea(areaInput.value);
+    areaSuggestions.hidden=true;
+    areaResponse.innerHTML='<strong>'+status+'</strong><p>'+description+'</p><p>아래 공식 조회 링크로 주소별 적용 여부를 최종 확인해 주세요.</p>';
+  });
+  areaModal?.querySelectorAll('[data-fees-example]').forEach(b=>b.addEventListener('click',()=>{areaInput.value=b.dataset.feesExample;document.getElementById('feesAreaForm').requestSubmit()}));
 })();
