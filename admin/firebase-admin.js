@@ -51,7 +51,7 @@ async function load(){
  try{const snap=await getDocs(collection(db,state.view));state.items=snap.docs.map(d=>({id:d.id,...d.data()}));state.items.sort((a,b)=>String(b.date||b.createdAt?.seconds||'').localeCompare(String(a.date||a.createdAt?.seconds||'')));render();}
  catch(err){$('#list').textContent='조회 실패: '+err.message;msg('데이터베이스 접근 권한과 로그인 상태를 확인해주세요.');}
 }
-function kindLabel(item){if(state.view==='cases'){const raw=Array.isArray(item.categories)?item.categories:[item.category||''];return raw.map(x=>categories[x]||x).filter(Boolean).join(' · ')||item.meta1||'분야 미설정';}return item.date||item.source||'';}
+function kindLabel(item){if(state.view==='cases'){const raw=Array.isArray(item.categories)&&item.categories.length?item.categories:[item.category||item.meta1||''];return raw.map(x=>categories[x]||x).filter(Boolean).join(' · ')||'분야 미설정';}return item.date||item.source||'';}
 function render(){
  const root=$('#list');root.innerHTML='';
  if(!state.items.length){root.textContent='데이터베이스에 등록된 글이 없습니다. 기존 게시물은 홈페이지에 유지됩니다.';return;}
@@ -61,7 +61,7 @@ function edit(item){
  const kind=state.view;state.editing=item.id;const f=form(kind);
  for(const key of ['title','summary','date','source','category','url','image','status','overview','strategy','resultBody','result','point'])if(f.elements[key])f.elements[key].value=item[key]||'';
  if(kind==='news'&&item.date)f.elements.date.value=item.date.replace(/\./g,'-');
- if(kind==='cases'){f.elements.category.value=item.categories?.[0]||item.category||'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
+ if(kind==='cases'){const storedCategory=item.categories?.[0]||item.category||Object.keys(categories).find(k=>categories[k]===item.meta1)||'corporate';f.elements.category.value=categories[storedCategory]?storedCategory:'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
  $('#'+kind+'FormTitle').textContent='게시물 수정';window.scrollTo({top:0,behavior:'smooth'});
 }
 async function updateStatus(item){try{await setDoc(doc(db,state.view,item.id),{status:item.status==='published'?'draft':'published',updatedAt:serverTimestamp()},{merge:true});msg('공개 상태 변경 완료');await load()}catch(err){msg('변경 실패: '+err.message)}}
@@ -72,7 +72,7 @@ for(const kind of ['news','cases'])form(kind).addEventListener('submit',async e=
  const f=e.currentTarget,v=getValues(f);if(!v.title?.trim())return msg('제목을 입력해주세요.');
  const id=state.editing||kind.slice(0,-1)+'-'+Date.now().toString(36);
  const record=kind==='news'?{title:v.title.trim(),date:v.date.replace(/-/g,'.'),source:v.source||'',category:v.category||'firm',url:v.url||'',image:v.image||'',summary:v.summary||'',status:v.status||'draft'}:
- {title:v.title.trim(),summary:v.summary||'',categories:[v.category||'corporate'],meta1:categories[v.category]||'업무사례',meta2:'',result:v.result||'',overview:v.overview||'',strategy:v.strategy||'',resultBody:v.resultBody||'',point:v.point||'',tags:(v.tags||'').split(',').map(x=>x.trim()).filter(Boolean),experts:$$('input[name="experts"]:checked').map(x=>x.value),status:v.status||'draft'};
+ {title:v.title.trim(),summary:v.summary||'',category:v.category||'corporate',categories:[v.category||'corporate'],meta1:categories[v.category]||'업무사례',meta2:'',result:v.result||'',overview:v.overview||'',strategy:v.strategy||'',resultBody:v.resultBody||'',point:v.point||'',tags:(v.tags||'').split(',').map(x=>x.trim()).filter(Boolean),experts:$$('input[name="experts"]:checked').map(x=>x.value),status:v.status||'draft'};
  try{const old=state.items.find(i=>i.id===id);await setDoc(doc(db,kind,id),{...record,createdAt:old?.createdAt||serverTimestamp(),updatedAt:serverTimestamp()},{merge:true});clearForm(kind);msg('데이터베이스 저장 완료 · 공개 설정에 따라 홈페이지에 반영됩니다.');await load();}
  catch(err){msg('저장 실패: '+err.message)}
 });
