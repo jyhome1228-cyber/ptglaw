@@ -188,10 +188,14 @@
       .ptg-site-header__nav.open{max-height:calc(100svh - var(--header-height))!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important}
     }`;document.head.appendChild(style)}
   const menuBtn=document.querySelector('.ptg-site-header__menu'),nav=document.querySelector('#ptgSiteNav');
-  const closeMobileNav=()=>{nav?.classList.remove('open');document.body.classList.remove('ptg-menu-open');menuBtn?.setAttribute('aria-expanded','false');menuBtn?.setAttribute('aria-label','메뉴 열기');if(menuBtn)menuBtn.textContent='☰';document.querySelectorAll('[data-dropdown].open').forEach(x=>x.classList.remove('open'))};\n  menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');document.body.classList.toggle('ptg-menu-open',Boolean(open));menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');menuBtn.textContent=open?'×':'☰'});
+  const closeMobileNav=()=>{nav?.classList.remove('open');document.body.classList.remove('ptg-menu-open');menuBtn?.setAttribute('aria-expanded','false');menuBtn?.setAttribute('aria-label','메뉴 열기');if(menuBtn)menuBtn.textContent='☰';document.querySelectorAll('[data-dropdown].open').forEach(x=>x.classList.remove('open'))};
+  menuBtn?.addEventListener('click',()=>{const open=nav?.classList.toggle('open');document.body.classList.toggle('ptg-menu-open',Boolean(open));menuBtn.setAttribute('aria-expanded',String(Boolean(open)));menuBtn.setAttribute('aria-label',open?'메뉴 닫기':'메뉴 열기');menuBtn.textContent=open?'×':'☰'});
   const mobile=matchMedia('(max-width:980px)');
   const bindMobileDropdowns=()=>{if(!mobile.matches)return;document.querySelectorAll('[data-dropdown]>.ptg-nav-link').forEach(link=>{if(link.dataset.ptgBound)return;link.dataset.ptgBound='true';link.addEventListener('click',e=>{if(!mobile.matches)return;const item=link.parentElement;if(!item.classList.contains('open')){e.preventDefault();document.querySelectorAll('[data-dropdown].open').forEach(x=>x!==item&&x.classList.remove('open'));item.classList.add('open')}})})};
-  bindMobileDropdowns();\n  nav?.addEventListener('click',e=>{if(!mobile.matches)return;const link=e.target.closest('a');if(!link)return;if(link.closest('.ptg-nav-dropdown')||!link.parentElement?.hasAttribute('data-dropdown'))closeMobileNav()});\n  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav?.classList.contains('open'))closeMobileNav()});\n  mobile.addEventListener?.('change',()=>{bindMobileDropdowns();if(!mobile.matches)closeMobileNav()});
+  bindMobileDropdowns();
+  nav?.addEventListener('click',e=>{if(!mobile.matches)return;const link=e.target.closest('a');if(!link)return;if(link.closest('.ptg-nav-dropdown')||!link.parentElement?.hasAttribute('data-dropdown'))closeMobileNav()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav?.classList.contains('open'))closeMobileNav()});
+  mobile.addEventListener?.('change',()=>{bindMobileDropdowns();if(!mobile.matches)closeMobileNav()});
 
   sharedCssReady.finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
 
