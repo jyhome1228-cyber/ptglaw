@@ -598,3 +598,32 @@
 .fees .fees-final{padding:60px 0 68px!important}
 @media(max-width:900px){.fees .fees-calc-grid{grid-template-columns:1fr}.fees .fees-calc-placeholder{min-height:180px}}
 @media(max-width:700px){.fees .fees-shell{width:calc(100% - 36px)!important}.fees .fees-hero{padding:42px 0}.fees .fees-content,.fees .fees-calculator{padding:54px 0!important}.fees .fees-calc-inputs,.fees .fees-result{padding:21px!important}.fees .fees-calc-placeholder{min-height:160px}}
+
+/* Fees on-page region lookup dialog */
+.fees .fees-area-open{display:inline-flex;align-items:center;min-height:44px;margin:8px 0 0;padding:0;border:0;background:transparent;color:#d46b16;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer;text-align:left}
+.fees-area-modal[hidden]{display:none!important}
+.fees-area-modal{position:fixed;inset:0;z-index:100100;display:flex;align-items:center;justify-content:center;padding:16px;font-family:Pretendard,"Apple SD Gothic Neo",sans-serif}
+.fees-area-backdrop{position:absolute;inset:0;background:rgba(10,13,18,.65)}
+.fees-area-dialog{position:relative;width:min(100%,600px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;border-radius:16px;padding:28px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.20)}
+.fees-area-heading{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.fees-area-heading span{font-size:11px;font-weight:700;letter-spacing:.08em;color:#f58220}
+.fees-area-heading h2{margin:7px 0 0!important;font-size:25px!important;line-height:1.3!important;color:#181818!important}
+.fees-area-close{flex:0 0 40px;width:40px;height:40px;border:0;border-radius:9px;background:#f3f4f5;font-size:27px;cursor:pointer;color:#202020}
+.fees-area-desc{margin:15px 0 22px!important;color:#62676d!important;font-size:14px!important;line-height:1.7!important}
+#feesAreaForm>label{display:block;margin-bottom:8px;font-size:13px;font-weight:700}
+.fees-area-search{display:flex;gap:8px}
+.fees-area-search input{flex:1;min-width:0;min-height:48px;padding:0 13px;border:1px solid #dfe2e6;border-radius:9px;font:400 16px Pretendard,sans-serif}
+.fees-area-search button{min-width:95px;min-height:48px;padding:0 12px;border:0;border-radius:9px;background:#f58220;color:#fff;font-weight:700;cursor:pointer}
+.fees-area-suggestions{max-height:170px;overflow-y:auto;margin-top:7px;border:1px solid #e7e9ec;border-radius:9px}
+.fees-area-suggestions[hidden]{display:none!important}
+.fees-area-suggestions button{display:block;width:100%;min-height:42px;padding:9px 13px;text-align:left;border:0;border-bottom:1px solid #f0f0f0;background:#fff;font-size:13px;cursor:pointer}
+.fees-area-response{margin:16px 0;padding:17px;background:#f7f8f9;border-radius:10px;color:#555;font-size:14px;line-height:1.65}
+.fees-area-response strong{display:block;margin-bottom:5px;color:#191919;font-size:16px}
+.fees-area-response p{margin:7px 0 0!important;color:#62676d!important;font-size:13px!important;line-height:1.7!important}
+.fees-area-examples{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:16px 0}
+.fees-area-examples span{font-size:12px;font-weight:700;margin-right:5px}
+.fees-area-examples button{min-height:35px;padding:6px 10px;border:1px solid #e3e5e8;border-radius:7px;background:#fff;color:#555;font-size:12px;cursor:pointer}
+.fees-area-foot{border-top:1px solid #e9eaed;padding-top:14px}
+.fees-area-foot p{margin:0 0 10px!important;color:#70767b!important;font-size:12px!important;line-height:1.7!important}
+.fees-area-foot a{color:#c4600f;font-size:13px;font-weight:700;text-decoration:underline}
+@media(max-width:600px){.fees-area-dialog{padding:22px 18px;border-radius:13px}.fees-area-heading h2{font-size:22px!important}.fees-area-search button{min-width:82px}.fees-area-modal{padding:10px}.fees-area-dialog{max-height:calc(100dvh - 20px)}}
