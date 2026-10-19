@@ -203,3 +203,7 @@
 .pi-inheritance .pc-select-grid .pc-service{display:flex;flex-direction:column;justify-content:center!important;min-height:142px!important}
 .pi-inheritance .pc-select-grid .pc-service h3{margin:0!important}
 @media(max-width:700px){.pi-inheritance .pc-select-grid .pc-service{min-height:132px!important}}
+
+/* Keep the calculator's empty-state headline at the same compact scale as other labels. */
+.pc-center .pc-calc-result .pc-result-total{font-size:clamp(23px,1.8vw,27px)!important;line-height:1.4!important;letter-spacing:-.04em!important}
+@media(max-width:700px){.pc-center .pc-calc-result .pc-result-total{font-size:23px!important;line-height:1.4!important}}
