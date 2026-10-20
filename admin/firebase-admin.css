@@ -68,3 +68,43 @@ body.admin-login-mode #adminApp{display:none!important}
 .ops-stats small{display:block;margin-top:8px;color:#888;font-size:12px}
 .ops-unread{color:#c76510;font-size:13px;font-weight:650}
 @media(max-width:700px){.ops-visitor-cards{grid-template-columns:1fr}.ops-visitor-cards>div{padding:16px}.ops-chart-empty{min-height:145px}}
+
+
+/* Inquiry management */
+.inquiry-intro{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:18px}
+.inquiry-intro p{margin:0 0 5px}.inquiry-intro small{display:block;color:#9a9da2;font-size:12px;line-height:1.6}
+.inquiry-intro>button{flex:none;border:1px solid #e1e4e8;border-radius:8px;background:#fff;padding:10px 14px;font-size:12px;font-weight:650}
+.inquiry-overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 22px}
+.inquiry-overview>div{padding:18px;border:1px solid #e5e7ea;border-radius:12px;background:#fff}
+.inquiry-overview small{display:block;color:#7e8389;font-size:12px}
+.inquiry-overview strong{display:block;margin-top:9px;font-size:28px;line-height:1.2;color:#1d1f22}
+.inquiry-overview span{display:block;margin-top:7px;color:#9a9ea4;font-size:11px}
+.inquiry-overview .is-alert{border-color:#f3caa7;background:#fff8f2}.inquiry-overview .is-alert strong{color:#d86d14}
+.inquiry-toolbar{display:grid;grid-template-columns:minmax(260px,1fr) auto auto;gap:18px;align-items:end;padding:18px;border:1px solid #e8eaed;border-radius:12px;background:#fafbfc;margin-bottom:14px}
+.inquiry-search{gap:7px}.inquiry-search span,.inquiry-toolbar-label{display:block;margin-bottom:7px;color:#62676d;font-size:11px;font-weight:700}
+.inquiry-search input{height:42px;background:#fff}
+.ops-filters{margin:0}.ops-filters button.active{border-color:#f58220;background:#fff3e8;color:#c96516;font-weight:700}
+.inquiry-list{display:grid;gap:12px}
+.inquiry-card{border:1px solid #e4e7ea;border-radius:13px;background:#fff;overflow:hidden}
+.inquiry-card.is-new{border-left:4px solid #f58220}
+.inquiry-card-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;border-bottom:1px solid #eef0f2;background:#fbfcfd}
+.inquiry-card-head time{flex:none;color:#8b9096;font-size:11px}
+.inquiry-badges{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.inquiry-badge{display:inline-flex;align-items:center;min-height:25px;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:700}
+.inquiry-badge.is-quick{background:#fff0e5;color:#ce6815}.inquiry-badge.is-general{background:#eef4ff;color:#3f6498}
+.inquiry-badge.is-status-new{background:#fff0e5;color:#c96111}.inquiry-badge.is-status-reviewed{background:#eef7f1;color:#477259}
+.inquiry-badge.is-category{background:#f1f3f5;color:#6b7076;font-weight:600}
+.inquiry-card-body{padding:20px 18px}
+.inquiry-card-title{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.inquiry-card-title strong{font-size:17px}.inquiry-card-title span{color:#747980;font-size:12px}
+.inquiry-card-body>p{margin:0;color:#3f444a;font-size:14px;line-height:1.75;overflow-wrap:anywhere}
+.inquiry-details{margin-top:15px;border-top:1px solid #eceef0;padding-top:13px}
+.inquiry-details summary{cursor:pointer;color:#62676d;font-size:12px;font-weight:700}
+.inquiry-details div{margin-top:11px;padding:13px;border-radius:9px;background:#f7f8f9;color:#5f646a;font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+.inquiry-card-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 18px}
+.inquiry-action{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 12px;border:1px solid #dfe2e6;border-radius:8px;background:#fff;color:#3b4045!important;font-size:12px!important;font-weight:650!important}
+button.inquiry-action{cursor:pointer}.inquiry-action.is-primary{background:#f58220;border-color:#f58220;color:#fff!important}
+.inquiry-empty{padding:44px 20px;border:1px dashed #d8dce1;border-radius:12px;text-align:center;background:#fafbfc}
+.inquiry-empty strong{font-size:14px}.inquiry-empty p{margin:8px 0 0;color:#93979c;font-size:12px}
+@media(max-width:900px){.inquiry-toolbar{grid-template-columns:1fr}.inquiry-overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.inquiry-overview{grid-template-columns:1fr 1fr}.inquiry-intro{display:block}.inquiry-intro>button{margin-top:12px}.inquiry-card-head{align-items:flex-start;flex-direction:column}.inquiry-card-title{display:grid;gap:5px}.inquiry-card-actions{display:grid;grid-template-columns:1fr 1fr}.inquiry-card-actions .inquiry-action{width:100%}}
