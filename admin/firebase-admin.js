@@ -140,19 +140,96 @@ async function renderOps(kind){
  }else if(kind==='calculators'){
   root.innerHTML=panel('계산기 운영 현황','<p class="muted">현재 등록된 계산기 5종의 이동 링크입니다. 계산 횟수는 분석 이벤트 수집·보고가 연결되지 않아 표시하지 않습니다.</p>'+calcPages.map(([name,path])=>'<div class="ops-row"><strong>'+name+'</strong><a href="'+siteUrl(path)+'" target="_blank" rel="noopener">계산기 열기 ↗</a><small>운영 페이지</small></div>').join(''));
  }else if(kind==='inquiries'){
-  root.innerHTML=panel('문의 관리','<p class="muted">빠른 문의와 일반 문의를 구분합니다. 현재 이메일 앱에서만 전송된 과거 문의는 데이터베이스에 자동 기록되지 않습니다.</p><div class="ops-filters"><button data-inquiry-kind="quick">빠른 문의</button><button data-inquiry-kind="general">일반 문의</button><button data-inquiry-kind="all">전체</button></div><div id="inquiryList">문의 조회 중...</div>');
-  let docs=[];try{const snap=await getDocs(collection(db,'inquiries'));docs=snap.docs.map(d=>({id:d.id,...d.data()}));docs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0))}catch(e){$('#inquiryList').textContent='문의 조회 실패: '+e.message;return}
-  function draw(type){
-    const items=docs.filter(x=>type==='all'||x.type===type);
-    $('#inquiryList').innerHTML=items.length?items.map(x=>{
+  root.innerHTML=panel('문의 관리',
+    '<div class="inquiry-intro"><div><p class="muted">문의하기 페이지와 빠른 문의가 같은 데이터베이스로 들어옵니다. 최신 접수순으로 확인하고 바로 전화·이메일 응대를 할 수 있습니다.</p><small>온라인 접수 실패 후 이메일로만 전달된 문의는 이 목록에 자동 기록되지 않습니다.</small></div><button type="button" id="reloadInquiries">새로고침</button></div>'+
+    '<div id="inquiryOverview" class="inquiry-overview"></div>'+
+    '<div class="inquiry-toolbar"><label class="inquiry-search"><span>문의 검색</span><input id="inquirySearch" type="search" placeholder="이름, 연락처, 이메일, 문의내용 검색"></label>'+
+    '<div><span class="inquiry-toolbar-label">유형</span><div class="ops-filters"><button data-inquiry-kind="all">전체</button><button data-inquiry-kind="quick">빠른 문의</button><button data-inquiry-kind="general">문의하기</button></div></div>'+
+    '<div><span class="inquiry-toolbar-label">상태</span><div class="ops-filters"><button data-inquiry-status="all">전체</button><button data-inquiry-status="new">미확인</button><button data-inquiry-status="reviewed">확인 완료</button></div></div></div>'+
+    '<div id="inquiryList" class="inquiry-list">문의 조회 중...</div>');
+  let docs=[];
+  try{
+    const snap=await getDocs(collection(db,'inquiries'));
+    docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    docs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  }catch(e){$('#inquiryList').textContent='문의 조회 실패: '+e.message;return}
+
+  const filter={type:state.inquiryFilter||'all',status:'all',term:''};
+  state.inquiryFilter=null;
+  const normalize=v=>String(v||'').toLowerCase().replace(/\\s+/g,'');
+  const phoneHref=v=>'tel:'+String(v||'').replace(/[^0-9+]/g,'');
+  const categoryLabel=x=>x.category||((x.type==='quick')?'빠른 문의':'일반 상담');
+
+  function overview(){
+    const total=docs.length;
+    const fresh=docs.filter(x=>x.status==='new').length;
+    const quick=docs.filter(x=>x.type==='quick').length;
+    const general=docs.filter(x=>x.type!=='quick').length;
+    $('#inquiryOverview').innerHTML=
+      '<div><small>전체 문의</small><strong>'+total+'</strong><span>누적 접수</span></div>'+
+      '<div class="is-alert"><small>미확인</small><strong>'+fresh+'</strong><span>확인 필요</span></div>'+
+      '<div><small>빠른 문의</small><strong>'+quick+'</strong><span>간편 문의</span></div>'+
+      '<div><small>문의하기</small><strong>'+general+'</strong><span>상세 문의·견적</span></div>';
+  }
+
+  function syncFilters(){
+    root.querySelectorAll('[data-inquiry-kind]').forEach(b=>b.classList.toggle('active',b.dataset.inquiryKind===filter.type));
+    root.querySelectorAll('[data-inquiry-status]').forEach(b=>b.classList.toggle('active',b.dataset.inquiryStatus===filter.status));
+  }
+
+  function draw(){
+    const term=normalize(filter.term);
+    const items=docs.filter(x=>{
+      if(filter.type!=='all'&&x.type!==filter.type)return false;
+      if(filter.status!=='all'&&x.status!==filter.status)return false;
+      if(!term)return true;
+      return normalize([x.name,x.phone,x.email,x.message,x.category,x.details].join(' ')).includes(term);
+    });
+    const list=$('#inquiryList');
+    if(!items.length){
+      list.innerHTML='<div class="inquiry-empty"><strong>조건에 맞는 문의가 없습니다.</strong><p>필터를 바꾸거나 검색어를 지워주세요.</p></div>';
+      syncFilters();
+      return;
+    }
+    list.innerHTML=items.map(x=>{
       const date=x.createdAt?.toDate?.()?.toLocaleString('ko-KR')||'접수일 확인 중';
       const pending=x.status==='new';
-      const details=x.details?'<details><summary>상세 접수 정보</summary><p>'+esc(x.details).replace(/\\n/g,'<br>')+'</p></details>':'';
-      return '<div class="ops-row"><strong>'+(x.type==='quick'?'빠른 문의':'일반 문의')+' · '+esc(x.name||'이름 미입력')+'</strong><small>'+esc(date)+' · '+(pending?'미확인':'확인 완료')+'</small><span>'+esc(x.phone||'연락처 없음')+' / '+esc(x.email||'이메일 없음')+'</span><p>'+esc(x.message||'')+'</p>'+details+(pending?'<button type="button" data-mark="'+esc(x.id)+'">확인 처리</button>':'')+'</div>';
-    }).join(''):'<p class="muted">등록된 문의가 없습니다.</p>';
-    $$('[data-mark]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await setDoc(doc(db,'inquiries',b.dataset.mark),{status:'reviewed'},{merge:true});const item=docs.find(x=>x.id===b.dataset.mark);if(item)item.status='reviewed';draw(type);msg('문의 확인 처리 완료');}catch(e){b.disabled=false;msg('처리 실패: '+e.message)}});
+      const typeLabel=x.type==='quick'?'빠른 문의':'문의하기';
+      const name=x.name||'이름 미입력';
+      const phone=x.phone||'';
+      const email=x.email||'';
+      const details=x.details?'<details class="inquiry-details"><summary>상세 접수 정보 보기</summary><div>'+esc(x.details).replace(/\\n/g,'<br>')+'</div></details>':'';
+      const phoneAction=phone?'<a class="inquiry-action" href="'+esc(phoneHref(phone))+'">전화하기</a>':'';
+      const mailAction=email?'<a class="inquiry-action" href="mailto:'+esc(email)+'">메일 보내기</a>':'';
+      return '<article class="inquiry-card '+(pending?'is-new':'is-reviewed')+'">'+
+        '<div class="inquiry-card-head"><div class="inquiry-badges"><span class="inquiry-badge '+(x.type==='quick'?'is-quick':'is-general')+'">'+typeLabel+'</span><span class="inquiry-badge '+(pending?'is-status-new':'is-status-reviewed')+'">'+(pending?'미확인':'확인 완료')+'</span><span class="inquiry-badge is-category">'+esc(categoryLabel(x))+'</span></div><time>'+esc(date)+'</time></div>'+
+        '<div class="inquiry-card-body"><div class="inquiry-card-title"><strong>'+esc(name)+'</strong><span>'+esc(phone||'연락처 없음')+(email?' · '+esc(email):'')+'</span></div>'+
+        '<p>'+esc(x.message||'문의 내용 없음').replace(/\\n/g,'<br>')+'</p>'+details+'</div>'+
+        '<div class="inquiry-card-actions">'+phoneAction+mailAction+
+        '<button type="button" class="inquiry-action '+(pending?'is-primary':'')+'" data-status-id="'+esc(x.id)+'" data-next-status="'+(pending?'reviewed':'new')+'">'+(pending?'확인 완료 처리':'미확인으로 되돌리기')+'</button></div>'+
+        '</article>';
+    }).join('');
+    syncFilters();
+    $$('[data-status-id]').forEach(button=>button.onclick=async()=>{
+      button.disabled=true;
+      const next=button.dataset.nextStatus;
+      try{
+        await setDoc(doc(db,'inquiries',button.dataset.statusId),{status:next,updatedAt:serverTimestamp()},{merge:true});
+        const item=docs.find(x=>x.id===button.dataset.statusId);
+        if(item)item.status=next;
+        overview();
+        draw();
+        msg(next==='reviewed'?'문의 확인 처리 완료':'미확인 상태로 변경 완료');
+      }catch(e){button.disabled=false;msg('처리 실패: '+e.message)}
+    });
   }
-  $('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{root.querySelectorAll('[data-inquiry-kind]').forEach(x=>x.classList.toggle('active',x===b));draw(b.dataset.inquiryKind)});const first=root.querySelector('[data-inquiry-kind="all"]');if(first){(root.querySelector('[data-inquiry-kind="'+(state.inquiryFilter||'all')+'"]')||first).click();state.inquiryFilter=null;}
+
+  overview();
+  $('#inquirySearch').addEventListener('input',e=>{filter.term=e.target.value;draw()});
+  root.querySelectorAll('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{filter.type=b.dataset.inquiryKind;draw()});
+  root.querySelectorAll('[data-inquiry-status]').forEach(b=>b.onclick=()=>{filter.status=b.dataset.inquiryStatus;draw()});
+  $('#reloadInquiries').onclick=()=>renderOps('inquiries');
+  draw();
  }
 }
 clearForm('news');
