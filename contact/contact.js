@@ -1,5 +1,5 @@
 /* 펜타곤 통합 문의 — 일반 상담 / 법인등기 / 부동산등기
-   GitHub Pages용 mailto 초안 생성. 서버 접수 및 파일 전송 기능 없음.
+   Firebase 문의 DB에 우선 접수하고, 실패한 경우에만 이메일 문의 링크를 제공합니다.
 */
 (() => {
   'use strict';
@@ -41,7 +41,7 @@
     if(processNote)processNote.textContent=quote
       ?'업무 내용을 작성하시면 확인 후 견적과 필요한 절차를 안내드립니다.'
       :'현재 상황과 필요한 내용을 남겨주시면 담당자가 확인 후 연락드립니다.';
-    if(sendButton)sendButton.textContent=quote?'이메일로 견적 요청하기 →':'이메일로 문의하기 →';
+    if(sendButton)sendButton.textContent=quote?'견적 요청 접수하기 →':'문의 접수하기 →';
     if(fallback)fallback.hidden=true;
     if(result)result.textContent='';
   }
