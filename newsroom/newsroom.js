@@ -8,18 +8,18 @@
   let extra=[];
   try{const res=await fetch(`${base}/content/news.json?v=${Date.now()}`,{cache:'no-store'});if(res.ok)extra=await res.json()}catch(e){}
   // Merge published Firestore items while preserving existing GitHub JSON articles.
-  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('news');if(items?.length){const ids=new Set(extra.map(x=>x.id));extra=[...items.filter(x=>!ids.has(x.id)),...extra]}}catch(err){console.warn('Firebase news fallback',err)}
+  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('news');if(items?.length){const publishedIds=new Set(items.map(x=>x.id));extra=[...items,...extra.filter(x=>!publishedIds.has(x.id))]}}catch(err){console.warn('Firebase news fallback',err)}
   // All editorial articles now come from one CMS source; drafts are never rendered publicly.
   const records=Array.isArray(extra)?extra:[];
   const DATA=records.filter(x=>x&&x.status!=='draft').map(x=>[
     x.date||'',x.source||'',x.title||'',x.href||x.url||'#',
-    x.image||x.url||'',x.category||'firm',x.summary||''
+    x.image||'',x.category||'firm',x.summary||''
   ]).sort((a,b)=>String(b[0]).localeCompare(String(a[0])));
   const grid=root.querySelector('[data-news-grid]');
   const more=root.querySelector('[data-news-more]');
   const buttons=[...root.querySelectorAll('[data-news-filter]')];
   let filter='all',limit=12;
-  const directImage=u=>/^https?:\/\//i.test(u||'')&&/\.(png|jpe?g|webp|gif|avif)(?:[?#]|$)/i.test(u||'');
+  const directImage=u=>/^https:\/\/[^\s<>"']+$/i.test(u||'');
   const cards=DATA.map((item,i)=>{
     const [date,source,title,href,visual,category,summary]=item;
     const external=/^https?:\/\//.test(href);
