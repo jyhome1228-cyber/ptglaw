@@ -19,20 +19,20 @@
   }
 
   // New Firebase publications and legacy GitHub JSON are displayed together.
-  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('cases');if(items?.length){const ids=new Set(data.map(x=>x.id));data=[...items.filter(x=>!ids.has(x.id)),...data]}}catch(err){console.warn('Firebase cases fallback',err)}
+  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('cases');if(items?.length){const publishedIds=new Set(items.map(x=>x.id));data=[...items,...data.filter(x=>!publishedIds.has(x.id))]}}catch(err){console.warn('Firebase cases fallback',err)}
   const getHref=item=>{
     if(item.href)return item.href;
     return `${base}/cases/view/?id=${encodeURIComponent(item.id||'')}`;
   };
 
   const cards=data.map((item,index)=>{
-    const categories=Array.isArray(item.categories)&&item.categories.length?item.categories:['corporate'];
+    const categories=Array.isArray(item.categories)&&item.categories.length?item.categories:(item.category?[item.category]:['corporate']);
     const tags=Array.isArray(item.tags)?item.tags:[];
     const article=document.createElement('article');
     article.className='ptg-case-card';
     article.dataset.categories=categories.join(' ');
     const href=getHref(item);
-    article.innerHTML=`<div class="ptg-case-card__top"><div class="ptg-case-card__meta-wrap"><div class="ptg-case-card__meta"><span>${esc(item.meta1||'업무사례')}</span>${item.meta2?`<i></i><span>${esc(item.meta2)}</span>`:''}</div></div><span class="ptg-case-card__result">${esc(item.result||'')}</span></div><a class="ptg-case-card__title" href="${esc(href)}">${esc(item.title||'')}</a><p class="ptg-case-card__summary">${esc(item.summary||'')}</p><div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div><a class="ptg-case-card__more" href="${esc(href)}">사례 자세히 보기 →</a>`;
+    article.innerHTML=`<div class="ptg-case-card__top"><div class="ptg-case-card__meta-wrap"><div class="ptg-case-card__meta"><span>${esc(item.meta1||({criminal:'형사',tax:'조세·세무',civil:'민사',family:'가사·상속',corporate:'기업',realestate:'부동산·건설',ip:'지식재산'}[categories[0]]||'업무사례'))}</span>${item.meta2?`<i></i><span>${esc(item.meta2)}</span>`:''}</div></div><span class="ptg-case-card__result">${esc(item.result||'')}</span></div><a class="ptg-case-card__title" href="${esc(href)}">${esc(item.title||'')}</a><p class="ptg-case-card__summary">${esc(item.summary||'')}</p><div class="ptg-case-card__tags">${tags.map(v=>`<span>${esc(v)}</span>`).join('')}</div><a class="ptg-case-card__more" href="${esc(href)}">사례 자세히 보기 →</a>`;
     return article;
   });
 
