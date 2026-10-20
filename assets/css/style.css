@@ -1053,3 +1053,54 @@ body.ptg-ui-ready [data-site-header],
 body.ptg-ui-ready [data-site-footer]{
   visibility:visible;
 }
+
+/* 2026-10-20: shared responsive CTA and overflow QA */
+:root{--ptg-touch-target:44px}
+main,main section,main article,main .container,main [class*="shell"]{min-width:0}
+main img,main video,main svg{max-width:100%}
+main .btn,main .home-btn,main .ptg-btn,main .ptg-submit,
+main .contact-submit,main .fees-pill,main .fees-calc-button,
+main .ptg-bottom-cta__button,main .ptg-location-button,
+main .ptg-call,main .ptg-result-share__actions button{
+  box-sizing:border-box;
+  max-width:100%;
+  min-width:0;
+  text-align:center;
+  white-space:normal;
+  overflow-wrap:break-word;
+  word-break:keep-all;
+  line-height:1.45;
+  text-decoration:none;
+}
+main .btn,main .home-btn,main .ptg-btn,main .ptg-submit,
+main .contact-submit,main .fees-pill,main .fees-calc-button,
+main .ptg-location-button,main .ptg-call{
+  min-height:var(--ptg-touch-target);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+main :is(.btn,.home-btn,.ptg-btn,.ptg-submit,.contact-submit,.fees-pill,.fees-calc-button,.ptg-location-button,.ptg-call):focus-visible,
+.ptg-quick-launch:focus-visible,.ptg-quick-send:focus-visible{
+  outline:3px solid #ffb36f;
+  outline-offset:3px;
+}
+@media(max-width:980px){
+  main :is([class*="grid"],[class*="layout"],[class*="actions"],[class*="buttons"],[class*="cta"]){min-width:0}
+  main :is(h1,h2,h3,p){overflow-wrap:break-word;word-break:keep-all}
+  main :is(input,select,textarea){max-width:100%}
+  main :is(.btn,.home-btn,.ptg-btn,.ptg-submit,.contact-submit,.fees-pill,.fees-calc-button,.ptg-location-button,.ptg-call){max-width:100%;white-space:normal!important}
+  .ptg-bottom-cta__inner,.ptg-bottom-cta__actions,.ptg-bottom-cta__lead{min-width:0!important}
+  .ptg-bottom-cta__button{min-width:0!important;min-height:40px!important;height:auto!important;padding:8px 12px!important;font-size:12px!important;line-height:1.35!important;white-space:normal!important;word-break:keep-all!important;text-align:center}
+}
+@media(max-width:600px){
+  main :is(.cta-block,.fees-final,.ptg-contact,.ptg-tools-page) :is(.actions,[class*="actions"],[class*="buttons"]){max-width:100%}
+  main :is(.contact-submit,.fees-calc-button,.ptg-submit){width:100%}
+  .ptg-quick-launch{max-width:calc(100vw - 28px);white-space:normal;font-size:13px!important}
+  .ptg-bottom-cta__actions{gap:6px!important}
+  .ptg-bottom-cta__button{font-size:12px!important;min-width:0!important}
+}
+@media(prefers-reduced-motion:reduce){
+  main :is(.btn,.home-btn,.ptg-btn,.contact-submit,.fees-pill,.fees-calc-button){transition:none!important}
+}
