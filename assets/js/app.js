@@ -383,3 +383,24 @@
     });
   })();
 })();
+
+/* Subtle shared presentation motion — no delayed navigation or hidden content. */
+(() => {
+  const css = document.createElement('style');
+  css.id = 'ptg-motion-20261020';
+  css.textContent = `
+    @view-transition { navigation: auto; }
+    ::view-transition-old(root){animation:ptg-page-out .14s ease-in both}
+    ::view-transition-new(root){animation:ptg-page-in .28s ease-out both}
+    @keyframes ptg-page-out{to{opacity:.92}}
+    @keyframes ptg-page-in{from{opacity:.86;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes ptg-soft-enter{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+    .ptg-motion-ready main h1,.ptg-motion-ready main .ptg-home-hero__copy,.ptg-motion-ready main .ptg-cases-head,.ptg-motion-ready main .ptg-newsroom-head{animation:ptg-soft-enter .58s cubic-bezier(.2,.7,.2,1) both}
+    .ptg-case-card,.ptg-newsroom-card,.ptg-home-case,.ptg-home-center,.ptg-home-tool-grid>a{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+    @media(hover:hover){.ptg-case-card:hover,.ptg-newsroom-card:hover{transform:translateY(-3px)}}
+    @media(max-width:767px){main h1{overflow-wrap:break-word}main img{max-width:100%}}
+    @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root),.ptg-motion-ready main h1,.ptg-motion-ready main .ptg-home-hero__copy,.ptg-motion-ready main .ptg-cases-head,.ptg-motion-ready main .ptg-newsroom-head{animation:none!important}.ptg-case-card,.ptg-newsroom-card,.ptg-home-case,.ptg-home-center,.ptg-home-tool-grid>a{transition:none!important}}
+  `;
+  document.head.appendChild(css);
+  document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('ptg-motion-ready'),{once:true});
+})();
