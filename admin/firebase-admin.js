@@ -62,7 +62,7 @@ function edit(item){
  for(const key of ['title','summary','date','source','category','url','image','status','overview','strategy','resultBody','result','point'])if(f.elements[key])f.elements[key].value=item[key]||'';
  if(kind==='news'&&item.date)f.elements.date.value=item.date.replace(/\./g,'-');
  if(kind==='news')updateNewsImagePreview();
- if(kind==='cases'){const storedCategory=item.categories?.[0]||item.category||Object.keys(categories).find(k=>categories[k]===item.meta1)||'corporate';f.elements.category.value=categories[storedCategory]?storedCategory:'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
+ if(kind==='cases'){const storedCategory=item.category||item.categories?.[0]||Object.keys(categories).find(k=>categories[k]===item.meta1)||'corporate';f.elements.category.value=categories[storedCategory]?storedCategory:'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
  $('#'+kind+'FormTitle').textContent='게시물 수정';window.scrollTo({top:0,behavior:'smooth'});
 }
 async function updateStatus(item){try{await setDoc(doc(db,state.view,item.id),{status:item.status==='published'?'draft':'published',updatedAt:serverTimestamp()},{merge:true});msg('공개 상태 변경 완료');await load()}catch(err){msg('변경 실패: '+err.message)}}
@@ -70,13 +70,13 @@ async function remove(item){if(!confirm('이 게시물을 삭제할까요? 복�
 
 const imageField=$('#newsForm input[name="image"]');
 const imagePreview=$('#newsImagePreview');
-const directImageUrl=value=>!value||(/^https?:\/\//i.test(value)&&/\.(png|jpe?g|webp|gif|avif)(?:[?#]|$)/i.test(value));
+const directImageUrl=value=>!value||/^https:\/\/[^\s<>"']+$/i.test(value);
 function updateNewsImagePreview(){
  if(!imagePreview||!imageField)return;
  const value=imageField.value.trim();
  imagePreview.classList.remove('is-error');
  if(!value){imagePreview.textContent='등록된 이미지가 없습니다. 뉴스룸에는 기본 카드가 표시됩니다.';return;}
- if(!directImageUrl(value)){imagePreview.textContent='기사 페이지 URL은 이미지로 사용할 수 없습니다. 실제 이미지 파일 주소를 입력해주세요.';imagePreview.classList.add('is-error');return;}
+ if(!directImageUrl(value)){imagePreview.textContent='HTTPS 이미지 주소를 입력해주세요.';imagePreview.classList.add('is-error');return;}
  const img=document.createElement('img');img.alt='대표 이미지 미리보기';
  img.addEventListener('error',()=>{imagePreview.textContent='이미지를 불러오지 못했습니다. 주소 또는 외부 사이트의 이미지 차단 여부를 확인해주세요.';imagePreview.classList.add('is-error')});
  img.src=value;imagePreview.replaceChildren(img);
