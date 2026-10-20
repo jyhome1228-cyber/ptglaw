@@ -4,7 +4,7 @@
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
   const LABEL={firm:'펜타곤 소식',interview:'인터뷰',column:'기고',activity:'법조 활동',broadcast:'방송'};
   const COPY={firm:'펜타곤 법률세무회계의 주요 소식과 전문 서비스 관련 보도입니다.',interview:'인터뷰와 법조계 현안에 관한 주요 발언을 확인하세요.',column:'법률·조세·법조 제도에 관한 전문가 기고입니다.',activity:'한국법조인협회와 주요 법조계 활동을 다룬 보도입니다.',broadcast:'방송 보도와 인터뷰 내용을 확인하세요.'};
-  const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[x]));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
   let extra=[];
   try{const res=await fetch(`${base}/content/news.json?v=${Date.now()}`,{cache:'no-store'});if(res.ok)extra=await res.json()}catch(e){}
   // Merge published Firestore items while preserving existing GitHub JSON articles.
