@@ -269,7 +269,7 @@ function startInquiryWatch(){
   const ids=new Set(snapshot.docs.map(x=>x.id));
   if(initialized){
    const arriving=snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new');
-   if(arriving.length){toast.querySelector('p').textContent='신규 문의 '+arriving.length+'건이 접수되었습니다. 문의 관리에서 확인해주세요.';toast.hidden=false;}
+   if(arriving.length){toast.querySelector('p').textContent='신규 문의 '+arriving.length+'건이 접수되었습니다. 문의 관리에서 확인해주세요.';toast.hidden=false;if(state.view==='inquiries'||state.view==='dashboard')renderOps(state.view);}
   }
   known=ids;initialized=true;
   if(!fresh.length)toast.hidden=true;
