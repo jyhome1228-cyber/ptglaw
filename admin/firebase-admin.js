@@ -1,8 +1,12 @@
 import {auth,db} from '../assets/js/firebase-client.js';
+import {getStorage,ref as storageRef,uploadBytes,getDownloadURL} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js';
+import {onSnapshot} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 import {signInWithEmailAndPassword,signOut,onAuthStateChanged,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {doc,getDoc,collection,getDocs,query,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const state={view:'news',items:[],editing:null,authorized:false,inquiryFilter:null};
+let stopInquiryWatch=null;
+let imageUploading=false;
 const msg=t=>{$('#status').textContent=t;};
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const categories={criminal:'형사',tax:'조세·세무',civil:'민사',family:'가사·상속',corporate:'기업',realestate:'부동산·건설',ip:'지식재산'};
@@ -36,11 +40,11 @@ async function startAdminSession(){
  // Each new admin page entry requires explicit sign-in; no restored credentials.
  try{await signOut(auth);await setPersistence(auth,inMemoryPersistence);}catch(err){msg('로그인 초기화 실패: '+err.message);return;}
  onAuthStateChanged(auth,async user=>{
- state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
+ if(stopInquiryWatch){stopInquiryWatch();stopInquiryWatch=null;}state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
  if(!user){$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
  try{const adm=await getDoc(doc(db,'admins',user.uid));if(!adm.exists()||adm.data().role!=='admin')throw Error('관리자 권한이 등록되지 않은 계정입니다.');
  state.authorized=true;$('#connection').textContent='데이터베이스 연결됨';$('#authName').textContent=user.email;$('#logout').hidden=false;
- $('#loginShell').hidden=true;$('#adminApp').hidden=false;$('#manager').hidden=false;document.body.classList.remove('admin-login-mode');msg('');setView('dashboard');
+ $('#loginShell').hidden=true;$('#adminApp').hidden=false;$('#manager').hidden=false;document.body.classList.remove('admin-login-mode');msg('');setView('dashboard');startInquiryWatch();
  }catch(err){$('#connection').textContent='관리자 권한 없음';$('#authName').textContent=user.email;$('#logout').hidden=false;msg(err.message);}
 });
 }
@@ -69,6 +73,22 @@ async function updateStatus(item){try{await setDoc(doc(db,state.view,item.id),{s
 async function remove(item){if(!confirm('이 게시물을 삭제할까요? 복구하려면 다시 등록해야 합니다.'))return;try{await deleteDoc(doc(db,state.view,item.id));clearForm(state.view);msg('삭제 완료');await load()}catch(err){msg('삭제 실패: '+err.message)}}
 
 const imageField=$('#newsForm input[name="image"]');
+const uploadInput=$('#newsImageFile');
+const uploadStatus=$('#newsUploadStatus');
+uploadInput?.addEventListener('change',async()=>{
+ const file=uploadInput.files?.[0];if(!file)return;
+ if(!state.authorized){uploadStatus.textContent='관리자 로그인 후 업로드할 수 있습니다.';return;}
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5*1024*1024){uploadStatus.textContent='JPG·PNG·WebP 형식의 5MB 이하 파일만 등록할 수 있습니다.';uploadInput.value='';return;}
+ imageUploading=true;const submit=$('#newsForm button[type="submit"]');submit.disabled=true;uploadStatus.textContent='이미지를 업로드 중입니다...';
+ try{
+  const ext=({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp' })[file.type];
+  const objectPath='news/'+Date.now()+'-'+crypto.randomUUID()+'.'+ext;
+  const result=await uploadBytes(storageRef(getStorage(auth.app),objectPath),file,{contentType:file.type,cacheControl:'public,max-age=86400'});
+  imageField.value=await getDownloadURL(result.ref);updateNewsImagePreview();
+  uploadStatus.textContent='이미지 업로드 완료. 뉴스 저장하기를 눌러 게시해주세요.';
+ }catch(err){uploadStatus.textContent='이미지 업로드 실패: '+(err.code||err.message)+' · Storage 활성화 및 규칙을 확인해주세요.';}
+ finally{imageUploading=false;submit.disabled=false;uploadInput.value='';}
+});
 const imagePreview=$('#newsImagePreview');
 const directImageUrl=value=>!value||/^https:\/\/[^\s<>"']+$/i.test(value);
 function updateNewsImagePreview(){
@@ -86,7 +106,7 @@ imageField?.addEventListener('input',updateNewsImagePreview);
 
 function getValues(f){return Object.fromEntries(new FormData(f).entries())}
 for(const kind of ['news','cases'])form(kind).addEventListener('submit',async e=>{
- e.preventDefault();if(!state.authorized)return msg('관리자 권한이 필요합니다.');
+ e.preventDefault();if(!state.authorized)return msg('관리자 권한이 필요합니다.');if(kind==='news'&&imageUploading)return msg('이미지 업로드가 완료된 후 저장해주세요.');
  const f=e.currentTarget,v=getValues(f);if(!v.title?.trim())return msg('제목을 입력해주세요.');
  if(kind==='news'&&!directImageUrl((v.image||'').trim()))return msg('대표 이미지에는 기사 주소가 아닌 JPG·PNG·WebP 등 실제 이미지 주소를 입력하세요. 이미지가 없으면 비워두세요.');
  const id=state.editing||kind.slice(0,-1)+'-'+Date.now().toString(36);
@@ -233,3 +253,25 @@ async function renderOps(kind){
  }
 }
 clearForm('news');
+
+function startInquiryWatch(){
+ if(stopInquiryWatch)stopInquiryWatch();
+ const nav=$('[data-view="inquiries"]');
+ let badge=nav.querySelector('.ptg-inquiry-count');
+ if(!badge){badge=document.createElement('span');badge.className='ptg-inquiry-count';badge.hidden=true;nav.appendChild(badge);}
+ let toast=$('#ptgLiveNotice');
+ if(!toast){toast=document.createElement('aside');toast.id='ptgLiveNotice';toast.className='ptg-live-notice';toast.hidden=true;toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');toast.innerHTML='<strong>새로운 문의가 도착했습니다.</strong><p style="margin:8px 0 0;font-size:13px">문의 관리에서 내용을 확인해주세요.</p><button type="button">문의 확인하기 →</button>';document.body.appendChild(toast);toast.querySelector('button').addEventListener('click',()=>{toast.hidden=true;setView('inquiries');});}
+ let initialized=false,known=new Set();
+ stopInquiryWatch=onSnapshot(collection(db,'inquiries'),snapshot=>{
+  if(!state.authorized)return;
+  const fresh=snapshot.docs.filter(x=>x.data().status==='new');
+  badge.textContent=String(fresh.length);badge.hidden=fresh.length===0;
+  const ids=new Set(snapshot.docs.map(x=>x.id));
+  if(initialized){
+   const arriving=snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new');
+   if(arriving.length){toast.querySelector('p').textContent='신규 문의 '+arriving.length+'건이 접수되었습니다. 문의 관리에서 확인해주세요.';toast.hidden=false;}
+  }
+  known=ids;initialized=true;
+  if(!fresh.length)toast.hidden=true;
+ },err=>{console.warn('문의 실시간 연결 실패',err);msg('실시간 문의 알림 연결 실패: '+(err.code||err.message));});
+}
