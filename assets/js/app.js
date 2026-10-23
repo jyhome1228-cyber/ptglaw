@@ -30,7 +30,7 @@
   document.head.appendChild(fixedHeaderStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261019-mobileqa3';
+  const CSS_VERSION='20261023-mobile-motion1';
   const LOGO_VERSION='20261005-2149';
   const SERVICE_ASSET_VERSION='20261014-1115';
   const ensureCss=(key,file)=>new Promise(resolve=>{
@@ -403,4 +403,34 @@
   `;
   document.head.appendChild(css);
   document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('ptg-motion-ready'),{once:true});
+})();
+
+
+/* Progressive heading reveals, limited to on-screen editorial headings. */
+(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+  const sheet=document.createElement('style');
+  sheet.id='ptg-headings-reveal';
+  sheet.textContent=`
+    @keyframes ptg-heading-in{from{opacity:.55;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+    main .ptg-heading-appeared{animation:ptg-heading-in .5s cubic-bezier(.22,.7,.24,1) both}
+    @media(prefers-reduced-motion:reduce){main .ptg-heading-appeared{animation:none!important}}
+  `;
+  document.head.appendChild(sheet);
+  const ready=()=>{
+    const io=new IntersectionObserver((entries)=>{
+      for(const entry of entries){
+        if(!entry.isIntersecting)continue;
+        entry.target.classList.add('ptg-heading-appeared');
+        io.unobserve(entry.target);
+      }
+    },{threshold:0.08,rootMargin:'0px 0px -20px 0px'});
+    document.querySelectorAll('main h2,main h3').forEach(el=>{
+      if(el.closest('[hidden],[aria-hidden="true"],dialog,[role="tablist"],.ptg-calc-result'))return;
+      io.observe(el);
+    });
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});
+  else ready();
 })();
