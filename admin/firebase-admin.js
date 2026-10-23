@@ -300,7 +300,6 @@ function startInquiryWatch(){
   const arriving=initialized?snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new'):[];
   const needsNotice=!initialized?fresh:arriving;
   if(needsNotice.length){
-    if(true){
     const count=needsNotice.length;
     const first=needsNotice[0].data();
     const kind=first.type==='quick'?'빠른 문의':'일반 문의';
@@ -309,7 +308,6 @@ function startInquiryWatch(){
       :(initialized?'새로운 문의 ':'미확인 문의 ')+count+'건이 있습니다. 문의 관리에서 확인해 주세요.';
     overlay.hidden=false;
     overlay.querySelector('[data-open]').focus();
-   }
    if(arriving.length&&(state.view==='inquiries'||state.view==='dashboard'))renderOps(state.view);
   }
   known=ids;initialized=true;
