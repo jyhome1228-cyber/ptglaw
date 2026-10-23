@@ -7,3 +7,7 @@
 @media(max-width:1280px){.ptg-tools-page .ptg-tools-shell{width:calc(100% - 48px)!important}}
 @media(max-width:900px){.ptg-calc-wrap{grid-template-columns:1fr}.ptg-tools-grid{grid-template-columns:1fr 1fr}.ptg-tools-page .ptg-tools-head{grid-template-columns:1fr!important;gap:14px!important}.ptg-tools-page .ptg-calc-wrap{grid-template-columns:1fr!important;gap:20px!important}}
 @media(max-width:767px){.ptg-tools-page{padding:40px 0 64px}.ptg-tools-shell{width:calc(100% - 32px)}.ptg-tools-page .ptg-tools-shell{width:calc(100% - 32px)!important}.ptg-tools-head{grid-template-columns:1fr;gap:10px;margin-bottom:24px}.ptg-tools-head h1{font-size:28px!important;line-height:38px!important}.ptg-tools-grid,.ptg-calc-fields{grid-template-columns:1fr}.ptg-tool-card{min-height:auto;padding:20px}.ptg-calc-panel{padding:20px}.ptg-calc-tabs{overflow-x:auto}.ptg-calc-tabs button{white-space:nowrap}.ptg-result-share__head{display:block}.ptg-result-share__head span{display:block;margin-top:4px;text-align:left}.ptg-result-share__actions{grid-template-columns:1fr}.ptg-result-share__actions button{min-height:44px}.ptg-share-toast{left:0;right:auto;top:-10px}}
+/* Bookmark helper breathing room on all calculator pages */
+.ptg-tools-page .ptg-bookmark{margin-top:0!important;margin-bottom:30px!important}
+.ptg-tools-page .ptg-bookmark + .ptg-calc-wrap{margin-top:0!important}
+@media(max-width:767px){.ptg-tools-page .ptg-bookmark{margin-bottom:22px!important}}
