@@ -124,3 +124,17 @@
   .about-page .about-intro__copy p{font-size:16px!important;line-height:1.7!important}
   .about-page .about-intro__point{background:#fff!important;border-color:#e5e7eb!important;font-size:15px!important}
 }
+
+/* Pentagon about / five principles — balanced 3 + 2 editorial cards */
+.about-page .about-section__head:has(+ .about-standard-list){display:block!important;max-width:840px!important;margin:0 0 34px!important}
+.about-page .about-section__head:has(+ .about-standard-list) h2{max-width:100%!important;margin:0 0 12px!important;font-size:clamp(27px,2.5vw,36px)!important;line-height:1.3!important;letter-spacing:-.045em!important}
+.about-page .about-section__head:has(+ .about-standard-list) p{max-width:760px!important;margin:0!important;font-size:15px!important;line-height:1.75!important;color:#666!important}
+.about-page .about-standard-list{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:16px!important;border:0!important;background:transparent!important;overflow:visible!important}
+.about-page .about-standard-list>.about-standard{grid-column:span 2;min-width:0;display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:0!important;min-height:250px;padding:28px!important;border:1px solid #e9e9e9!important;border-radius:16px!important;background:#fff!important;box-shadow:none!important}
+.about-page .about-standard-list>.about-standard:nth-child(4),.about-page .about-standard-list>.about-standard:nth-child(5){grid-column:span 3}
+.about-page .about-standard-list>.about-standard>.ptg-card-icon{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:none!important;width:54px!important;height:54px!important;margin:0 0 22px!important;padding:13px!important;border-radius:14px!important;background:#fff3e9!important;color:#f47718!important}
+.about-page .about-standard-list>.about-standard>.ptg-card-icon svg{width:28px!important;height:28px!important;display:block!important}
+.about-page .about-standard-list>.about-standard h3{margin:0 0 12px!important;font-size:20px!important;line-height:1.45!important;letter-spacing:-.035em!important;word-break:keep-all!important}
+.about-page .about-standard-list>.about-standard p{margin:0!important;max-width:490px!important;color:#666!important;font-size:15px!important;line-height:1.75!important;word-break:keep-all!important}
+@media(max-width:1000px){.about-page .about-standard-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}.about-page .about-standard-list>.about-standard,.about-page .about-standard-list>.about-standard:nth-child(4),.about-page .about-standard-list>.about-standard:nth-child(5){grid-column:span 1}}
+@media(max-width:650px){.about-page .about-standard-list{grid-template-columns:1fr!important;gap:12px!important}.about-page .about-standard-list>.about-standard,.about-page .about-standard-list>.about-standard:nth-child(4),.about-page .about-standard-list>.about-standard:nth-child(5){grid-column:span 1;min-height:0;padding:22px!important}.about-page .about-standard-list>.about-standard>.ptg-card-icon{margin-bottom:16px!important}.about-page .about-standard-list>.about-standard h3{font-size:19px!important}.about-page .about-standard-list>.about-standard p{font-size:14px!important}}
