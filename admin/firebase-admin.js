@@ -226,14 +226,22 @@ async function renderOps(kind){
       const name=x.name||'이름 미입력';
       const phone=x.phone||'';
       const email=x.email||'';
-      const details=x.details?'<details class="inquiry-details"><summary>상세 접수 정보 보기</summary><div>'+esc(x.details).replace(/\\n/g,'<br>')+'</div></details>':'';
+      const detailText=String(x.details||'').trim();
+      const formattedDetails=detailText
+        .replace(/\\n/g,'\n')
+        .replace(/\\s+(?=(?:문의 유형|이름|연락처|이메일|회사\\/법인명|문의 분야|주요 기한|등기 종류|신청자 구분|관련 금액|부동산 소재지|상세주소|문의 내용|관련 파일|예상 비용|안내드립니다)\\s*[:：])/g,'\n')
+        .split('\n').map(line=>line.trim()).filter(Boolean)
+        .map(line=>{const match=line.match(/^([^:：]{1,24})[:：]\\s*(.*)$/);return match?'<div class="ptg-detail-row"><dt>'+esc(match[1])+'</dt><dd>'+esc(match[2])+'</dd></div>':'<p class="ptg-detail-extra">'+esc(line)+'</p>';}).join('');
+      const details=detailText?'<details class="inquiry-details"><summary>추가 접수 정보 펼쳐보기</summary><div class="ptg-detail-content">'+formattedDetails+'</div></details>':'';
       const phoneAction=phone?'<a class="inquiry-action" href="'+esc(phoneHref(phone))+'">전화하기</a>':'';
-      const mailAction=email?'<a class="inquiry-action" href="mailto:'+esc(email)+'">메일 보내기</a>':'';
+      const mailAction=email?'<a class="inquiry-action" href="mailto:'+esc(email)+'">이메일 보내기</a>':'';
+      const category=categoryLabel(x);
+      const showCategory=category&&category!==typeLabel&&category!=='빠른 문의'&&category!=='일반 상담';
       return '<article class="inquiry-card '+(pending?'is-new':'is-reviewed')+'">'+
-        '<div class="inquiry-card-head"><div class="inquiry-badges"><span class="inquiry-badge '+(x.type==='quick'?'is-quick':'is-general')+'">'+typeLabel+'</span><span class="inquiry-badge '+(pending?'is-status-new':'is-status-reviewed')+'">'+(pending?'미확인':'확인 완료')+'</span><span class="inquiry-badge is-category">'+esc(categoryLabel(x))+'</span></div><time>'+esc(date)+'</time></div>'+
-        '<div class="inquiry-card-body"><div class="inquiry-card-title"><strong>'+esc(name)+'</strong><span>'+esc(phone||'연락처 없음')+(email?' · '+esc(email):'')+'</span></div>'+
-        '<p>'+esc(x.message||'문의 내용 없음').replace(/\\n/g,'<br>')+'</p>'+details+'</div>'+
-        '<div class="inquiry-card-actions">'+phoneAction+mailAction+
+        '<div class="inquiry-card-head"><div class="inquiry-badges"><span class="inquiry-badge '+(pending?'is-status-new':'is-status-reviewed')+'">'+(pending?'미확인':'확인 완료')+'</span><span class="ptg-inquiry-type">'+esc(typeLabel)+'</span>'+(showCategory?'<span class="ptg-inquiry-separator">·</span><span class="ptg-inquiry-type">'+esc(category)+'</span>':'')+'</div><time>'+esc(date)+'</time></div>'+
+        '<div class="inquiry-card-body"><div class="ptg-contact-block"><div class="ptg-contact-heading"><strong>'+esc(name)+'</strong><span>님의 문의</span></div><div class="ptg-contact-info">'+(phone?'<span>전화 <b>'+esc(phone)+'</b></span>':'')+(email?'<span>이메일 <b>'+esc(email)+'</b></span>':'')+'</div></div>'+
+        '<div class="ptg-message-block"><div class="ptg-section-label">문의 내용</div><p>'+esc(x.message||'문의 내용 없음').replace(/\\n/g,'<br>')+'</p></div>'+details+'</div>'+
+        '<div class="inquiry-card-actions"><div class="ptg-response-actions">'+phoneAction+mailAction+'</div>'+
         '<button type="button" class="inquiry-action '+(pending?'is-primary':'')+'" data-status-id="'+esc(x.id)+'" data-next-status="'+(pending?'reviewed':'new')+'">'+(pending?'확인 완료 처리':'미확인으로 되돌리기')+'</button></div>'+
         '</article>';
     }).join('');
