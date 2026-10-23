@@ -147,7 +147,15 @@ async function renderOps(kind){
     const all=inquiries.docs.map(d=>({id:d.id,...d.data()}));
     const quick=all.filter(d=>d.type==='quick'),general=all.filter(d=>d.type!=='quick');
     const pending=all.filter(d=>d.status==='new');
-    $('#opSummary').innerHTML='<div class="ops-stats"><button type="button" class="ops-stat-link" data-open-inquiry="quick">빠른 문의<strong>'+quick.length+'</strong><small>미확인 '+quick.filter(d=>d.status==='new').length+'건 · 확인하기</small></button><button type="button" class="ops-stat-link" data-open-inquiry="general">일반 문의<strong>'+general.length+'</strong><small>미확인 '+general.filter(d=>d.status==='new').length+'건 · 확인하기</small></button><div>뉴스<strong>'+news.size+'</strong><small>데이터베이스 등록</small></div><div>업무사례<strong>'+cases.size+'</strong><small>데이터베이스 등록</small></div></div>'+(pending.length?'<p class="ops-unread">확인이 필요한 문의 '+pending.length+'건</p>':'<p class="muted">미확인 문의가 없습니다.</p>');
+    const quickNew=quick.filter(d=>d.status==='new').length,generalNew=general.filter(d=>d.status==='new').length;
+    const statCard=(label,total,sub,icon,kind)=>'<button type="button" class="ptg-overview-card '+(kind?'is-action':'is-static')+'" '+(kind?'data-open-inquiry="'+kind+'"':'disabled')+'><span class="ptg-overview-card-top"><span class="ptg-overview-label">'+label+'</span><span class="ptg-overview-icon" aria-hidden="true">'+icon+'</span></span><strong>'+total+'</strong><span class="ptg-overview-bottom">'+sub+(kind?'<span class="ptg-overview-arrow" aria-hidden="true">→</span>':'')+'</span></button>';
+    $('#opSummary').innerHTML='<div class="ptg-overview-head"><p>접수된 문의와 등록 콘텐츠를 확인할 수 있습니다.</p>'+(pending.length?'<span class="ptg-overview-alert"><span class="ptg-alert-dot"></span> 미확인 문의 '+pending.length+'건</span>':'<span class="ptg-overview-clear">모든 문의를 확인했습니다</span>')+'</div>'+
+    '<div class="ptg-overview-grid">'+
+    statCard('빠른 문의',quick.length,quickNew?'미확인 '+quickNew+'건':'모두 확인됨','✉','quick')+
+    statCard('일반 문의',general.length,generalNew?'미확인 '+generalNew+'건':'모두 확인됨','▤','general')+
+    statCard('뉴스',news.size,'등록된 소식','▧',null)+
+    statCard('업무사례',cases.size,'등록된 사례','◫',null)+
+    '</div>';
     document.querySelectorAll('#opSummary [data-open-inquiry]').forEach(button=>button.onclick=()=>{state.inquiryFilter=button.dataset.openInquiry;setView('inquiries')});
   }catch(e){if($('#opSummary'))$('#opSummary').textContent='현황 조회 실패: '+e.message}
  }else if(kind==='visitors'){
