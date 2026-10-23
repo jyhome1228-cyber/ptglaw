@@ -229,9 +229,9 @@ async function renderOps(kind){
       const detailText=String(x.details||'').trim();
       const formattedDetails=detailText
         .replace(/\\n/g,'\n')
-        .replace(/\\s+(?=(?:문의 유형|이름|연락처|이메일|회사\\/법인명|문의 분야|주요 기한|등기 종류|신청자 구분|관련 금액|부동산 소재지|상세주소|문의 내용|관련 파일|예상 비용|안내드립니다)\\s*[:：])/g,'\n')
+        .replace(/\s+(?=(?:문의 유형|이름|연락처|이메일|회사|문의 분야|주요 기한|등기 종류|신청자 구분|관련 금액|부동산 소재지|상세주소|문의 내용|관련 파일|예상 비용)\s*[:：])/g,'\n')
         .split('\n').map(line=>line.trim()).filter(Boolean)
-        .map(line=>{const match=line.match(/^([^:：]{1,24})[:：]\\s*(.*)$/);return match?'<div class="ptg-detail-row"><dt>'+esc(match[1])+'</dt><dd>'+esc(match[2])+'</dd></div>':'<p class="ptg-detail-extra">'+esc(line)+'</p>';}).join('');
+        .map(line=>{const match=line.match(/^([^:：]{1,24})[:：]\s*(.*)$/);return match?'<div class="ptg-detail-row"><dt>'+esc(match[1])+'</dt><dd>'+esc(match[2])+'</dd></div>':'<p class="ptg-detail-extra">'+esc(line)+'</p>';}).join('');
       const details=detailText?'<details class="inquiry-details"><summary>추가 접수 정보 펼쳐보기</summary><div class="ptg-detail-content">'+formattedDetails+'</div></details>':'';
       const phoneAction=phone?'<a class="inquiry-action" href="'+esc(phoneHref(phone))+'">전화하기</a>':'';
       const mailAction=email?'<a class="inquiry-action" href="mailto:'+esc(email)+'">이메일 보내기</a>':'';
