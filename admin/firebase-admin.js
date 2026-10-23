@@ -40,7 +40,7 @@ async function startAdminSession(){
  // Each new admin page entry requires explicit sign-in; no restored credentials.
  try{await signOut(auth);await setPersistence(auth,inMemoryPersistence);}catch(err){msg('로그인 초기화 실패: '+err.message);return;}
  onAuthStateChanged(auth,async user=>{
- if(stopInquiryWatch){stopInquiryWatch();stopInquiryWatch=null;}state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
+ if(stopInquiryWatch){stopInquiryWatch();stopInquiryWatch=null;}const existingOverlay=$('#ptgInquiryOverlay');if(existingOverlay)existingOverlay.hidden=true;state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
  if(!user){$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
  try{const adm=await getDoc(doc(db,'admins',user.uid));if(!adm.exists()||adm.data().role!=='admin')throw Error('관리자 권한이 등록되지 않은 계정입니다.');
  state.authorized=true;$('#connection').textContent='데이터베이스 연결됨';$('#authName').textContent=user.email;$('#logout').hidden=false;
@@ -259,8 +259,30 @@ function startInquiryWatch(){
  const nav=$('[data-view="inquiries"]');
  let badge=nav.querySelector('.ptg-inquiry-count');
  if(!badge){badge=document.createElement('span');badge.className='ptg-inquiry-count';badge.hidden=true;nav.appendChild(badge);}
- let toast=$('#ptgLiveNotice');
- if(!toast){toast=document.createElement('aside');toast.id='ptgLiveNotice';toast.className='ptg-live-notice';toast.hidden=true;toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');toast.innerHTML='<strong>새로운 문의가 도착했습니다.</strong><p style="margin:8px 0 0;font-size:13px">문의 관리에서 내용을 확인해주세요.</p><button type="button">문의 확인하기 →</button>';document.body.appendChild(toast);toast.querySelector('button').addEventListener('click',()=>{toast.hidden=true;setView('inquiries');});}
+ let overlay=$('#ptgInquiryOverlay');
+ if(!overlay){
+  const style=document.createElement('style');
+  style.textContent=`
+   .ptg-inquiry-overlay[hidden]{display:none!important}
+   .ptg-inquiry-overlay{position:fixed;inset:0;z-index:12000;background:rgba(17,20,25,.62);display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;backdrop-filter:blur(3px)}
+   .ptg-inquiry-modal{width:min(440px,100%);box-sizing:border-box;background:#fff;border-radius:20px;padding:34px;box-shadow:0 26px 84px rgba(0,0,0,.24);text-align:center;color:#222}
+   .ptg-inquiry-modal-icon{width:56px;height:56px;border-radius:17px;background:#fff2e8;color:#e87820;display:grid;place-items:center;margin:0 auto 19px}
+   .ptg-inquiry-modal h2{font-size:22px;line-height:1.4;margin:0 0 10px;color:#1e1e1e}
+   .ptg-inquiry-modal p{font-size:15px;line-height:1.7;color:#656565;margin:0 0 26px;word-break:keep-all}
+   .ptg-inquiry-modal-actions{display:flex;gap:10px}
+   .ptg-inquiry-modal-actions button{border:1px solid #e3e3e3;border-radius:11px;min-height:47px;cursor:pointer;font-size:14px;font-weight:600;padding:12px 14px;background:#fff;color:#333;flex:1}
+   .ptg-inquiry-modal-actions button[data-open]{background:#e97920;color:#fff;border-color:#e97920;flex:1.6}
+   @media(max-width:480px){.ptg-inquiry-modal{padding:26px 20px}.ptg-inquiry-modal h2{font-size:20px}.ptg-inquiry-overlay{padding:16px}}
+  `;
+  document.head.appendChild(style);
+  overlay=document.createElement('div');overlay.id='ptgInquiryOverlay';overlay.className='ptg-inquiry-overlay';overlay.hidden=true;
+  overlay.innerHTML='<div class="ptg-inquiry-modal" role="alertdialog" aria-modal="true" aria-labelledby="ptgInquiryTitle" aria-describedby="ptgInquiryDescription"><div class="ptg-inquiry-modal-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8A8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z"/></svg></div><h2 id="ptgInquiryTitle">새로운 문의가 도착했어요!</h2><p id="ptgInquiryDescription">고객님이 새로운 상담 문의를 남겼습니다.</p><div class="ptg-inquiry-modal-actions"><button type="button" data-dismiss>나중에 확인</button><button type="button" data-open>문의 확인하러 가기 →</button></div></div>';
+  document.body.appendChild(overlay);
+  overlay.querySelector('[data-dismiss]').addEventListener('click',()=>{overlay.hidden=true;});
+  overlay.querySelector('[data-open]').addEventListener('click',()=>{overlay.hidden=true;state.inquiryFilter=null;setView('inquiries');});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden){overlay.hidden=true;}});
+ }
+ overlay.hidden=true;
  let initialized=false,known=new Set();
  stopInquiryWatch=onSnapshot(collection(db,'inquiries'),snapshot=>{
   if(!state.authorized)return;
@@ -269,9 +291,19 @@ function startInquiryWatch(){
   const ids=new Set(snapshot.docs.map(x=>x.id));
   if(initialized){
    const arriving=snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new');
-   if(arriving.length){toast.querySelector('p').textContent='신규 문의 '+arriving.length+'건이 접수되었습니다. 문의 관리에서 확인해주세요.';toast.hidden=false;if(state.view==='inquiries'||state.view==='dashboard')renderOps(state.view);}
+   if(arriving.length){
+    const count=arriving.length;
+    const first=arriving[0].data();
+    const kind=first.type==='quick'?'빠른 문의':'일반 문의';
+    overlay.querySelector('#ptgInquiryDescription').textContent=count===1
+      ?(first.name?first.name+'님의 '+kind+'가 접수되었습니다. 확인 후 응대해 주세요.':'새로운 '+kind+'가 접수되었습니다. 확인 후 응대해 주세요.')
+      :'새로운 문의 '+count+'건이 접수되었습니다. 문의 관리에서 확인해 주세요.';
+    overlay.hidden=false;
+    overlay.querySelector('[data-open]').focus();
+   }
+   if(arriving.length&&(state.view==='inquiries'||state.view==='dashboard'))renderOps(state.view);
   }
   known=ids;initialized=true;
-  if(!fresh.length)toast.hidden=true;
+  if(!fresh.length)overlay.hidden=true;
  },err=>{console.warn('문의 실시간 연결 실패',err);msg('실시간 문의 알림 연결 실패: '+(err.code||err.message));});
 }
