@@ -428,3 +428,15 @@
   .ptg-site-header__nav .ptg-nav-item:last-child{border-bottom:0!important}
 }
 @media(min-width:981px){.ptg-submenu-toggle{display:none!important}}
+
+/* 2026-10-23: shared mobile containment without clipping card content */
+@media(max-width:767px){
+  body main{min-width:0}
+  body main :is(section,article,aside,.ptg-tools-shell,.about-shell,.pc-shell,.pi-shell,.fees-shell,.penta-business-quick,.ptg-calc-wrap){min-width:0}
+  body main :is(img,video,canvas,svg){max-width:100%}
+  body main :is(h1,h2,h3,h4,p,li){overflow-wrap:break-word;word-break:keep-all}
+  body main :is(input,textarea,select){max-width:100%;box-sizing:border-box}
+  body main :is(.ptg-tools-head,.ptg-calc-wrap,.fees-calc-grid,.pc-service-grid,.pc-included-grid,.about-standard-list,.about-promise-grid){min-width:0}
+  body main :is(.ptg-calc-tabs,.pc-service-grid){-webkit-overflow-scrolling:touch}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
