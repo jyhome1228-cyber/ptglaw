@@ -108,3 +108,27 @@ button.inquiry-action{cursor:pointer}.inquiry-action.is-primary{background:#f582
 .inquiry-empty strong{font-size:14px}.inquiry-empty p{margin:8px 0 0;color:#93979c;font-size:12px}
 @media(max-width:900px){.inquiry-toolbar{grid-template-columns:1fr}.inquiry-overview{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.inquiry-overview{grid-template-columns:1fr 1fr}.inquiry-intro{display:block}.inquiry-intro>button{margin-top:12px}.inquiry-card-head{align-items:flex-start;flex-direction:column}.inquiry-card-title{display:grid;gap:5px}.inquiry-card-actions{display:grid;grid-template-columns:1fr 1fr}.inquiry-card-actions .inquiry-action{width:100%}}
+
+
+/* Pentagon dashboard inquiry / CMS summary */
+.ptg-overview-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin:2px 0 22px}
+.ptg-overview-head p{margin:0;color:#777d83;font-size:13px;line-height:1.6}
+.ptg-overview-alert,.ptg-overview-clear{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.ptg-overview-alert{background:#fff3e9;color:#c75b0b}.ptg-overview-clear{background:#f3f5f4;color:#64756e}
+.ptg-alert-dot{width:7px;height:7px;background:#e97920;border-radius:50%;flex-shrink:0}
+.ptg-overview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.ptg-overview-card{display:flex;flex-direction:column;align-items:stretch;text-align:left;min-width:0;min-height:160px;padding:19px 20px;border:1px solid #e7e8ea;border-radius:15px;background:#fff;color:#212121;box-shadow:none;font:inherit;transition:border-color .2s,box-shadow .2s,transform .2s}
+.ptg-overview-card.is-action{cursor:pointer}.ptg-overview-card.is-static{cursor:default;opacity:1}
+.ptg-overview-card.is-action:hover,.ptg-overview-card.is-action:focus-visible{border-color:#eaa46f;box-shadow:0 8px 25px rgba(42,32,20,.07);transform:translateY(-2px);outline:none}
+.ptg-overview-card-top{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.ptg-overview-label{font-size:13px;font-weight:650;color:#4c5157}
+.ptg-overview-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:#f5f5f5;color:#71757a;font-size:16px;font-weight:600}
+.ptg-overview-card.is-action .ptg-overview-icon{background:#fff3e9;color:#dd711f}
+.ptg-overview-card>strong{display:block;font-size:34px;font-weight:750;letter-spacing:-.045em;line-height:1.2;margin:15px 0 13px;color:#1c1c1c;font-variant-numeric:tabular-nums}
+.ptg-overview-bottom{display:flex;align-items:center;justify-content:space-between;gap:5px;margin-top:auto;font-size:12px;line-height:1.45;color:#8b8f94}
+.ptg-overview-arrow{color:#d76f20;font-size:17px;line-height:1}
+.ops-dashboard-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.ops-dashboard-links button{border-radius:10px!important;padding:11px 16px!important;border:1px solid #e4e5e7!important;background:#fff!important;color:#404040!important;font-size:13px!important;font-weight:600!important;cursor:pointer}
+.ops-dashboard-links button:first-child{background:#262626!important;color:#fff!important;border-color:#262626!important}
+@media(max-width:1100px){.ptg-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.ptg-overview-grid{gap:10px}.ptg-overview-card{min-height:142px;padding:15px}.ptg-overview-card>strong{font-size:30px;margin:12px 0}.ptg-overview-head{align-items:flex-start;margin-bottom:14px}.ptg-overview-label{font-size:12px}.ptg-overview-icon{width:27px;height:27px}}
