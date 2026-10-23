@@ -297,15 +297,16 @@ function startInquiryWatch(){
   const fresh=snapshot.docs.filter(x=>x.data().status==='new');
   badge.textContent=String(fresh.length);badge.hidden=fresh.length===0;
   const ids=new Set(snapshot.docs.map(x=>x.id));
-  if(initialized){
-   const arriving=snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new');
-   if(arriving.length){
-    const count=arriving.length;
-    const first=arriving[0].data();
+  const arriving=initialized?snapshot.docs.filter(x=>!known.has(x.id)&&x.data().status==='new'):[];
+  const needsNotice=!initialized?fresh:arriving;
+  if(needsNotice.length){
+    if(true){
+    const count=needsNotice.length;
+    const first=needsNotice[0].data();
     const kind=first.type==='quick'?'빠른 문의':'일반 문의';
     overlay.querySelector('#ptgInquiryDescription').textContent=count===1
       ?(first.name?first.name+'님의 '+kind+'가 접수되었습니다. 확인 후 응대해 주세요.':'새로운 '+kind+'가 접수되었습니다. 확인 후 응대해 주세요.')
-      :'새로운 문의 '+count+'건이 접수되었습니다. 문의 관리에서 확인해 주세요.';
+      :(initialized?'새로운 문의 ':'미확인 문의 ')+count+'건이 있습니다. 문의 관리에서 확인해 주세요.';
     overlay.hidden=false;
     overlay.querySelector('[data-open]').focus();
    }
