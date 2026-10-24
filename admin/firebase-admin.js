@@ -123,14 +123,28 @@ const calcPages=[['3.3% 원천징수','/tools/withholding/'],['부가가치세',
 const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
 const siteUrl=p=>base+p;
 function panel(title,body){return '<div class="panel"><h2>'+title+'</h2>'+body+'</div>'}
-function setupVisitorPeriods(selector,target){
- const labels={day:'오늘',week:'최근 7일',month:'최근 30일',all:'전체 기간'};
+async function setupVisitorPeriods(selector,target){
  const wrap=$(selector),area=$(target);if(!wrap||!area)return;
- function draw(period){
-  wrap.querySelectorAll('[data-period]').forEach(b=>{const on=b.dataset.period===period;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});
-  area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>—</strong><span>데이터 미연동</span></div><div><small>페이지뷰</small><strong>—</strong><span>데이터 미연동</span></div><div><small>주요 유입 경로</small><strong>—</strong><span>데이터 미연동</span></div></div><div class="ops-chart-empty"><span>'+labels[period]+' 방문 추이</span><p>분석 연동 후 실제 데이터가 이 영역에 표시됩니다.</p></div>';
- }
- wrap.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>draw(b.dataset.period)));draw('day');
+ const labels={day:'오늘',week:'최근 7일',month:'최근 30일',all:'전체 기간'};
+ const setPeriod=async(period)=>{
+  wrap.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period))});
+  area.innerHTML='<p class="muted">방문 기록을 불러오는 중입니다.</p>';
+  try{
+   const snap=await getDocs(collection(db,'visitorEvents'));
+   const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
+   const cutoff={day:today,week:today-6*86400000,month:today-29*86400000,all:0}[period];
+   const events=snap.docs.map(d=>d.data()).filter(x=>x.createdAt?.toDate&&x.createdAt.toDate().getTime()>=cutoff);
+   const sessions=new Set(events.map(x=>x.sessionId)).size;
+   const daily=new Map();
+   events.forEach(x=>{const date=x.createdAt.toDate().toLocaleDateString('sv-SE');daily.set(date,(daily.get(date)||0)+1)});
+   const top=new Map();events.forEach(x=>top.set(x.path,(top.get(x.path)||0)+1));
+   const popular=[...top].sort((a,b)=>b[1]-a[1]).slice(0,5);
+   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문 세션</small><strong>'+sessions.toLocaleString()+'</strong><span>브라우저 세션 기준</span></div><div><small>페이지뷰</small><strong>'+events.length.toLocaleString()+'</strong><span>페이지 열람 횟수</span></div><div><small>조회한 페이지 종류</small><strong>'+top.size.toLocaleString()+'</strong><span>중복 제외 경로</span></div></div>'+
+     '<div class="ops-chart-empty"><strong>인기 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회 조회</small></div>').join(''):'<p>아직 방문 기록이 없습니다. Firestore 규칙 배포 후부터 수집됩니다.</p>')+'</div>';
+  }catch(err){area.innerHTML='<p class="muted">방문 통계를 조회하지 못했습니다: '+esc(err.code||err.message)+' · Firebase의 최신 firestore.rules 배포 여부를 확인해주세요.</p>'}
+ };
+ wrap.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>setPeriod(b.dataset.period)));
+ await setPeriod('day');
 }
 async function renderOps(kind){
  const root=$('#opsSection');root.hidden=false;
@@ -159,7 +173,8 @@ async function renderOps(kind){
     document.querySelectorAll('#opSummary [data-open-inquiry]').forEach(button=>button.onclick=()=>{state.inquiryFilter=button.dataset.openInquiry;setView('inquiries')});
   }catch(e){if($('#opSummary'))$('#opSummary').textContent='현황 조회 실패: '+e.message}
  }else if(kind==='visitors'){
-  root.innerHTML=panel('방문자 통계 연결','<div class="ops-tracking-foot"><p><strong>현재 실측 데이터 연결 전입니다.</strong> 홈페이지에 GA4 측정 코드는 준비되어 있지만, 측정 ID가 등록되지 않아 방문 집계가 시작되지 않았습니다. 방문 수를 임의로 표시하지 않습니다.</p><p>① Google Analytics에서 ptglaw.co.kr 웹 데이터 스트림 생성 → ② 측정 ID(G-로 시작)를 사이트 설정에 등록 → ③ 별도 인증된 GA4 Data API 보고서 연동 후 관리자 화면에 일일·주간·월간·전체 집계 표시</p><p>보고서 API 자격 증명은 GitHub의 공개 HTML이나 JavaScript에 넣으면 안 됩니다.</p><a href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer">Google Analytics 설정 및 보고서 열기 ↗</a></div>');
+  root.innerHTML=panel('방문자 현황','<div class="ops-periods" id="visitorPeriods"><button data-period="day">일일</button><button data-period="week">7일</button><button data-period="month">30일</button><button data-period="all">전체</button></div><div class="ops-visitor-summary" id="visitorSummary"></div><p class="muted">방문자 수는 동일 브라우저의 세션별로 집계합니다. 실제 개인의 고유 인원 수와 차이가 있을 수 있습니다.</p>');
+  setupVisitorPeriods('#visitorPeriods','#visitorSummary');
  }else if(kind==='seo'){
   root.innerHTML=panel('SEO · 메타정보 점검','<p class="muted">각 공개 페이지 HTML에 설정된 제목·설명·키워드를 확인합니다. 검색엔진의 실제 노출 순위나 색인 상태를 의미하지 않습니다.</p><div id="seoStatus">메타정보 검사 중...</div>');
   const result=await Promise.all(operationalPages.map(async ([name,path])=>{try{const res=await fetch(siteUrl(path),{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);const html=await res.text(),doc=new DOMParser().parseFromString(html,'text/html');return {name,path,title:doc.title,description:doc.querySelector('meta[name="description"]')?.content||'',keywords:doc.querySelector('meta[name="keywords"]')?.content||''}}catch(e){return {name,path,error:e.message}}}));
