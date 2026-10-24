@@ -5,7 +5,15 @@
   const id=String(settings.ga4MeasurementId||'').trim();
   // Minimal first-party pageview logging, independent of optional GA4.
   // Session-based counts; no IP or contact information is stored.
-  if(!location.pathname.startsWith('/admin/')&&!navigator.doNotTrack?.includes('1')){
+  const validHost=location.hostname==='ptglaw.co.kr'||location.hostname==='www.ptglaw.co.kr'||location.hostname==='jyhome1228-cyber.github.io';
+  const privacyOptOut=navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true;
+  const automated=/bot|crawler|spider|headless|lighthouse|pagespeed/i.test(navigator.userAgent);
+  const route=location.pathname;
+  const recentKey='ptgVisitLastRoute';
+  const recent=sessionStorage.getItem(recentKey)||'';
+  const recentTime=Number(sessionStorage.getItem('ptgVisitLastTime')||0);
+  const shouldRecord=validHost&&!route.includes('/admin/')&&!privacyOptOut&&!automated&&document.visibilityState!=='prerender'&&!(recent===route&&Date.now()-recentTime<30000);
+  if(shouldRecord){
     try{
       const {db}=await import('./firebase-client.js');
       const {collection,addDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js');
@@ -13,6 +21,8 @@
       if(!sid||!/^[-a-f0-9]{36}$/i.test(sid)){sid=crypto.randomUUID();sessionStorage.setItem('ptgVisitorSession',sid)}
       const path=location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,180)||'/';
       await addDoc(collection(db,'visitorEvents'),{sessionId:sid,path,createdAt:serverTimestamp()});
+      sessionStorage.setItem(recentKey,route);
+      sessionStorage.setItem('ptgVisitLastTime',String(Date.now()));
     }catch(err){console.warn('Visitor analytics unavailable:',err.code||err.message)}
   }
   if(!/^G-[A-Z0-9]+$/i.test(id))return;
