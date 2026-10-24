@@ -3,6 +3,18 @@
   let settings={};
   try{const r=await fetch(`${base}/content/settings.json?v=${Date.now()}`,{cache:'no-store'});if(r.ok)settings=await r.json()}catch(e){}
   const id=String(settings.ga4MeasurementId||'').trim();
+  // Minimal first-party pageview logging, independent of optional GA4.
+  // Session-based counts; no IP or contact information is stored.
+  if(!location.pathname.startsWith('/admin/')&&!navigator.doNotTrack?.includes('1')){
+    try{
+      const {db}=await import('./firebase-client.js');
+      const {collection,addDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js');
+      let sid=sessionStorage.getItem('ptgVisitorSession');
+      if(!sid||!/^[-a-f0-9]{36}$/i.test(sid)){sid=crypto.randomUUID();sessionStorage.setItem('ptgVisitorSession',sid)}
+      const path=location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,180)||'/';
+      await addDoc(collection(db,'visitorEvents'),{sessionId:sid,path,createdAt:serverTimestamp()});
+    }catch(err){console.warn('Visitor analytics unavailable:',err.code||err.message)}
+  }
   if(!/^G-[A-Z0-9]+$/i.test(id))return;
   window.dataLayer=window.dataLayer||[];
   window.gtag=window.gtag||function(){dataLayer.push(arguments)};
