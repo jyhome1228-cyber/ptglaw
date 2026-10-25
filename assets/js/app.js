@@ -35,21 +35,25 @@
   const SERVICE_ASSET_VERSION='20261014-1115';
   const ensureCss=(key,file)=>new Promise(resolve=>{
     const existing=document.querySelector(`link[data-${key}]`);
+    const link=existing||document.createElement('link');
+    let settled=false;
+    const complete=()=>{
+      if(settled)return;
+      settled=true;
+      clearTimeout(fallback);
+      resolve();
+    };
+    link.addEventListener('load',complete,{once:true});
+    link.addEventListener('error',()=>{console.warn('Stylesheet unavailable:',file);complete()},{once:true});
+    const fallback=setTimeout(complete,4000);
     if(existing){
-      if(existing.sheet){resolve();return}
-      existing.addEventListener('load',resolve,{once:true});
-      existing.addEventListener('error',resolve,{once:true});
-      setTimeout(resolve,1200);
+      if(existing.sheet)complete();
       return;
     }
-    const link=document.createElement('link');
     link.rel='stylesheet';
     link.href=`${base}/assets/css/${file}?v=${CSS_VERSION}`;
     link.setAttribute(`data-${key}`,'true');
-    link.addEventListener('load',resolve,{once:true});
-    link.addEventListener('error',resolve,{once:true});
     document.head.appendChild(link);
-    setTimeout(resolve,1200);
   });
   const sharedCssReady=Promise.all(['universal.css','seed-final.css','chrome.css','structural-foundation.css','service-hero-clean.css','completion-polish.css','package-landing.css','alignment.css','rounded-system.css','mobile-qa.css'].map((file,i)=>ensureCss(['ptg-universal','ptg-seed-final','ptg-chrome','ptg-structural-foundation','ptg-service-hero-clean','ptg-completion-polish','ptg-package-landing','ptg-alignment','ptg-rounded-system','ptg-mobile-qa'][i],file)));
   document.body.classList.add('ptg-global-ui','ptg-notice-hidden');
