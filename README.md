@@ -1,42 +1,29 @@
-# PTG LAW Website
+# 펜타곤 법률세무회계 공식 웹사이트
 
-아임웹에서 GitHub 기반 정적 사이트로 이전 중인 펜타곤 법률세무회계 공식 웹사이트입니다.
+공식 도메인: https://ptglaw.co.kr/
 
-## Current structure
-- `/` 메인
-- `/about/` 펜타곤 소개
-- `/professionals/` 구성원
-- `/services/` 업무분야
-- `/services/legal/`
-- `/services/tax/`
-- `/services/ip/`
-- `/services/recovery/`
-- `/services/registry/`
-- `/cases/` 업무사례
-- `/newsroom/` 뉴스룸
-- `/center/` 법인설립지원센터
-- `/contact/` 상담 문의
-- `/privacy/` 개인정보처리방침
+## 기술 구성
+- GitHub Pages: 정적 페이지 호스팅 및 버전 관리
+- Firebase Authentication: 관리자 로그인
+- Cloud Firestore: 뉴스·업무사례·문의·방문 이벤트
+- Firebase Storage: 뉴스 대표 이미지
+- Daum 스마트워크: 별도 도메인 이메일 운영
 
-## Migration status
-### 1차 완료
-- 공통 헤더/푸터
-- 반응형 디자인 시스템
-- 주요 페이지 골격
-- 메인 핵심 메시지 및 5개 전문영역
-- 기본 SEO meta/canonical
-- LegalService JSON-LD
-- robots.txt / sitemap.xml / 404
+## 주요 페이지
+- 소개 /about/
+- 구성원 /professionals/
+- 업무분야 /services/
+- 업무사례 /cases/
+- 뉴스룸 /newsroom/
+- 상속원스톱서비스 /inheritance/
+- 법인설립지원센터 /center/
+- 문의 /contact/
+- 관리자 /admin/ (로그인 필요)
 
-### 다음 작업
-- 기존 아임웹 이미지 및 로고 자산 이전
-- 전체 구성원 프로필/사진 이전
-- 업무사례 전체 데이터 이전
-- 뉴스룸 데이터(JSON) 기반 자동 렌더링
-- 상담폼 서버 연동 및 파일 업로드
-- 기존 URL 301 redirect 설계
-- OG 이미지 / favicon / Person / Article schema
-- Cloudflare Pages 배포 및 최종 도메인 전환
-
-## Domain migration
-운영 중인 `ptglaw.co.kr`은 새 사이트 검수 완료 전까지 변경하지 않습니다.
+## 운영 점검
+- 사이트맵: /sitemap.xml, 검색 접근 정책: /robots.txt
+- 실제 Firestore/Storage 규칙은 저장소 파일과 별도로 Firebase Console 배포 상태 확인 필요
+- 관리자 기능과 상담 폼 수정 후에는 실제 접수·로그인·확인 처리 QA 필요
+- 보안 비밀키·서비스 계정 JSON·관리자 토큰은 공개 저장소에 등록 금지
+- 공식 정보(연락처, 주소, 전문가 약력, 제공 업무)는 관리 주체의 최종 검토 필요
+- SEO 노출은 검색엔진 색인과 콘텐츠 품질에 의존하며 검색 순위를 보장하지 않음
