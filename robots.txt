@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+
+# OpenAI ChatGPT search discovery
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+
+# User-requested ChatGPT page fetch
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+
 Sitemap: https://ptglaw.co.kr/sitemap.xml
