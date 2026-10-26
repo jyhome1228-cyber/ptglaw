@@ -70,7 +70,7 @@ service cloud.firestore {
       allow create: if request.resource.data.keys().hasOnly(['sessionId','path','createdAt'])
         && request.resource.data.keys().hasAll(['sessionId','path','createdAt'])
         && request.resource.data.sessionId is string
-        && request.resource.data.sessionId.matches('^[a-fA-F0-9-]{36}
+        && request.resource.data.sessionId.size() == 36
         && request.resource.data.path is string
         && request.resource.data.path.size() >= 1
         && request.resource.data.path.size() <= 180
