@@ -1,8 +1,5 @@
 (async()=>{
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
-  let settings={};
-  try{const r=await fetch(`${base}/content/settings.json?v=${Date.now()}`,{cache:'no-store'});if(r.ok)settings=await r.json()}catch(e){}
-  const id=String(settings.ga4MeasurementId||'').trim();
   // Minimal first-party pageview logging, independent of optional GA4.
   // Session-based counts; no IP or contact information is stored.
   const validHost=location.hostname==='ptglaw.co.kr'||location.hostname==='www.ptglaw.co.kr'||location.hostname==='jyhome1228-cyber.github.io';
@@ -25,6 +22,15 @@
       sessionStorage.setItem('ptgVisitLastTime',String(Date.now()));
     }catch(err){console.warn('Visitor analytics unavailable:',err.code||err.message)}
   }
+  // Optional GA4 settings must never delay first-party visit collection.
+  let settings={};
+  try{
+    const controller=new AbortController();
+    const abort=setTimeout(()=>controller.abort(),2500);
+    try{const response=await fetch(`${base}/content/settings.json`,{cache:'no-store',signal:controller.signal});if(response.ok)settings=await response.json()}
+    finally{clearTimeout(abort)}
+  }catch(err){console.info('GA4 settings unavailable; first-party analytics remains independent.')}
+  const id=String(settings.ga4MeasurementId||'').trim();
   if(!/^G-[A-Z0-9]+$/i.test(id))return;
   window.dataLayer=window.dataLayer||[];
   window.gtag=window.gtag||function(){dataLayer.push(arguments)};
