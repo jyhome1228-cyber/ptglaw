@@ -1,7 +1,7 @@
 import {auth,db} from '../assets/js/firebase-client.js';
 import {getStorage,ref as storageRef,uploadBytes,getDownloadURL} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-storage.js';
 import {onSnapshot} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
-import {signInWithEmailAndPassword,signOut,onAuthStateChanged,setPersistence,inMemoryPersistence} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
+import {signInWithEmailAndPassword,signOut,onAuthStateChanged,setPersistence,browserSessionPersistence} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js';
 import {doc,getDoc,collection,getDocs,query,setDoc,deleteDoc,serverTimestamp} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const state={view:'news',items:[],editing:null,authorized:false,inquiryFilter:null};
@@ -37,8 +37,8 @@ togglePassword.addEventListener('click',()=>{
 $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();msg('로그인 확인 중입니다.');const f=e.currentTarget;if(rememberBox.checked)localStorage.setItem('ptgAdminRememberedEmail',emailInput.value.trim());else localStorage.removeItem('ptgAdminRememberedEmail');try{await signInWithEmailAndPassword(auth,f.elements.email.value.trim(),f.elements.password.value);f.elements.password.value='';}catch(err){msg('로그인 실패: '+err.message)}});
 $('#logout').addEventListener('click',()=>signOut(auth));
 async function startAdminSession(){
- // Each new admin page entry requires explicit sign-in; no restored credentials.
- try{await signOut(auth);await setPersistence(auth,inMemoryPersistence);}catch(err){msg('로그인 초기화 실패: '+err.message);return;}
+ // Preserve the authenticated session across reloads, but not after the browser session ends.
+ try{await setPersistence(auth,browserSessionPersistence);}catch(err){msg('로그인 세션 설정 실패: '+err.message);return;}
  onAuthStateChanged(auth,async user=>{
  if(stopInquiryWatch){stopInquiryWatch();stopInquiryWatch=null;}const existingOverlay=$('#ptgInquiryOverlay');if(existingOverlay)existingOverlay.hidden=true;state.authorized=false;$('#manager').hidden=true;$('#adminApp').hidden=true;$('#loginShell').hidden=false;document.body.classList.add('admin-login-mode');
  if(!user){$('#connection').textContent='로그인 필요';$('#authName').textContent='로그인 필요';$('#logout').hidden=true;return;}
