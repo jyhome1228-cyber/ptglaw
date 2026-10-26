@@ -90,3 +90,23 @@ service cloud.firestore {
     }
   }
 }
+)
+        && request.resource.data.path is string
+        && request.resource.data.path.size() >= 1
+        && request.resource.data.path.size() <= 180
+        && request.resource.data.path.matches('^/[a-zA-Z0-9/_-]*$')
+        && request.resource.data.createdAt == request.time;
+      allow get, list, delete: if isAdmin();
+      allow update: if false;
+    }
+
+    match /admins/{uid} {
+      allow get: if signedIn() && request.auth.uid == uid;
+      allow list, create, update, delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
