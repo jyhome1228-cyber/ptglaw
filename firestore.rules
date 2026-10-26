@@ -57,11 +57,21 @@ service cloud.firestore {
       }
       allow create: if validInquiry();
       allow get, list, delete: if isAdmin();
-      // Only permit changing review state and its update timestamp.
+      // Admin-only review, trash and restore transitions.
       allow update: if isAdmin()
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt'])
-        && request.resource.data.status in ['new','reviewed']
-        && request.resource.data.updatedAt == request.time;
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','updatedAt','previousStatus','deletedAt'])
+        && request.resource.data.status in ['new','reviewed','trashed']
+        && request.resource.data.updatedAt == request.time
+        && (
+          (resource.data.status in ['new','reviewed'] && request.resource.data.status in ['new','reviewed']
+            && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['previousStatus','deletedAt']))
+          || (resource.data.status in ['new','reviewed'] && request.resource.data.status == 'trashed'
+            && request.resource.data.previousStatus == resource.data.status
+            && request.resource.data.deletedAt == request.time)
+          || (resource.data.status == 'trashed' && request.resource.data.status in ['new','reviewed']
+            && request.resource.data.status == resource.data.previousStatus
+            && !request.resource.data.keys().hasAny(['previousStatus','deletedAt']))
+        );
     }
 
 
