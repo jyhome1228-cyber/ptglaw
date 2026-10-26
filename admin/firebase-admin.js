@@ -140,7 +140,7 @@ async function setupVisitorPeriods(selector,target){
    const top=new Map();events.forEach(x=>top.set(x.path,(top.get(x.path)||0)+1));
    const popular=[...top].sort((a,b)=>b[1]-a[1]).slice(0,5);
    area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문 세션</small><strong>'+sessions.toLocaleString()+'</strong><span>브라우저 세션 기준</span></div><div><small>페이지뷰</small><strong>'+events.length.toLocaleString()+'</strong><span>페이지 열람 횟수</span></div><div><small>조회한 페이지 종류</small><strong>'+top.size.toLocaleString()+'</strong><span>중복 제외 경로</span></div></div>'+
-     '<div class="ops-chart-empty"><strong>인기 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회 조회</small></div>').join(''):'<p>아직 방문 기록이 없습니다. Firestore 규칙 배포 후부터 수집됩니다.</p>')+'</div>';
+     '<div class="ops-chart-empty"><strong>인기 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회 조회</small></div>').join(''):'<p>현재 선택한 기간에 저장된 방문 이벤트가 없습니다. 홈페이지의 방문 수집 스크립트 실행, 브라우저 추적 거부 설정, Firestore의 visitorEvents 기록을 확인해 주세요.</p>')+'</div>';
   }catch(err){area.innerHTML='<p class="muted">방문 통계를 조회하지 못했습니다: '+esc(err.code||err.message)+' · Firebase의 최신 firestore.rules 배포 여부를 확인해주세요.</p>'}
  };
  wrap.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>setPeriod(b.dataset.period)));
