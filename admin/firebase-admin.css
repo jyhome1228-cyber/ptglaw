@@ -166,3 +166,13 @@ button.inquiry-action{cursor:pointer}.inquiry-action.is-primary{background:#f582
 .ptg-response-actions{display:flex;gap:8px;flex-wrap:wrap}
 .inquiry-action{border-radius:9px;min-height:39px;padding:10px 14px}
 @media(max-width:600px){.inquiry-card-head{padding:14px 16px}.inquiry-card-body{padding:19px 16px}.inquiry-card-actions{padding:0 16px 18px;display:flex;flex-direction:column;align-items:stretch}.ptg-response-actions{display:grid;grid-template-columns:1fr 1fr}.ptg-message-block{padding:15px}.ptg-detail-row{grid-template-columns:1fr;gap:4px}.inquiry-card-head time{font-size:11px}}
+
+
+/* Inquiry recycle bin controls */
+.ptg-trash-tabs{display:flex;gap:8px;margin:18px 0 16px;border-bottom:1px solid #e8eaed;padding-bottom:12px}
+.ptg-trash-tabs button{border:1px solid #e4e6e9;border-radius:10px;background:#fff;color:#60666d;padding:11px 18px;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.ptg-trash-tabs button.active{background:#232323;color:#fff;border-color:#232323}
+.ptg-trash-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ptg-danger-action{color:#aa3030!important;border-color:#edc4c4!important}
+.ptg-danger-action:hover{background:#fff2f2!important}
+@media(max-width:600px){.ptg-trash-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.ptg-trash-actions button{width:100%}.ptg-trash-tabs button{flex:1}}
