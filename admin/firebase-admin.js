@@ -126,25 +126,30 @@ function panel(title,body){return '<div class="panel"><h2>'+title+'</h2>'+body+'
 async function setupVisitorPeriods(selector,target){
  const wrap=$(selector),area=$(target);if(!wrap||!area)return;
  const labels={day:'오늘',week:'최근 7일',month:'최근 30일',all:'전체 기간'};
- const setPeriod=async(period)=>{
-  wrap.querySelectorAll('[data-period]').forEach(b=>{b.classList.toggle('active',b.dataset.period===period);b.setAttribute('aria-pressed',String(b.dataset.period===period))});
+ let visits=null;
+ async function show(period){
+  wrap.querySelectorAll('[data-period]').forEach(button=>button.classList.toggle('active',button.dataset.period===period));
   area.innerHTML='<p class="muted">방문 기록을 불러오는 중입니다.</p>';
   try{
-   const snap=await getDocs(collection(db,'visitorEvents'));
-   const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
+   if(!visits){
+    const snapshot=await getDocs(collection(db,'visits'));
+    visits=snapshot.docs.map(doc=>doc.data());
+   }
+   const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+   const values=Object.fromEntries(parts.map(x=>[x.type,x.value]));
+   const today=Date.UTC(Number(values.year),Number(values.month)-1,Number(values.day));
    const cutoff={day:today,week:today-6*86400000,month:today-29*86400000,all:0}[period];
-   const events=snap.docs.map(d=>d.data()).filter(x=>x.createdAt?.toDate&&x.createdAt.toDate().getTime()>=cutoff);
-   const sessions=new Set(events.map(x=>x.sessionId)).size;
-   const daily=new Map();
-   events.forEach(x=>{const date=x.createdAt.toDate().toLocaleDateString('sv-SE');daily.set(date,(daily.get(date)||0)+1)});
-   const top=new Map();events.forEach(x=>top.set(x.path,(top.get(x.path)||0)+1));
-   const popular=[...top].sort((a,b)=>b[1]-a[1]).slice(0,5);
-   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문 세션</small><strong>'+sessions.toLocaleString()+'</strong><span>브라우저 세션 기준</span></div><div><small>페이지뷰</small><strong>'+events.length.toLocaleString()+'</strong><span>페이지 열람 횟수</span></div><div><small>조회한 페이지 종류</small><strong>'+top.size.toLocaleString()+'</strong><span>중복 제외 경로</span></div></div>'+
-     '<div class="ops-chart-empty"><strong>인기 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회 조회</small></div>').join(''):'<p>현재 선택한 기간에 저장된 방문 이벤트가 없습니다. 홈페이지의 방문 수집 스크립트 실행, 브라우저 추적 거부 설정, Firestore의 visitorEvents 기록을 확인해 주세요.</p>')+'</div>';
-  }catch(err){area.innerHTML='<p class="muted">방문 통계를 조회하지 못했습니다: '+esc(err.code||err.message)+' · Firebase의 최신 firestore.rules 배포 여부를 확인해주세요.</p>'}
- };
- wrap.querySelectorAll('[data-period]').forEach(b=>b.addEventListener('click',()=>setPeriod(b.dataset.period)));
- await setPeriod('day');
+   const selected=visits.filter(x=>/^\\d{4}-\\d{2}-\\d{2}$/.test(x.date||'')&&Date.parse(x.date+'T00:00:00Z')>=cutoff);
+   const unique=new Set(selected.map(x=>x.date+':'+x.visitorId)).size;
+   const pages=new Map();
+   selected.forEach(x=>{const path=x.firstPath||'/';pages.set(path,(pages.get(path)||0)+1)});
+   const popular=[...pages].sort((a,b)=>b[1]-a[1]).slice(0,5);
+   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>'+unique.toLocaleString()+'</strong><span>브라우저별 하루 1회</span></div><div><small>방문 기록</small><strong>'+selected.length.toLocaleString()+'</strong><span>하루 기준 등록 건수</span></div><div><small>첫 방문 페이지 종류</small><strong>'+pages.size+'</strong><span>첫 유입 경로</span></div></div>'+
+    '<div class="ops-chart-empty"><strong>첫 방문 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회</small></div>').join(''):'<p>선택한 기간에 기록이 없습니다. visits 컬렉션을 확인해주세요.</p>')+'</div>';
+  }catch(err){area.innerHTML='<p class="muted">조회 실패: '+esc(err.code||err.message)+' · Firebase Rules의 visits 관리자 읽기 권한을 확인해주세요.</p>'}
+ }
+ wrap.querySelectorAll('[data-period]').forEach(button=>button.addEventListener('click',()=>show(button.dataset.period)));
+ show('day');
 }
 async function renderOps(kind){
  const root=$('#opsSection');root.hidden=false;
