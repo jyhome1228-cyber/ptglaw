@@ -1,6 +1,15 @@
 (()=>{
   const isProject=location.hostname.endsWith('github.io');
   const base=isProject?'/ptglaw':'';
+  // Initialize analytics independently of navigation, CSS, and page widgets.
+  if(!document.querySelector('script[data-ptg-analytics]')){
+    const analytics=document.createElement('script');
+    analytics.src=`${base}/assets/js/analytics.js?v=20261026-visit-reliability`;
+    analytics.async=true;
+    analytics.dataset.ptgAnalytics='true';
+    analytics.addEventListener('error',()=>console.warn('Visitor analytics script could not load.'));
+    (document.head||document.documentElement).appendChild(analytics);
+  }
   // Prevent first-paint flashes while shared header/footer and CSS are being initialized.
   const bootStyle=document.createElement('style');
   bootStyle.id='ptg-boot-style';
@@ -319,7 +328,7 @@
 
   sharedCssReady.finally(()=>requestAnimationFrame(()=>document.body.classList.add('ptg-ui-ready')));
 
-  if(!document.querySelector('script[data-ptg-analytics]')){const s=document.createElement('script');s.src=`${base}/assets/js/analytics.js?v=20261026-visit-fix`;s.defer=true;s.dataset.ptgAnalytics='true';document.body.appendChild(s)}
+
   if(!document.querySelector('script[data-ptg-heading-breaks]')){const s=document.createElement('script');s.src=`${base}/assets/js/heading-breaks.js?v=20260915-1426`;s.defer=true;s.dataset.ptgHeadingBreaks='true';document.body.appendChild(s)}
   if((path.startsWith('/inheritance/')||path.startsWith('/center/'))&&!document.querySelector('script[data-ptg-package-landing]')){const s=document.createElement('script');s.src=`${base}/assets/js/package-landing.js?v=20261014-1115`;s.defer=true;s.dataset.ptgPackageLanding='true';document.body.appendChild(s)}
 
