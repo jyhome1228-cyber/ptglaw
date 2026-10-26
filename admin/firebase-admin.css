@@ -176,3 +176,19 @@ button.inquiry-action{cursor:pointer}.inquiry-action.is-primary{background:#f582
 .ptg-danger-action{color:#aa3030!important;border-color:#edc4c4!important}
 .ptg-danger-action:hover{background:#fff2f2!important}
 @media(max-width:600px){.ptg-trash-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}.ptg-trash-actions button{width:100%}.ptg-trash-tabs button{flex:1}}
+
+
+/* Live visitor trend chart: daily hourly, weekly 7d, monthly 20d. */
+.ptg-visit-chart{margin-top:15px;border:1px solid #e7e9ed;border-radius:14px;padding:24px 22px 17px;background:#fff}
+.ptg-visit-chart-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.ptg-visit-chart-head strong{font-size:16px;color:#23272a;letter-spacing:-.025em}
+.ptg-visit-chart-head span{font-size:11px;color:#8a9098}
+.ptg-visit-chart-bars{height:185px;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);align-items:stretch;gap:8px;min-width:0}
+.ptg-visit-chart-slot{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0;gap:6px}
+.ptg-visit-chart-value{font-size:10px;height:15px;color:#7b838b;white-space:nowrap;line-height:15px}
+.ptg-visit-chart-track{width:100%;height:128px;display:flex;align-items:flex-end;justify-content:center;min-width:0;border-bottom:1px solid #e6e9ed}
+.ptg-visit-chart-bar{display:block;width:min(100%,28px);background:#f58220;border-radius:5px 5px 0 0;min-height:0;transition:height .25s ease}
+.ptg-visit-chart-label{display:block;height:22px;line-height:22px;font-size:10px;color:#838a90;white-space:nowrap}
+.ptg-visit-chart-bars.is-hourly{gap:5px}
+.ptg-visit-chart-bars.is-hourly .ptg-visit-chart-bar{width:min(100%,20px)}
+@media(max-width:700px){.ptg-visit-chart{padding:18px 12px 14px}.ptg-visit-chart-bars{gap:3px}.ptg-visit-chart-bars.is-hourly{gap:2px}.ptg-visit-chart-label{font-size:9px}.ptg-visit-chart-head{margin-bottom:12px}.ptg-visit-chart-track{height:108px}.ptg-visit-chart-bars{height:164px}.ptg-visit-chart-bars.is-hourly .ptg-visit-chart-label{font-size:8px}}
