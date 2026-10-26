@@ -125,21 +125,42 @@ const siteUrl=p=>base+p;
 function panel(title,body){return '<div class="panel"><h2>'+title+'</h2>'+body+'</div>'}
 async function setupVisitorPeriods(selector,target){
  const wrap=$(selector),area=$(target);if(!wrap||!area)return;
- const labels={day:'오늘',week:'최근 7일',month:'최근 30일',all:'전체 기간'};
+ const labels={day:'오늘',week:'최근 7일',month:'최근 20일',all:'전체 기간'};
  let period='day',visits=[],ready=false,unsubscribe=null;
  const update=()=>{
    if(!wrap.isConnected||!area.isConnected){if(unsubscribe)unsubscribe();return;}
    const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
    const values=Object.fromEntries(parts.map(x=>[x.type,x.value]));
    const today=Date.UTC(Number(values.year),Number(values.month)-1,Number(values.day));
-   const cutoff={day:today,week:today-6*86400000,month:today-29*86400000,all:0}[period];
+   const dayCount=period==='week'?7:period==='month'?20:period==='all'?30:1;
+   const cutoff=period==='all'?0:today-(dayCount-1)*86400000;
    const selected=visits.filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')&&Date.parse(x.date+'T00:00:00Z')>=cutoff);
    const unique=new Set(selected.map(x=>x.date+':'+x.visitorId)).size;
-   const pages=new Map();
-   selected.forEach(x=>{const path=x.firstPath||'/';pages.set(path,(pages.get(path)||0)+1)});
-   const popular=[...pages].sort((a,b)=>b[1]-a[1]).slice(0,5);
-   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>'+unique.toLocaleString()+'</strong><span>브라우저별 하루 1회</span></div><div><small>방문 기록</small><strong>'+selected.length.toLocaleString()+'</strong><span>하루 기준 등록 건수</span></div><div><small>첫 방문 페이지 종류</small><strong>'+pages.size+'</strong><span>첫 유입 경로</span></div></div>'+
-    '<div class="ops-chart-empty"><strong>첫 방문 페이지 TOP 5</strong>'+(popular.length?popular.map(([path,n])=>'<div class="ops-row"><span>'+esc(path)+'</span><small>'+n+'회</small></div>').join(''):'<p>선택한 기간에 기록이 없습니다. Firebase visits 컬렉션의 저장 상태를 확인해주세요.</p>')+'</div>';
+   const buckets=[];
+   const hourFormatter=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Seoul',hour:'2-digit',hourCycle:'h23'});
+   if(period==='day'){
+     for(let hour=0;hour<24;hour++)buckets.push({key:String(hour),label:String(hour).padStart(2,'0')+'시',value:0});
+     selected.forEach(x=>{
+       const timestamp=x.createdAt?.toDate?.();
+       if(!timestamp)return;
+       const hour=Number(hourFormatter.format(timestamp));
+       if(hour>=0&&hour<24)buckets[hour].value++;
+     });
+   }else{
+     for(let offset=dayCount-1;offset>=0;offset--){
+       const dt=new Date(today-offset*86400000);
+       const key=dt.toISOString().slice(0,10);
+       buckets.push({key,label:(dt.getUTCMonth()+1)+'/'+dt.getUTCDate(),value:0});
+     }
+     const byDate=new Map(buckets.map(x=>[x.key,x]));
+     selected.forEach(x=>{const bucket=byDate.get(x.date);if(bucket)bucket.value++});
+   }
+   const max=Math.max(1,...buckets.map(x=>x.value));
+   const chart='<section class="ptg-visit-chart" aria-label="'+(period==='day'?'오늘 시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 20일 방문 추이':'최근 30일 방문 추이')+'">'+
+     '<div class="ptg-visit-chart-head"><strong>'+(period==='day'?'시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 20일 방문 추이':'최근 30일 방문 추이')+'</strong><span>한국시간 · 브라우저별 하루 1회</span></div>'+
+     '<div class="ptg-visit-chart-bars '+(period==='day'?'is-hourly':'')+'" role="img" aria-label="방문 추이 막대그래프">'+buckets.map((x,i)=>
+       '<div class="ptg-visit-chart-slot" title="'+esc(x.label+': '+x.value+'명')+'"><span class="ptg-visit-chart-value">'+(x.value?x.value:'')+'</span><span class="ptg-visit-chart-track"><span class="ptg-visit-chart-bar" style="height:'+(x.value?Math.max(5,Math.round(x.value/max*100)):0)+'%"></span></span><span class="ptg-visit-chart-label">'+((period==='day'&&i%3!==0)?'':esc(x.label))+'</span></div>').join('')+'</div></section>';
+   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>'+unique.toLocaleString()+'</strong><span>브라우저별 하루 1회</span></div><div><small>방문 기록</small><strong>'+selected.length.toLocaleString()+'</strong><span>하루 기준 등록 건수</span></div><div><small>일평균 방문</small><strong>'+(selected.length/(period==='day'?1:period==='week'?7:period==='month'?20:period==='all'?30:1)).toFixed(1)+'</strong><span>선택 기간 기준</span></div></div>'+chart;
  };
  wrap.querySelectorAll('[data-period]').forEach(button=>button.addEventListener('click',()=>{
    period=button.dataset.period;
