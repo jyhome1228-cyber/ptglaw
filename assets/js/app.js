@@ -4,7 +4,7 @@
   // Initialize analytics independently of navigation, CSS, and page widgets.
   if(!document.querySelector('script[data-ptg-analytics]')){
     const analytics=document.createElement('script');
-    analytics.src=`${base}/assets/js/analytics.js?v=20261026-visit-reliability`;
+    analytics.src=`${base}/assets/js/analytics.js?v=20261026-fineb-daily`;
     analytics.async=true;
     analytics.dataset.ptgAnalytics='true';
     analytics.addEventListener('error',()=>console.warn('Visitor analytics script could not load.'));
