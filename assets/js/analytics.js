@@ -1,34 +1,34 @@
 (async()=>{
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
-  // First-party analytics: one daily visit per browser, as in FINE.B.
-  // Pageviews are retained separately in the existing visitorEvents collection.
-  const validHost=['ptglaw.co.kr','www.ptglaw.co.kr','jyhome1228-cyber.github.io'].includes(location.hostname);
-  const automated=/bot|crawler|spider|headless|lighthouse|pagespeed/i.test(navigator.userAgent);
-  const privacyOptOut=navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true;
-  const path=location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,180)||'/';
-  if(validHost&&!path.includes('/admin/')&&!automated&&!privacyOptOut){
+  // One anonymous browser visit per Korea calendar day (FINE.B-style).
+  // No visitorEvents collection, no personal/contact data, and no visitor read access.
+  const acceptedHosts=new Set(['ptglaw.co.kr','www.ptglaw.co.kr','jyhome1228-cyber.github.io']);
+  if(acceptedHosts.has(location.hostname)&&!location.pathname.includes('/admin/')&&
+     navigator.doNotTrack!=='1'&&navigator.globalPrivacyControl!==true&&
+     !/bot|crawler|spider|headless|lighthouse|pagespeed/i.test(navigator.userAgent)){
     try{
-      const {db}=await import('./firebase-client.js');
-      const {collection,addDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js');
-      const browserKey='ptgVisitorIdV2';
-      let sid;
-      try{sid=localStorage.getItem(browserKey)}catch(_){}
-      if(!sid||!/^[-a-f0-9]{36}$/i.test(sid)){
-        sid=crypto.randomUUID();
-        try{localStorage.setItem(browserKey,sid)}catch(_){}
+      const dayParts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+      const dayMap=Object.fromEntries(dayParts.map(x=>[x.type,x.value]));
+      const date=dayMap.year+'-'+dayMap.month+'-'+dayMap.day;
+      const storedKey='ptgDailyVisit:'+date;
+      let already=false;
+      try{already=localStorage.getItem(storedKey)==='1'}catch(_){}
+      if(!already){
+        const {db}=await import('./firebase-client.js');
+        const {addDoc,collection,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js');
+        let visitorId;
+        try{visitorId=localStorage.getItem('ptgVisitorIdV2')}catch(_){}
+        if(!visitorId||!/^[-a-f0-9]{36}$/i.test(visitorId)){
+          visitorId=crypto.randomUUID();
+          try{localStorage.setItem('ptgVisitorIdV2',visitorId)}catch(_){}
+        }
+        await addDoc(collection(db,'visits'),{
+          visitorId,date,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',
+          createdAt:serverTimestamp()
+        });
+        try{localStorage.setItem(storedKey,'1')}catch(_){}
       }
-      // One unique visit per calendar day. A pageview is still recorded for each route.
-      const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
-      const eventKey='ptgEvent:'+day+':'+path;
-      let seen=false;
-      try{seen=sessionStorage.getItem(eventKey)==='1'}catch(_){}
-      if(!seen){
-        await addDoc(collection(db,'visitorEvents'),{sessionId:sid,path,createdAt:serverTimestamp()});
-        try{sessionStorage.setItem(eventKey,'1')}catch(_){}
-      }
-    }catch(err){
-      console.warn('[PTG visitor tracker]',err.code||err.message);
-    }
+    }catch(err){console.warn('Visit registration unsuccessful:',err.code||err.message)}
   }
   // Optional GA4 settings must never delay first-party visit collection.
   let settings={};
