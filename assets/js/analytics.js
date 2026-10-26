@@ -1,26 +1,34 @@
 (async()=>{
   const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
-  // Minimal first-party pageview logging, independent of optional GA4.
-  // Session-based counts; no IP or contact information is stored.
-  const validHost=location.hostname==='ptglaw.co.kr'||location.hostname==='www.ptglaw.co.kr'||location.hostname==='jyhome1228-cyber.github.io';
-  const privacyOptOut=navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true;
+  // First-party analytics: one daily visit per browser, as in FINE.B.
+  // Pageviews are retained separately in the existing visitorEvents collection.
+  const validHost=['ptglaw.co.kr','www.ptglaw.co.kr','jyhome1228-cyber.github.io'].includes(location.hostname);
   const automated=/bot|crawler|spider|headless|lighthouse|pagespeed/i.test(navigator.userAgent);
-  const route=location.pathname;
-  const recentKey='ptgVisitLastRoute';
-  const recent=sessionStorage.getItem(recentKey)||'';
-  const recentTime=Number(sessionStorage.getItem('ptgVisitLastTime')||0);
-  const shouldRecord=validHost&&!route.includes('/admin/')&&!privacyOptOut&&!automated&&document.visibilityState!=='prerender'&&!(recent===route&&Date.now()-recentTime<30000);
-  if(shouldRecord){
+  const privacyOptOut=navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true;
+  const path=location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,180)||'/';
+  if(validHost&&!path.includes('/admin/')&&!automated&&!privacyOptOut){
     try{
       const {db}=await import('./firebase-client.js');
       const {collection,addDoc,serverTimestamp}=await import('https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js');
-      let sid=sessionStorage.getItem('ptgVisitorSession');
-      if(!sid||!/^[-a-f0-9]{36}$/i.test(sid)){sid=crypto.randomUUID();sessionStorage.setItem('ptgVisitorSession',sid)}
-      const path=location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,180)||'/';
-      await addDoc(collection(db,'visitorEvents'),{sessionId:sid,path,createdAt:serverTimestamp()});
-      sessionStorage.setItem(recentKey,route);
-      sessionStorage.setItem('ptgVisitLastTime',String(Date.now()));
-    }catch(err){console.warn('Visitor analytics unavailable:',err.code||err.message)}
+      const browserKey='ptgVisitorIdV2';
+      let sid;
+      try{sid=localStorage.getItem(browserKey)}catch(_){}
+      if(!sid||!/^[-a-f0-9]{36}$/i.test(sid)){
+        sid=crypto.randomUUID();
+        try{localStorage.setItem(browserKey,sid)}catch(_){}
+      }
+      // One unique visit per calendar day. A pageview is still recorded for each route.
+      const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+      const eventKey='ptgEvent:'+day+':'+path;
+      let seen=false;
+      try{seen=sessionStorage.getItem(eventKey)==='1'}catch(_){}
+      if(!seen){
+        await addDoc(collection(db,'visitorEvents'),{sessionId:sid,path,createdAt:serverTimestamp()});
+        try{sessionStorage.setItem(eventKey,'1')}catch(_){}
+      }
+    }catch(err){
+      console.warn('[PTG visitor tracker]',err.code||err.message);
+    }
   }
   // Optional GA4 settings must never delay first-party visit collection.
   let settings={};
