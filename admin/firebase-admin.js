@@ -268,7 +268,7 @@ async function renderOps(kind){
     syncFilters();
     $('[data-trash-id]').forEach(button=>button.onclick=async()=>{
       const id=button.dataset.trashId,entry=docs.find(x=>x.id===id);
-      if(!entry||!confirm('이 문의를 휴지통으로 이동할까요? 복원할 수 있습니다.'))return;
+      if(!entry||!confirm('이 문의를 휴지통으로 이동시키겠습니까?\n휴지통에서 다시 복원할 수 있습니다.'))return;
       button.disabled=true;
       try{
         await updateDoc(doc(db,'inquiries',id),{status:'trashed',previousStatus:entry.status,deletedAt:serverTimestamp(),updatedAt:serverTimestamp()});
@@ -276,7 +276,7 @@ async function renderOps(kind){
       }catch(e){button.disabled=false;msg('휴지통 이동 실패: '+e.message)}
     });
     $('[data-restore-id]').forEach(button=>button.onclick=async()=>{
-      const id=button.dataset.restoreId,entry=docs.find(x=>x.id===id);if(!entry)return;
+      const id=button.dataset.restoreId,entry=docs.find(x=>x.id===id);if(!entry||!confirm('이 문의를 복원시키겠습니까?'))return;
       button.disabled=true;
       try{
         await updateDoc(doc(db,'inquiries',id),{status:entry.previousStatus==='reviewed'?'reviewed':'new',previousStatus:deleteField(),deletedAt:deleteField(),updatedAt:serverTimestamp()});
