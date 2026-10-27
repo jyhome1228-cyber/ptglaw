@@ -160,3 +160,22 @@
  .about-page .about-intro__copy p+p{margin-top:16px!important}
 }
 @media(max-width:767px){.about-page .about-shell{width:calc(100% - 36px)!important;max-width:none!important}.about-page .about-intro__title h2,.about-page .about-identity__copy h2{max-width:100%!important;text-wrap:wrap!important}}
+
+
+/* 2026-10-27: About identity section — final responsive composition */
+.about-page .about-identity__grid{display:grid!important;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr)!important;align-items:center!important;gap:clamp(28px,4vw,60px)!important}
+.about-page .about-identity__copy{min-width:0!important;text-align:left!important}
+.about-page .about-identity__copy h2{font-size:clamp(29px,2.5vw,42px)!important;line-height:1.32!important;letter-spacing:-.045em!important;max-width:100%!important;text-wrap:pretty!important;word-break:keep-all!important}
+.about-page .about-identity__copy h2 span{color:#ed781e}
+.about-page .about-identity__copy p{margin:20px 0 0!important;max-width:510px!important;font-size:clamp(15px,1.1vw,17px)!important;line-height:1.8!important;word-break:keep-all!important;overflow-wrap:break-word!important;color:#60656a!important}
+.about-page .about-identity__copy p+p{margin-top:15px!important}
+.about-page .about-identity__visual{margin:0!important;min-height:0!important;aspect-ratio:1.48!important;display:block!important;border:1px solid #e9ebef!important;border-radius:16px!important;background:#f6f7f8!important;overflow:hidden!important}
+.about-page .about-identity__visual:before{display:none!important}
+.about-page .about-identity__visual img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;max-width:none!important;position:static!important}
+.about-page .about-values{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;margin-top:26px!important}
+.about-page .about-value{min-width:0!important;min-height:170px!important;padding:22px!important;border:1px solid #e9ebef!important;border-radius:14px!important;background:#fff!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important}
+.about-page .about-value .ptg-card-icon{margin:0 0 20px!important}
+.about-page .about-value h3{margin:0 0 9px!important;font-size:18px!important}
+.about-page .about-value p{margin:0!important;font-size:14px!important;line-height:1.65!important;word-break:keep-all!important;overflow-wrap:break-word!important}
+@media(max-width:1024px){.about-page .about-identity__grid{grid-template-columns:1fr!important;gap:26px!important}.about-page .about-identity__copy p{max-width:720px!important}.about-page .about-identity__visual{aspect-ratio:16/9!important}.about-page .about-values{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:600px){.about-page .about-identity__copy h2{font-size:clamp(26px,7vw,32px)!important}.about-page .about-identity__copy p{font-size:15px!important;line-height:1.75!important;margin-top:14px!important}.about-page .about-identity__visual{aspect-ratio:4/3!important}.about-page .about-values{gap:10px!important;margin-top:18px!important}.about-page .about-value{padding:17px!important;min-height:160px!important}.about-page .about-value p{font-size:12px!important}.about-page .about-value h3{font-size:17px!important}}
