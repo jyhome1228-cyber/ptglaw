@@ -12,9 +12,9 @@ const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const categories={criminal:'형사',tax:'조세·세무',civil:'민사',family:'가사·상속',corporate:'기업',realestate:'부동산·건설',ip:'지식재산'};
 const form=kind=>$('#'+kind+'Form');
 function clearForm(kind){const f=form(kind);f.reset();if(kind==='news')f.elements.date.value=new Date().toLocaleDateString('sv-SE');state.editing=null;$('#'+kind+'FormTitle').textContent=kind==='news'?'뉴스 등록':'업무사례 등록';}
-function setView(kind){state.view=kind;state.editing=null;$$('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===kind));$('#newsSection').hidden=kind!=='news';$('#casesSection').hidden=kind!=='cases';$('#opsSection').hidden=kind==='news'||kind==='cases';$('#contentListPanel').hidden=kind!=='news'&&kind!=='cases';if(kind==='news'||kind==='cases'){$('#listTitle').textContent=kind==='news'?'데이터베이스 뉴스':'데이터베이스 업무사례';clearForm(kind);load()}else renderOps(kind)}
-$$('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
-$$('[data-reset]').forEach(b=>b.addEventListener('click',()=>clearForm(b.dataset.reset)));
+function setView(kind){state.view=kind;state.editing=null;$document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===kind));$('#newsSection').hidden=kind!=='news';$('#casesSection').hidden=kind!=='cases';$('#opsSection').hidden=kind==='news'||kind==='cases';$('#contentListPanel').hidden=kind!=='news'&&kind!=='cases';if(kind==='news'||kind==='cases'){$('#listTitle').textContent=kind==='news'?'데이터베이스 뉴스':'데이터베이스 업무사례';clearForm(kind);load()}else renderOps(kind)}
+$document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+$document.querySelectorAll('[data-reset]').forEach(b=>b.addEventListener('click',()=>clearForm(b.dataset.reset)));
 $('#reload').addEventListener('click',()=>load());
 const emailInput=$('#loginForm input[name="email"]');
 const rememberBox=$('#rememberAdminEmail');
@@ -66,7 +66,7 @@ function edit(item){
  for(const key of ['title','summary','date','source','category','url','image','status','overview','strategy','resultBody','result','point'])if(f.elements[key])f.elements[key].value=item[key]||'';
  if(kind==='news'&&item.date)f.elements.date.value=item.date.replace(/\./g,'-');
  if(kind==='news')updateNewsImagePreview();
- if(kind==='cases'){const storedCategory=item.category||item.categories?.[0]||Object.keys(categories).find(k=>categories[k]===item.meta1)||'corporate';f.elements.category.value=categories[storedCategory]?storedCategory:'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$$('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
+ if(kind==='cases'){const storedCategory=item.category||item.categories?.[0]||Object.keys(categories).find(k=>categories[k]===item.meta1)||'corporate';f.elements.category.value=categories[storedCategory]?storedCategory:'corporate';f.elements.tags.value=(item.tags||[]).join(', ');$document.querySelectorAll('input[name="experts"]').forEach(i=>{i.checked=(item.experts||[]).includes(i.value)})}
  $('#'+kind+'FormTitle').textContent='게시물 수정';window.scrollTo({top:0,behavior:'smooth'});
 }
 async function updateStatus(item){try{await setDoc(doc(db,state.view,item.id),{status:item.status==='published'?'draft':'published',updatedAt:serverTimestamp()},{merge:true});msg('공개 상태 변경 완료');await load()}catch(err){msg('변경 실패: '+err.message)}}
