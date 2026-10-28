@@ -295,7 +295,7 @@ async function renderOps(kind){
         '</article>';
     }).join('');
     syncFilters();
-    $('[data-trash-id]').forEach(button=>button.onclick=async()=>{
+    document.querySelectorAll('[data-trash-id]').forEach(button=>button.onclick=async()=>{
       const id=button.dataset.trashId,entry=docs.find(x=>x.id===id);
       if(!entry||!confirm('이 문의를 휴지통으로 이동시키겠습니까?\n휴지통에서 다시 복원할 수 있습니다.'))return;
       button.disabled=true;
@@ -304,7 +304,7 @@ async function renderOps(kind){
         entry.previousStatus=entry.status;entry.status='trashed';overview();draw();msg('휴지통으로 이동했습니다.');
       }catch(e){button.disabled=false;msg('휴지통 이동 실패: '+e.message)}
     });
-    $('[data-restore-id]').forEach(button=>button.onclick=async()=>{
+    document.querySelectorAll('[data-restore-id]').forEach(button=>button.onclick=async()=>{
       const id=button.dataset.restoreId,entry=docs.find(x=>x.id===id);if(!entry||!confirm('이 문의를 복원시키겠습니까?'))return;
       button.disabled=true;
       try{
@@ -313,14 +313,14 @@ async function renderOps(kind){
         overview();draw();msg('문의가 복원되었습니다.');
       }catch(e){button.disabled=false;msg('복원 실패: '+e.message)}
     });
-    $('[data-erase-id]').forEach(button=>button.onclick=async()=>{
+    document.querySelectorAll('[data-erase-id]').forEach(button=>button.onclick=async()=>{
       const id=button.dataset.eraseId;
       if(!confirm('영구 삭제하면 복원할 수 없습니다. 이 문의를 완전히 삭제할까요?'))return;
       button.disabled=true;
       try{await deleteDoc(doc(db,'inquiries',id));docs=docs.filter(x=>x.id!==id);overview();draw();msg('문의가 영구 삭제되었습니다.')}
       catch(e){button.disabled=false;msg('영구 삭제 실패: '+e.message)}
     });
-    $('[data-status-id]').forEach(button=>button.onclick=async()=>{
+    document.querySelectorAll('[data-status-id]').forEach(button=>button.onclick=async()=>{
       button.disabled=true;
       const next=button.dataset.nextStatus;
       try{
