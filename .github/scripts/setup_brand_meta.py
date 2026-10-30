@@ -17,30 +17,45 @@ cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=512, output_heigh
 icon = Image.open(png).convert('RGBA')
 icon.save(ico, format='ICO', sizes=[(16,16),(32,32),(48,48),(64,64),(128,128),(256,256)])
 
-# 1200x630 Open Graph card.
+# 1200x630 brand-only Open Graph card: true Pentagon symbol in white.
+# Extract the existing vector symbol instead of redrawing it.
+import io
+import xml.etree.ElementTree as ET
+
 W, H = 1200, 630
-canvas = Image.new('RGB', (W, H), '#f7f8fa')
-d = ImageDraw.Draw(canvas)
-d.rectangle([0, 0, W, 8], fill='#f58220')
-symbol = icon.copy()
-symbol.thumbnail((190, 190), Image.Resampling.LANCZOS)
-canvas.paste(symbol, (112, 182), symbol)
+orange = '#f58220'
+canvas = Image.new('RGB', (W, H), orange)
+logo_tree = ET.parse(img_dir / 'logo.svg')
+logo_root = logo_tree.getroot()
+namespace = {'svg': 'http://www.w3.org/2000/svg'}
+symbol_group = logo_root.find('svg:g', namespace)
+if symbol_group is None:
+    raise RuntimeError('Pentagon logo symbol was not found')
 
-def get_font(candidates, size):
-    for p in candidates:
-        if Path(p).exists():
-            return ImageFont.truetype(p, size)
-    return ImageFont.load_default()
+symbol_paths = []
+for path_el in symbol_group.findall('svg:path', namespace):
+    d_path = path_el.attrib.get('d', '')
+    if d_path:
+        symbol_paths.append(f'<path fill="#ffffff" d="{d_path}"/>')
 
-bold = get_font(['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'], 72)
-regular = get_font(['/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'], 26)
-small = get_font(['/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'], 20)
-x = 360
-d.text((x, 190), 'PENTAGON', font=bold, fill='#181818')
-d.text((x+4, 292), 'LEGAL · TAX · IP · RECOVERY · REGISTRY', font=regular, fill='#62676d')
-d.line((x+4, 350, 1040, 350), fill='#d9dde2', width=2)
-d.text((x+4, 382), 'ONE CONNECTED PROFESSIONAL SERVICE', font=small, fill='#f58220')
-d.text((x+4, 427), 'PTG LAW OFFICE · SEOCHO, SEOUL', font=small, fill='#8a8f96')
+symbol_svg = (
+    '<svg xmlns="http://www.w3.org/2000/svg" width="154" height="145" '
+    'viewBox="0 0 154 145">'
+    + ''.join(symbol_paths) + '</svg>'
+)
+symbol_buffer = io.BytesIO()
+cairosvg.svg2png(
+    bytestring=symbol_svg.encode('utf-8'),
+    write_to=symbol_buffer,
+    output_width=340,
+    output_height=320,
+)
+symbol = Image.open(io.BytesIO(symbol_buffer.getvalue())).convert('RGBA')
+canvas.paste(symbol, ((W - symbol.width) // 2, (H - symbol.height) // 2), symbol)
+
+SOCIAL_NAME = 'social-orange-symbol-20261030.png'
+canvas.save(img_dir / SOCIAL_NAME, 'PNG', optimize=True)
+# Keep legacy path correct as well, in case a social crawler has it cached.
 canvas.save(img_dir / 'og-preview.png', 'PNG', optimize=True)
 
 def capture(text, pattern, default=''):
@@ -77,14 +92,14 @@ for path in root.rglob('*.html'):
         f'<link rel="apple-touch-icon" href="{ROOT_URL}/assets/images/favicon-512.png">',
         '<meta name="theme-color" content="#f58220">',
         '<meta property="og:site_name" content="펜타곤 법률세무회계">',
-        f'<meta property="og:image" content="{ROOT_URL}/assets/images/og-preview.png">',
+        f'<meta property="og:image" content="{ROOT_URL}/assets/images/social-orange-symbol-20261030.png">',
         '<meta property="og:image:width" content="1200">',
         '<meta property="og:image:height" content="630">',
         '<meta property="og:image:alt" content="펜타곤 법률세무회계">',
         '<meta name="twitter:card" content="summary_large_image">',
         f'<meta name="twitter:title" content="{esc(title)}">',
         f'<meta name="twitter:description" content="{esc(desc)}">',
-        f'<meta name="twitter:image" content="{ROOT_URL}/assets/images/og-preview.png">',
+        f'<meta name="twitter:image" content="{ROOT_URL}/assets/images/social-orange-symbol-20261030.png">',
     ]
     if not re.search(r'property=["\']og:title["\']', text, re.I):
         tags.append(f'<meta property="og:title" content="{esc(title)}">')
