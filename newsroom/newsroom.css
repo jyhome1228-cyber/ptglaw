@@ -11,7 +11,7 @@
 .ptg-newsroom-card.is-hidden{display:none}
 .ptg-newsroom-card>a{display:flex;flex-direction:column;height:100%}
 .ptg-newsroom-card__visual{position:relative;overflow:hidden;aspect-ratio:16/10;background:#f7f8fa}
-.ptg-newsroom-card__visual img{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .2s ease,transform .3s ease}
+.ptg-newsroom-card__visual img{position:absolute;inset:0;z-index:2;width:100%;height:100%;object-fit:cover;opacity:1;transition:transform .3s ease}
 .ptg-newsroom-card__visual img.is-loaded{opacity:1}
 .ptg-newsroom-card:hover .ptg-newsroom-card__visual img{transform:scale(1.025)}
 .ptg-newsroom-card__fallback{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:space-between;padding:20px;background:#f7f8fa}
@@ -29,3 +29,22 @@
 .ptg-newsroom-foot p{margin:0!important;color:#8a8f96!important;font-size:12px!important;line-height:20px!important}
 @media(max-width:980px){.ptg-newsroom-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.ptg-newsroom-page{padding:40px 0 56px}.ptg-newsroom-page__inner{width:calc(100% - 32px)}.ptg-newsroom-head{grid-template-columns:1fr;gap:10px}.ptg-newsroom-head h1{font-size:28px!important;line-height:38px!important}.ptg-newsroom-grid{grid-template-columns:1fr}.ptg-newsroom-card h2{min-height:auto}}
+
+/* 2026-10-30 newsroom visual fallback polish */
+.ptg-newsroom-card__visual img.is-fallback{
+  object-fit:cover;
+  background:#f7f8fa;
+}
+.ptg-newsroom-card__visual:has(img) .ptg-newsroom-card__fallback{
+  opacity:0;
+}
+@media(max-width:767px){
+  .ptg-newsroom-filter{
+    scroll-padding-inline:18px!important;
+    -webkit-overflow-scrolling:touch;
+  }
+  .ptg-newsroom-card__visual{
+    aspect-ratio:16/9;
+  }
+}
+
