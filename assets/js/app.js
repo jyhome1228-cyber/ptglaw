@@ -39,7 +39,7 @@
   document.head.appendChild(fixedHeaderStyle);
   const header=document.querySelector('[data-site-header]');
   const footer=document.querySelector('[data-site-footer]');
-  const CSS_VERSION='20261023-iphonefix2';
+  const CSS_VERSION='20261030-mobile-footer-news-v1';
   const LOGO_VERSION='20261005-2149';
   const SERVICE_ASSET_VERSION='20261014-1115';
   const ensureCss=(key,file)=>new Promise(resolve=>{
