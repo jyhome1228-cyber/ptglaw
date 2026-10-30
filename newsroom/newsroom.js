@@ -13,23 +13,37 @@
   const records=Array.isArray(extra)?extra:[];
   const DATA=records.filter(x=>x&&x.status!=='draft').map(x=>[
     x.date||'',x.source||'',x.title||'',x.href||x.url||'#',
-    x.image||'',x.category||'firm',x.summary||''
+    x.image||x.thumbnail||x.thumbnailUrl||x.ogImage||'',x.category||'firm',x.summary||''
   ]).sort((a,b)=>String(b[0]).localeCompare(String(a[0])));
   const grid=root.querySelector('[data-news-grid]');
   const more=root.querySelector('[data-news-more]');
   const buttons=[...root.querySelectorAll('[data-news-filter]')];
   let filter='all',limit=12;
-  const directImage=u=>/^https:\/\/[^\s<>"']+$/i.test(u||'');
+  const FALLBACK_IMAGE=`${base}/assets/images/og-preview.png?v=20261030-news-fallback`;
+  const directImage=u=>{
+    if(!/^https?:\/\//i.test(u||''))return false;
+    try{
+      const url=new URL(u,location.href);
+      const value=url.pathname+url.search;
+      return /\.(?:avif|gif|jpe?g|png|svg|webp)(?:$|[?#])/i.test(value)
+        || /(?:firebasestorage\.googleapis\.com|googleusercontent\.com|cloudinary\.com|nineworksdatabase\.planus253\.workers\.dev)$/i.test(url.hostname);
+    }catch(e){return false}
+  };
   const cards=DATA.map((item,i)=>{
     const [date,source,title,href,visual,category,summary]=item;
     const external=/^https?:\/\//.test(href);
     const card=document.createElement('article');
     card.className='ptg-newsroom-card';card.dataset.category=category;
-    const imgSrc=directImage(visual)?visual:'';
-    card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div>${imgSrc?`<img src="${esc(imgSrc)}" alt="${esc(title)}" loading="${i<6?'eager':'lazy'}" decoding="async">`:``}</div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ':'자세히 보기 →'}</span></div></a>`;
+    const imgSrc=directImage(visual)?visual:FALLBACK_IMAGE;
+    card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div><img src="${esc(imgSrc)}" alt="${esc(title)}" class="${imgSrc===FALLBACK_IMAGE?'is-fallback':''}" loading="${i<12?'eager':'lazy'}" decoding="async" fetchpriority="${i<3?'high':'auto'}"></div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ':'자세히 보기 →'}</span></div></a>`;
     const img=card.querySelector('img');
     img?.addEventListener('load',()=>img.classList.add('is-loaded'));
-    img?.addEventListener('error',()=>img.remove());
+    img?.addEventListener('error',()=>{
+      if(img.dataset.fallback==='1'){img.remove();return}
+      img.dataset.fallback='1';
+      img.classList.add('is-fallback');
+      img.src=FALLBACK_IMAGE;
+    });
     return card;
   });
   cards.forEach(x=>grid.appendChild(x));
