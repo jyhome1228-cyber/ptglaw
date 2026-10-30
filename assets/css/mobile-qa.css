@@ -450,3 +450,135 @@
  .ptg-site-header__nav .ptg-nav-item.open>.ptg-nav-dropdown{position:static!important;inset:auto!important;float:none!important;display:block!important;flex:0 0 100%!important;max-height:none!important;height:auto!important;overflow:visible!important;transform:none!important;opacity:1!important;visibility:visible!important;z-index:auto!important;margin:0 0 12px!important;padding:8px 12px!important}
  .ptg-site-header__nav .ptg-nav-item.open>.ptg-nav-dropdown>a{height:auto!important;min-height:44px!important;max-height:none!important;display:flex!important;padding:12px 10px!important;white-space:normal!important}
 }
+
+/* 2026-10-30 — compact mobile footer v1 */
+@media(max-width:767px){
+  .ptg-site-footer__inner{
+    width:calc(100% - 32px)!important;
+  }
+  .ptg-site-footer__top{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:22px!important;
+    row-gap:0!important;
+    padding:32px 0 24px!important;
+  }
+  .ptg-site-footer__brand{
+    order:1!important;
+    grid-column:1/-1!important;
+    padding:0 0 24px!important;
+    border-bottom:1px solid #e1e5ea!important;
+  }
+  .ptg-site-footer__logo img{
+    width:128px!important;
+    max-height:34px!important;
+  }
+  .ptg-site-footer__brand-copy{
+    max-width:none!important;
+    margin:14px 0 0!important;
+    color:#666a70!important;
+    font-size:13px!important;
+    line-height:20px!important;
+  }
+  .ptg-site-footer__contact{
+    order:2!important;
+    grid-column:1/-1!important;
+    padding:22px 0 24px!important;
+    border-bottom:1px solid #e1e5ea!important;
+  }
+  .ptg-site-footer__contact>.ptg-site-footer__menu-title{
+    margin-bottom:12px!important;
+  }
+  .ptg-site-footer__contact-main{
+    display:flex!important;
+    align-items:flex-end!important;
+    justify-content:space-between!important;
+    gap:16px!important;
+    margin:0 0 14px!important;
+  }
+  .ptg-site-footer__contact-main span{
+    margin:0 0 2px!important;
+    font-size:11px!important;
+    line-height:17px!important;
+  }
+  .ptg-site-footer__contact-main a{
+    font-size:26px!important;
+    line-height:32px!important;
+    letter-spacing:-.04em!important;
+  }
+  .ptg-site-footer__contact dl{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px 18px!important;
+    margin:0!important;
+  }
+  .ptg-site-footer__contact dl>div{
+    display:block!important;
+    min-width:0!important;
+  }
+  .ptg-site-footer__contact dl>div:last-child{
+    grid-column:1/-1!important;
+  }
+  .ptg-site-footer__contact dt{
+    margin:0 0 2px!important;
+    font-size:11px!important;
+    line-height:17px!important;
+  }
+  .ptg-site-footer__contact dd{
+    font-size:13px!important;
+    line-height:19px!important;
+  }
+  .ptg-site-footer__menu{
+    order:3!important;
+    padding-top:24px!important;
+    gap:7px!important;
+  }
+  .ptg-site-footer__menu+.ptg-site-footer__menu{
+    order:4!important;
+  }
+  .ptg-site-footer__menu-title{
+    margin:0 0 7px!important;
+    font-size:13px!important;
+    line-height:19px!important;
+  }
+  .ptg-site-footer__menu-title[style]{
+    margin-top:10px!important;
+  }
+  .ptg-site-footer__menu a{
+    font-size:13px!important;
+    line-height:20px!important;
+  }
+  .ptg-site-footer__office{
+    grid-template-columns:1fr!important;
+    gap:12px!important;
+    padding:18px 0 22px!important;
+    border-top:1px solid #e1e5ea!important;
+  }
+  .ptg-site-footer__address{
+    display:block!important;
+  }
+  .ptg-site-footer__address>span{
+    display:block!important;
+    margin:0 0 4px!important;
+  }
+  .ptg-site-footer__legal{
+    justify-content:flex-start!important;
+    gap:8px 14px!important;
+  }
+}
+@media(max-width:479px){
+  .ptg-site-footer__top{
+    column-gap:18px!important;
+  }
+  .ptg-site-footer__contact-main{
+    display:block!important;
+  }
+  .ptg-site-footer__contact-main a{
+    margin-top:4px!important;
+  }
+  .ptg-site-footer__menu a{
+    font-size:12.5px!important;
+    line-height:19px!important;
+  }
+}
+
