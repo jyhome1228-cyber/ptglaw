@@ -355,6 +355,12 @@
             <p id="ptgQuickStatus" role="status" aria-live="polite"></p>
             <a id="ptgQuickFallback" hidden>메일 작성 창 다시 열기 </a>
           </form>
+          <div class="ptg-quick-success" id="ptgQuickSuccess" role="status" aria-live="polite" hidden>
+            <div class="ptg-quick-success-icon" aria-hidden="true">✓</div>
+            <h2 id="ptgQuickSuccessTitle" tabindex="-1">문의가 접수되었습니다</h2>
+            <p>문의가 정상적으로 접수되었습니다.<br>담당자가 내용을 확인한 후 연락드리겠습니다.</p>
+            <button type="button" class="ptg-quick-send" data-success-close>확인</button>
+          </div>
         </section>
       </div>`;
     const css=document.createElement('style');
@@ -362,7 +368,7 @@
       .ptg-quick-inquiry{font-family:Pretendard,"Apple SD Gothic Neo",sans-serif;letter-spacing:-.025em}
       .ptg-quick-launch{position:fixed;bottom:24px;right:24px;z-index:8990;background:#f58220;color:#fff;border:0;border-radius:50px;padding:15px 20px;font:700 14px Pretendard,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.18);cursor:pointer}
       .ptg-quick-launch span{margin-left:8px}
-      .ptg-quick-overlay[hidden]{display:none!important}
+      .ptg-quick-overlay[hidden],.ptg-quick-success[hidden],#ptgQuickForm[hidden],.ptg-quick-heading[hidden]{display:none!important}
       .ptg-quick-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px}
       .ptg-quick-dim{position:absolute;inset:0;background:rgba(10,13,18,.66)}
       .ptg-quick-dialog{position:relative;width:min(100%,480px);max-height:92dvh;overflow-y:auto;background:#fff;padding:30px;border-radius:16px;box-shadow:0 28px 70px rgba(0,0,0,.2);color:#17191d}
@@ -375,22 +381,23 @@
       .ptg-quick-dialog .ptg-quick-agree{display:flex;align-items:flex-start;gap:10px;font-size:12px;font-weight:400;line-height:1.6;color:#646970}.ptg-quick-agree input{margin-top:3px;accent-color:#f58220}.ptg-quick-agree a{color:#c75d0c;text-decoration:underline}
       .ptg-quick-send{width:100%;height:49px;border:0;border-radius:8px;background:#f58220;color:#fff;font:700 14px Pretendard,sans-serif;cursor:pointer}
       .ptg-quick-hint,#ptgQuickStatus{font-size:12px!important;color:#777!important;line-height:1.6!important;margin:12px 0 0!important}
+      .ptg-quick-success{text-align:center;padding:25px 4px 6px}.ptg-quick-success-icon{width:70px;height:70px;display:grid;place-items:center;margin:0 auto 22px;border-radius:50%;background:#fff1e6;color:#f58220;font-size:33px;font-weight:700}.ptg-quick-success h2{font-size:24px!important;line-height:1.4!important;margin:0 0 14px!important;color:#17191d!important}.ptg-quick-success p{font-size:14px;line-height:1.75;color:#62676d;margin:0 0 30px;word-break:keep-all}.ptg-quick-success .ptg-quick-send{width:100%}
       #ptgQuickFallback{display:inline-block;font-size:13px;color:#b55a15;margin-top:10px}#ptgQuickFallback[hidden]{display:none}
       @media(max-width:640px){.ptg-quick-launch{right:14px;bottom:16px;padding:13px 16px}.ptg-quick-dialog{padding:22px;border-radius:14px}}
     `;
     document.head.appendChild(css);document.body.appendChild(root);
-    const overlay=root.querySelector('#ptgQuickOverlay'),open=root.querySelector('.ptg-quick-launch'),form=root.querySelector('#ptgQuickForm'),status=root.querySelector('#ptgQuickStatus'),fallback=root.querySelector('#ptgQuickFallback');
+    const overlay=root.querySelector('#ptgQuickOverlay'),open=root.querySelector('.ptg-quick-launch'),form=root.querySelector('#ptgQuickForm'),status=root.querySelector('#ptgQuickStatus'),fallback=root.querySelector('#ptgQuickFallback'),success=root.querySelector('#ptgQuickSuccess'),heading=root.querySelector('.ptg-quick-heading');
     let focus=null;
-    function close(){overlay.hidden=true;document.body.style.overflow='';focus?.focus()}
+    function close(){overlay.hidden=true;document.body.style.overflow='';success.hidden=true;form.hidden=false;heading.hidden=false;status.textContent='';fallback.hidden=true;focus?.focus()}
     open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';form.elements.name.focus()});
-    overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
+    overlay.querySelectorAll('[data-quick-close],[data-success-close]').forEach(node=>node.addEventListener('click',close));
     document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
     form.addEventListener('submit',async e=>{
       e.preventDefault();if(!form.reportValidity())return;
       const name=form.elements.name.value.trim(),phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();
       const button=form.querySelector('[type="submit"]');button.disabled=true;status.textContent='문의 접수 중입니다.';
       try{const module=await import(base+'/assets/js/firebase-inquiries.js');await module.submitInquiry({type:'quick',name,phone,email,message,category:'빠른 문의',details:'접수 페이지: '+location.pathname,consent:form.elements.agree.checked});
-        status.textContent='문의가 접수되었습니다. 담당자가 내용을 확인하겠습니다.';fallback.hidden=true;form.reset();
+        status.textContent='';fallback.hidden=true;form.reset();form.hidden=true;heading.hidden=true;success.hidden=false;root.querySelector('#ptgQuickSuccessTitle').focus();
       }catch(err){status.textContent='온라인 접수가 완료되지 않았습니다. 이메일로 문의하거나 잠시 후 다시 시도해주세요.';console.warn('문의 접수 오류',err.code||err.message);
         const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent('[펜타곤 빠른 문의]')+'&body='+encodeURIComponent(['이름: '+name,'연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n'));
         fallback.href=url;fallback.textContent='이메일로 대신 문의하기 →';fallback.hidden=false;
