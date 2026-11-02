@@ -22,8 +22,25 @@
           visitorId=crypto.randomUUID();
           try{localStorage.setItem('ptgVisitorIdV2',visitorId)}catch(_){}
         }
+        // Capture only broad acquisition channels, not full referring URLs or query strings.
+        const params=new URLSearchParams(location.search);
+        const ref=document.referrer;
+        let refHost='';
+        try{refHost=ref?new URL(ref).hostname.toLowerCase():''}catch(_){}
+        const ownHosts=new Set(['ptglaw.co.kr','www.ptglaw.co.kr','jyhome1228-cyber.github.io']);
+        const campaign=(params.get('utm_source')||'').trim().toLowerCase().slice(0,60);
+        const medium=(params.get('utm_medium')||'').trim().toLowerCase().slice(0,40);
+        const sourceName=campaign||refHost;
+        let channel='직접 방문';
+        if(/naver|search\.naver|daum|google|bing|yahoo|zum/.test(sourceName)||medium==='organic')channel='검색';
+        else if(/kakao|instagram|facebook|threads|linkedin|twitter|t\.co|youtube|tiktok/.test(sourceName)||medium==='social')channel='SNS';
+        else if(medium==='email'||/mail|newsletter/.test(sourceName))channel='이메일';
+        else if(medium==='cpc'||medium==='ppc'||medium==='paid'||medium==='paid_social'||medium==='display')channel='광고';
+        else if(refHost&&!ownHosts.has(refHost)||campaign)channel='외부 링크';
+        const source=channel==='직접 방문'?'direct':channel==='검색'?'search':channel==='SNS'?'social':channel==='이메일'?'email':channel==='광고'?'paid':'referral';
+        // Legacy visits have no source; administrator displays them as unclassified.
         await addDoc(collection(db,'visits'),{
-          visitorId,date,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',
+          visitorId,date,source,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',
           createdAt:serverTimestamp()
         });
         try{localStorage.setItem(storedKey,'1')}catch(_){}
