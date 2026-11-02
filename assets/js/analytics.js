@@ -31,14 +31,27 @@
         const campaign=(params.get('utm_source')||'').trim().toLowerCase().slice(0,60);
         const medium=(params.get('utm_medium')||'').trim().toLowerCase().slice(0,40);
         const sourceName=campaign||refHost;
-        let channel='직접 방문';
-        if(/naver|search\.naver|daum|google|bing|yahoo|zum/.test(sourceName)||medium==='organic')channel='검색';
-        else if(/kakao|instagram|facebook|threads|linkedin|twitter|t\.co|youtube|tiktok/.test(sourceName)||medium==='social')channel='SNS';
-        else if(medium==='email'||/mail|newsletter/.test(sourceName))channel='이메일';
-        else if(medium==='cpc'||medium==='ppc'||medium==='paid'||medium==='paid_social'||medium==='display')channel='광고';
-        else if(refHost&&!ownHosts.has(refHost)||campaign)channel='외부 링크';
-        const source=channel==='직접 방문'?'direct':channel==='검색'?'search':channel==='SNS'?'social':channel==='이메일'?'email':channel==='광고'?'paid':'referral';
-        // Legacy visits have no source; administrator displays them as unclassified.
+        let source='direct';
+        if(/chatgpt|openai|chat\.openai/.test(sourceName))source='chatgpt';
+        else if(/perplexity/.test(sourceName))source='perplexity';
+        else if(/gemini/.test(sourceName))source='gemini';
+        else if(/naver/.test(sourceName))source='naver';
+        else if(/google/.test(sourceName))source='google';
+        else if(/daum|kakao.*search/.test(sourceName))source='daum';
+        else if(/bing/.test(sourceName))source='bing';
+        else if(/kakao|talk\.daum/.test(sourceName))source='kakao';
+        else if(/instagram/.test(sourceName))source='instagram';
+        else if(/facebook|fb\.com|fb\.me/.test(sourceName))source='facebook';
+        else if(/youtube/.test(sourceName))source='youtube';
+        else if(/linkedin/.test(sourceName))source='linkedin';
+        else if(/threads/.test(sourceName))source='threads';
+        else if(/twitter|t\.co|x\.com/.test(sourceName))source='x';
+        else if(medium==='email'||/mail|newsletter/.test(sourceName))source='email';
+        else if(medium==='cpc'||medium==='ppc'||medium==='paid'||medium==='paid_social'||medium==='display')source='paid';
+        else if(medium==='organic')source='search';
+        else if(medium==='social')source='social';
+        else if(refHost&&!ownHosts.has(refHost)||campaign)source='referral';
+        // Never infer an exact source when the referring service is hidden.
         const visit={visitorId,date,source,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',createdAt:serverTimestamp()};
         try{
           await addDoc(collection(db,'visits'),visit);
