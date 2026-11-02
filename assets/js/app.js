@@ -4,7 +4,7 @@
   // Initialize analytics independently of navigation, CSS, and page widgets.
   if(!document.querySelector('script[data-ptg-analytics]')){
     const analytics=document.createElement('script');
-    analytics.src=`${base}/assets/js/analytics.js?v=20261026-visits-v1`;
+    analytics.src=`${base}/assets/js/analytics.js?v=20261102-attribution-v2`;
     analytics.async=true;
     analytics.dataset.ptgAnalytics='true';
     analytics.addEventListener('error',()=>console.warn('Visitor analytics script could not load.'));
@@ -345,6 +345,7 @@
         <section class="ptg-quick-dialog" id="ptgQuickDialog" role="dialog" aria-modal="true" aria-labelledby="ptgQuickTitle">
           <div class="ptg-quick-heading"><div><span>QUICK CONTACT</span><h2 id="ptgQuickTitle">빠른 간편문의</h2><p>필요한 업무를 간단히 남겨주세요.</p></div><button type="button" data-quick-close aria-label="닫기">×</button></div>
           <form id="ptgQuickForm">
+            <label>이름 <b>*</b><input type="text" name="name" autocomplete="name" placeholder="성함을 입력해 주세요" required maxlength="100"></label>
             <label>연락처 <b>*</b><input type="tel" name="phone" autocomplete="tel" placeholder="010-0000-0000" required maxlength="30"></label>
             <label>이메일 <b>*</b><input type="email" name="email" autocomplete="email" placeholder="name@example.com" required maxlength="150"></label>
             <label>문의내용 <b>*</b><textarea name="message" placeholder="어떤 업무가 필요하신가요?" required rows="5" maxlength="3000"></textarea></label>
@@ -381,17 +382,17 @@
     const overlay=root.querySelector('#ptgQuickOverlay'),open=root.querySelector('.ptg-quick-launch'),form=root.querySelector('#ptgQuickForm'),status=root.querySelector('#ptgQuickStatus'),fallback=root.querySelector('#ptgQuickFallback');
     let focus=null;
     function close(){overlay.hidden=true;document.body.style.overflow='';focus?.focus()}
-    open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.phone.focus()});
+    open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.name.focus()});
     overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
     document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
     form.addEventListener('submit',async e=>{
       e.preventDefault();if(!form.reportValidity())return;
-      const phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();
+      const name=form.elements.name.value.trim(),phone=form.elements.phone.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();
       const button=form.querySelector('[type="submit"]');button.disabled=true;status.textContent='문의 접수 중입니다.';
-      try{const module=await import(base+'/assets/js/firebase-inquiries.js');await module.submitInquiry({type:'quick',phone,email,message,category:'빠른 문의',details:'접수 페이지: '+location.pathname,consent:form.elements.agree.checked});
+      try{const module=await import(base+'/assets/js/firebase-inquiries.js');await module.submitInquiry({type:'quick',name,phone,email,message,category:'빠른 문의',details:'접수 페이지: '+location.pathname,consent:form.elements.agree.checked});
         status.textContent='문의가 접수되었습니다. 담당자가 내용을 확인하겠습니다.';fallback.hidden=true;form.reset();
       }catch(err){status.textContent='온라인 접수가 완료되지 않았습니다. 이메일로 문의하거나 잠시 후 다시 시도해주세요.';console.warn('문의 접수 오류',err.code||err.message);
-        const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent('[펜타곤 빠른 문의]')+'&body='+encodeURIComponent(['연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n'));
+        const url='mailto:yhchae@ptglaw.co.kr?subject='+encodeURIComponent('[펜타곤 빠른 문의]')+'&body='+encodeURIComponent(['이름: '+name,'연락처: '+phone,'이메일: '+email,'','문의내용:',message].join('\n'));
         fallback.href=url;fallback.textContent='이메일로 대신 문의하기 →';fallback.hidden=false;
       }finally{button.disabled=false}
     });
