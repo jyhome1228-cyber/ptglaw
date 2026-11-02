@@ -84,7 +84,7 @@ service cloud.firestore {
         && request.resource.data.date is string
         && request.resource.data.date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
         && request.resource.data.get('source','direct') is string
-        && request.resource.data.get('source','direct') in ['direct','search','social','email','paid','referral']
+        && request.resource.data.get('source','direct') in ['direct','search','social','email','paid','referral','chatgpt','perplexity','gemini','naver','google','daum','bing','kakao','instagram','facebook','youtube','linkedin','threads','x']
         && request.resource.data.firstPath is string
         && request.resource.data.firstPath.size() >= 1
         && request.resource.data.firstPath.size() <= 160
