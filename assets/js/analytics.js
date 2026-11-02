@@ -39,10 +39,15 @@
         else if(refHost&&!ownHosts.has(refHost)||campaign)channel='외부 링크';
         const source=channel==='직접 방문'?'direct':channel==='검색'?'search':channel==='SNS'?'social':channel==='이메일'?'email':channel==='광고'?'paid':'referral';
         // Legacy visits have no source; administrator displays them as unclassified.
-        await addDoc(collection(db,'visits'),{
-          visitorId,date,source,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',
-          createdAt:serverTimestamp()
-        });
+        const visit={visitorId,date,source,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',createdAt:serverTimestamp()};
+        try{
+          await addDoc(collection(db,'visits'),visit);
+        }catch(writeError){
+          // Keep existing visitor counts working until the updated Firestore rules are deployed.
+          if(writeError.code!=='permission-denied')throw writeError;
+          const {source:ignored,...legacyVisit}=visit;
+          await addDoc(collection(db,'visits'),legacyVisit);
+        }
         try{localStorage.setItem(storedKey,'1')}catch(_){}
       }
     }catch(err){console.warn('Visit registration unsuccessful:',err.code||err.message)}
