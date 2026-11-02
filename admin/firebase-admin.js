@@ -125,14 +125,14 @@ const siteUrl=p=>base+p;
 function panel(title,body){return '<div class="panel"><h2>'+title+'</h2>'+body+'</div>'}
 async function setupVisitorPeriods(selector,target){
  const wrap=$(selector),area=$(target);if(!wrap||!area)return;
- const labels={day:'오늘',week:'최근 7일',month:'최근 20일',all:'전체 기간'};
+ const labels={day:'오늘',week:'최근 7일',month:'최근 30일',all:'전체 기간'};
  let period='day',visits=[],ready=false,unsubscribe=null;
  const update=()=>{
    if(!wrap.isConnected||!area.isConnected){if(unsubscribe)unsubscribe();return;}
    const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
    const values=Object.fromEntries(parts.map(x=>[x.type,x.value]));
    const today=Date.UTC(Number(values.year),Number(values.month)-1,Number(values.day));
-   const dayCount=period==='week'?7:period==='month'?20:period==='all'?30:1;
+   const dayCount=period==='week'?7:period==='month'?30:period==='all'?30:1;
    const cutoff=period==='all'?0:today-(dayCount-1)*86400000;
    const selected=visits.filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x.date||'')&&Date.parse(x.date+'T00:00:00Z')>=cutoff);
    const unique=new Set(selected.map(x=>x.date+':'+x.visitorId)).size;
@@ -156,11 +156,15 @@ async function setupVisitorPeriods(selector,target){
      selected.forEach(x=>{const bucket=byDate.get(x.date);if(bucket)bucket.value++});
    }
    const max=Math.max(1,...buckets.map(x=>x.value));
-   const chart='<section class="ptg-visit-chart" aria-label="'+(period==='day'?'오늘 시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 20일 방문 추이':'최근 30일 방문 추이')+'">'+
-     '<div class="ptg-visit-chart-head"><strong>'+(period==='day'?'시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 20일 방문 추이':'최근 30일 방문 추이')+'</strong><span>한국시간 · 브라우저별 하루 1회</span></div>'+
+   const chart='<section class="ptg-visit-chart" aria-label="'+(period==='day'?'오늘 시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 30일 방문 추이':'최근 30일 방문 추이')+'">'+
+     '<div class="ptg-visit-chart-head"><strong>'+(period==='day'?'시간별 방문 기록':period==='week'?'최근 7일 방문 추이':period==='month'?'최근 30일 방문 추이':'최근 30일 방문 추이')+'</strong><span>한국시간 · 브라우저별 하루 1회</span></div>'+
      '<div class="ptg-visit-chart-bars '+(period==='day'?'is-hourly':'')+'" role="img" aria-label="방문 추이 막대그래프">'+buckets.map((x,i)=>
        '<div class="ptg-visit-chart-slot" title="'+esc(x.label+': '+x.value+'명')+'"><span class="ptg-visit-chart-value">'+(x.value?x.value:'')+'</span><span class="ptg-visit-chart-track"><span class="ptg-visit-chart-bar" style="height:'+(x.value?Math.max(5,Math.round(x.value/max*100)):0)+'%"></span></span><span class="ptg-visit-chart-label">'+((period==='day'&&i%3!==0)?'':esc(x.label))+'</span></div>').join('')+'</div></section>';
-   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>'+unique.toLocaleString()+'</strong><span>브라우저별 하루 1회</span></div><div><small>방문 기록</small><strong>'+selected.length.toLocaleString()+'</strong><span>하루 기준 등록 건수</span></div><div><small>일평균 방문</small><strong>'+(selected.length/(period==='day'?1:period==='week'?7:period==='month'?20:period==='all'?30:1)).toFixed(1)+'</strong><span>선택 기간 기준</span></div></div>'+chart;
+   const sourceLabels=[['direct','직접 방문'],['search','검색'],['social','SNS'],['referral','외부 링크'],['email','이메일'],['paid','광고'],['unknown','미분류']];
+   const sourceCounts=Object.create(null);
+   selected.forEach(v=>{const source=['direct','search','social','referral','email','paid'].includes(v.source)?v.source:'unknown';sourceCounts[source]=(sourceCounts[source]||0)+1;});
+   const breakdown='<section class="ptg-visit-chart" style="margin-top:24px" aria-label="방문자 유입경로"><div class="ptg-visit-chart-head"><strong>방문자 유입경로</strong><span>선택 기간 기준</span></div><div style="display:grid;gap:12px;margin-top:18px">'+sourceLabels.map(([key,label])=>{const count=sourceCounts[key]||0;const percent=selected.length?Math.round(count/selected.length*100):0;return '<div style="display:grid;grid-template-columns:minmax(72px,110px) 1fr auto;align-items:center;gap:10px;font-size:13px"><span>'+label+'</span><div style="height:9px;border-radius:10px;background:#eee;overflow:hidden"><div style="width:'+percent+'%;height:100%;background:#ed7b25"></div></div><strong>'+count+' ('+percent+'%)</strong></div>'}).join('')+'</div><p class="muted" style="margin-top:12px">이전 방문기록은 미분류입니다. 유입 정보가 전달되지 않으면 직접 방문으로 분류될 수 있습니다.</p></section>';
+   area.innerHTML='<div class="ops-visitor-cards"><div><small>'+labels[period]+' 방문자</small><strong>'+unique.toLocaleString()+'</strong><span>브라우저별 하루 1회</span></div><div><small>방문 기록</small><strong>'+selected.length.toLocaleString()+'</strong><span>하루 기준 등록 건수</span></div><div><small>일평균 방문</small><strong>'+(selected.length/(period==='day'?1:period==='week'?7:period==='month'?30:period==='all'?30:1)).toFixed(1)+'</strong><span>선택 기간 기준</span></div></div>'+chart+breakdown;
  };
  wrap.querySelectorAll('[data-period]').forEach(button=>button.addEventListener('click',()=>{
    period=button.dataset.period;
