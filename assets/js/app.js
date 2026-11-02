@@ -348,7 +348,7 @@
             <label>이름 <b>*</b><input type="text" name="name" autocomplete="name" placeholder="성함을 입력해 주세요" required maxlength="100"></label>
             <label>연락처 <b>*</b><input type="tel" name="phone" autocomplete="tel" placeholder="010-0000-0000" required maxlength="30"></label>
             <label>이메일 <b>*</b><input type="email" name="email" autocomplete="email" placeholder="name@example.com" required maxlength="150"></label>
-            <label>문의내용 <b>*</b><textarea name="message" placeholder="어떤 업무가 필요하신가요?" required rows="5" maxlength="3000"></textarea></label>
+            <label>문의내용 <b>*</b><textarea name="message" placeholder="문의하실 내용을 자유롭게 작성해 주세요." required rows="5" maxlength="3000"></textarea></label>
             <label class="ptg-quick-agree"><input type="checkbox" name="agree" required><span>상담을 위한 개인정보 수집·이용에 동의합니다. <a href="${base}/privacy/" target="_blank" rel="noopener">개인정보처리방침 </a></span></label>
             <button type="submit" class="ptg-quick-send">빠른 문의 접수하기 </button>
             
@@ -382,7 +382,7 @@
     const overlay=root.querySelector('#ptgQuickOverlay'),open=root.querySelector('.ptg-quick-launch'),form=root.querySelector('#ptgQuickForm'),status=root.querySelector('#ptgQuickStatus'),fallback=root.querySelector('#ptgQuickFallback');
     let focus=null;
     function close(){overlay.hidden=true;document.body.style.overflow='';focus?.focus()}
-    open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';const selected=document.querySelector('#pcWork option:checked');const selectedService=document.querySelector('.pc-select-grid .is-selected h3');const work=selected?.textContent||selectedService?.textContent||'';if(work&&!form.elements.message.value)form.elements.message.value='문의 업무: '+work+'\\n';form.elements.name.focus()});
+    open.addEventListener('click',()=>{focus=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';form.elements.name.focus()});
     overlay.querySelectorAll('[data-quick-close]').forEach(node=>node.addEventListener('click',close));
     document.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const items=[...overlay.querySelectorAll('button,input,textarea,a')].filter(el=>el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
     form.addEventListener('submit',async e=>{
