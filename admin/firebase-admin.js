@@ -224,7 +224,7 @@ async function renderOps(kind){
   $('#seoStatus').innerHTML=result.map(x=>'<div class="ops-row"><strong>'+esc(x.name)+'</strong><span>'+esc(x.error||x.title||'제목 미설정')+'</span><small>'+esc(x.error||('설명 '+(x.description?'설정':'없음')+' · 키워드 '+(x.keywords?'설정':'없음')))+'</small><a href="'+siteUrl(x.path)+'" target="_blank" rel="noopener">페이지 열기 ↗</a></div>').join('');
  }else if(kind==='calculators'){
   root.innerHTML=panel('계산기 운영 현황','<p class="muted">현재 등록된 계산기 5종의 이동 링크입니다. 계산 횟수는 분석 이벤트 수집·보고가 연결되지 않아 표시하지 않습니다.</p>'+calcPages.map(([name,path])=>'<div class="ops-row"><strong>'+name+'</strong><a href="'+siteUrl(path)+'" target="_blank" rel="noopener">계산기 열기 ↗</a><small>운영 페이지</small></div>').join(''));
- }else if(kind==='inquiries'){
+ }else if(kind==='inquiries'||kind==='trash'){
   root.innerHTML=panel('문의 관리',
     '<div class="inquiry-intro"><div><p class="muted">문의하기 페이지와 빠른 문의가 같은 데이터베이스로 들어옵니다. 최신 접수순으로 확인하고 바로 전화·이메일 응대를 할 수 있습니다.</p><small>온라인 접수 실패 후 이메일로만 전달된 문의는 이 목록에 자동 기록되지 않습니다.</small></div><button type="button" id="reloadInquiries">새로고침</button></div>'+
     '<div class="ptg-trash-tabs"><button type="button" class="active" data-trash-view="active">받은 문의</button><button type="button" data-trash-view="trash">휴지통</button></div><div id="inquiryOverview" class="inquiry-overview"></div>'+
@@ -239,7 +239,7 @@ async function renderOps(kind){
     docs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
   }catch(e){$('#inquiryList').textContent='문의 조회 실패: '+e.message;return}
 
-  const filter={type:state.inquiryFilter||'all',status:'all',term:'',trash:'active'};
+  const filter={type:state.inquiryFilter||'all',status:'all',term:'',trash:kind==='trash'?'trash':'active'};
   state.inquiryFilter=null;
   const normalize=v=>String(v||'').toLowerCase().replace(/\\s+/g,'');
   const phoneHref=v=>'tel:'+String(v||'').replace(/[^0-9+]/g,'');
@@ -348,11 +348,11 @@ async function renderOps(kind){
   }
 
   overview();
-  root.querySelectorAll('[data-trash-view]').forEach(b=>b.onclick=()=>{filter.trash=b.dataset.trashView;filter.type='all';filter.status='all';draw()});
+  root.querySelectorAll('[data-trash-view]').forEach(b=>b.onclick=()=>setView(b.dataset.trashView==='trash'?'trash':'inquiries'));
   $('#inquirySearch').addEventListener('input',e=>{filter.term=e.target.value;draw()});
   root.querySelectorAll('[data-inquiry-kind]').forEach(b=>b.onclick=()=>{filter.type=b.dataset.inquiryKind;draw()});
   root.querySelectorAll('[data-inquiry-status]').forEach(b=>b.onclick=()=>{filter.status=b.dataset.inquiryStatus;draw()});
-  $('#reloadInquiries').onclick=()=>renderOps('inquiries');
+  $('#reloadInquiries').onclick=()=>renderOps(kind);
   draw();
  }
 }
