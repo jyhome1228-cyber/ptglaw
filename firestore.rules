@@ -24,6 +24,12 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    match /columns/{columnId} {
+      allow get, list: if resource.data.status == 'published' || isAdmin();
+      allow create, update: if isAdmin() && validVisibility();
+      allow delete: if isAdmin();
+    }
+
     match /cases/{caseId} {
       allow get, list: if resource.data.status == 'published' || isAdmin();
       allow create, update: if isAdmin() && validVisibility();
