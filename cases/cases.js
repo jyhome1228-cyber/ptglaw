@@ -26,17 +26,17 @@
   };
 
   // Keep one listing per case. Prefer published CMS entries over legacy snapshots.
-  const normalizeTitle=value=>String(value||'').normalize('NFKC').replace(/\\s+/g,'').replace(/[“”"'‘’.,·…()]/g,'').toLowerCase();
+  const normalizeTitle=value=>String(value||'').normalize('NFKC').replace(/\s+/g,'').replace(/[“”"'‘’.,·…()]/g,'').toLowerCase();
   const getTime=item=>{
     const stamp=item.publishedAt||item.date||item.createdAt||item.updatedAt;
     if(stamp?.toDate)return stamp.toDate().getTime();
     if(typeof stamp?.seconds==='number')return stamp.seconds*1000;
     if(typeof stamp==='number')return stamp;
-    const parsed=Date.parse(String(stamp||'').replace(/\\./g,'-'));
+    const parsed=Date.parse(String(stamp||'').replace(/\./g,'-'));
     return Number.isFinite(parsed)?parsed:0;
   };
   const legacyNumber=item=>{
-    const match=String(item.id||item.href||'').match(/(?:legacy-|case\\/?)(\\d+)/);
+    const match=String(item.id||item.href||'').match(/(?:legacy-|case\/?)(\d+)/);
     return match?Number(match[1]):0;
   };
   // Dated publications rank first; undated historical cases follow newest case number.
