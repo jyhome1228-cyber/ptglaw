@@ -10,7 +10,7 @@
   // Merge published Firestore items while preserving existing GitHub JSON articles.
   try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('news');if(items?.length){const publishedIds=new Set(items.map(x=>x.id));extra=[...items,...extra.filter(x=>!publishedIds.has(x.id))]}}catch(err){console.warn('Firebase news fallback',err)}
   // All editorial articles now come from one CMS source; drafts are never rendered publicly.
-  const records=Array.isArray(extra)?extra:[];
+  const records=Array.isArray(extra)?extra.filter(x=>x&&x.category!=='column'&&!['https://www.tfmedia.co.kr/news/article.html?no=207079','https://www.tfmedia.co.kr/news/article.html?no=206924'].includes(x.url)):[];
   const DATA=records.filter(x=>x&&x.status!=='draft').map(x=>[
     x.date||'',x.source||'',x.title||'',x.href||x.url||'#',
     x.image||x.thumbnail||x.thumbnailUrl||x.ogImage||'',x.category||'firm',x.summary||''
