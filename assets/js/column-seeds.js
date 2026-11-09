@@ -137,11 +137,11 @@ export const columnSeeds=[
   {
     "id": "migrated-news-legacy-021",
     "title": "2026 법조단체 신년사",
-    "author": "채용현",
+    "author": "법조단체",
     "category": "legal",
     "date": "2026-01-01",
     "kicker": "",
-    "summary": "새해 법조계가 마주한 과제와 법조단체의 역할을 다룬 글입니다.",
+    "summary": "2026년 새해를 맞아 법조계가 마주한 과제와 법조단체의 역할을 다룬 신년사입니다.",
     "body": "",
     "source": "법률신문",
     "series": "외부 기고",
