@@ -1,5 +1,5 @@
 import {db} from '../assets/js/firebase-client.js';
-import {columnSeeds} from '../assets/js/column-seeds.js';
+import {columnSeeds} from '../assets/js/column-seeds.js?v=20261110-clean-v7';
 import {getDocs,collection,query,where} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s);
 const names={'tax-audit':'세무조사','tax-ruling':'조세·판례',inheritance:'상속·증여',legal:'법률',insight:'전문가 칼럼'};
