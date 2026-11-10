@@ -455,3 +455,31 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});
   else ready();
 })();
+
+/* Case-to-consultation journey. Intent only; no client details in URL. */
+(()=>{
+  const match=location.pathname.match(/\/cases\/(case\d+)\/?$/);
+  if(!match)return;
+  const base=location.hostname.endsWith('github.io')?'/ptglaw':'';
+  const root=document.querySelector('.ptg-case-detail-page');
+  if(!root)return;
+  const add=()=>{
+    if(root.querySelector('.ptg-case-consult'))return true;
+    const content=root.querySelector('.ptg-case-detail-content');
+    if(!content)return false;
+    const title=root.querySelector('.ptg-case-detail-hero h1,.ptg-case-detail-hero h2')?.textContent?.trim()||'';
+    const category=root.querySelector('.ptg-case-detail-hero__meta span')?.textContent?.trim()||'';
+    const params=new URLSearchParams({case:match[1],topic:category,content:'case'});
+    const section=document.createElement('section');
+    section.className='ptg-case-consult';
+    section.setAttribute('aria-label','관련 상담 안내');
+    const heading=document.createElement('h3');heading.textContent='유사한 문제로 검토가 필요하신가요?';
+    const copy=document.createElement('p');copy.textContent='법률·세무 사안은 사실관계에 따라 대응이 달라질 수 있습니다. 관련 상황을 알려주시면 검토 가능한 상담 절차를 안내드립니다.';
+    const a=document.createElement('a');a.href=base+'/contact/?'+params.toString();a.textContent='이 사례 관련 상담 문의하기 →';
+    section.append(heading,copy,a);
+    content.append(section);
+    return true;
+  };
+  const style=document.createElement('style');style.textContent='.ptg-case-consult{margin:40px 0 28px;padding:30px;border:1px solid #ece7e1;border-radius:18px;background:#faf8f6}.ptg-case-consult h3{font-size:clamp(21px,2.5vw,27px);letter-spacing:-.04em;margin:0 0 12px}.ptg-case-consult p{line-height:1.75;color:#61656b;margin:0 0 22px}.ptg-case-consult a{display:inline-flex;align-items:center;min-height:46px;padding:12px 18px;border-radius:11px;background:#f58220;color:white!important;text-decoration:none;font-weight:650}@media(max-width:640px){.ptg-case-consult{padding:22px}.ptg-case-consult a{display:flex;justify-content:center}}';document.head.append(style);
+  if(!add()){const observer=new MutationObserver(()=>{if(add())observer.disconnect()});observer.observe(root,{childList:true,subtree:true});}
+})();
