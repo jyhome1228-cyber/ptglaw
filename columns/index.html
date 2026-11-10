@@ -57,4 +57,76 @@
  .ptg-column-consult h2{font-size:20px}
 }
 @media(max-width:380px){.ptg-column-card{grid-template-columns:minmax(0,1fr) 78px}.ptg-column-card-photo{width:78px;height:105px}.ptg-column-card-meta{font-size:11px}}
-</style></head><body><div data-site-header></div><main class="ptg-column-wrap"><div class="ptg-column-heading" id="columnHeading"><span class="ptg-column-kicker">PENTAGON INSIGHTS</span><h1>전문가 칼럼</h1><p>펜타곤 전문가들이 다양한 법률·세무 이슈를 전문적인 시각으로 살펴봅니다.<br>실무에서 자주 접하는 쟁점부터 주요 판례와 제도 변화까지, 알아두면 도움이 되는 내용을 전합니다.</p></div><section id="columnListing" class="ptg-column-list"><div id="columnFilters" class="ptg-column-filters" aria-label="칼럼 분류"></div><div id="columnAuthors" class="ptg-column-authors" aria-label="칼럼 필진 선택"></div><div id="columnGrid" class="ptg-column-grid" aria-live="polite"></div></section><section id="columnDetail" class="ptg-column-detail" hidden><button class="ptg-column-back" id="columnBack">← 전체 칼럼 보기</button><article class="ptg-column-article" id="columnArticle"></article></section></main><div data-site-footer></div><script src="../assets/js/app.js?v=20261105-columns"></script><script type="module" src="./columns.js?v=20261110-editorial2"></script></body></html>
+
+/* Editorial detail refinement — 2026.11.10 */
+.ptg-column-wrap:has(.ptg-column-detail:not([hidden])){padding-top:46px;padding-bottom:130px}
+.ptg-column-detail{width:min(920px,100%);margin:0 auto}
+.ptg-column-detail .ptg-column-back{font-size:13px;margin:0 0 34px;color:#c86e25;letter-spacing:-.01em}
+.ptg-column-article{width:100%;max-width:none}
+.ptg-editorial-hero{padding:0 0 30px;border-bottom:1px solid #e8e8e8}
+.ptg-editorial-eyebrow{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin:0 0 23px;font-size:12px;font-weight:700;letter-spacing:.015em}
+.ptg-editorial-eyebrow span:first-child{color:#e97820}
+.ptg-editorial-eyebrow span+span{color:#777;border-left:1px solid #dadada;padding-left:11px}
+.ptg-column-article .ptg-editorial-hero h1{font-size:clamp(32px,3.6vw,48px);font-weight:760;letter-spacing:-.055em;line-height:1.38;word-break:keep-all;margin:0;max-width:850px}
+.ptg-editorial-deck{font-size:17px;color:#5f6266;line-height:1.65;margin:15px 0 0}
+.ptg-editorial-byline{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:30px}
+.ptg-editorial-byline .ptg-column-writer--detail img{width:60px;height:60px;object-fit:cover;object-position:center 20%;border-radius:50%}
+.ptg-editorial-byline .ptg-column-writer strong{font-size:15px}
+.ptg-editorial-byline .ptg-column-writer span{font-size:13px}
+.ptg-editorial-date{display:flex;flex-direction:column;gap:4px;text-align:right;color:#85898f;font-size:13px}
+.ptg-editorial-content{max-width:800px;margin:0 auto}
+.ptg-editorial-lead{background:#f7f7f7;border-radius:16px;padding:30px 34px;margin:42px 0 39px}
+.ptg-editorial-lead>span{display:block;color:#e57822;font-size:12px;letter-spacing:.015em;font-weight:700;margin:0 0 12px}
+.ptg-editorial-lead p{margin:0;font-size:17px;line-height:1.87;color:#292d32;letter-spacing:-.025em;word-break:keep-all}
+.ptg-column-prose{font-size:17px;line-height:2.04;color:#3c4044;padding:0;letter-spacing:-.022em;word-break:keep-all}
+.ptg-column-prose p{margin:0 0 26px}
+.ptg-column-prose p.is-first{font-weight:500;color:#333}
+.ptg-editorial-source{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;border-top:1px solid #ededed;border-bottom:1px solid #ededed;margin:40px 0 30px}
+.ptg-editorial-source div{display:flex;flex-direction:column;gap:5px}
+.ptg-editorial-source span,.ptg-editorial-author-card>span{font-size:11px;color:#a0a1a3;letter-spacing:.12em;font-weight:700}
+.ptg-editorial-source strong{font-size:15px;color:#333}
+.ptg-editorial-source a,.ptg-editorial-author-row>a{color:#da741f!important;text-decoration:none;font-size:14px;font-weight:650;white-space:nowrap}
+.ptg-editorial-author-card{padding:27px 0 30px;border-bottom:1px solid #ececec}
+.ptg-editorial-author-row{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-top:18px}
+.ptg-editorial-author-row .ptg-column-writer--detail img{width:65px;height:65px}
+.ptg-editorial-consult{display:flex;justify-content:space-between;align-items:center;gap:25px;background:#faf9f7;border:1px solid #eee9e3;border-radius:16px;padding:30px 32px;margin:43px 0 45px}
+.ptg-editorial-consult-copy>span{color:#d77927;font-size:11px;letter-spacing:.1em;font-weight:750}
+.ptg-editorial-consult h2{font-size:22px;letter-spacing:-.045em;line-height:1.35;margin:10px 0 9px}
+.ptg-editorial-consult p{font-size:14px;line-height:1.7;color:#6d6e72;margin:0;max-width:530px}
+.ptg-editorial-consult>a{flex-shrink:0;display:inline-flex;padding:14px 20px;border-radius:10px;background:#f58220;color:#fff!important;font-size:14px;font-weight:700;text-decoration:none}
+.ptg-editorial-related{border-top:1px solid #e8e8e8;margin-top:22px;padding-top:30px}
+.ptg-editorial-related-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:14px}
+.ptg-editorial-related h2{font-size:23px;letter-spacing:-.045em;margin:0}
+.ptg-editorial-related-head button{border:0;background:none;font-size:13px;color:#777;cursor:pointer}
+.ptg-editorial-related-item{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid #ebebeb;padding:20px 3px;text-decoration:none!important}
+.ptg-editorial-related-item div{display:flex;flex-direction:column;gap:7px}
+.ptg-editorial-related-item div>span{font-size:12px;font-weight:700;color:#e57822}
+.ptg-editorial-related-item strong{font-size:17px;line-height:1.55;color:#292929;word-break:keep-all}
+.ptg-editorial-related-item small{font-size:12px;color:#929292}
+.ptg-editorial-related-item>span{font-size:22px;color:#989898;flex-shrink:0}
+@media(max-width:700px){
+ .ptg-column-wrap:has(.ptg-column-detail:not([hidden])){padding-top:28px;padding-bottom:85px}
+ .ptg-column-detail{width:100%}
+ .ptg-column-detail .ptg-column-back{margin-bottom:26px}
+ .ptg-editorial-hero{padding-bottom:24px}
+ .ptg-editorial-eyebrow{margin-bottom:17px}
+ .ptg-column-article .ptg-editorial-hero h1{font-size:clamp(27px,6.4vw,35px);line-height:1.42}
+ .ptg-editorial-deck{font-size:15px}
+ .ptg-editorial-byline{margin-top:23px}
+ .ptg-editorial-date{font-size:11px}
+ .ptg-editorial-byline .ptg-column-writer--detail img{width:49px;height:49px}
+ .ptg-editorial-byline .ptg-column-writer strong{font-size:13px}
+ .ptg-editorial-byline .ptg-column-writer span{font-size:11px}
+ .ptg-editorial-lead{padding:23px 22px;margin:27px 0 29px;border-radius:13px}
+ .ptg-editorial-lead p{font-size:15px;line-height:1.82}
+ .ptg-column-prose{font-size:15px;line-height:1.96}
+ .ptg-column-prose p{margin-bottom:24px}
+ .ptg-editorial-consult{flex-direction:column;align-items:stretch;gap:21px;padding:24px}
+ .ptg-editorial-consult>a{justify-content:center}
+ .ptg-editorial-consult h2{font-size:20px}
+ .ptg-editorial-source strong{font-size:13px}
+ .ptg-editorial-source a,.ptg-editorial-author-row>a{font-size:12px}
+ .ptg-editorial-related h2{font-size:20px}
+ .ptg-editorial-related-item strong{font-size:15px}
+}
+</style></head><body><div data-site-header></div><main class="ptg-column-wrap"><div class="ptg-column-heading" id="columnHeading"><span class="ptg-column-kicker">PENTAGON INSIGHTS</span><h1>전문가 칼럼</h1><p>펜타곤 전문가들이 다양한 법률·세무 이슈를 전문적인 시각으로 살펴봅니다.<br>실무에서 자주 접하는 쟁점부터 주요 판례와 제도 변화까지, 알아두면 도움이 되는 내용을 전합니다.</p></div><section id="columnListing" class="ptg-column-list"><div id="columnFilters" class="ptg-column-filters" aria-label="칼럼 분류"></div><div id="columnAuthors" class="ptg-column-authors" aria-label="칼럼 필진 선택"></div><div id="columnGrid" class="ptg-column-grid" aria-live="polite"></div></section><section id="columnDetail" class="ptg-column-detail" hidden><button class="ptg-column-back" id="columnBack">← 전체 칼럼 보기</button><article class="ptg-column-article" id="columnArticle"></article></section></main><div data-site-footer></div><script src="../assets/js/app.js?v=20261105-columns"></script><script type="module" src="./columns.js?v=20261110-editorial3"></script></body></html>
