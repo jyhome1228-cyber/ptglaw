@@ -12,4 +12,13 @@ User-agent: ChatGPT-User
 Allow: /
 Disallow: /admin/
 
+# Claude search-related crawlers (subject to their current policies)
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin/
+
 Sitemap: https://ptglaw.co.kr/sitemap.xml
