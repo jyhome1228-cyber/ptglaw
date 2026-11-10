@@ -5,14 +5,15 @@ export const columnSeeds=[
     "author": "전승환",
     "category": "tax-audit",
     "date": "2026-10-22",
-    "kicker": "세무조사 통지 후의 초기 대응",
-    "summary": "세무조사 사전통지서를 받은 직후 무엇을 확인하고 준비해야 하는지 살펴봅니다. 특히 조사 착수 전 자료를 임의로 변경하는 행위가 초래할 수 있는 문제를 짚습니다.",
-    "body": "세무조사 통지서를 받으면 먼저 조사 대상 세목과 과세기간, 조사 개시일 등 통지 내용을 확인해야 합니다.\n\n조사에 대비한다는 이유로 장부의 계정을 임의로 바꾸거나 관련 자료를 삭제하면 오히려 더 큰 문제가 생길 수 있습니다. 기존 자료는 보존하고, 거래 경위와 사실관계를 차분히 확인하는 것이 우선입니다.\n\n전승환 변호사는 사전통지 이후 첫 일주일의 준비가 조사 대응에 어떤 차이를 만드는지 실제 상황을 예로 들어 설명합니다.",
+    "kicker": "조사 범위·증빙 보존·초기 대응",
+    "summary": "세무조사 사전통지서를 받았다면 조사 범위와 기간을 확인하고 관련 자료의 원본을 보존하는 일이 먼저입니다. 첫 일주일에 점검할 사항과 피해야 할 행동을 살펴봅니다.",
+    "body": "세무조사 통지서에는 조사 대상 세목과 과세기간, 조사 개시일 등 중요한 정보가 담겨 있습니다. 조사 범위와 일정부터 정확히 확인해야 이후 대응의 기준을 세울 수 있습니다.\n\n자료를 새로 만들거나 기존 장부를 임의로 고치는 일은 해결책이 되기 어렵습니다. 조사 대상 거래에 관한 계약서와 증빙, 회계자료를 원래 상태로 보존하고, 필요한 사실관계를 시간순으로 정리하는 것이 중요합니다.\n\n세무조사는 단순한 자료 제출을 넘어 납세자의 설명과 법률적 판단이 함께 작동하는 절차입니다. 범위, 자료, 담당자 대응 방식 등을 초기에 검토하고, 문서의 수정·삭제처럼 은폐로 오해받을 수 있는 행동은 피해야 합니다.\n\n이 글은 사전통지 직후 준비할 사항을 중심으로 조사 대응의 순서를 안내합니다.",
     "source": "조세금융신문",
     "series": "펜타곤의 택스노트",
     "url": "",
     "status": "published",
-    "editorialType": "소개·요약"
+    "editorialType": "소개·요약",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-8c615a2b.webp"
   },
   {
     "id": "taxnote-20261014-substance",
@@ -27,7 +28,8 @@ export const columnSeeds=[
     "series": "펜타곤의 택스노트",
     "url": "",
     "status": "published",
-    "editorialType": "소개·요약"
+    "editorialType": "소개·요약",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "taxnote-20261007-housing",
@@ -35,14 +37,15 @@ export const columnSeeds=[
     "author": "강건",
     "category": "tax-ruling",
     "date": "2026-10-07",
-    "kicker": "주택 수 계산에서 분양권 취득 시점의 의미",
-    "summary": "주택 양도 당시 보유 주택 수를 산정할 때 분양권을 언제부터 보유한 것으로 볼 것인지, 관련 대법원 판단을 다룹니다.",
-    "body": "주택 양도세에서는 양도 시점의 주택 수가 세 부담에 영향을 줄 수 있습니다. 이때 분양권의 보유 시점을 어떻게 판단할 것인지가 쟁점이 됩니다.\n\n강건 변호사의 칼럼은 청약 당첨과 분양계약의 시간적 차이를 둘러싼 판결을 소개합니다. 개별 거래의 계약 및 양도 시점을 확인해야 하는 이유를 살펴볼 수 있습니다.",
+    "kicker": "분양권 취득 시점과 양도소득세",
+    "summary": "주택을 판 날에는 아직 분양계약을 체결하지 않았다면, 청약 당첨 사실만으로 분양권을 보유한 것으로 볼 수 있을까요? 대법원 판결을 통해 취득 시점을 살펴봅니다.",
+    "body": "주택 양도 당시 주택 수와 분양권 보유 여부는 양도소득세 판단에 영향을 줍니다. 이 사건의 납세자는 종전 주택을 매도하기 엿새 전에 다른 아파트 청약에 당첨됐지만, 분양계약은 주택을 양도한 다음 날 체결했습니다.\n\n과세관청은 청약 당첨 시점을 기준으로 분양권을 보유했다고 보았으나, 대법원은 분양권 취득 시점을 판단하는 기준을 제시했습니다(대법원 2026. 3. 12. 선고 2024두54560 판결).\n\n주택 수를 계산할 때에는 청약 당첨일, 분양계약 체결일, 기존 주택 양도일 등 각 날짜의 선후관계를 구체적으로 확인해야 합니다. 비과세와 중과세 판단을 앞두고 관련 계약서와 일정을 함께 검토할 필요가 있습니다.",
     "source": "조세금융신문",
     "series": "펜타곤의 택스노트",
     "url": "",
     "status": "published",
-    "editorialType": "소개·요약"
+    "editorialType": "소개·요약",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005359-image-cac846d6.webp"
   },
   {
     "id": "taxnote-20260916-audit",
@@ -50,14 +53,15 @@ export const columnSeeds=[
     "author": "전승환",
     "category": "tax-audit",
     "date": "2026-09-16",
-    "kicker": "조사 담당자와 납세자의 시각에서 본 세무조사",
-    "summary": "국세청 조사국 실무를 경험한 전승환 변호사가 세무조사의 절차와 납세자 대응을 다른 두 입장에서 돌아봅니다.",
-    "body": "세무조사는 과세 여부를 확인하기 위한 절차인 동시에 납세자의 권리와도 맞닿아 있습니다.\n\n전승환 변호사는 국세청 조사국 근무 경험을 토대로 조사 과정에서 무엇이 쟁점이 되는지 살펴봅니다. 조사에 대응하는 납세자에게 사실관계 확인과 자료 관리가 왜 중요한지 생각해 볼 수 있는 글입니다.",
+    "kicker": "국세청 조사 경험에서 본 납세자 대응",
+    "summary": "국세청 조사국에서 일하던 변호사가 납세자의 조력자로 옮겨 본 세무조사. 조사 방식의 변화와 절차적 권리가 현장에서 갖는 의미를 살펴봅니다.",
+    "body": "세무조사는 신고 내용의 정확성을 확인하는 행정절차이지만, 납세자에게는 사업 운영과 일상에 직접 영향을 미치는 사건이 되기도 합니다.\n\n조사기관의 업무 방식과 납세자의 현실을 모두 경험하면 같은 자료도 다른 각도에서 보입니다. 조사 범위와 자료 요청의 근거를 확인하고 사실관계를 정확하게 설명하는 과정이 중요한 이유입니다.\n\n조사의 효율성만큼 법이 정한 절차와 납세자의 권리도 중요합니다. 이 글은 조사국 실무 경험을 바탕으로 납세자와 조사기관이 마주하는 쟁점을 짚고, 세무조사를 바라보는 관점을 소개합니다.",
     "source": "조세금융신문",
     "series": "펜타곤의 택스노트",
     "url": "",
     "status": "published",
-    "editorialType": "소개·요약"
+    "editorialType": "소개·요약",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-8c615a2b.webp"
   },
   {
     "id": "taxnote-20260909-estate",
@@ -65,14 +69,15 @@ export const columnSeeds=[
     "author": "강건",
     "category": "inheritance",
     "date": "2026-09-09",
-    "kicker": "상속재산 평가와 과세관청의 사후감정",
-    "summary": "상속세 신고 이후 과세관청이 실시한 감정평가를 과세 근거로 사용할 수 있는지, 대법원 판결을 통해 살펴봅니다.",
-    "body": "상속재산에 대한 감정평가가 신고 이후 이루어졌다면 그 평가액을 과세에 사용할 수 있을까요?\n\n이 칼럼은 국세청의 사후감정을 둘러싼 상속세 사건을 소개합니다. 감정평가 결과와 과세처분의 관계, 대법원이 관련 쟁점을 판단한 과정을 이해하는 데 초점을 맞춥니다.",
+    "kicker": "사후감정과 상속재산 시가 판단",
+    "summary": "상속세 신고 이후 국세청의 사후감정으로 세액이 추가 부과된 사건. 대법원은 감정평가의 요건과 법원감정의 역할을 어떻게 구분했을까요?",
+    "body": "상속인은 토지의 공시지가 등을 기준으로 상속세를 신고했지만, 과세관청은 이후 실시한 소급감정 결과를 근거로 추가 세액을 부과했습니다. 이 사건에서는 사후감정의 적법성과 부동산 시가를 어떻게 증명할지가 쟁점이 됐습니다.\n\n대법원은 과세관청이 일정한 요건 아래 감정을 의뢰할 수 있다는 점, 평가 기준일 이후 가격변동에 관한 증명책임, 소송 단계에서 실시하는 법원감정의 지위를 구분해 판단했습니다(대법원 2026. 4. 30. 선고 2024두61780 판결).\n\n감정 절차의 문제를 다투는 것과 최종적으로 세액이 얼마인지 판단하는 일은 구별됩니다. 과세관청의 감정가액이 배척되더라도 법원이 인정하는 시가에 따라 정당세액이 다시 계산될 수 있기 때문입니다. 상속재산 평가를 둘러싼 불복에서는 절차와 가격 증명을 함께 준비할 필요가 있습니다.",
     "source": "조세금융신문",
     "series": "펜타곤의 택스노트",
     "url": "https://www.tfmedia.co.kr/news/article.html?no=207079",
     "status": "published",
-    "editorialType": "소개·요약"
+    "editorialType": "소개·요약",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005359-image-cac846d6.webp"
   },
   {
     "id": "migrated-news-import-003",
@@ -80,14 +85,15 @@ export const columnSeeds=[
     "author": "채용현",
     "category": "tax-ruling",
     "date": "2026-09-02",
-    "kicker": "",
-    "summary": "전근·취학·간병 등 불가피한 사유로 거주하지 못한 경우를 둘러싼 실거주 인정 기준과 세제 논의를 살펴봅니다.",
-    "body": "",
+    "kicker": "부득이한 비거주 사유의 인정 기준",
+    "summary": "전근·취학·간병으로 집을 비운 1주택자의 실거주 인정 범위는 어디까지일까요? 부득이한 사유의 판단과 증빙의 중요성을 살펴봅니다.",
+    "body": "주택을 소유하고도 전근, 자녀의 취학, 가족 간병 등의 사정으로 실제 거주하지 못하는 경우가 있습니다. 이런 사유를 세법상 예외로 인정할 수 있는지는 각 제도의 요건과 개별 사실관계에 따라 달라집니다.\n\n기존 법령에는 근무상의 형편, 취학, 요양 등 일정한 사유가 열거돼 있습니다. 그러나 법령에 적혀 있지 않은 사정까지 어느 범위에서 인정할 것인지는 해석상 어려움이 남아 있습니다. 판례와 조세심판 결정은 납세자가 이해할 만한 개인 사정과 법률상 요건을 엄격히 구별해 왔습니다.\n\n특히 양도소득세와 종합부동산세는 과세 판단 시점이 다르므로, 같은 비거주 사유도 서로 다른 영향을 미칠 수 있습니다. 전입·전출 내역, 인사발령 서류, 취학 증빙, 진단서와 가족관계 자료 등 해당 사유를 입증할 수 있는 기록을 미리 확보하는 것이 중요합니다.\n\n이 내용은 2026년 세제개편안 논의 당시의 기고를 바탕으로 하므로, 실제 적용 시점에는 개정 법령과 시행일을 별도로 확인해야 합니다.",
     "source": "조세금융신문",
     "series": "펜타곤의 택스노트",
     "url": "https://www.tfmedia.co.kr/news/article.html?no=206924",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "migrated-news-legacy-002",
@@ -102,7 +108,8 @@ export const columnSeeds=[
     "series": "외부 기고",
     "url": "https://news.koreanbar.or.kr/news/articleView.html?idxno=36046",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "migrated-news-legacy-005",
@@ -117,7 +124,8 @@ export const columnSeeds=[
     "series": "외부 기고",
     "url": "https://news.koreanbar.or.kr/news/articleView.html?idxno=35712",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "migrated-news-legacy-014",
@@ -132,7 +140,8 @@ export const columnSeeds=[
     "series": "외부 기고",
     "url": "https://news.koreanbar.or.kr/news/articleView.html?idxno=35316",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "migrated-news-legacy-021",
@@ -162,7 +171,8 @@ export const columnSeeds=[
     "series": "외부 기고",
     "url": "https://news.nate.com/view/20220114n34325",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
     "id": "migrated-news-legacy-032",
@@ -177,6 +187,7 @@ export const columnSeeds=[
     "series": "외부 기고",
     "url": "https://news.koreanbar.or.kr/news/articleView.html?idxno=22538",
     "status": "published",
-    "editorialType": "외부 기고"
+    "editorialType": "외부 기고",
+    "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   }
 ];
