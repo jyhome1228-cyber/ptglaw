@@ -17,7 +17,7 @@ function authorBox(x,large=false){
  const src=picture(x);
  if(src){const img=document.createElement('img');img.src=src;img.alt=x.author+' 프로필 사진';img.loading=large?'eager':'lazy';img.decoding='async';wrap.append(img)}
  const words=document.createElement('div');const name=document.createElement('strong');name.textContent=x.author||'펜타곤 전문가';
- const role=document.createElement('span');role.textContent=names[x.category]+' · '+(x.source||'펜타곤 법률세무회계');
+ const role=document.createElement('span');const authorRoles={'전승환':'파트너변호사 · 세무사','강건':'파트너변호사','채용현':'대표변호사 · 세무사 · 변리사'};role.textContent=authorRoles[x.author]||(x.source||'펜타곤 법률세무회계');
  words.append(name,role);wrap.append(words);return wrap;
 }
 function showList(){history.pushState(null,'',base+'/columns/');render();window.scrollTo({top:0,behavior:'instant'})}
