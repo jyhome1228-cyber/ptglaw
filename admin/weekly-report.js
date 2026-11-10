@@ -30,9 +30,10 @@ function render(){
  if(!modal){
   modal=document.createElement('div');modal.id='ptgWeeklyModal';modal.hidden=true;
   modal.style.cssText='position:fixed;inset:0;z-index:13000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box';
-  modal.innerHTML='<section role="dialog" aria-modal="true" aria-labelledby="ptgWeeklyTitle" style="background:white;border-radius:20px;padding:32px;width:min(650px,100%);box-sizing:border-box;box-shadow:0 24px 70px #0003"><small style="font-weight:700;color:#e97920">MONDAY REPORT</small><h2 id="ptgWeeklyTitle">지난주 주간 리포트</h2><p class="muted" id="ptgWeeklyDate"></p><div class="ops-visitor-cards" id="ptgWeeklyStats" style="margin:22px 0"></div><p class="muted" id="ptgWeeklySources"></p><div class="ptg-weekly-actions"><button type="button" id="ptgWeeklyClose">리포트 확인</button><button type="button" id="ptgWeeklyNever">더 이상 보지 않기</button></div></section>';
+  modal.innerHTML='<section role="dialog" aria-modal="true" aria-labelledby="ptgWeeklyTitle" style="background:white;border-radius:20px;padding:32px;width:min(650px,100%);box-sizing:border-box;box-shadow:0 24px 70px #0003"><small style="font-weight:700;color:#e97920">MONDAY REPORT</small><h2 id="ptgWeeklyTitle">지난주 주간 리포트</h2><p class="muted" id="ptgWeeklyDate"></p><div class="ops-visitor-cards" id="ptgWeeklyStats" style="margin:22px 0"></div><p class="muted" id="ptgWeeklySources"></p><div class="ptg-weekly-actions"><button type="button" id="ptgWeeklyArchive">지난 리포트 보기</button><button type="button" id="ptgWeeklyClose">리포트 확인</button><button type="button" id="ptgWeeklyNever">더 이상 보지 않기</button></div></section>';
   document.body.appendChild(modal);
   modal.querySelector('#ptgWeeklyClose').onclick=()=>{modal.hidden=true};
+  modal.querySelector('#ptgWeeklyArchive').onclick=()=>{modal.hidden=true;document.querySelector('[data-view="weeklyReports"]')?.click()};
   modal.querySelector('#ptgWeeklyNever').onclick=()=>{try{localStorage.setItem('ptgWeeklyPopupDisabled','1')}catch(_){}modal.hidden=true};
   modal.addEventListener('click',e=>{if(e.target===modal)modal.hidden=true});
   document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.hidden=true});
