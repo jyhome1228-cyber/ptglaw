@@ -1,6 +1,6 @@
 import {db} from '../assets/js/firebase-client.js';
 import {columnSeeds} from '../assets/js/column-seeds.js';
-import {getDocs,getDoc,doc,collection,query,where} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
+import {getDocs,collection,query,where} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s);
 const names={'tax-audit':'세무조사','tax-ruling':'조세·판례',inheritance:'상속·증여',legal:'법률',insight:'전문가 칼럼'};
 const pictures={
@@ -118,19 +118,14 @@ async function start(){
   const snap=await getDocs(query(collection(db,'columns'),where('status','==','published')));
   const stored=snap.docs.map(d=>({id:d.id,...d.data()}));
   const seedsById=new Map(columnSeeds.map(x=>[x.id,x]));
-  // Respect publication status of imported seeds: a private draft must not
-  // reappear from the bundled fallback just because it was excluded by the public query.
-  const seedAvailability=await Promise.all(columnSeeds.map(async seed=>{
-   if(stored.some(x=>x.id===seed.id))return {id:seed.id,show:true};
-   try{const result=await getDoc(doc(db,'columns',seed.id));return {id:seed.id,show:!result.exists()||result.data().status==='published'};}
-   catch(e){return {id:seed.id,show:e.code!=='permission-denied'};}
-  }));
-  const availableSeeds=new Set(seedAvailability.filter(x=>x.show).map(x=>x.id));
+  // Bundled columns are public published articles; Firestore is for new and edited posts.
+  // A public Firestore get cannot test a missing document under published-only rules.
+  // Do not accidentally hide bundled posts after a permission-denied read.
   articles=[...stored.map(x=>{
    const seed=seedsById.get(x.id);
    if(!seed)return x;
    const manuscriptIds=new Set(['taxnote-20261022-7days','taxnote-20260916-audit','taxnote-20261007-housing','taxnote-20260909-estate','migrated-news-import-003']);const original=manuscriptIds.has(x.id)&&x.editorUpdated!==true;return {...seed,...x,image:x.image||seed.image,summary:original?seed.summary:(x.summary||seed.summary),body:original?seed.body:(x.body||seed.body),kicker:original?seed.kicker:(x.kicker||seed.kicker)};
-  }),...columnSeeds.filter(s=>availableSeeds.has(s.id)&&!stored.some(x=>x.id===s.id||((x.url&&s.url&&x.url===s.url)||(x.title&&s.title&&x.title.replace(/\s/g,'')===s.title.replace(/\s/g,'')))))]
+  }),...columnSeeds.filter(s=>!stored.some(x=>x.id===s.id||((x.url&&s.url&&x.url===s.url)||(x.title&&s.title&&x.title.replace(/\s/g,'')===s.title.replace(/\s/g,'')))))]
  }catch(e){console.warn('전문가 칼럼 조회 실패, 기본 콘텐츠를 사용합니다.',e)}
  const id=new URLSearchParams(location.search).get('article');if(id&&articles.some(x=>x.id===id&&isArticle(x)))showDetail(id,'none');else render();
 }
