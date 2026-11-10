@@ -178,3 +178,19 @@ body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{
  body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{font-size:13px!important}
  body.ptg-global-ui .ptg-column-wrap .ptg-editorial-hero h1{font-size:clamp(26px,7vw,33px)!important}
 }
+
+/* Legal citations: intentionally smaller than main article paragraphs. */
+body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference,
+body .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{
+ font-size:13px!important;line-height:1.72!important;font-weight:400!important;
+ color:#85898e!important;letter-spacing:-.01em!important;margin:0 0 10px!important;
+ overflow-wrap:anywhere;
+}
+body.ptg-global-ui .ptg-column-wrap .ptg-column-prose h2.ptg-editorial-reference-heading{
+ font-size:17px!important;line-height:1.5!important;margin:38px 0 16px!important;
+}
+@media(max-width:700px){
+ body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference,
+ body .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{font-size:12px!important;line-height:1.68!important;margin-bottom:9px!important}
+ body.ptg-global-ui .ptg-column-wrap .ptg-column-prose h2.ptg-editorial-reference-heading{font-size:15px!important}
+}
