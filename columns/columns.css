@@ -8,7 +8,7 @@
 .ptg-column-heading p{color:#636971;font-size:17px;line-height:1.8;max-width:790px;margin:0}
 .ptg-column-filters,.ptg-column-authors{display:flex;flex-wrap:wrap;gap:8px}
 .ptg-column-filters{margin-bottom:19px}
-.ptg-column-filters button{border:1px solid #e6e6e6;border-radius:99px;background:#fff;padding:10px 17px;font:500 14px inherit;color:#333;cursor:pointer}
+.ptg-column-filters button{border:1px solid #e6e6e6;border-radius:99px;background:#fff;padding:10px 17px;font-family:inherit;font-size:14px;font-weight:500;color:#333;cursor:pointer}
 .ptg-column-filters button.active{background:#252525;border-color:#252525;color:#fff}
 .ptg-column-authors{margin:0 0 26px}
 .ptg-column-authors button{border:0;background:none;border-radius:8px;padding:8px 12px;color:#767676;font-size:13px;cursor:pointer}
