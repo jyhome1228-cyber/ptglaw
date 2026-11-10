@@ -26,10 +26,10 @@ export const columnSeeds=[
     "summary": "채권이 가족 명의로 되어 있을 때 국가가 이를 체납자의 재산으로 보고 압류할 수 있는지, 민사법과 조세법의 판단 기준을 살펴봅니다.",
     "body": "국세를 징수하는 과정에서는 재산이 누구에게 귀속되는지가 중요합니다. 그런데 채권의 명의자와 실질적인 권리자가 다르다고 주장하는 경우에는 판단이 복잡해집니다.\n\n이 글은 민사법상 채권 귀속의 문제와 조세법상 실질과세원칙을 구분해 살펴봅니다. 실질과세원칙이 국세징수절차에서 어디까지 적용될 수 있는지에 관한 논점을 다룹니다.",
     "source": "조세금융신문",
-    "series": "펜타곤의 택스노트",
+    "series": "전문가 칼럼",
     "url": "",
     "status": "published",
-    "editorialType": "소개·요약",
+    "editorialType": "쟁점 해설",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp"
   },
   {
