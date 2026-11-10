@@ -132,7 +132,7 @@ async function start(){
   for(const item of stored){
    if(taxNoteIds.has(item.id)){
     const seed=merged.get(item.id);
-    merged.set(item.id,item.editorUpdated===true?{...seed,...item,image:item.image||seed.image}:{...seed,...item,body:seed.body,summary:seed.summary,kicker:seed.kicker,image:item.image||seed.image});
+    const newerEdit=item.editorUpdated===true&&item.manuscriptEdition==='docx-original-20261110';merged.set(item.id,newerEdit?{...seed,...item,image:item.image||seed.image}:{...seed,...item,title:seed.title,body:seed.body,summary:seed.summary,kicker:seed.kicker,image:seed.image||item.image});
    }else if(item.showOnColumnList===true){
     // Only newly approved admin additions; previous legacy imports stay hidden.
     merged.set(item.id,item);
