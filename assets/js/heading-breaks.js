@@ -9,7 +9,7 @@
     'main p'
   ].join(',');
 
-  const EXCLUDE='nav,table,pre,code,kbd,samp,[contenteditable="true"],[data-punct-break="off"]';
+  const EXCLUDE='nav,table,pre,code,kbd,samp,.ptg-column-wrap,[contenteditable="true"],[data-punct-break="off"]';
   const PERIODS=new Set(['.','。']);
   const isDigit=c=>/\d/.test(c||'');
   const isAsciiLetter=c=>/[A-Za-z]/.test(c||'');
