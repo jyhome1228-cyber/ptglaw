@@ -110,3 +110,7 @@
  .ptg-editorial-source a,.ptg-editorial-author-row>a{font-size:12px}
 }
 @media(max-width:385px){.ptg-column-card{grid-template-columns:minmax(0,1fr) 78px}.ptg-column-card-photo{width:78px;height:106px}.ptg-column-card-meta{font-size:11px}.ptg-editorial-date{font-size:10px}}
+
+/* Compact legal citations, separated from the principal article text */
+.ptg-column-prose p.ptg-editorial-reference{font-size:14.5px;line-height:1.8;color:#777;margin-bottom:9px;letter-spacing:-.01em}
+@media(max-width:700px){.ptg-column-prose p.ptg-editorial-reference{font-size:13px;line-height:1.75}}
