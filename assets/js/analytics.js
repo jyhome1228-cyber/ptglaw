@@ -52,6 +52,8 @@
         else if(medium==='organic')source='search';
         else if(medium==='social')source='social';
         else if(refHost&&!ownHosts.has(refHost)||campaign)source='referral';
+        // Preserve the first identifiable acquisition channel across on-site navigation.
+        try{if(!sessionStorage.getItem('ptgReferralSource'))sessionStorage.setItem('ptgReferralSource',source)}catch(_){}
         // Never infer an exact source when the referring service is hidden.
         const visit={visitorId,date,source,firstPath:location.pathname.replace(/[^a-zA-Z0-9/_-]/g,'').slice(0,160)||'/',createdAt:serverTimestamp()};
         try{
