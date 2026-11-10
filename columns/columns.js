@@ -43,7 +43,7 @@ function showDetail(id,historyMode='push'){
  if(x.body){
   const content=document.createElement('section');content.className='ptg-column-prose';
   const parts=String(x.body).split(/\n\s*\n/).map(v=>v.trim()).filter(Boolean);
-  parts.forEach((part,i)=>{const p=document.createElement('p');if(i===0)p.className='is-first';p.textContent=part;content.append(p)});
+  parts.forEach((part,i)=>{const lines=part.split(/\n/);if(lines[0].startsWith('## ')){const heading=document.createElement('h2');heading.textContent=lines.shift().slice(3);content.append(heading);if(lines.join('').trim()){const p=document.createElement('p');p.textContent=lines.join('\n');content.append(p)}}else{const p=document.createElement('p');if(i===0)p.className='is-first';p.textContent=part;content.append(p)}});
   layout.append(content);
  }
  if(x.url&&/^https:\/\//i.test(x.url)){
@@ -80,7 +80,7 @@ function showDetail(id,historyMode='push'){
   box.append(more);
  }
  if(historyMode==='push')history.pushState(null,'',base+'/columns/?article='+encodeURIComponent(x.id));
- document.title=x.title+' | 펜타곤 전문가 칼럼';window.scrollTo({top:0,behavior:'instant'});
+ document.title=x.title+' | 펜타곤 전문가 칼럼';window.scrollTo(0,0);requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo(0,0)));
 }
 
 function render(){
