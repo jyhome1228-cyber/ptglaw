@@ -14,7 +14,7 @@ export const columnSeeds=[
     "status": "published",
     "editorialType": "기고 원고",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-8c615a2b.webp",
-    "manuscriptEdition": "20261110"
+    "manuscriptEdition": "20261110-clean"
   },
   {
     "id": "taxnote-20261014-substance",
@@ -47,7 +47,7 @@ export const columnSeeds=[
     "status": "published",
     "editorialType": "기고 원고",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005359-image-cac846d6.webp",
-    "manuscriptEdition": "20261110"
+    "manuscriptEdition": "20261110-clean"
   },
   {
     "id": "taxnote-20260916-audit",
@@ -64,7 +64,7 @@ export const columnSeeds=[
     "status": "published",
     "editorialType": "기고 원고",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-8c615a2b.webp",
-    "manuscriptEdition": "20261110"
+    "manuscriptEdition": "20261110-clean"
   },
   {
     "id": "taxnote-20260909-estate",
@@ -81,7 +81,7 @@ export const columnSeeds=[
     "status": "published",
     "editorialType": "기고 원고",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005359-image-cac846d6.webp",
-    "manuscriptEdition": "20261110"
+    "manuscriptEdition": "20261110-clean"
   },
   {
     "id": "migrated-news-import-003",
@@ -98,7 +98,7 @@ export const columnSeeds=[
     "status": "published",
     "editorialType": "기고 원고",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp",
-    "manuscriptEdition": "20261110"
+    "manuscriptEdition": "20261110-clean"
   },
   {
     "id": "migrated-news-legacy-002",
@@ -209,7 +209,7 @@ export const columnSeeds=[
     "url": "",
     "status": "published",
     "editorialType": "기고 원고",
-    "manuscriptEdition": "20261110",
+    "manuscriptEdition": "20261110-clean",
     "image": "https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005359-image-cac846d6.webp"
   }
 ];
