@@ -43,7 +43,7 @@ function showDetail(id,historyMode='push'){
  if(x.body){
   const content=document.createElement('section');content.className='ptg-column-prose';
   const parts=String(x.body).split(/\n\s*\n/).map(v=>v.trim()).filter(Boolean);
-  parts.forEach((part,i)=>{const lines=part.split(/\n/);if(lines[0].startsWith('## ')){const heading=document.createElement('h2');heading.textContent=lines.shift().slice(3);content.append(heading);if(lines.join('').trim()){const p=document.createElement('p');p.textContent=lines.join('\n');content.append(p)}}else{const p=document.createElement('p');if(i===0)p.className='is-first';p.textContent=part;content.append(p)}});
+  parts.forEach((part,i)=>{const lines=part.split(/\n/);if(lines[0].startsWith('## ')){const heading=document.createElement('h2');heading.textContent=lines.shift().slice(3);content.append(heading);if(lines.join('').trim()){const p=document.createElement('p');p.textContent=lines.join('\n');content.append(p)}}else{const p=document.createElement('p');if(i===0)p.className='is-first';if(part.startsWith('※ '))p.className='ptg-editorial-reference';p.textContent=part;content.append(p)}});
   layout.append(content);
  }
  if(x.url&&/^https:\/\//i.test(x.url)){
@@ -121,7 +121,7 @@ async function start(){
   articles=[...stored.map(x=>{
    const seed=seedsById.get(x.id);
    if(!seed)return x;
-   const manuscriptIds=new Set(['taxnote-20261022-7days','taxnote-20260916-audit','taxnote-20261007-housing','taxnote-20260909-estate','migrated-news-import-003']);const original=manuscriptIds.has(x.id);return {...seed,...x,image:x.image||seed.image,summary:original?seed.summary:((x.summary||'').length<(seed.summary||'').length?seed.summary:x.summary),body:original?seed.body:((x.body||'').length<(seed.body||'').length?seed.body:x.body),kicker:original?seed.kicker:(x.kicker||seed.kicker)};
+   const manuscriptIds=new Set(['taxnote-20261022-7days','taxnote-20260916-audit','taxnote-20261007-housing','taxnote-20260909-estate','migrated-news-import-003']);const original=manuscriptIds.has(x.id)&&x.editorUpdated!==true;return {...seed,...x,image:x.image||seed.image,summary:original?seed.summary:(x.summary||seed.summary),body:original?seed.body:(x.body||seed.body),kicker:original?seed.kicker:(x.kicker||seed.kicker)};
   }),...columnSeeds.filter(s=>!stored.some(x=>x.id===s.id||((x.url&&s.url&&x.url===s.url)||(x.title&&s.title&&x.title.replace(/\s/g,'')===s.title.replace(/\s/g,'')))))]
  }catch(e){console.warn('전문가 칼럼 조회 실패, 기본 콘텐츠를 사용합니다.',e)}
  const id=new URLSearchParams(location.search).get('article');if(id&&articles.some(x=>x.id===id&&isArticle(x)))showDetail(id,'none');else render();
