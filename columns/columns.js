@@ -1,5 +1,5 @@
 import {db} from '../assets/js/firebase-client.js';
-import {columnSeeds} from '../assets/js/column-seeds.js?v=20261110-clean-v7';
+import {columnSeeds} from '../assets/js/column-seeds.js?v=20261110-six-only-v9';
 import {getDocs,collection,query,where} from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-firestore.js';
 const $=s=>document.querySelector(s);
 const names={'tax-audit':'세무조사','tax-ruling':'조세·판례',inheritance:'상속·증여',legal:'법률',insight:'전문가 칼럼'};
@@ -9,7 +9,16 @@ const pictures={
  '채용현':'https://nineworksdatabase.planus253.workers.dev/cdn/uncategorized/20261110-005400-image-341ee81f.webp'
 };
 const base=location.pathname.startsWith('/ptglaw/')?'/ptglaw':'';
-let articles=columnSeeds.slice(),filter='all',author='all';
+const taxNoteIds=new Set([
+'taxnote-20261022-7days',
+'taxnote-20261007-housing',
+'taxnote-20260916-audit',
+'taxnote-20260909-estate',
+'migrated-news-import-003',
+'taxnote-fta-seasonal-duty-potato'
+]);
+const approvedSeeds=columnSeeds.filter(x=>taxNoteIds.has(x.id));
+let articles=approvedSeeds.slice(),filter='all',author='all';
 const isArticle=x=>x&&x.status==='published';
 function picture(x){return x.image||pictures[x.author]||''}
 function authorBox(x,large=false){
@@ -114,20 +123,26 @@ function render(){
 }
 $('#columnBack').onclick=showList;
 async function start(){
+ // Six verified Tax Note manuscripts only. Old imported newsroom columns are excluded.
+ articles=approvedSeeds.slice();
  try{
   const snap=await getDocs(query(collection(db,'columns'),where('status','==','published')));
   const stored=snap.docs.map(d=>({id:d.id,...d.data()}));
-  const seedsById=new Map(columnSeeds.map(x=>[x.id,x]));
-  // Bundled columns are public published articles; Firestore is for new and edited posts.
-  // A public Firestore get cannot test a missing document under published-only rules.
-  // Do not accidentally hide bundled posts after a permission-denied read.
-  articles=[...stored.map(x=>{
-   const seed=seedsById.get(x.id);
-   if(!seed)return x;
-   const manuscriptIds=new Set(['taxnote-20261022-7days','taxnote-20260916-audit','taxnote-20261007-housing','taxnote-20260909-estate','migrated-news-import-003']);const original=manuscriptIds.has(x.id)&&x.editorUpdated!==true;return {...seed,...x,image:x.image||seed.image,summary:original?seed.summary:(x.summary||seed.summary),body:original?seed.body:(x.body||seed.body),kicker:original?seed.kicker:(x.kicker||seed.kicker)};
-  }),...columnSeeds.filter(s=>!stored.some(x=>x.id===s.id||((x.url&&s.url&&x.url===s.url)||(x.title&&s.title&&x.title.replace(/\s/g,'')===s.title.replace(/\s/g,'')))))]
- }catch(e){console.warn('전문가 칼럼 조회 실패, 기본 콘텐츠를 사용합니다.',e)}
- const id=new URLSearchParams(location.search).get('article');if(id&&articles.some(x=>x.id===id&&isArticle(x)))showDetail(id,'none');else render();
+  const merged=new Map(approvedSeeds.map(x=>[x.id,x]));
+  for(const item of stored){
+   if(taxNoteIds.has(item.id)){
+    const seed=merged.get(item.id);
+    merged.set(item.id,item.editorUpdated===true?{...seed,...item,image:item.image||seed.image}:{...seed,...item,body:seed.body,summary:seed.summary,kicker:seed.kicker,image:item.image||seed.image});
+   }else if(item.showOnColumnList===true){
+    // Only newly approved admin additions; previous legacy imports stay hidden.
+    merged.set(item.id,item);
+   }
+  }
+  articles=[...merged.values()];
+ }catch(e){console.warn('칼럼 조회 오류 — 택스노트 기본 6편 표시:',e)}
+ const id=new URLSearchParams(location.search).get('article');
+ if(id&&articles.some(x=>x.id===id&&isArticle(x)))showDetail(id,'none');else render();
 }
+
 window.addEventListener('popstate',()=>{const id=new URLSearchParams(location.search).get('article');if(id)showDetail(id,'none');else render()});
 start();
