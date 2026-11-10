@@ -59,6 +59,15 @@
   if(safe('name'))$('contactName').value=safe('name',100);
   if(safe('phone'))$('contactPhone').value=safe('phone',40);
   $('contactCorpAmount').addEventListener('input',e=>{e.target.value=fmt(e.target.value);});
+  // Pre-fill the consultation context without asking the visitor to repeat the case.
+  const relatedCase=safe('case',24);
+  const relatedTopic=safe('topic',100);
+  const caseTitle=relatedCase&&/^case\\d+$/.test(relatedCase)?relatedCase:'';
+  if(caseTitle){
+    const option=Array.from(category.options).find(o=>o.value===relatedTopic||o.textContent===relatedTopic);
+    if(option)category.value=option.value;
+    if(message&&!message.value)message.value='참고한 업무사례('+caseTitle+'): '+(relatedTopic||'업무사례')+'\\n상담 내용: ';
+  }
   update();
   if(requested&&window.location.hash==='#ptgContactFormTitle'){
     window.addEventListener('load',()=>{
@@ -101,7 +110,9 @@
       '이메일: '+(value('contactEmail')||'미입력'),
       '회사/법인명: '+(value('contactCompany')||'미입력'),
       '문의 분야: '+category.value,
-      '중요 기한: '+(value('contactDeadline')||'없음')
+      '중요 기한: '+(value('contactDeadline')||'없음'),
+      '관심 업무사례: '+(caseTitle||'없음'),
+      '확인된 유입경로: '+(sessionStorage.getItem('ptgReferralSource')||'확인 불가')
     ];
     if(m==='corporate'){
       lines.push('','[법인등기 정보]',
