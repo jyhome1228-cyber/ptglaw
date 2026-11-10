@@ -17,7 +17,7 @@ const old=items.find(x=>x.id===id);
 const normalize=t=>String(t||'').trim().replace(/\s+/g,'').toLowerCase();
 const duplicate=items.find(x=>x.id!==id&&(normalize(x.title)===normalize(v.title)||(v.url&&x.url&&x.url.trim()===v.url.trim())));
 if(duplicate)return say('이미 등록된 제목 또는 원문 주소입니다. 기존 칼럼을 수정해주세요.');
-try{await setDoc(doc(db,'columns',id),{...v,editorUpdated:true,createdAt:old?.createdAt||serverTimestamp(),updatedAt:serverTimestamp()},{merge:true});clear();say('칼럼이 저장되었습니다.');await load()}catch(e){say('저장 실패: '+e.message)}});
+try{await setDoc(doc(db,'columns',id),{...v,editorUpdated:true,showOnColumnList:true,createdAt:old?.createdAt||serverTimestamp(),updatedAt:serverTimestamp()},{merge:true});clear();say('칼럼이 저장되었습니다.');await load()}catch(e){say('저장 실패: '+e.message)}});
 $('#resetColumn').onclick=clear;$('#reloadColumns').onclick=load;
 $('#importColumnSeeds').onclick=async()=>{if(!admin)return say('관리자 권한이 필요합니다.');if(!confirm('기본 칼럼을 등록할까요? 같은 ID의 기존 글은 덮어쓰지 않습니다.'))return;let n=0;try{for(const entry of columnSeeds){if((await getDoc(doc(db,'columns',entry.id))).exists())continue;await setDoc(doc(db,'columns',entry.id),{...entry,createdAt:serverTimestamp(),updatedAt:serverTimestamp()});n++}say('기본 칼럼 '+n+'건 등록 완료. 이후 수정 및 신규 등록은 이 화면에서 가능합니다.');await load()}catch(e){say(n+'건 등록 후 오류: '+e.message+' / Firestore 규칙의 columns 권한을 확인하세요.')}};
 clear();
