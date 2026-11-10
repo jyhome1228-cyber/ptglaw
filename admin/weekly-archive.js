@@ -55,16 +55,19 @@ async function sync(force=false){
  if(!admin||busy||(!force&&initialized))return;
  busy=true;status='주간 기록을 확인하는 중입니다.';render();
  try{
-  const [data,existing]=await Promise.all([fetchData(),getDocs(collection(db,'weeklyReports'))]);
-  const saved=new Map(existing.docs.map(d=>[d.id,{...d.data(),start:d.id,saved:true}]));
+  const data=await fetchData();
+  let existing=null,readFailed=false;
+  try{existing=await getDocs(collection(db,'weeklyReports'))}catch(e){readFailed=true;console.warn('Weekly archive read permission:',e.code||e.message)}
+  const saved=new Map(existing?existing.docs.map(d=>[d.id,{...d.data(),start:d.id,saved:true}]):[]);
   const dates=[...data.visits.map(x=>x.date||''),...data.inquiries.map(x=>dated(x.createdAt))].filter(x=>/^\d{4}-\d{2}-\d{2}$/.test(x)).sort();
   const last=previous(monday(today()));
   const first=dates.length?monday(dates[0]):last;
   const limit=Math.max(epoch(first),epoch(last)-103*7*DAY);
   const computed=[];
   if(dates.length){for(let t=epoch(last);t>=limit;t-=7*DAY)computed.push(summarize(iso(t),data))}
-  let written=0,failed=false;
+  let written=0,failed=readFailed;
   for(const item of computed){
+   if(readFailed)break;
    if(saved.has(item.start))continue;
    try{await setDoc(doc(db,'weeklyReports',item.start),{...item,createdAt:serverTimestamp()});saved.set(item.start,{...item,saved:true});written++}
    catch(e){failed=true;console.warn('Weekly report persistence:',e.code||e.message);if(e.code==='permission-denied')break}
