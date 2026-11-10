@@ -7,8 +7,25 @@
   const esc=s=>String(s??'').replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]));
   let extra=[];
   try{const res=await fetch(`${base}/content/news.json?v=${Date.now()}`,{cache:'no-store'});if(res.ok)extra=await res.json()}catch(e){}
-  // Merge published Firestore items while preserving existing GitHub JSON articles.
-  try{const module=await import('../assets/js/firebase-content.js');const items=await module.publicEntries('news');if(items?.length){const publishedIds=new Set(items.map(x=>x.id));extra=[...items,...extra.filter(x=>!publishedIds.has(x.id))]}}catch(err){console.warn('Firebase news fallback',err)}
+  // Merge published CMS news without discarding manually curated images on matching articles.
+  try{
+    const module=await import('../assets/js/firebase-content.js');
+    const items=await module.publicEntries('news');
+    if(items?.length){
+      const localById=new Map(extra.map(x=>[x.id,x]));
+      const publishedIds=new Set(items.map(x=>x.id));
+      extra=[
+        ...items.map(x=>{
+          const saved=localById.get(x.id);
+          const candidate=x.image||x.thumbnail||x.thumbnailUrl||x.ogImage||'';
+          const local=saved?.image||'';
+          const valid=u=>/\.(?:jpe?g|png|webp|avif|gif|svg)(?:[?#]|$)/i.test(u||'');
+          return {...x,image:valid(candidate)?candidate:(valid(local)?local:'')};
+        }),
+        ...extra.filter(x=>!publishedIds.has(x.id))
+      ];
+    }
+  }catch(err){console.warn('Firebase news fallback',err)}
   // All editorial articles now come from one CMS source; drafts are never rendered publicly.
   const records=Array.isArray(extra)?extra.filter(x=>x&&x.category!=='column'&&!['https://www.tfmedia.co.kr/news/article.html?no=207079','https://www.tfmedia.co.kr/news/article.html?no=206924'].includes(x.url)):[];
   const DATA=records.filter(x=>x&&x.status!=='draft').map(x=>[
@@ -34,7 +51,7 @@
     const external=/^https?:\/\//.test(href);
     const card=document.createElement('article');
     card.className='ptg-newsroom-card';card.dataset.category=category;
-    const imgSrc=FALLBACK_IMAGE;
+    const imgSrc=directImage(visual)?visual:FALLBACK_IMAGE;
     card.innerHTML=`<a href="${esc(href)}" ${external?'target="_blank" rel="noopener noreferrer"':''}><div class="ptg-newsroom-card__visual"><div class="ptg-newsroom-card__fallback"><span>${esc(source)}</span><strong>${esc(LABEL[category]||'뉴스')}</strong></div><img src="${esc(imgSrc)}" alt="${esc(title)}" class="${imgSrc===FALLBACK_IMAGE?'is-fallback':''}" loading="${i<12?'eager':'lazy'}" decoding="async" fetchpriority="${i<3?'high':'auto'}"></div><div class="ptg-newsroom-card__body"><div class="ptg-newsroom-card__meta"><span>${esc(LABEL[category]||'법조 활동')}</span><time>${esc(date)}</time></div><h2>${esc(title)}</h2><p>${esc(summary||COPY[category]||COPY.activity)}</p><span class="ptg-newsroom-card__link">${external?'기사 원문 보기 ':'자세히 보기 →'}</span></div></a>`;
     const img=card.querySelector('img');
     img?.addEventListener('load',()=>img.classList.add('is-loaded'));
