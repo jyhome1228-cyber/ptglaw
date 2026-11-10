@@ -72,7 +72,7 @@
     else if(/특허|지식재산/.test(relatedTopic))category.value='IP 지식재산권';
     else if(/채권|가압류/.test(relatedTopic))category.value='채권 추심';
     else category.value='법률·소송';
-    if(message&&!message.value)message.value='참고한 업무사례('+caseTitle+'): '+(relatedTopic||'업무사례')+'\n상담 내용: ';
+    if(message&&!message.value)message.placeholder='참고한 '+caseTitle+' 사례와 관련해 상담이 필요한 상황을 적어주세요.';
   }
   update();
   if(requested&&window.location.hash==='#ptgContactFormTitle'){
