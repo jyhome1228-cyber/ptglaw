@@ -20,7 +20,7 @@
           const candidate=x.image||x.thumbnail||x.thumbnailUrl||x.ogImage||'';
           const local=saved?.image||'';
           const valid=u=>/\.(?:jpe?g|png|webp|avif|gif|svg)(?:[?#]|$)/i.test(u||'');
-          return {...x,image:valid(candidate)?candidate:(valid(local)?local:'')};
+          return {...x,image:valid(local)?local:(valid(candidate)?candidate:'')};
         }),
         ...extra.filter(x=>!publishedIds.has(x.id))
       ];
