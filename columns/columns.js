@@ -25,29 +25,64 @@ function showDetail(id,historyMode='push'){
  const x=articles.find(x=>x.id===id&&isArticle(x));if(!x){showList();return}
  $('#columnHeading').hidden=true;$('#columnListing').hidden=true;$('#columnDetail').hidden=false;
  const box=$('#columnArticle');box.replaceChildren();
- const category=document.createElement('span');category.className='ptg-column-detail-category';category.textContent=x.series||'전문가 칼럼';
+ const header=document.createElement('header');header.className='ptg-editorial-hero';
+ const eyebrow=document.createElement('div');eyebrow.className='ptg-editorial-eyebrow';
+ const series=document.createElement('span');series.textContent=x.series||'PENTAGON INSIGHTS';
+ const category=document.createElement('span');category.textContent=names[x.category]||'전문가 칼럼';eyebrow.append(series,category);
  const h=document.createElement('h1');h.textContent=x.title;
- const info=document.createElement('div');info.className='ptg-column-detail-meta';info.append(authorBox(x,true));
- const date=document.createElement('span');date.textContent=x.date||'';info.append(date);
- const intro=document.createElement('p');intro.className='ptg-column-detail-summary';intro.textContent=x.summary||'';
- box.append(category,h,info);if(x.summary)box.append(intro);
+ header.append(eyebrow,h);
+ if(x.kicker){const lead=document.createElement('p');lead.className='ptg-editorial-deck';lead.textContent=x.kicker;header.append(lead)}
+ const byline=document.createElement('div');byline.className='ptg-editorial-byline';byline.append(authorBox(x,true));
+ const date=document.createElement('div');date.className='ptg-editorial-date';
+ const dateText=document.createElement('time');dateText.textContent=x.date||'';if(x.date)dateText.dateTime=x.date;
+ date.append(dateText);
+ if(x.source){const publication=document.createElement('span');publication.textContent=x.source;date.append(publication)}
+ byline.append(date);header.append(byline);box.append(header);
+ const layout=document.createElement('div');layout.className='ptg-editorial-content';box.append(layout);
+ if(x.summary){const summary=document.createElement('div');summary.className='ptg-editorial-lead';const small=document.createElement('span');small.textContent='핵심 내용';const p=document.createElement('p');p.textContent=x.summary;summary.append(small,p);layout.append(summary)}
  if(x.body){
   const content=document.createElement('section');content.className='ptg-column-prose';
-  const parts=x.body.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
-  parts.forEach(part=>{const p=document.createElement('p');p.textContent=part;content.append(p)});
-  box.append(content);
+  const parts=String(x.body).split(/\n\s*\n/).map(v=>v.trim()).filter(Boolean);
+  parts.forEach((part,i)=>{const p=document.createElement('p');if(i===0)p.className='is-first';p.textContent=part;content.append(p)});
+  layout.append(content);
  }
  if(x.url&&/^https:\/\//i.test(x.url)){
-  const link=document.createElement('a');link.href=x.url;link.target='_blank';link.rel='noopener noreferrer';link.className='ptg-column-original';link.textContent='언론사 원문 보기 ↗';box.append(link);
+  const source=document.createElement('div');source.className='ptg-editorial-source';
+  const text=document.createElement('div');const small=document.createElement('span');small.textContent='ORIGINAL ARTICLE';const title=document.createElement('strong');title.textContent=(x.source||'언론사')+' 게재 원문';
+  text.append(small,title);
+  const link=document.createElement('a');link.href=x.url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='원문 보기 ↗';source.append(text,link);layout.append(source);
  }
- const related=document.createElement('div');related.className='ptg-column-consult';
- const cTitle=document.createElement('h2');cTitle.textContent='관련 법률·세무 상담이 필요하신가요?';
- const cCopy=document.createElement('p');cCopy.textContent='사안의 구체적인 사실관계에 따라 검토 내용이 달라질 수 있습니다. 상담 문의를 남겨주세요.';
- const cLink=document.createElement('a');cLink.href=base+'/contact/';cLink.textContent='상담 문의하기 →';
- related.append(cTitle,cCopy,cLink);box.append(related);
+ const authorCard=document.createElement('section');authorCard.className='ptg-editorial-author-card';
+ const label=document.createElement('span');label.textContent='ABOUT THE AUTHOR';authorCard.append(label);
+ const authorRow=document.createElement('div');authorRow.className='ptg-editorial-author-row';authorRow.append(authorBox(x,true));
+ const slugs={'전승환':'jeonseunghwan','강건':'kanggeon','채용현':'chaeyonghyun'};
+ if(slugs[x.author]){const profile=document.createElement('a');profile.href=base+'/professionals/'+slugs[x.author]+'/';profile.textContent='전문가 소개 보기 ↗';authorRow.append(profile)}
+ authorCard.append(authorRow);layout.append(authorCard);
+ const consult=document.createElement('aside');consult.className='ptg-editorial-consult';
+ const consultTop=document.createElement('div');consultTop.className='ptg-editorial-consult-copy';
+ const micro=document.createElement('span');micro.textContent='PENTAGON CONSULTATION';
+ const consultTitle=document.createElement('h2');consultTitle.textContent='관련 법률·세무 문제를 상담해 보세요.';
+ const consultCopy=document.createElement('p');consultCopy.textContent='상황에 따라 적용되는 법률과 대응 방법이 다를 수 있습니다. 현재 겪고 계신 문제를 남겨주시면 상담 절차를 안내해 드립니다.';
+ consultTop.append(micro,consultTitle,consultCopy);
+ const consultLink=document.createElement('a');consultLink.href=base+'/contact/?content=column&article='+encodeURIComponent(x.id);consultLink.textContent='상담 문의하기 ↗';
+ consult.append(consultTop,consultLink);layout.append(consult);
+ const similar=articles.filter(item=>isArticle(item)&&item.id!==x.id).sort((a,b)=>(Number(a.category===x.category)-Number(b.category===x.category))*-1||(b.date||'').localeCompare(a.date||'')).slice(0,3);
+ if(similar.length){
+  const more=document.createElement('section');more.className='ptg-editorial-related';
+  const top=document.createElement('div');top.className='ptg-editorial-related-head';
+  const title=document.createElement('h2');title.textContent='함께 읽어볼 칼럼';
+  const all=document.createElement('button');all.type='button';all.textContent='전체 칼럼 보기 →';all.onclick=showList;top.append(title,all);more.append(top);
+  for(const item of similar){const link=document.createElement('a');link.href=base+'/columns/?article='+encodeURIComponent(item.id);link.className='ptg-editorial-related-item';
+   const col=document.createElement('div');const category=document.createElement('span');category.textContent=names[item.category]||'전문가 칼럼';const h=document.createElement('strong');h.textContent=item.title;
+   const by=document.createElement('small');by.textContent=[item.author,item.date].filter(Boolean).join(' · ');col.append(category,h,by);link.append(col);
+   const arrow=document.createElement('span');arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';link.append(arrow);
+   link.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();showDetail(item.id)};more.append(link)}
+  box.append(more);
+ }
  if(historyMode==='push')history.pushState(null,'',base+'/columns/?article='+encodeURIComponent(x.id));
  document.title=x.title+' | 펜타곤 전문가 칼럼';window.scrollTo({top:0,behavior:'instant'});
 }
+
 function render(){
  document.title='전문가 칼럼 | 펜타곤 법률세무회계';
  $('#columnHeading').hidden=false;$('#columnListing').hidden=false;$('#columnDetail').hidden=true;
