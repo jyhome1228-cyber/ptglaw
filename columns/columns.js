@@ -52,7 +52,7 @@ function showDetail(id,historyMode='push'){
  if(x.body){
   const content=document.createElement('section');content.className='ptg-column-prose';
   const parts=String(x.body).split(/\n\s*\n/).map(v=>v.trim()).filter(Boolean);
-  parts.forEach((part,i)=>{const lines=part.split(/\n/);if(lines[0].startsWith('## ')){const heading=document.createElement('h2');heading.textContent=lines.shift().slice(3);content.append(heading);if(lines.join('').trim()){const p=document.createElement('p');p.textContent=lines.join('\n');content.append(p)}}else{const p=document.createElement('p');if(i===0)p.className='is-first';if(part.startsWith('※ '))p.className='ptg-editorial-reference';p.textContent=part;content.append(p)}});
+  let inReferences=false;parts.forEach((part,i)=>{const lines=part.split(/\n/);if(lines[0].startsWith('## ')){const heading=document.createElement('h2');heading.textContent=lines.shift().slice(3);if(/참고 법령|출처|참고자료/.test(heading.textContent)){inReferences=true;heading.classList.add('ptg-editorial-reference-heading')}content.append(heading);if(lines.join('').trim()){const p=document.createElement('p');if(inReferences)p.className='ptg-editorial-reference';p.textContent=lines.join('\n');content.append(p)}}else{const p=document.createElement('p');if(i===0)p.className='is-first';if(inReferences||/^※|^【출처】|^\[출처\]/.test(part))p.className='ptg-editorial-reference';p.textContent=part;content.append(p)}});
   layout.append(content);
  }
  if(x.url&&/^https:\/\//i.test(x.url)){
