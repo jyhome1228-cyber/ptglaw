@@ -62,11 +62,17 @@
   // Pre-fill the consultation context without asking the visitor to repeat the case.
   const relatedCase=safe('case',24);
   const relatedTopic=safe('topic',100);
-  const caseTitle=relatedCase&&/^case\\d+$/.test(relatedCase)?relatedCase:'';
+  const caseTitle=relatedCase&&/^case\d+$/.test(relatedCase)?relatedCase:'';
   if(caseTitle){
     const option=Array.from(category.options).find(o=>o.value===relatedTopic||o.textContent===relatedTopic);
     if(option)category.value=option.value;
-    if(message&&!message.value)message.value='참고한 업무사례('+caseTitle+'): '+(relatedTopic||'업무사례')+'\\n상담 내용: ';
+    else if(/상속|가사/.test(relatedTopic))category.value='상속·증여';
+    else if(/조세|세무|퇴직연금/.test(relatedTopic))category.value='조세·세무';
+    else if(/부동산|재건축|정비구역/.test(relatedTopic))category.value='부동산·재개발·재건축';
+    else if(/특허|지식재산/.test(relatedTopic))category.value='IP 지식재산권';
+    else if(/채권|가압류/.test(relatedTopic))category.value='채권 추심';
+    else category.value='법률·소송';
+    if(message&&!message.value)message.value='참고한 업무사례('+caseTitle+'): '+(relatedTopic||'업무사례')+'\n상담 내용: ';
   }
   update();
   if(requested&&window.location.hash==='#ptgContactFormTitle'){
