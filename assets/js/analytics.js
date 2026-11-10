@@ -34,6 +34,7 @@
         let source='direct';
         if(/chatgpt|openai|chat\.openai/.test(sourceName))source='chatgpt';
         else if(/perplexity/.test(sourceName))source='perplexity';
+        else if(/claude|anthropic/.test(sourceName))source='claude';
         else if(/gemini/.test(sourceName))source='gemini';
         else if(/naver/.test(sourceName))source='naver';
         else if(/google/.test(sourceName))source='google';
