@@ -121,7 +121,7 @@ async function start(){
   articles=[...stored.map(x=>{
    const seed=seedsById.get(x.id);
    if(!seed)return x;
-   return {...seed,...x,image:x.image||seed.image,summary:(x.summary||'').length<(seed.summary||'').length?seed.summary:x.summary,body:(x.body||'').length<(seed.body||'').length?seed.body:x.body};
+   const manuscriptIds=new Set(['taxnote-20261022-7days','taxnote-20260916-audit','taxnote-20261007-housing','taxnote-20260909-estate','migrated-news-import-003']);const original=manuscriptIds.has(x.id);return {...seed,...x,image:x.image||seed.image,summary:original?seed.summary:((x.summary||'').length<(seed.summary||'').length?seed.summary:x.summary),body:original?seed.body:((x.body||'').length<(seed.body||'').length?seed.body:x.body),kicker:original?seed.kicker:(x.kicker||seed.kicker)};
   }),...columnSeeds.filter(s=>!stored.some(x=>x.id===s.id||((x.url&&s.url&&x.url===s.url)||(x.title&&s.title&&x.title.replace(/\s/g,'')===s.title.replace(/\s/g,'')))))]
  }catch(e){console.warn('전문가 칼럼 조회 실패, 기본 콘텐츠를 사용합니다.',e)}
  const id=new URLSearchParams(location.search).get('article');if(id&&articles.some(x=>x.id===id&&isArticle(x)))showDetail(id,'none');else render();
