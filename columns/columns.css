@@ -155,26 +155,26 @@ body .ptg-column-prose p{overflow-wrap:break-word;word-break:keep-all}
 
 /* Fixed: global heading typography previously overrode editorial sizes. */
 body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p{
-  font-size:20px!important;line-height:1.94!important;letter-spacing:-.018em!important;
+  font-size:18px!important;line-height:1.86!important;letter-spacing:-.018em!important;
   white-space:normal!important;overflow-wrap:break-word;word-break:keep-all;
 }
 body.ptg-global-ui .ptg-column-wrap .ptg-column-prose h2{
-  font-size:27px!important;line-height:1.5!important;font-weight:730!important;
+  font-size:25px!important;line-height:1.5!important;font-weight:730!important;
   letter-spacing:-.045em!important;
 }
 body.ptg-global-ui .ptg-column-wrap .ptg-editorial-lead p{
-  font-size:18px!important;line-height:1.87!important;
+  font-size:16px!important;line-height:1.83!important;
 }
 body.ptg-global-ui .ptg-column-wrap .ptg-editorial-hero h1{
-  font-size:clamp(34px,3.5vw,46px)!important;line-height:1.4!important;font-weight:750!important;
+  font-size:clamp(32px,3.5vw,44px)!important;line-height:1.4!important;font-weight:750!important;
 }
 body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{
   font-size:14.5px!important;line-height:1.8!important;
 }
 @media(max-width:700px){
- body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p{font-size:17.5px!important;line-height:1.9!important}
- body.ptg-global-ui .ptg-column-wrap .ptg-column-prose h2{font-size:21px!important}
- body.ptg-global-ui .ptg-column-wrap .ptg-editorial-lead p{font-size:16.5px!important}
+ body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p{font-size:15.5px!important;line-height:1.86!important}
+ body.ptg-global-ui .ptg-column-wrap .ptg-column-prose h2{font-size:19px!important}
+ body.ptg-global-ui .ptg-column-wrap .ptg-editorial-lead p{font-size:14.5px!important}
  body.ptg-global-ui .ptg-column-wrap .ptg-column-prose p.ptg-editorial-reference{font-size:13px!important}
- body.ptg-global-ui .ptg-column-wrap .ptg-editorial-hero h1{font-size:clamp(28px,7vw,35px)!important}
+ body.ptg-global-ui .ptg-column-wrap .ptg-editorial-hero h1{font-size:clamp(26px,7vw,33px)!important}
 }
